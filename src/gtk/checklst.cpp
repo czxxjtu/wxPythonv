@@ -3,7 +3,7 @@
 // Purpose:
 // Author:      Robert Roebling
 // Modified by: Ryan Norton (Native GTK2.0+ checklist)
-// Id:          $Id: checklst.cpp 62071 2009-09-24 12:36:34Z JS $
+// Id:          $Id: checklst.cpp 66557 2011-01-04 09:13:49Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -45,8 +45,6 @@ static void gtk_checklist_toggled(GtkCellRendererToggle * WXUNUSED(renderer),
 //-----------------------------------------------------------------------------
 // wxCheckListBox
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxCheckListBox,wxListBox)
 
 wxCheckListBox::wxCheckListBox() : wxListBox()
 {

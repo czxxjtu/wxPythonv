@@ -2,7 +2,7 @@
 // Name:        src/gtk1/app.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: app.cpp 63991 2010-04-16 10:43:18Z VS $
+// Id:          $Id: app.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -587,7 +587,7 @@ bool wxApp::Initialize(int& argc, wxChar **argv)
         return false;
     }
 
-    // we can not enter threads before gtk_init is done
+    // we cannot enter threads before gtk_init is done
     gdk_threads_enter();
 
     if ( !wxAppBase::Initialize(argc, argv) )

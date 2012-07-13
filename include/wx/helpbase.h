@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        helpbase.h
+// Name:        wx/helpbase.h
 // Purpose:     Help system base classes
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: helpbase.h 58227 2009-01-19 13:55:27Z VZ $
+// RCS-ID:      $Id: helpbase.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

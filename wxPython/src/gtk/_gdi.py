@@ -465,6 +465,14 @@ class Pen(GDIObject):
         return _gdi_.Pen_GetDashCount(*args, **kwargs)
 
     DashCount = property(GetDashCount,doc="See `GetDashCount`") 
+    def IsTransparent(*args, **kwargs):
+        """IsTransparent(self) -> bool"""
+        return _gdi_.Pen_IsTransparent(*args, **kwargs)
+
+    def IsNonTransparent(*args, **kwargs):
+        """IsNonTransparent(self) -> bool"""
+        return _gdi_.Pen_IsNonTransparent(*args, **kwargs)
+
     def __eq__(*args, **kwargs):
         """__eq__(self, Pen other) -> bool"""
         return _gdi_.Pen___eq__(*args, **kwargs)
@@ -573,6 +581,14 @@ class Brush(GDIObject):
         Is the current style a hatch type?
         """
         return _gdi_.Brush_IsHatch(*args, **kwargs)
+
+    def IsTransparent(*args, **kwargs):
+        """IsTransparent(self) -> bool"""
+        return _gdi_.Brush_IsTransparent(*args, **kwargs)
+
+    def IsNonTransparent(*args, **kwargs):
+        """IsNonTransparent(self) -> bool"""
+        return _gdi_.Brush_IsNonTransparent(*args, **kwargs)
 
     def IsOk(*args, **kwargs):
         """
@@ -1453,7 +1469,7 @@ class IconBundle(object):
 _gdi_.IconBundle_swigregister(IconBundle)
 
 def IconBundleFromFile(*args, **kwargs):
-    """IconBundleFromFile(String file, int type) -> IconBundle"""
+    """IconBundleFromFile(String file, int type=BITMAP_TYPE_ANY) -> IconBundle"""
     val = _gdi_.new_IconBundleFromFile(*args, **kwargs)
     return val
 
@@ -1729,6 +1745,13 @@ FONTWEIGHT_NORMAL = _gdi_.FONTWEIGHT_NORMAL
 FONTWEIGHT_LIGHT = _gdi_.FONTWEIGHT_LIGHT
 FONTWEIGHT_BOLD = _gdi_.FONTWEIGHT_BOLD
 FONTWEIGHT_MAX = _gdi_.FONTWEIGHT_MAX
+FONTSIZE_XX_SMALL = _gdi_.FONTSIZE_XX_SMALL
+FONTSIZE_X_SMALL = _gdi_.FONTSIZE_X_SMALL
+FONTSIZE_SMALL = _gdi_.FONTSIZE_SMALL
+FONTSIZE_MEDIUM = _gdi_.FONTSIZE_MEDIUM
+FONTSIZE_LARGE = _gdi_.FONTSIZE_LARGE
+FONTSIZE_X_LARGE = _gdi_.FONTSIZE_X_LARGE
+FONTSIZE_XX_LARGE = _gdi_.FONTSIZE_XX_LARGE
 FONTFLAG_DEFAULT = _gdi_.FONTFLAG_DEFAULT
 FONTFLAG_ITALIC = _gdi_.FONTFLAG_ITALIC
 FONTFLAG_SLANT = _gdi_.FONTFLAG_SLANT
@@ -1837,6 +1860,7 @@ FONTENCODING_UNICODE = _gdi_.FONTENCODING_UNICODE
 FONTENCODING_GB2312 = _gdi_.FONTENCODING_GB2312
 FONTENCODING_BIG5 = _gdi_.FONTENCODING_BIG5
 FONTENCODING_SHIFT_JIS = _gdi_.FONTENCODING_SHIFT_JIS
+FONTENCODING_EUC_KR = _gdi_.FONTENCODING_EUC_KR
 #---------------------------------------------------------------------------
 
 class NativeFontInfo(object):
@@ -2355,6 +2379,19 @@ class Font(GDIObject):
         """
         return _gdi_.Font_SetNativeFontInfoUserDesc(*args, **kwargs)
 
+    def SetSymbolicSize(*args, **kwargs):
+        """SetSymbolicSize(self, int size)"""
+        return _gdi_.Font_SetSymbolicSize(*args, **kwargs)
+
+    def SetSymbolicSizeRelativeTo(*args, **kwargs):
+        """SetSymbolicSizeRelativeTo(self, int size, int base)"""
+        return _gdi_.Font_SetSymbolicSizeRelativeTo(*args, **kwargs)
+
+    def AdjustToSymbolicSize(*args, **kwargs):
+        """AdjustToSymbolicSize(int size, int base) -> int"""
+        return _gdi_.Font_AdjustToSymbolicSize(*args, **kwargs)
+
+    AdjustToSymbolicSize = staticmethod(AdjustToSymbolicSize)
     def GetFamilyString(*args, **kwargs):
         """
         GetFamilyString(self) -> String
@@ -2387,8 +2424,6 @@ class Font(GDIObject):
         """GetNoAntiAliasing(self) -> bool"""
         return _gdi_.Font_GetNoAntiAliasing(*args, **kwargs)
 
-    def SetNoAntiAliasing(self, no=True): pass
-    def GetNoAntiAliasing(self): pass
     SetNoAntiAliasing = wx._deprecated(SetNoAntiAliasing)
     GetNoAntiAliasing = wx._deprecated(GetNoAntiAliasing)
 
@@ -2399,6 +2434,10 @@ class Font(GDIObject):
     def MakeItalic(*args, **kwargs):
         """MakeItalic(self) -> Font"""
         return _gdi_.Font_MakeItalic(*args, **kwargs)
+
+    def MakeUnderlined(*args, **kwargs):
+        """MakeUnderlined(self) -> Font"""
+        return _gdi_.Font_MakeUnderlined(*args, **kwargs)
 
     def MakeLarger(*args, **kwargs):
         """MakeLarger(self) -> Font"""
@@ -2419,6 +2458,10 @@ class Font(GDIObject):
     def Italic(*args, **kwargs):
         """Italic(self) -> Font"""
         return _gdi_.Font_Italic(*args, **kwargs)
+
+    def Underlined(*args, **kwargs):
+        """Underlined(self) -> Font"""
+        return _gdi_.Font_Underlined(*args, **kwargs)
 
     def Larger(*args, **kwargs):
         """Larger(self) -> Font"""
@@ -2550,6 +2593,10 @@ def FFontFromPixelSize(*args, **kwargs):
     if kwargs.has_key('faceName'): kwargs['face'] = kwargs['faceName'];del kwargs['faceName']
     val = _gdi_.new_FFontFromPixelSize(*args, **kwargs)
     return val
+
+def Font_AdjustToSymbolicSize(*args, **kwargs):
+  """Font_AdjustToSymbolicSize(int size, int base) -> int"""
+  return _gdi_.Font_AdjustToSymbolicSize(*args, **kwargs)
 
 def Font_GetDefaultEncoding(*args):
   """
@@ -3202,6 +3249,23 @@ MM_TEXT = _gdi_.MM_TEXT
 MM_TWIPS = _gdi_.MM_TWIPS
 MM_POINTS = _gdi_.MM_POINTS
 MM_METRIC = _gdi_.MM_METRIC
+class FontMetrics(object):
+    """Proxy of C++ FontMetrics class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """__init__(self) -> FontMetrics"""
+        _gdi_.FontMetrics_swiginit(self,_gdi_.new_FontMetrics(*args, **kwargs))
+    __swig_destroy__ = _gdi_.delete_FontMetrics
+    __del__ = lambda self : None;
+    height = property(_gdi_.FontMetrics_height_get, _gdi_.FontMetrics_height_set)
+    ascent = property(_gdi_.FontMetrics_ascent_get, _gdi_.FontMetrics_ascent_set)
+    descent = property(_gdi_.FontMetrics_descent_get, _gdi_.FontMetrics_descent_set)
+    internalLeading = property(_gdi_.FontMetrics_internalLeading_get, _gdi_.FontMetrics_internalLeading_set)
+    externalLeading = property(_gdi_.FontMetrics_externalLeading_get, _gdi_.FontMetrics_externalLeading_set)
+    averageWidth = property(_gdi_.FontMetrics_averageWidth_get, _gdi_.FontMetrics_averageWidth_set)
+_gdi_.FontMetrics_swigregister(FontMetrics)
+
 class DC(_core.Object):
     """
     A wx.DC is a device context onto which graphics and text can be
@@ -4023,6 +4087,10 @@ class DC(_core.Object):
         Gets the average character width of the currently set font.
         """
         return _gdi_.DC_GetCharWidth(*args, **kwargs)
+
+    def GetFontMetrics(*args, **kwargs):
+        """GetFontMetrics(self) -> FontMetrics"""
+        return _gdi_.DC_GetFontMetrics(*args, **kwargs)
 
     def GetTextExtent(*args, **kwargs):
         """
@@ -5175,7 +5243,7 @@ class BufferedPaintDC(BufferedDC):
     of `wx.PaintDC` and that's all you have to do to (mostly) avoid
     flicker. The only thing to watch out for is that if you are using this
     class together with `wx.ScrolledWindow`, you probably do **not** want
-    to call `wx.Window.PrepareDC` on it as it already does this internally
+    to call `wx.ScrolledWindow.PrepareDC` on it as it already does this internally
     for the real underlying `wx.PaintDC`.
 
     If your window is already fully buffered in a `wx.Bitmap` then your
@@ -5319,14 +5387,22 @@ _gdi_.PrinterDC_swigregister(PrinterDC)
 class SVGFileDC(DC):
     """Proxy of C++ SVGFileDC class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
-    def __init__(self): raise AttributeError, "No constructor defined"
     __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """__init__(self, String filename, int width=320, int height=240, double dpi=72.0) -> SVGFileDC"""
+        _gdi_.SVGFileDC_swiginit(self,_gdi_.new_SVGFileDC(*args, **kwargs))
 _gdi_.SVGFileDC_swigregister(SVGFileDC)
 
 #---------------------------------------------------------------------------
 
 ANTIALIAS_NONE = _gdi_.ANTIALIAS_NONE
 ANTIALIAS_DEFAULT = _gdi_.ANTIALIAS_DEFAULT
+INTERPOLATION_DEFAULT = _gdi_.INTERPOLATION_DEFAULT
+INTERPOLATION_NONE = _gdi_.INTERPOLATION_NONE
+INTERPOLATION_FAST = _gdi_.INTERPOLATION_FAST
+INTERPOLATION_GOOD = _gdi_.INTERPOLATION_GOOD
+INTERPOLATION_BEST = _gdi_.INTERPOLATION_BEST
+COMPOSITION_INVALID = _gdi_.COMPOSITION_INVALID
 COMPOSITION_CLEAR = _gdi_.COMPOSITION_CLEAR
 COMPOSITION_SOURCE = _gdi_.COMPOSITION_SOURCE
 COMPOSITION_OVER = _gdi_.COMPOSITION_OVER
@@ -6088,6 +6164,14 @@ class GraphicsContext(GraphicsObject):
         """
         return _gdi_.GraphicsContext_SetAntialiasMode(*args, **kwargs)
 
+    def GetInterpolationQuality(*args, **kwargs):
+        """GetInterpolationQuality(self) -> int"""
+        return _gdi_.GraphicsContext_GetInterpolationQuality(*args, **kwargs)
+
+    def SetInterpolationQuality(*args, **kwargs):
+        """SetInterpolationQuality(self, int interpolation) -> bool"""
+        return _gdi_.GraphicsContext_SetInterpolationQuality(*args, **kwargs)
+
     def GetCompositionMode(*args, **kwargs):
         """
         GetCompositionMode(self) -> int
@@ -6368,6 +6452,18 @@ class GraphicsContext(GraphicsObject):
         """
         return _gdi_.GraphicsContext_ShouldOffset(*args, **kwargs)
 
+    def EnableOffset(*args, **kwargs):
+        """EnableOffset(self, bool enable=True)"""
+        return _gdi_.GraphicsContext_EnableOffset(*args, **kwargs)
+
+    def DisableOffset(*args, **kwargs):
+        """DisableOffset(self)"""
+        return _gdi_.GraphicsContext_DisableOffset(*args, **kwargs)
+
+    def OffsetEnabled(*args, **kwargs):
+        """OffsetEnabled(self) -> bool"""
+        return _gdi_.GraphicsContext_OffsetEnabled(*args, **kwargs)
+
 _gdi_.GraphicsContext_swigregister(GraphicsContext)
 
 def GraphicsContext_Create(*args):
@@ -6514,6 +6610,7 @@ class GCDC(DC):
         __init__(self, MemoryDC dc) -> GCDC
         __init__(self, PrinterDC dc) -> GCDC
         __init__(self, Window window) -> GCDC
+        __init__(self, GraphicsContext ctx) -> GCDC
         """
         _gdi_.GCDC_swiginit(self,_gdi_.new_GCDC(*args))
         self.__dc = args[0] # save a ref so the other dc will not be deleted before self
@@ -7125,6 +7222,10 @@ class RendererNative(object):
         height if available, or a generic height based on the window's font.
         """
         return _gdi_.RendererNative_GetHeaderButtonHeight(*args, **kwargs)
+
+    def GetHeaderButtonMargin(*args, **kwargs):
+        """GetHeaderButtonMargin(self, Window win) -> int"""
+        return _gdi_.RendererNative_GetHeaderButtonMargin(*args, **kwargs)
 
     def DrawTreeItemButton(*args, **kwargs):
         """

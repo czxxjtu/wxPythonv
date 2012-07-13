@@ -2,7 +2,7 @@
 # Purpose:      XRC editor, toolbar
 # Author:       Roman Rolinsky <rolinsky@mema.ucl.ac.be>
 # Created:      19.03.2003
-# RCS-ID:       $Id: tools.py 65408 2010-08-25 22:52:11Z RD $
+# RCS-ID:       $Id: tools.py 67456 2011-04-13 18:02:41Z RD $
 
 from globals import *
 from component import Manager, DEFAULT_POS
@@ -127,7 +127,7 @@ class ToolPanel(wx.PyPanel):
         panel.SetBackgroundColour(self.bg)
         panel.name = name
         panel.controls = {}
-        panel.size = wx.GBSpan(0, 0) # current size
+        panel.size = wx.GBSpan(1, 1) # current size
         topSizer = wx.BoxSizer()
         panel.sizer = wx.GridBagSizer(0, 0)
         panel.sizer.SetEmptyCellSize((24, 24))

@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-07-01
-// RCS-ID:      $Id: buttonbar.h 62771 2009-12-03 17:20:15Z PC $
+// RCS-ID:      $Id: buttonbar.h 66055 2010-11-07 13:44:22Z PJC $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,13 @@ public:
                 const wxString& label,
                 const wxBitmap& bitmap,
                 const wxString& help_string = wxEmptyString);
-    
+
+    virtual wxRibbonButtonBarButtonBase* AddToggleButton(
+                int button_id,
+                const wxString& label,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString);
+
     virtual wxRibbonButtonBarButtonBase* AddButton(
                 int button_id,
                 const wxString& label,
@@ -82,6 +88,7 @@ public:
     virtual void ClearButtons();
     virtual bool DeleteButton(int button_id);
     virtual void EnableButton(int button_id, bool enable = true);
+    virtual void ToggleButton(int button_id, bool checked);
 
     virtual void SetArtProvider(wxRibbonArtProvider* art);
     virtual bool IsSizingContinuous() const;

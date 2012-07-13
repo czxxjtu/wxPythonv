@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     19.02.98
-// RCS-ID:      $Id: oleutils.cpp 63045 2010-01-03 18:29:09Z VS $
+// RCS-ID:      $Id: oleutils.cpp 68147 2011-07-04 14:05:11Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -161,7 +161,7 @@ WXDLLEXPORT bool wxConvertVariantToOle(const wxVariant& variant, VARIANTARG& ole
     else if (type == wxT("bool"))
     {
         oleVariant.vt = VT_BOOL;
-        oleVariant.boolVal = variant.GetBool();
+        oleVariant.boolVal = variant.GetBool() ? VARIANT_TRUE : VARIANT_FALSE;
     }
     else if (type == wxT("string"))
     {
@@ -360,6 +360,10 @@ wxConvertOleToVariant(const VARIANTARG& oleVariant, wxVariant& variant)
 
             case VT_BOOL:
                 variant = oleVariant.boolVal != 0;
+                break;
+
+            case VT_R4:
+                variant = oleVariant.fltVal;
                 break;
 
             case VT_R8:

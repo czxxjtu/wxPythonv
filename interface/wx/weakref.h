@@ -2,7 +2,7 @@
 // Name:        weakref.h
 // Purpose:     interface of wxWeakRefDynamic<T>, wxWeakRef<T>
 // Author:      wxWidgets team
-// RCS-ID:      $Id: weakref.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: weakref.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
     is to handle objects which derived type one does not know.
 
     @note wxWeakRef<T> selects an implementation based on the static type of T.
-          If T does not have wxTrackable statically, it defaults to to a mixed-
+          If T does not have wxTrackable statically, it defaults to a mixed-
           mode operation, where it uses @c dynamic_cast as the last measure
           (if available from the compiler and enabled when building wxWidgets).
 
@@ -156,11 +156,10 @@ public:
     T& operator*() const;
 
     /**
-        Smart pointer member access.
-        Returns a pointer to the tracked object.
+        Smart pointer member access. Returns a pointer to the tracked object.
         If the internal pointer is @NULL this method will cause an assert in debug mode.
     */
-    T* operator-();
+    T* operator->();
 
     /**
         Releases the currently tracked object and starts tracking @e pobj.

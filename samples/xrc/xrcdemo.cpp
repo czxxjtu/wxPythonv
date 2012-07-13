@@ -2,7 +2,7 @@
 // Name:        xrcdemo.cpp
 // Purpose:     XML resources sample: Main application file
 // Author:      Robert O'Connor (rob@medicalmnemonics.com), Vaclav Slavik
-// RCS-ID:      $Id: xrcdemo.cpp 59509 2009-03-13 13:26:46Z VS $
+// RCS-ID:      $Id: xrcdemo.cpp 66059 2010-11-07 14:00:59Z VZ $
 // Copyright:   (c) Robert O'Connor and Vaclav Slavik
 // Licence:     wxWindows licence
 //-----------------------------------------------------------------------------
@@ -64,10 +64,11 @@ bool MyApp::OnInit()
         return false;
 
     // If there is any of a certain format of image in the xrcs, then first
-    // load a handler for that image type. This example uses XPMs, but if
-    // you want PNGs, then add a PNG handler, etc. See wxImage::AddHandler()
+    // load a handler for that image type. This example uses XPMs & a gif, but
+    // if you want PNGs, then add a PNG handler, etc. See wxImage::AddHandler()
     // documentation for the types of image handlers available.
     wxImage::AddHandler(new wxXPMHandler);
+    wxImage::AddHandler(new wxGIFHandler);
 
     // Initialize all the XRC handlers. Always required (unless you feel like
     // going through and initializing a handler of each control type you will

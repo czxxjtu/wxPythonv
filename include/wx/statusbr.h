@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     05.02.00
-// RCS-ID:      $Id: statusbr.h 61624 2009-08-06 00:01:43Z VZ $
+// RCS-ID:      $Id: statusbr.h 66226 2010-11-22 01:22:36Z VZ $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@
 
 #if wxUSE_STATUSBAR
 
-#include "wx/window.h"
+#include "wx/control.h"
 #include "wx/list.h"
 #include "wx/dynarray.h"
 
@@ -106,7 +106,7 @@ WX_DECLARE_EXPORTED_OBJARRAY(wxStatusBarPane, wxStatusBarPaneArray);
 // wxStatusBar: a window near the bottom of the frame used for status info
 // ----------------------------------------------------------------------------
 
-class WXDLLIMPEXP_CORE wxStatusBarBase : public wxWindow
+class WXDLLIMPEXP_CORE wxStatusBarBase : public wxControl
 {
 public:
     wxStatusBarBase();

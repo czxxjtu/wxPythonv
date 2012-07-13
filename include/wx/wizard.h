@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        wizard.h
+// Name:        wx/wizard.h
 // Purpose:     wxWizard class: a GUI control presenting the user with a
 //              sequence of dialogs which allows to simply perform some task
 // Author:      Vadim Zeitlin (partly based on work by Ron Kuris and Kevin B.
@@ -9,7 +9,7 @@
 //              Added wxWIZARD_HELP event
 //              Robert Vazan (sizers)
 // Created:     15.08.99
-// RCS-ID:      $Id: wizard.h 63263 2010-01-25 18:48:21Z JS $
+// RCS-ID:      $Id: wizard.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

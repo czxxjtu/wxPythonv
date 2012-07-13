@@ -3,7 +3,7 @@
 // Purpose:     wxBrush class implementation
 // Author:      Vaclav Slavik
 // Created:     2006-08-04
-// RCS-ID:      $Id: brush.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: brush.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2006 REA Elektronik GmbH
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -91,14 +91,14 @@ bool wxBrush::operator==(const wxBrush& brush) const
 
 wxBrushStyle wxBrush::GetStyle() const
 {
-    wxCHECK_MSG( Ok(), wxBRUSHSTYLE_INVALID, wxT("invalid brush") );
+    wxCHECK_MSG( IsOk(), wxBRUSHSTYLE_INVALID, wxT("invalid brush") );
 
     return M_BRUSHDATA->m_style;
 }
 
 wxColour wxBrush::GetColour() const
 {
-    wxCHECK_MSG( Ok(), wxNullColour, wxT("invalid brush") );
+    wxCHECK_MSG( IsOk(), wxNullColour, wxT("invalid brush") );
 
     return M_BRUSHDATA->m_colour;
 }

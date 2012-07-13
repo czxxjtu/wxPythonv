@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        _datectrl.i
-// Purpose:     SWIG interface defs for wxwxDatePickerCtrl
+// Purpose:     SWIG interface defs for wxDatePickerCtrl
 //
 // Author:      Robin Dunn
 //
 // Created:     15-Feb-2005
-// RCS-ID:      $Id: _datectrl.i 53946 2008-06-02 19:41:56Z RD $
+// RCS-ID:      $Id: _datectrl.i 67442 2011-04-13 17:48:50Z RD $
 // Copyright:   (c) 2005 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -50,7 +50,7 @@ Styles
                        valid date.
 
     wx.DP_SHOWCENTURY  Forces display of the century in the default
-                       date format. Without this flas the century
+                       date format. Without this flag the century
                        could be displayed or not depending on the
                        default date representation in the system.
     =================  ======================================================

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/cocoa/menu.cpp
+// Name:        src/cocoa/menu.mm
 // Purpose:     wxMenu and wxMenuBar implementation
 // Author:      David Elliott
 // Modified by:
 // Created:     2002/12/09
-// RCS-ID:      $Id: menu.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: menu.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2002 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -40,8 +40,6 @@
 // ============================================================================
 // wxMenu implementation
 // ============================================================================
-
-IMPLEMENT_DYNAMIC_CLASS(wxMenu,wxEvtHandler)
 
 bool wxMenu::Create(const wxString& title, long style)
 {
@@ -115,7 +113,6 @@ void wxMenu::Cocoa_dealloc()
 // ============================================================================
 // wxMenuBar implementation
 // ============================================================================
-IMPLEMENT_DYNAMIC_CLASS(wxMenuBar,wxWindow)
 
 bool wxMenuBar::Create(long style)
 {

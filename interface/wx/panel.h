@@ -2,7 +2,7 @@
 // Name:        panel.h
 // Purpose:     interface of wxPanel
 // Author:      wxWidgets team
-// RCS-ID:      $Id: panel.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: panel.h 67253 2011-03-20 00:00:49Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -108,7 +108,7 @@ public:
     virtual bool Layout();
 
     /**
-        The default handler for wxEVT_SYS_COLOUR_CHANGED.
+        The default handler for @c wxEVT_SYS_COLOUR_CHANGED.
 
         @param event
             The colour change event.
@@ -123,6 +123,21 @@ public:
         @see wxSysColourChangedEvent
     */
     void OnSysColourChanged(wxSysColourChangedEvent& event);
+
+    /**
+        Set the background bitmap for this panel.
+
+        If @a bmp is a valid bitmap, this bitmap will be tiled over the panel
+        background and show through any of its transparent children. Passing an
+        invalid bitmap reverts to the default background appearance.
+
+        Notice that you must not prevent the base class EVT_ERASE_BACKGROUND
+        handler from running (i.e. not to handle this event yourself) for this
+        to work.
+
+        @since 2.9.2
+    */
+    void SetBackgroundBitmap(const wxBitmap& bmp);
 
     /**
         Overrides wxWindow::SetFocus().

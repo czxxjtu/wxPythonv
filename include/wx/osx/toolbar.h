@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: toolbar.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: toolbar.h 66993 2011-02-22 13:25:38Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -16,8 +16,6 @@
 
 #include "wx/tbarbase.h"
 #include "wx/dynarray.h"
-
-WXDLLIMPEXP_DATA_CORE(extern const char) wxToolBarNameStr[];
 
 class WXDLLIMPEXP_CORE wxToolBar: public wxToolBarBase
 {
@@ -44,7 +42,7 @@ class WXDLLIMPEXP_CORE wxToolBar: public wxToolBarBase
             const wxString& name = wxToolBarNameStr);
 
     virtual void SetWindowStyleFlag(long style);
-    
+
     virtual bool Destroy();
 
     // override/implement base class virtuals
@@ -72,7 +70,7 @@ class WXDLLIMPEXP_CORE wxToolBar: public wxToolBarBase
     void OnMouse(wxMouseEvent& event) ;
     virtual void MacSuperChangedPosition() ;
 #endif
-    
+
 #if wxOSX_USE_NATIVE_TOOLBAR
     bool MacInstallNativeToolbar(bool usesNative);
     void MacUninstallNativeToolbar();
@@ -82,6 +80,10 @@ class WXDLLIMPEXP_CORE wxToolBar: public wxToolBarBase
 protected:
     // common part of all ctors
     void Init();
+    
+    void DoLayout();
+    
+    void DoSetSize(int x, int y, int width, int height, int sizeFlags);
 
 #ifndef __WXOSX_IPHONE__
    virtual void DoGetSize(int *width, int *height) const;
@@ -111,7 +113,7 @@ protected:
     void* m_macToolbar ;
 #endif
 #ifdef __WXOSX_IPHONE__
-    WX_UIView m_macToolbar; 
+    WX_UIView m_macToolbar;
 #endif
 };
 

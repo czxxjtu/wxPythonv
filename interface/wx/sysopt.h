@@ -2,7 +2,7 @@
 // Name:        sysopt.h
 // Purpose:     interface of wxSystemOptions
 // Author:      wxWidgets team
-// RCS-ID:      $Id: sysopt.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: sysopt.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -46,7 +46,7 @@
     @flag{no-maskblt}
         1 to never use WIN32's MaskBlt function, 0 to allow it to be used where possible.
         Default: 0. In some circumstances the MaskBlt function can be slower than using
-        the fallback code, especially if using DC cacheing. By default, MaskBlt will be
+        the fallback code, especially if using DC caching. By default, MaskBlt will be
         used where it is implemented by the operating system and driver.
     @flag{msw.remap}
         If 1 (the default), wxToolBar bitmap colours will be remapped to the current
@@ -117,10 +117,14 @@
         Also known as wxWINDOW_DEFAULT_VARIANT.
     @flag{mac.listctrl.always_use_generic}
         Tells wxListCtrl to use the generic control even when it is capable of
-        using the native control instead. Also knwon as wxMAC_ALWAYS_USE_GENERIC_LISTCTRL.
+        using the native control instead. Also known as wxMAC_ALWAYS_USE_GENERIC_LISTCTRL.
     @flag{mac.textcontrol-use-spell-checker}
         This option only has effect for Mac OS X 10.4 and higher.
         If 1 activates the spell checking in wxTextCtrl.
+    @flag{osx.openfiledialog.always-show-types}
+        Per default a wxFileDialog with wxFD_OPEN does not show a types-popup on OSX but allows
+        the selection of files from any of the supported types. Setting this to 1 shows a wxChoice 
+        for selection (if there is more than one supported filetype).
     @endFlagTable
 
 
@@ -197,8 +201,8 @@ public:
     /**
         Sets an option. The function is case-insensitive to @a name.
     */
-    void SetOption(const wxString& name, const wxString& value);
-    void SetOption(const wxString& name, int value);
+    static void SetOption(const wxString& name, const wxString& value);
+    static void SetOption(const wxString& name, int value);
     //@}
 };
 

@@ -5,7 +5,7 @@
 //              Generalized clipboard implementation by Matthew Flatt
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: clipbrd.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: clipbrd.cpp 65383 2010-08-22 22:15:27Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -62,6 +62,8 @@ wxClipboard::~wxClipboard()
 void wxClipboard::Clear()
 {
     wxDELETE(m_data);
+
+    wxCHECK_RET( m_pasteboard, "Clipboard creation failed." );
 
     OSStatus err = PasteboardClear( m_pasteboard );
     if (err != noErr)

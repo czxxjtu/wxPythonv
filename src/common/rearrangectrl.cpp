@@ -3,7 +3,7 @@
 // Purpose:     implementation of classes in wx/rearrangectrl.h
 // Author:      Vadim Zeitlin
 // Created:     2008-12-15
-// RCS-ID:      $Id: rearrangectrl.cpp 64875 2010-07-11 10:43:23Z VZ $
+// RCS-ID:      $Id: rearrangectrl.cpp 65844 2010-10-18 23:43:09Z VZ $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -134,11 +134,11 @@ void wxRearrangeList::Swap(int pos1, int pos2)
     // first the label
     const wxString stringTmp = GetString(pos1);
     SetString(pos1, GetString(pos2));
-    Check(pos1, IsChecked(pos2));
+    SetString(pos2, stringTmp);
 
     // then the checked state
     const bool checkedTmp = IsChecked(pos1);
-    SetString(pos2, stringTmp);
+    Check(pos1, IsChecked(pos2));
     Check(pos2, checkedTmp);
 
     // and finally the client data, if necessary
@@ -150,8 +150,8 @@ void wxRearrangeList::Swap(int pos1, int pos2)
 
         case wxClientData_Object:
             {
-                wxClientData * const dataTmp = GetClientObject(pos1);
-                SetClientObject(pos1, GetClientObject(pos2));
+                wxClientData * const dataTmp = DetachClientObject(pos1);
+                SetClientObject(pos1, DetachClientObject(pos2));
                 SetClientObject(pos2, dataTmp);
             }
             break;
@@ -285,8 +285,19 @@ bool wxRearrangeDialog::Create(wxWindow *parent,
     // notice that the items in this sizer should be inserted accordingly to
     // wxRearrangeDialogSizerPositions order
     wxSizer * const sizerTop = new wxBoxSizer(wxVERTICAL);
-    sizerTop->Add(new wxStaticText(this, wxID_ANY, message),
-                  wxSizerFlags().Border());
+
+    if ( !message.empty() )
+    {
+        sizerTop->Add(new wxStaticText(this, wxID_ANY, message),
+                      wxSizerFlags().Border());
+    }
+    else
+    {
+        // for convenience of other wxRearrangeDialog code that depends on
+        // positions of sizer items, insert a dummy zero-sized item
+        sizerTop->AddSpacer(0);
+    }
+
     sizerTop->Add(m_ctrl,
                   wxSizerFlags(1).Expand().Border());
     sizerTop->Add(CreateSeparatedButtonSizer(wxOK | wxCANCEL),

@@ -2,7 +2,7 @@
 // Name:        filefn.h
 // Purpose:     interface of wxPathList and file functions
 // Author:      wxWidgets team
-// RCS-ID:      $Id: filefn.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: filefn.h 66071 2010-11-08 16:28:57Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -248,9 +248,10 @@ time_t wxFileModificationTime(const wxString& filename);
 /**
     Renames @a file1 to @e file2, returning @true if successful.
 
-    If @a overwrite parameter is @true (default), the destination file is
-    overwritten if it exists, but if @a overwrite is @false, the functions
-    fails in this case.
+    If @a file2 is a directory, @a file1 is moved into it (@a overwrite is
+    ignored in this case). Otherwise, if @a file2 is an existing file, it is
+    overwritten if @a overwrite is @true (default) and the function fails if @a
+    overwrite is @false.
 
     @header{wx/filefn.h}
 */

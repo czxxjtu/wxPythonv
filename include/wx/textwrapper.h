@@ -3,7 +3,7 @@
 // Purpose:     declaration of wxTextWrapper class
 // Author:      Vadim Zeitlin
 // Created:     2009-05-31 (extracted from dlgcmn.cpp via wx/private/stattext.h)
-// RCS-ID:      $Id: textwrapper.h 60975 2009-06-10 14:43:38Z VZ $
+// RCS-ID:      $Id: textwrapper.h 65363 2010-08-19 15:41:18Z VZ $
 // Copyright:   (c) 1999, 2009 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -65,6 +65,64 @@ private:
 
     wxDECLARE_NO_COPY_CLASS(wxTextWrapper);
 };
+
+#if wxUSE_STATTEXT
+
+#include "wx/sizer.h"
+#include "wx/stattext.h"
+
+// A class creating a sizer with one static text per line of text. Creation of
+// the controls used for each line can be customized by overriding
+// OnCreateLine() function.
+//
+// This class is currently private to wxWidgets and used only by wxDialog
+// itself. We may make it public later if there is sufficient interest.
+class wxTextSizerWrapper : public wxTextWrapper
+{
+public:
+    wxTextSizerWrapper(wxWindow *win)
+    {
+        m_win = win;
+        m_hLine = 0;
+    }
+
+    wxSizer *CreateSizer(const wxString& text, int widthMax)
+    {
+        m_sizer = new wxBoxSizer(wxVERTICAL);
+        Wrap(m_win, text, widthMax);
+        return m_sizer;
+    }
+
+    wxWindow *GetParent() const { return m_win; }
+
+protected:
+    virtual wxWindow *OnCreateLine(const wxString& line)
+    {
+        return new wxStaticText(m_win, wxID_ANY, line);
+    }
+
+    virtual void OnOutputLine(const wxString& line)
+    {
+        if ( !line.empty() )
+        {
+            m_sizer->Add(OnCreateLine(line));
+        }
+        else // empty line, no need to create a control for it
+        {
+            if ( !m_hLine )
+                m_hLine = m_win->GetCharHeight();
+
+            m_sizer->Add(5, m_hLine);
+        }
+    }
+
+private:
+    wxWindow *m_win;
+    wxSizer *m_sizer;
+    int m_hLine;
+};
+
+#endif // wxUSE_STATTEXT
 
 #endif // _WX_TEXTWRAPPER_H_
 

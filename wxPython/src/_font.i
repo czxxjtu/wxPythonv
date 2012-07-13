@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-Apr-2002
-// RCS-ID:      $Id: _font.i 64071 2010-04-20 19:48:01Z RD $
+// RCS-ID:      $Id: _font.i 68990 2011-09-03 06:13:14Z RD $
 // Copyright:   (c) 2002 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -54,6 +54,19 @@ enum wxFontWeight
     wxFONTWEIGHT_LIGHT = wxLIGHT,
     wxFONTWEIGHT_BOLD = wxBOLD,
     wxFONTWEIGHT_MAX
+};
+
+
+// Symbolic font sizes as defined in CSS specification.
+enum wxFontSymbolicSize
+{
+    wxFONTSIZE_XX_SMALL = -3,
+    wxFONTSIZE_X_SMALL,
+    wxFONTSIZE_SMALL,
+    wxFONTSIZE_MEDIUM,
+    wxFONTSIZE_LARGE,
+    wxFONTSIZE_X_LARGE,
+    wxFONTSIZE_XX_LARGE
 };
 
 
@@ -210,7 +223,11 @@ enum wxFontEncoding
     wxFONTENCODING_BIG5 = wxFONTENCODING_CP950,   // Traditional Chinese
 
         // Japanese (see http://zsigri.tripod.com/fontboard/cjk/jis.html)
-    wxFONTENCODING_SHIFT_JIS = wxFONTENCODING_CP932 // Shift JIS
+    wxFONTENCODING_SHIFT_JIS = wxFONTENCODING_CP932, // Shift JIS
+
+        // Korean (CP 949 not actually the same but close enough)
+    wxFONTENCODING_EUC_KR = wxFONTENCODING_CP949
+    
 };
 
 //---------------------------------------------------------------------------
@@ -256,6 +273,7 @@ public:
     void SetFamily(wxFontFamily family);
     void SetEncoding(wxFontEncoding encoding);
 
+    
 // TODO:     
 //     // sets the first facename in the given array which is found
 //     // to be valid. If no valid facename is given, sets the
@@ -779,7 +797,17 @@ then for a font belonging to the same family.", "");
         bool , SetNativeFontInfoUserDesc(const wxString& info),
         "Set the font's attributes from a string formerly returned from
 `GetNativeFontInfoDesc`.", "");
-    
+
+    // Symbolic font sizes support: set the font size to "large" or "very
+    // small" either absolutely (i.e. compared to the default font size) or
+    // relatively to the given font size.
+    void SetSymbolicSize(wxFontSymbolicSize size);
+    void SetSymbolicSizeRelativeTo(wxFontSymbolicSize size, int base);
+
+    // Adjust the base size in points according to symbolic size.
+    static int AdjustToSymbolicSize(wxFontSymbolicSize size, int base);
+
+
 
     DocDeclStr(
         wxString , GetFamilyString() const,
@@ -797,8 +825,6 @@ then for a font belonging to the same family.", "");
     virtual void SetNoAntiAliasing( bool no = true );
     virtual bool GetNoAntiAliasing() const;
     %pythoncode {
-        def SetNoAntiAliasing(self, no=True): pass
-        def GetNoAntiAliasing(self): pass
         SetNoAntiAliasing = wx._deprecated(SetNoAntiAliasing)
         GetNoAntiAliasing = wx._deprecated(GetNoAntiAliasing)
     }
@@ -811,7 +837,8 @@ then for a font belonging to the same family.", "");
     %typemap(out) wxFont& { $result = $self; Py_INCREF($result); }
 
     wxFont& MakeBold(); 
-    wxFont& MakeItalic(); 
+    wxFont& MakeItalic();
+    wxFont& MakeUnderlined();
     wxFont& MakeLarger();
     wxFont& MakeSmaller();
     wxFont& Scale(float x);
@@ -823,6 +850,7 @@ then for a font belonging to the same family.", "");
     /* functions for creating new fonts based on this one */ 
     wxFont Bold() const; 
     wxFont Italic() const;
+    wxFont Underlined() const;
     wxFont Larger() const;
     wxFont Smaller() const;
     wxFont Scaled(float x) const;

@@ -2,7 +2,7 @@
 // Name:        manager.h
 // Purpose:     interface of wxPropertyGridManager
 // Author:      wxWidgets team
-// RCS-ID:      $Id: manager.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: manager.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -510,7 +510,7 @@ protected:
 
     /**
         Creates property grid for the manager. Reimplement in derived class to
-        use subclassed wxPropertyGrid. However, if you you do this then you
+        use subclassed wxPropertyGrid. However, if you do this then you
         must also use the two-step construction (ie. default constructor and
         Create() instead of constructor with arguments) when creating the
         manager.

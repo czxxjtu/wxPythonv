@@ -2,7 +2,7 @@
 // Name:        msw/ole/activex.h
 // Purpose:     interface of wxActiveXEvent
 // Author:      wxWidgets team
-// RCS-ID:      $Id: activex.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: activex.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
 
     @beginEventTable{wxActiveXEvent}
     @event{EVT_ACTIVEX(func)}
-        Sent when the ActiveX control hosted by wxActiveXContainer recieves an
+        Sent when the ActiveX control hosted by wxActiveXContainer receives an
         ActiveX event.
     @endEventTable
 
@@ -85,7 +85,7 @@ public:
     is a platform-specific class).
 
     Note that the HWND that the class contains is the actual HWND of the ActiveX
-    control so using dynamic events and connecting to wxEVT_SIZE, for example,
+    control so using dynamic events and connecting to @c wxEVT_SIZE, for example,
     will receive the actual size message sent to the control.
 
     It is somewhat similar to the ATL class CAxWindow in operation.
@@ -268,7 +268,7 @@ public:
 
     wxIMPLEMENT_DYNAMIC_CLASS(wxPDFMediaBackend, wxMediaBackend);
     
-    // Put this in one of your existant source files and then create a wxMediaCtrl with
+    // Put this in one of your existing source files and then create a wxMediaCtrl with
     wxMediaCtrl* mymediactrl = new wxMediaCtrl(this, "myfile.pdf", wxID_ANY,
                                             wxDefaultPosition, wxSize(300,300),
                                             0, "wxPDFMediaBackend");

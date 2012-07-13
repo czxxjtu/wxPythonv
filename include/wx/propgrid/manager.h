@@ -4,13 +4,15 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     2005-01-14
-// RCS-ID:      $Id: manager.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: manager.h 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef _WX_PROPGRID_MANAGER_H_
 #define _WX_PROPGRID_MANAGER_H_
+
+#include "wx/defs.h"
 
 #if wxUSE_PROPGRID
 
@@ -126,7 +128,7 @@ public:
     */
     int GetToolId() const
     {
-        return m_id;
+        return m_toolId;
     }
 
     /** Do any member initialization in this method.
@@ -174,7 +176,9 @@ protected:
 
     wxPropertyGridManager*  m_manager;
 
-    int                     m_id;  // toolbar index
+    // Toolbar tool id. Note that this is only valid when the tool bar
+    // exists.
+    int                     m_toolId;
 
 private:
     bool                    m_isDefault; // is this base page object?
@@ -612,7 +616,7 @@ protected:
 
     /**
         Creates property grid for the manager. Reimplement in derived class to
-        use subclassed wxPropertyGrid. However, if you you do this then you
+        use subclassed wxPropertyGrid. However, if you do this then you
         must also use the two-step construction (ie. default constructor and
         Create() instead of constructor with arguments) when creating the
         manager.
@@ -686,15 +690,15 @@ protected:
 
     int             m_splitterHeight;
 
-    int             m_nextTbInd;
-
     int             m_dragOffset;
 
     wxCursor        m_cursorSizeNS;
 
     int             m_nextDescBoxSize;
 
-    wxWindowID      m_baseId;
+    // Toolbar tool ids for categorized and alphabetic mode selectors.
+    int             m_categorizedModeToolId;
+    int             m_alphabeticModeToolId;
 
     unsigned char   m_dragStatus;
 

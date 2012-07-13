@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     Aug-31-2006
-// RCS-ID:      $Id: bmpcboxg.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: bmpcboxg.cpp 66387 2010-12-16 18:08:16Z JMS $
 // Copyright:   (c) 2005 Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ bool wxBitmapComboBox::Create(wxWindow *parent,
 
 wxBitmapComboBox::~wxBitmapComboBox()
 {
-    Clear();
+    DoClear();
 }
 
 // ----------------------------------------------------------------------------

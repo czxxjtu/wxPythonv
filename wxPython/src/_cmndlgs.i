@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     25-July-1998
-// RCS-ID:      $Id: _cmndlgs.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _cmndlgs.i 65976 2010-11-02 00:41:27Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -773,20 +773,21 @@ public:
     virtual void SetMessage(const wxString& message);
 
     virtual void SetExtendedMessage(const wxString& extendedMessage);
-   
+
+  
 };
 
 //---------------------------------------------------------------------------
 
 enum {
-    wxPD_AUTO_HIDE,
-    wxPD_APP_MODAL,
-    wxPD_CAN_ABORT,
-    wxPD_ELAPSED_TIME,
-    wxPD_ESTIMATED_TIME,
-    wxPD_REMAINING_TIME,
-    wxPD_SMOOTH,
-    wxPD_CAN_SKIP
+    wxPD_CAN_ABORT,      
+    wxPD_APP_MODAL,      
+    wxPD_AUTO_HIDE,      
+    wxPD_ELAPSED_TIME,   
+    wxPD_ESTIMATED_TIME, 
+    wxPD_SMOOTH,         
+    wxPD_REMAINING_TIME, 
+    wxPD_CAN_SKIP,       
 };
 
 
@@ -872,13 +873,26 @@ abort is not confirmed the dialog may be resumed with `Resume` function.
 ", "");
 
 
-    DocDeclAStr(
-        virtual bool , Pulse(const wxString& newmsg = wxPyEmptyString,
-                                   bool *OUTPUT),
-        "Pulse(self, String newmsg) --> (continue, skip)",
-        "Just like `Update` but switches the dialog to use a gauge in
-interminante mode and calls `wx.Gauge.Pulse` to show the user a bit of
-progress.", "");
+    %extend {
+        DocDeclAStr(
+            PyObject* , Pulse(const wxString& newmsg = wxPyEmptyString),
+            "Pulse(self, String newmsg) --> (continue, skip)",
+            "Just like `Update` but switches the dialog to use a gauge in
+indeterminate mode and calls `wx.Gauge.Pulse` to show the user a bit of
+progress.", "")
+        {            
+            wxPyBlock_t blocked = wxPyBeginBlockThreads();
+            PyObject* rval;
+            bool r;
+            bool skip=false;
+            r = self->Pulse(newmsg, &skip);
+            rval = PyTuple_New(2);
+            PyTuple_SET_ITEM(rval, 0, PyBool_FromLong((int)r));
+            PyTuple_SET_ITEM(rval, 1, PyBool_FromLong((int)skip));
+            wxPyEndBlockThreads(blocked);
+            return rval;
+        }
+    }
     %pythoncode { UpdatePulse =  Pulse }
 
     DocDeclStr(

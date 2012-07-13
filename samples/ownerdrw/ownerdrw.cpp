@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     13.11.97
-// RCS-ID:      $Id: ownerdrw.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: ownerdrw.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -96,8 +96,6 @@ bool OwnerDrawnApp::OnInit(void)
     OwnerDrawnFrame *pFrame
         = new OwnerDrawnFrame(NULL, wxT("wxWidgets Ownerdraw Sample"),
                               50, 50, 450, 340);
-
-    SetTopWindow(pFrame);
 
     return true;
 }

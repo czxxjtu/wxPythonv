@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     29/01/98
-// RCS-ID:      $Id: log.cpp 63063 2010-01-04 12:22:42Z VZ $
+// RCS-ID:      $Id: log.cpp 67268 2011-03-21 10:59:59Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -676,16 +676,8 @@ void wxLog::TimeStamp(wxString *str)
 #if wxUSE_DATETIME
     if ( !ms_timestamp.empty() )
     {
-        wxChar buf[256];
-        time_t timeNow;
-        (void)time(&timeNow);
-
-        struct tm tm;
-        wxStrftime(buf, WXSIZEOF(buf),
-                    ms_timestamp, wxLocaltime_r(&timeNow, &tm));
-
-        str->Empty();
-        *str << buf << wxS(": ");
+        *str = wxDateTime::UNow().Format(ms_timestamp);
+        *str += wxS(": ");
     }
 #endif // wxUSE_DATETIME
 }
@@ -852,7 +844,7 @@ wxLogChain::wxLogChain(wxLog *logger)
 
 wxLogChain::~wxLogChain()
 {
-    delete m_logOld;
+    wxLog::SetActiveTarget(m_logOld);
 
     if ( m_logNew != this )
         delete m_logNew;

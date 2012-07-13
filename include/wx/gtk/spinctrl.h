@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        spinctrl.h
+// Name:        wx/gtk/spinctrl.h
 // Purpose:     wxSpinCtrl class
 // Author:      Robert Roebling
 // Modified by:
-// RCS-ID:      $Id: spinctrl.h 62586 2009-11-10 17:36:53Z PC $
+// RCS-ID:      $Id: spinctrl.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

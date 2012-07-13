@@ -2,7 +2,7 @@
 // Name:        slider.h
 // Purpose:     interface of wxSlider
 // Author:      wxWidgets team
-// RCS-ID:      $Id: slider.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: slider.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -41,7 +41,7 @@
     @style{wxSL_SELRANGE}
            Allows the user to select a range on the slider. Windows only.
     @style{wxSL_INVERSE}
-           Inverses the mininum and maximum endpoints on the slider. Not
+           Inverses the minimum and maximum endpoints on the slider. Not
            compatible with wxSL_SELRANGE.
     @endStyleTable
 
@@ -60,45 +60,48 @@
     @event{EVT_SCROLL(func)}
         Process all scroll events.
     @event{EVT_SCROLL_TOP(func)}
-        Process wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
+        Process @c wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
     @event{EVT_SCROLL_BOTTOM(func)}
-        Process wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
+        Process @c wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
     @event{EVT_SCROLL_LINEUP(func)}
-        Process wxEVT_SCROLL_LINEUP line up events.
+        Process @c wxEVT_SCROLL_LINEUP line up events.
     @event{EVT_SCROLL_LINEDOWN(func)}
-        Process wxEVT_SCROLL_LINEDOWN line down events.
+        Process @c wxEVT_SCROLL_LINEDOWN line down events.
     @event{EVT_SCROLL_PAGEUP(func)}
-        Process wxEVT_SCROLL_PAGEUP page up events.
+        Process @c wxEVT_SCROLL_PAGEUP page up events.
     @event{EVT_SCROLL_PAGEDOWN(func)}
-        Process wxEVT_SCROLL_PAGEDOWN page down events.
+        Process @c wxEVT_SCROLL_PAGEDOWN page down events.
     @event{EVT_SCROLL_THUMBTRACK(func)}
-        Process wxEVT_SCROLL_THUMBTRACK thumbtrack events
+        Process @c wxEVT_SCROLL_THUMBTRACK thumbtrack events
         (frequent events sent as the user drags the thumbtrack).
     @event{EVT_SCROLL_THUMBRELEASE(func)}
-        Process wxEVT_SCROLL_THUMBRELEASE thumb release events.
+        Process @c wxEVT_SCROLL_THUMBRELEASE thumb release events.
     @event{EVT_SCROLL_CHANGED(func)}
-        Process wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
+        Process @c wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
     @event{EVT_COMMAND_SCROLL(id, func)}
         Process all scroll events.
     @event{EVT_COMMAND_SCROLL_TOP(id, func)}
-        Process wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
+        Process @c wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
     @event{EVT_COMMAND_SCROLL_BOTTOM(id, func)}
-        Process wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
+        Process @c wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
     @event{EVT_COMMAND_SCROLL_LINEUP(id, func)}
-        Process wxEVT_SCROLL_LINEUP line up events.
+        Process @c wxEVT_SCROLL_LINEUP line up events.
     @event{EVT_COMMAND_SCROLL_LINEDOWN(id, func)}
-        Process wxEVT_SCROLL_LINEDOWN line down events.
+        Process @c wxEVT_SCROLL_LINEDOWN line down events.
     @event{EVT_COMMAND_SCROLL_PAGEUP(id, func)}
-        Process wxEVT_SCROLL_PAGEUP page up events.
+        Process @c wxEVT_SCROLL_PAGEUP page up events.
     @event{EVT_COMMAND_SCROLL_PAGEDOWN(id, func)}
-        Process wxEVT_SCROLL_PAGEDOWN page down events.
+        Process @c wxEVT_SCROLL_PAGEDOWN page down events.
     @event{EVT_COMMAND_SCROLL_THUMBTRACK(id, func)}
-        Process wxEVT_SCROLL_THUMBTRACK thumbtrack events
+        Process @c wxEVT_SCROLL_THUMBTRACK thumbtrack events
         (frequent events sent as the user drags the thumbtrack).
     @event{EVT_COMMAND_SCROLL_THUMBRELEASE(func)}
-        Process wxEVT_SCROLL_THUMBRELEASE thumb release events.
+        Process @c wxEVT_SCROLL_THUMBRELEASE thumb release events.
     @event{EVT_COMMAND_SCROLL_CHANGED(func)}
-        Process wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
+        Process @c wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
+    @event{EVT_SLIDER(id, func)}
+        Process @c wxEVT_COMMAND_SLIDER_UPDATED which is generated after any
+        change of wxSlider position in addition to one of the events above.
     @endEventTable
 
     @section slider_diff The difference between EVT_SCROLL_THUMBRELEASE and EVT_SCROLL_CHANGED
@@ -337,14 +340,12 @@ public:
         @param n
             Frequency. For example, if the frequency is set to two, a tick mark is
             displayed for every other increment in the slider's range.
-        @param pos
-            Position. Must be greater than zero. @todo: what is this for?
 
         @onlyfor{wxmsw}
 
         @see GetTickFreq()
     */
-    virtual void SetTickFreq(int n, int pos);
+    virtual void SetTickFreq(int n);
 
     /**
         Sets the slider position.

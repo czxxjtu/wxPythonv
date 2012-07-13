@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     25.10.99
-// RCS-ID:      $Id: menuitem.h 58227 2009-01-19 13:55:27Z VZ $
+// RCS-ID:      $Id: menuitem.h 66966 2011-02-19 12:32:59Z VZ $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ public:
     wxDEPRECATED( const wxString& GetText() const );
 
     // Now use GetLabelText to strip the accelerators
-    wxDEPRECATED( static wxString GetLabelFromText(const wxString& text) );
+    static wxDEPRECATED( wxString GetLabelFromText(const wxString& text) );
 
     // Now use SetItemLabel
     wxDEPRECATED( virtual void SetText(const wxString& str) );

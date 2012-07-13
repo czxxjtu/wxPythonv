@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/03/16
-// Id:          $Id: choice.mm 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: choice.mm 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,6 @@
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSDictionary.h>
 
-IMPLEMENT_DYNAMIC_CLASS(wxChoice, wxControlWithItems)
 BEGIN_EVENT_TABLE(wxChoice, wxChoiceBase)
 END_EVENT_TABLE()
 // WX_IMPLEMENT_COCOA_OWNER(wxChoice,NSButton,NSControl,NSView)

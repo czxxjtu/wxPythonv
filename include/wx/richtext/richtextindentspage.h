@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     10/3/2006 2:28:21 PM
-// RCS-ID:      $Id: richtextindentspage.h 64161 2010-04-27 16:09:22Z JS $
+// RCS-ID:      $Id: richtextindentspage.h 66680 2011-01-14 11:57:44Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -15,6 +15,8 @@
 /*!
  * Includes
  */
+
+#include "wx/richtext/richtextdialogpage.h"
 
 ////@begin includes
 #include "wx/statline.h"
@@ -44,10 +46,11 @@ class wxRichTextCtrl;
  * wxRichTextIndentsSpacingPage class declaration
  */
 
-class WXDLLIMPEXP_RICHTEXT wxRichTextIndentsSpacingPage: public wxPanel
+class WXDLLIMPEXP_RICHTEXT wxRichTextIndentsSpacingPage: public wxRichTextDialogPage
 {
     DECLARE_DYNAMIC_CLASS( wxRichTextIndentsSpacingPage )
     DECLARE_EVENT_TABLE()
+    DECLARE_HELP_PROVISION()
 
 public:
     /// Constructors
@@ -71,7 +74,7 @@ public:
     void UpdatePreview();
 
     /// Gets the attributes associated with the main formatting dialog
-    wxTextAttr* GetAttributes();
+    wxRichTextAttr* GetAttributes();
 
 ////@begin wxRichTextIndentsSpacingPage event handler declarations
 

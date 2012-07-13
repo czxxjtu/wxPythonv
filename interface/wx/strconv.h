@@ -2,7 +2,7 @@
 // Name:        strconv.h
 // Purpose:     interface of wxMBConvUTF7
 // Author:      wxWidgets team
-// RCS-ID:      $Id: strconv.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: strconv.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -277,7 +277,7 @@ public:
     /**
         @deprecated This function is deprecated, please use ToWChar() instead.
 
-        Converts from a string @a in in multibyte encoding to Unicode putting up to
+        Converts from a string @a in multibyte encoding to Unicode putting up to
         @a outLen characters into the buffer @e out.
 
         If @a out is @NULL, only the length of the string which would result

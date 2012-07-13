@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        xh_tree.cpp
+// Name:        src/xrc/xh_tree.cpp
 // Purpose:     XRC resource for wxTreeCtrl
 // Author:      Brian Gavin
 // Created:     2000/09/09
-// RCS-ID:      $Id: xh_tree.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: xh_tree.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2000 Brian Gavin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

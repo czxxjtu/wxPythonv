@@ -15,11 +15,12 @@ AUTHOR: Cody Precord
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: _yaml.py 63834 2010-04-03 06:04:33Z CJP $"
-__revision__ = "$Revision: 63834 $"
+__svnid__ = "$Id: _yaml.py 68798 2011-08-20 17:17:05Z CJP $"
+__revision__ = "$Revision: 68798 $"
 
 #-----------------------------------------------------------------------------#
 # Imports
+import wx
 import wx.stc as stc
 
 # Local Imports
@@ -43,6 +44,9 @@ SYNTAX_ITEMS = [(stc.STC_YAML_COMMENT, 'comment_style'),
                 (stc.STC_YAML_REFERENCE, 'global_style'),
                 (stc.STC_YAML_TEXT, 'default_style')] # Different style maybe
 
+if wx.VERSION >= (2, 9, 0, 0, ''):
+    SYNTAX_ITEMS.append((stc.STC_YAML_OPERATOR, 'operator_style'))
+
 #---- Extra Properties ----#
 FOLD_COMMENT = ("fold.comment.yaml", "1")
 
@@ -51,7 +55,7 @@ FOLD_COMMENT = ("fold.comment.yaml", "1")
 class SyntaxData(syndata.SyntaxDataBase):
     """SyntaxData object for YAML""" 
     def __init__(self, langid):
-        syndata.SyntaxDataBase.__init__(self, langid)
+        super(SyntaxData, self).__init__(langid)
 
         # Setup
         self.SetLexer(stc.STC_LEX_YAML)

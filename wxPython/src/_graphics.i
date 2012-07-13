@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     2-Oct-2006
-// RCS-ID:      $Id: _graphics.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _graphics.i 68891 2011-08-25 18:48:28Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -26,6 +26,21 @@ enum wxAntialiasMode
     wxANTIALIAS_DEFAULT,
 };
 
+enum wxInterpolationQuality
+{
+    // default interpolation
+    wxINTERPOLATION_DEFAULT,
+    // no interpolation
+    wxINTERPOLATION_NONE, 
+    // fast interpolation, suited for interactivity
+    wxINTERPOLATION_FAST,
+    // better quality
+    wxINTERPOLATION_GOOD,
+    // best quality, not suited for interactivity
+    wxINTERPOLATION_BEST
+};
+
+
 enum wxCompositionMode
 {
     // R = Result, S = Source, D = Destination, premultiplied with alpha
@@ -33,6 +48,8 @@ enum wxCompositionMode
     
     // classic Porter-Duff compositions
     // http://keithp.com/~keithp/porterduff/p253-porter.pdf
+
+    wxCOMPOSITION_INVALID,
     
     wxCOMPOSITION_CLEAR, /* R = 0 */
     wxCOMPOSITION_SOURCE, /* R = S */
@@ -65,6 +82,54 @@ enum wxCompositionMode
 // C++ stub classes for platforms or build configurations that don't have
 // wxGraphicsContext yet.
 
+enum wxAntialiasMode
+{
+    wxANTIALIAS_NONE, // should be 0
+    wxANTIALIAS_DEFAULT,
+};
+
+enum wxInterpolationQuality
+{
+    // default interpolation
+    wxINTERPOLATION_DEFAULT,
+    // no interpolation
+    wxINTERPOLATION_NONE, 
+    // fast interpolation, suited for interactivity
+    wxINTERPOLATION_FAST,
+    // better quality
+    wxINTERPOLATION_GOOD,
+    // best quality, not suited for interactivity
+    wxINTERPOLATION_BEST
+};
+
+enum wxCompositionMode
+{
+    // R = Result, S = Source, D = Destination, premultiplied with alpha
+    // Ra, Sa, Da their alpha components
+    
+    // classic Porter-Duff compositions
+    // http://keithp.com/~keithp/porterduff/p253-porter.pdf
+    
+    wxCOMPOSITION_INVALID,
+
+    wxCOMPOSITION_CLEAR, /* R = 0 */
+    wxCOMPOSITION_SOURCE, /* R = S */
+    wxCOMPOSITION_OVER, /* R = S + D*(1 - Sa) */
+    wxCOMPOSITION_IN, /* R = S*Da */
+    wxCOMPOSITION_OUT, /* R = S*(1 - Da) */
+    wxCOMPOSITION_ATOP, /* R = S*Da + D*(1 - Sa) */
+
+    wxCOMPOSITION_DEST, /* R = D, essentially a noop */
+    wxCOMPOSITION_DEST_OVER, /* R = S*(1 - Da) + D */
+    wxCOMPOSITION_DEST_IN, /* R = D*Sa */
+    wxCOMPOSITION_DEST_OUT, /* R = D*(1 - Sa) */
+    wxCOMPOSITION_DEST_ATOP, /* R = S*(1 - Da) + D*Sa */
+    wxCOMPOSITION_XOR, /* R = S*(1 - Da) + D*(1 - Sa) */
+    
+    // mathematical compositions
+    wxCOMPOSITION_ADD, /* R = S + D */
+};
+    
 class wxGraphicsRenderer;
 class wxGraphicsMatrix;
 
@@ -327,6 +392,10 @@ public:
     virtual void * GetNativeContext() { return NULL; }
     virtual int GetAntialiasMode() const { return 0; }
     virtual bool SetAntialiasMode(wxAntialiasMode antialias) { return false; }
+
+    virtual wxInterpolationQuality GetInterpolationQuality() const { return wxINTERPOLATION_DEFAULT; }
+    virtual bool SetInterpolationQuality(wxInterpolationQuality) { return false; };
+
     virtual int GetCompositionMode() const { return 0; }
     virtual bool SetCompositionMode(wxCompositionMode op) { return false; }
     virtual void GetSize( wxDouble*, wxDouble* );
@@ -372,6 +441,11 @@ public:
     virtual void DrawEllipse( wxDouble , wxDouble , wxDouble , wxDouble ) {}
     virtual void DrawRoundedRectangle( wxDouble , wxDouble , wxDouble , wxDouble , wxDouble ) {}
     virtual bool ShouldOffset() const { return false; }
+
+    virtual void EnableOffset(bool enable = true) {}
+    void DisableOffset() { }
+    bool OffsetEnabled() { return false; }
+  
 };
 
 
@@ -1044,6 +1118,11 @@ pointer for GDIPlus and cairo_t pointer for cairo).", "");
         virtual bool , SetAntialiasMode(wxAntialiasMode antialias),
         "Sets the antialiasing mode, returns true if it is supported", "");
     
+    // returns the current interpolation quality
+    virtual wxInterpolationQuality GetInterpolationQuality() const;
+    
+    // sets the interpolation quality, returns true if it supported
+    virtual bool SetInterpolationQuality(wxInterpolationQuality interpolation);
 
     DocDeclStr(
         virtual wxCompositionMode , GetCompositionMode() const,
@@ -1295,7 +1374,14 @@ and the current brush is used for filling.", "");
     DocDeclStr(
         virtual bool , ShouldOffset() const,
         "helper to determine if a 0.5 offset should be applied for the drawing operation", "");
-    
+
+
+    // indicates whether the context should try to offset for pixel boundaries, this only makes sense on 
+    // bitmap devices like screen, by default this is turned off
+    virtual void EnableOffset(bool enable = true);
+    void DisableOffset() { EnableOffset(false); }
+    bool OffsetEnabled() { return m_enableOffset; }
+      
 };
 
 
@@ -1308,9 +1394,7 @@ public :
 
     virtual ~wxGraphicsRenderer();
 
-    // %newobject GetDefaultRenderer;  ???
     static wxGraphicsRenderer* GetDefaultRenderer();
-
     static wxGraphicsRenderer* GetCairoRenderer();
 
     %nokwargs CreateContext;
@@ -1377,6 +1461,8 @@ public:
     wxGCDC(const wxMemoryDC& dc);
     wxGCDC(const wxPrinterDC& dc);
     wxGCDC(wxWindow* window);
+    wxGCDC(wxGraphicsContext* ctx);
+    
     //wxGCDC();
     virtual ~wxGCDC();
 

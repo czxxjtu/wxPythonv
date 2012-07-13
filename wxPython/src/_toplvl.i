@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     27-Aug-1998
-// RCS-ID:      $Id: _toplvl.i 64077 2010-04-20 20:20:36Z RD $
+// RCS-ID:      $Id: _toplvl.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -191,6 +191,11 @@ public:
         "Center the window on screen", "");
     %pythoncode { CentreOnScreen = CenterOnScreen }
 
+
+    // Get the default size for a new top level window. This is used when
+    // creating a wxTLW under some platforms if no explicit size given.
+    static wxSize GetDefaultSize();
+    
 
     DocDeclStr(
         virtual wxWindow *, GetDefaultItem() const,
@@ -432,7 +437,14 @@ public:
     // splits text up at newlines and places the
     // lines into a vertical wxBoxSizer
     wxSizer* CreateTextSizer( const wxString &message );
+    
+    // TODO:  wxSizer *CreateTextSizer( const wxString& message,
+    //                           wxTextSizerWrapper& wrapper );
 
+
+    // returns a sizer containing the given one and a static line separating it
+    // from the preceding elements if it's appropriate for the current platform
+    wxSizer *CreateSeparatedSizer(wxSizer *sizer);
 
     // returns a horizontal wxBoxSizer containing the given buttons
     //

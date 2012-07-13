@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cocoa/NSView.mm
+// Name:        src/cocoa/NSView.mm
 // Purpose:     wxCocoaNSView
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/02/15
-// RCS-ID:      $Id: NSView.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: NSView.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

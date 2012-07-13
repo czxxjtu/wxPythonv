@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        radiobut.h
+// Name:        wx/osx/radiobut.h
 // Purpose:     wxRadioButton class
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: radiobut.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: radiobut.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

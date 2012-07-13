@@ -3,7 +3,7 @@
 // Purpose:     XML resource handler for wxBoxSizer
 // Author:      Vaclav Slavik
 // Created:     2000/04/24
-// RCS-ID:      $Id: xh_sizer.h 59572 2009-03-16 13:33:39Z VS $
+// RCS-ID:      $Id: xh_sizer.h 65889 2010-10-24 14:33:58Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -27,13 +27,16 @@ public:
     virtual wxObject *DoCreateResource();
     virtual bool CanHandle(wxXmlNode *node);
 
+protected:
+    virtual wxSizer* DoCreateSizer(const wxString& name);
+    virtual bool IsSizerNode(wxXmlNode *node) const;
+
 private:
     bool m_isInside;
     bool m_isGBS;
 
     wxSizer *m_parentSizer;
 
-    bool IsSizerNode(wxXmlNode *node);
 
     wxObject* Handle_sizeritem();
     wxObject* Handle_spacer();

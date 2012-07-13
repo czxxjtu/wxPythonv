@@ -3,7 +3,7 @@
 // Purpose:     wxCalendarCtrl implementation
 // Author:      Vadim Zeitlin
 // Created:     2008-04-04
-// RCS-ID:      $Id: calctrl.cpp 64208 2010-05-04 21:59:17Z VZ $
+// RCS-ID:      $Id: calctrl.cpp 66558 2011-01-04 09:14:40Z SC $
 // Copyright:   (C) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -33,8 +33,6 @@
 #include "wx/calctrl.h"
 
 #include "wx/msw/private/datecontrols.h"
-
-IMPLEMENT_DYNAMIC_CLASS(wxCalendarCtrl, wxControl)
 
 // ----------------------------------------------------------------------------
 // constants

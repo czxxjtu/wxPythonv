@@ -2,7 +2,7 @@
 // Name:        src/gtk/dialog.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: dialog.cpp 64019 2010-04-18 00:05:37Z VZ $
+// Id:          $Id: dialog.cpp 66559 2011-01-04 09:20:10Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -31,8 +31,6 @@ wxDEFINE_TIED_SCOPED_PTR_TYPE(wxGUIEventLoop)
 //-----------------------------------------------------------------------------
 // wxDialog
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxDialog,wxTopLevelWindow)
 
 void wxDialog::Init()
 {

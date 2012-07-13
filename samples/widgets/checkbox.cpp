@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing wxCheckBox
 // Author:      Dimitri Schoolwerth, Vadim Zeitlin
 // Created:     27 Sep 2003
-// Id:          $Id: checkbox.cpp 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: checkbox.cpp 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) 2003 wxWindows team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@ protected:
     // the controls
     // ------------
 
-    // the contols to choose the checkbox style
+    // the controls to choose the checkbox style
     wxCheckBox *m_chkRight;
     wxRadioBox *m_radioKind;
 

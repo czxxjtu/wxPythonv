@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: choice.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: choice.h 66993 2011-02-22 13:25:38Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -16,8 +16,6 @@
 
 #include  "wx/dynarray.h"
 #include  "wx/arrstr.h"
-
-WXDLLIMPEXP_DATA_CORE(extern const char) wxChoiceNameStr[];
 
 WX_DEFINE_ARRAY( char * , wxChoiceDataArray ) ;
 

@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by: Yunhui Fu
 // Created:     10/14/04
-// RCS-ID:      $Id: font.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: font.h 65670 2010-09-29 13:46:09Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,6 @@ public:
     virtual int GetPointSize() const;
     virtual wxSize GetPixelSize() const;
     virtual bool IsUsingSizeInPixels() const;
-    virtual wxFontFamily GetFamily() const;
     virtual wxFontStyle GetStyle() const;
     virtual wxFontWeight GetWeight() const;
     virtual bool GetUnderlined() const;
@@ -141,6 +140,7 @@ protected:
                   wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
 
     virtual void DoSetNativeFontInfo(const wxNativeFontInfo& info);
+    virtual wxFontFamily DoGetFamily() const;
 
     // implement wxObject virtuals which are used by AllocExclusive()
     virtual wxGDIRefData *CreateGDIRefData() const;

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/generic/tabmdi.h
+// Name:        wx/aui/tabmdi.h
 // Purpose:     Generic MDI (Multiple Document Interface) classes
 // Author:      Hans Van Leemputten
 // Modified by: Benjamin I. Williams / Kirix Corporation
 // Created:     29/07/2002
-// RCS-ID:      $Id: tabmdi.h 58381 2009-01-25 11:58:39Z FM $
+// RCS-ID:      $Id: tabmdi.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Hans Van Leemputten
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/colrdlgg.h
+// Name:        wx/colordlg.h
 // Purpose:     wxColourDialog
 // Author:      Vadim Zeitiln
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: colordlg.h 58227 2009-01-19 13:55:27Z VZ $
+// RCS-ID:      $Id: colordlg.h 66615 2011-01-07 05:26:57Z PC $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -15,6 +15,8 @@
 #include "wx/defs.h"
 
 #if wxUSE_COLOURDLG
+
+#include "wx/colourdata.h"
 
 #if defined(__WXMSW__) && !defined(__WXUNIVERSAL__)
     #include "wx/msw/colordlg.h"
@@ -29,8 +31,6 @@
 
     #define wxColourDialog wxGenericColourDialog
 #endif
-
-class WXDLLIMPEXP_FWD_CORE wxColourData;
 
 // get the colour from user and return it
 WXDLLIMPEXP_CORE wxColour wxGetColourFromUser(wxWindow *parent = NULL,

@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     29/01/98
-// RCS-ID:      $Id: log.h 64531 2010-06-09 13:23:13Z FM $
+// RCS-ID:      $Id: log.h 66966 2011-02-19 12:32:59Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -522,14 +522,14 @@ public:
 
 #if WXWIN_COMPATIBILITY_2_6
     // this function doesn't do anything any more, don't call it
-    wxDEPRECATED_INLINE(
-        static wxChar *SetLogBuffer(wxChar *, size_t = 0), return NULL;
+    static wxDEPRECATED_INLINE(
+        wxChar *SetLogBuffer(wxChar *, size_t = 0), return NULL;
     );
 #endif // WXWIN_COMPATIBILITY_2_6
 
     // don't use integer masks any more, use string trace masks instead
 #if WXWIN_COMPATIBILITY_2_8
-    wxDEPRECATED_INLINE( static void SetTraceMask(wxTraceMask ulMask),
+    static wxDEPRECATED_INLINE( void SetTraceMask(wxTraceMask ulMask),
         ms_ulTraceMask = ulMask; )
 
     // this one can't be marked deprecated as it's used in our own wxLogger

@@ -2,7 +2,7 @@
 // Name:        docview.h
 // Purpose:     interface of various doc/view framework classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: docview.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: docview.h 68051 2011-06-27 00:09:37Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -175,6 +175,15 @@ public:
         Returns the flags, as passed to the document template constructor.
     */
     long GetFlags() const;
+
+    /**
+        Returns a reference to the wxPageSetupDialogData associated with the
+        printing operations of this document manager.
+    */
+    //@{
+    wxPageSetupDialogData& GetPageSetupDialogData();
+    const wxPageSetupDialogData& GetPageSetupDialogData() const;
+    //@}
 
     /**
         Returns the run-time class information that allows view instances
@@ -362,6 +371,27 @@ public:
         Adds the template to the document manager's template list.
     */
     void AssociateTemplate(wxDocTemplate* temp);
+
+    /**
+        Search for a particular document template.
+
+        Example:
+        @code
+           // creating a document instance of the specified document type:
+           m_doc = (MyDoc*)docManager->FindTemplate(CLASSINFO(MyDoc))->
+                        CreateDocument(wxEmptyString, wxDOC_SILENT);
+        @endcode
+
+        @param classinfo
+            Class info of a document class for which a wxDocTemplate had been
+            previously created.
+
+        @return
+            Pointer to a wxDocTemplate, or @NULL if none found.
+
+        @since 2.9.2
+     */
+    wxDocTemplate* FindTemplate(const wxClassInfo* classinfo);
 
     /**
         Closes the specified document.
@@ -662,7 +692,7 @@ public:
         @param noTemplates
             Number of templates being pointed to by the templates pointer.
         @param sort
-            If more than one template is passed in in templates, then this
+            If more than one template is passed into templates, then this
             parameter indicates whether the list of templates that the user
             will have to choose from is sorted or not when shown the choice box
             dialog. Default is @false.
@@ -688,7 +718,7 @@ public:
         @param noTemplates
             Number of templates being pointed to by the templates pointer.
         @param sort
-            If more than one template is passed in in templates, then this
+            If more than one template is passed into templates, then this
             parameter indicates whether the list of templates that the user
             will have to choose from is sorted or not when shown the choice box
             dialog. Default is @false.
@@ -1100,8 +1130,24 @@ public:
     @class wxDocument
 
     The document class can be used to model an application's file-based data.
+
     It is part of the document/view framework supported by wxWidgets, and
     cooperates with the wxView, wxDocTemplate and wxDocManager classes.
+
+    A normal document is the one created without parent document and is
+    associated with a disk file. Since version 2.9.2 wxWidgets also supports a
+    special kind of documents called <em>child documents</em> which are virtual
+    in the sense that they do not correspond to a file but rather to a part of
+    their parent document. Because of this, the child documents can't be
+    created directly by user but can only be created by the parent document
+    (usually when it's being created itself). They also can't be independently
+    saved. A child document has its own view with the corresponding window.
+    This view can be closed by user but, importantly, is also automatically
+    closed when its parent document is closed. Thus, child documents may be
+    convenient for creating additional windows which need to be closed when the
+    main document is. The docview sample demonstrates this use of child
+    documents by creating a child document containing the information about the
+    parameters of the image opened in the main document.
 
     @library{wxcore}
     @category{docview}
@@ -1114,8 +1160,14 @@ public:
     /**
         Constructor. Define your own default constructor to initialize
         application-specific data.
+
+        @param parent
+            Specifying a non-@c NULL parent document here makes this document a
+            special <em>child document</em>, see their description in the class
+            documentation. Notice that this parameter exists but is ignored in
+            wxWidgets versions prior to 2.9.1.
     */
-    wxDocument(wxDocument* parent = 0);
+    wxDocument(wxDocument* parent = NULL);
 
     /**
         Destructor. Removes itself from the document manager.
@@ -1247,6 +1299,18 @@ public:
     wxList& GetViews();
     const wxList& GetViews() const;
     //@}
+
+    /**
+        Returns true if this document is a child document corresponding to a
+        part of the parent document and not a disk file as usual.
+
+        This method can be used to check whether file-related operations make
+        sense for this document as they only apply to top-level documents and
+        not child ones.
+
+        @since 2.9.2
+     */
+    bool IsChildDocument() const;
 
     /**
         Returns @true if the document has been modified since the last save,

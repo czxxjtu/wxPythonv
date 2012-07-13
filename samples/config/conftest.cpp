@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     03.08.98
-// RCS-ID:      $Id: conftest.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: conftest.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -63,21 +63,14 @@ private:
     DECLARE_EVENT_TABLE()
 };
 
-enum
-{
-  ConfTest_Quit,
-  ConfTest_About,
-  ConfTest_Delete
-};
-
 // ----------------------------------------------------------------------------
 // event tables
 // ----------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(MyFrame, wxFrame)
-  EVT_MENU(ConfTest_Quit, MyFrame::OnQuit)
-  EVT_MENU(ConfTest_About, MyFrame::OnAbout)
-  EVT_MENU(ConfTest_Delete, MyFrame::OnDelete)
+  EVT_MENU(wxID_EXIT, MyFrame::OnQuit)
+  EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)
+  EVT_MENU(wxID_DELETE, MyFrame::OnDelete)
 END_EVENT_TABLE()
 
 // ============================================================================
@@ -126,7 +119,6 @@ bool MyApp::OnInit()
     // create the main program window
     MyFrame *frame = new MyFrame;
     frame->Show(true);
-    SetTopWindow(frame);
 
     // use our config object...
     if ( pConfig->Read(wxT("/Controls/Check"), 1l) != 0 ) {
@@ -163,11 +155,11 @@ MyFrame::MyFrame()
     // menu
     wxMenu *file_menu = new wxMenu;
 
-    file_menu->Append(ConfTest_Delete, wxT("&Delete"), wxT("Delete config file"));
+    file_menu->Append(wxID_DELETE, wxT("&Delete"), wxT("Delete config file"));
     file_menu->AppendSeparator();
-    file_menu->Append(ConfTest_About, wxT("&About\tF1"), wxT("About this sample"));
+    file_menu->Append(wxID_ABOUT, wxT("&About\tF1"), wxT("About this sample"));
     file_menu->AppendSeparator();
-    file_menu->Append(ConfTest_Quit, wxT("E&xit\tAlt-X"), wxT("Exit the program"));
+    file_menu->Append(wxID_EXIT, wxT("E&xit\tAlt-X"), wxT("Exit the program"));
     wxMenuBar *menu_bar = new wxMenuBar;
     menu_bar->Append(file_menu, wxT("&File"));
     SetMenuBar(menu_bar);

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        region.h
+// Name:        wx/osx/carbon/region.h
 // Purpose:     wxRegion class
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: region.h 57915 2009-01-08 16:43:56Z FM $
+// RCS-ID:      $Id: region.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ public:
     virtual bool IsEmpty() const;
 
     // Internal
-    const WXHRGN GetWXHRGN() const ;
+    WXHRGN GetWXHRGN() const ;
 
 protected:
     virtual wxGDIRefData *CreateGDIRefData() const;

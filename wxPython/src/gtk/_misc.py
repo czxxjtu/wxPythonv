@@ -95,6 +95,7 @@ SYS_COLOUR_GRADIENTINACTIVECAPTION = _misc_.SYS_COLOUR_GRADIENTINACTIVECAPTION
 SYS_COLOUR_MENUHILIGHT = _misc_.SYS_COLOUR_MENUHILIGHT
 SYS_COLOUR_MENUBAR = _misc_.SYS_COLOUR_MENUBAR
 SYS_COLOUR_LISTBOXTEXT = _misc_.SYS_COLOUR_LISTBOXTEXT
+SYS_COLOUR_LISTBOXHIGHLIGHTTEXT = _misc_.SYS_COLOUR_LISTBOXHIGHLIGHTTEXT
 SYS_COLOUR_MAX = _misc_.SYS_COLOUR_MAX
 SYS_COLOUR_DESKTOP = _misc_.SYS_COLOUR_DESKTOP
 SYS_COLOUR_3DFACE = _misc_.SYS_COLOUR_3DFACE
@@ -2905,6 +2906,8 @@ ART_GO_UP = cvar.ART_GO_UP
 ART_GO_DOWN = cvar.ART_GO_DOWN
 ART_GO_TO_PARENT = cvar.ART_GO_TO_PARENT
 ART_GO_HOME = cvar.ART_GO_HOME
+ART_GOTO_FIRST = cvar.ART_GOTO_FIRST
+ART_GOTO_LAST = cvar.ART_GOTO_LAST
 ART_FILE_OPEN = cvar.ART_FILE_OPEN
 ART_FILE_SAVE = cvar.ART_FILE_SAVE
 ART_FILE_SAVE_AS = cvar.ART_FILE_SAVE_AS
@@ -2937,6 +2940,8 @@ ART_DELETE = cvar.ART_DELETE
 ART_NEW = cvar.ART_NEW
 ART_UNDO = cvar.ART_UNDO
 ART_REDO = cvar.ART_REDO
+ART_PLUS = cvar.ART_PLUS
+ART_MINUS = cvar.ART_MINUS
 ART_CLOSE = cvar.ART_CLOSE
 ART_QUIT = cvar.ART_QUIT
 ART_FIND = cvar.ART_FIND
@@ -6982,5 +6987,61 @@ def AboutBox(*args, **kwargs):
     function falls back to the generic wxWidgets version of the dialog.
     """
   return _misc_.AboutBox(*args, **kwargs)
+#---------------------------------------------------------------------------
+
+class UIActionSimulator(object):
+    """Proxy of C++ UIActionSimulator class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """__init__(self) -> UIActionSimulator"""
+        _misc_.UIActionSimulator_swiginit(self,_misc_.new_UIActionSimulator(*args, **kwargs))
+    __swig_destroy__ = _misc_.delete_UIActionSimulator
+    __del__ = lambda self : None;
+    def MouseMove(*args):
+        """
+        MouseMove(self, long x, long y) -> bool
+        MouseMove(self, Point point) -> bool
+        """
+        return _misc_.UIActionSimulator_MouseMove(*args)
+
+    def MouseDown(*args, **kwargs):
+        """MouseDown(self, int button=MOUSE_BTN_LEFT) -> bool"""
+        return _misc_.UIActionSimulator_MouseDown(*args, **kwargs)
+
+    def MouseUp(*args, **kwargs):
+        """MouseUp(self, int button=MOUSE_BTN_LEFT) -> bool"""
+        return _misc_.UIActionSimulator_MouseUp(*args, **kwargs)
+
+    def MouseClick(*args, **kwargs):
+        """MouseClick(self, int button=MOUSE_BTN_LEFT) -> bool"""
+        return _misc_.UIActionSimulator_MouseClick(*args, **kwargs)
+
+    def MouseDblClick(*args, **kwargs):
+        """MouseDblClick(self, int button=MOUSE_BTN_LEFT) -> bool"""
+        return _misc_.UIActionSimulator_MouseDblClick(*args, **kwargs)
+
+    def MouseDragDrop(*args, **kwargs):
+        """MouseDragDrop(self, long x1, long y1, long x2, long y2, int button=MOUSE_BTN_LEFT) -> bool"""
+        return _misc_.UIActionSimulator_MouseDragDrop(*args, **kwargs)
+
+    def KeyDown(*args, **kwargs):
+        """KeyDown(self, int keycode, int modifiers=MOD_NONE) -> bool"""
+        return _misc_.UIActionSimulator_KeyDown(*args, **kwargs)
+
+    def KeyUp(*args, **kwargs):
+        """KeyUp(self, int keycode, int modifiers=MOD_NONE) -> bool"""
+        return _misc_.UIActionSimulator_KeyUp(*args, **kwargs)
+
+    def Char(*args, **kwargs):
+        """Char(self, int keycode, int modifiers=MOD_NONE) -> bool"""
+        return _misc_.UIActionSimulator_Char(*args, **kwargs)
+
+    def Text(*args, **kwargs):
+        """Text(self, char text) -> bool"""
+        return _misc_.UIActionSimulator_Text(*args, **kwargs)
+
+_misc_.UIActionSimulator_swigregister(UIActionSimulator)
+
 
 

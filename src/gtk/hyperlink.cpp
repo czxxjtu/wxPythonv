@@ -3,7 +3,7 @@
 // Purpose:     Hyperlink control
 // Author:      Francesco Montorsi
 // Created:     14/2/2007
-// RCS-ID:      $Id: hyperlink.cpp 63549 2010-02-25 00:03:35Z VZ $
+// RCS-ID:      $Id: hyperlink.cpp 67378 2011-04-02 20:43:29Z PC $
 // Copyright:   (c) 2007 Francesco Montorsi
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -46,9 +46,6 @@ static inline bool UseNative()
 // ============================================================================
 // implementation
 // ============================================================================
-
-IMPLEMENT_DYNAMIC_CLASS(wxHyperlinkCtrl, wxGenericHyperlinkCtrl)
-
 
 // ----------------------------------------------------------------------------
 // "clicked"
@@ -124,6 +121,13 @@ wxSize wxHyperlinkCtrl::DoGetBestSize() const
     if ( UseNative() )
         return wxControl::DoGetBestSize();
     return wxGenericHyperlinkCtrl::DoGetBestSize();
+}
+
+wxSize wxHyperlinkCtrl::DoGetBestClientSize() const
+{
+    if ( UseNative() )
+        return wxControl::DoGetBestClientSize();
+    return wxGenericHyperlinkCtrl::DoGetBestClientSize();
 }
 
 void wxHyperlinkCtrl::SetLabel(const wxString &label)

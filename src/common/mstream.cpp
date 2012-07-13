@@ -4,7 +4,7 @@
 // Author:      Guilhem Lavaux
 // Modified by: VZ (23.11.00): general code review
 // Created:     04/01/98
-// RCS-ID:      $Id: mstream.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: mstream.cpp 65861 2010-10-22 14:17:30Z VZ $
 // Copyright:   (c) Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ IMPLEMENT_ABSTRACT_CLASS(wxMemoryInputStream, wxInputStream)
 wxMemoryInputStream::wxMemoryInputStream(const void *data, size_t len)
 {
     m_i_streambuf = new wxStreamBuffer(wxStreamBuffer::read);
-    m_i_streambuf->SetBufferIO((void *)data, len); // const_cast
+    m_i_streambuf->SetBufferIO(const_cast<void *>(data), len);
     m_i_streambuf->SetIntPosition(0); // seek to start pos
     m_i_streambuf->Fixed(true);
 

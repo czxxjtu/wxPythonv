@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     01.06.01
-// RCS-ID:      $Id: evtloop.h 64146 2010-04-26 14:19:31Z VZ $
+// RCS-ID:      $Id: evtloop.h 65057 2010-07-23 23:32:46Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@
 
 // TODO: implement wxEventLoopSource for MSW (it should wrap a HANDLE and be
 //       monitored using MsgWaitForMultipleObjects())
-#if defined(__WXOSX__) || defined(__UNIX__)
+#if defined(__WXOSX__) || (defined(__UNIX__) && !defined(__CYGWIN__))
     #define wxUSE_EVENTLOOP_SOURCE 1
 #else
     #define wxUSE_EVENTLOOP_SOURCE 0
@@ -310,7 +310,7 @@ protected:
 #endif // wxUSE_GUI
 
 // include the header defining wxConsoleEventLoop for Unix systems
-#if defined(__UNIX__)
+#if defined(__UNIX__) && !defined(__CYGWIN__)
 #include "wx/unix/evtloop.h"
 #endif
 

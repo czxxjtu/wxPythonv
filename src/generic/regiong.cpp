@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/generic/region.cpp
+// Name:        src/generic/regiong.cpp
 // Purpose:     generic wxRegion class
 // Author:      David Elliott
 // Modified by:
 // Created:     2004/04/12
-// RCS-ID:      $Id: regiong.cpp 62339 2009-10-08 22:38:18Z VZ $
+// RCS-ID:      $Id: regiong.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

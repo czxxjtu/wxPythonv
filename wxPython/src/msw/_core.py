@@ -313,6 +313,11 @@ ID_MDI_WINDOW_ARRANGE_ICONS = _core_.ID_MDI_WINDOW_ARRANGE_ICONS
 ID_MDI_WINDOW_PREV = _core_.ID_MDI_WINDOW_PREV
 ID_MDI_WINDOW_NEXT = _core_.ID_MDI_WINDOW_NEXT
 ID_MDI_WINDOW_LAST = _core_.ID_MDI_WINDOW_LAST
+ID_OSX_MENU_FIRST = _core_.ID_OSX_MENU_FIRST
+ID_OSX_HIDE = _core_.ID_OSX_HIDE
+ID_OSX_HIDEOTHERS = _core_.ID_OSX_HIDEOTHERS
+ID_OSX_SHOWALL = _core_.ID_OSX_SHOWALL
+ID_OSX_MENU_LAST = _core_.ID_OSX_MENU_LAST
 ID_FILEDLGG = _core_.ID_FILEDLGG
 ID_FILECTRL = _core_.ID_FILECTRL
 ID_HIGHEST = _core_.ID_HIGHEST
@@ -415,6 +420,33 @@ FDIAGONAL_HATCH = _core_.FDIAGONAL_HATCH
 CROSS_HATCH = _core_.CROSS_HATCH
 HORIZONTAL_HATCH = _core_.HORIZONTAL_HATCH
 VERTICAL_HATCH = _core_.VERTICAL_HATCH
+WXK_NONE = _core_.WXK_NONE
+WXK_CONTROL_A = _core_.WXK_CONTROL_A
+WXK_CONTROL_B = _core_.WXK_CONTROL_B
+WXK_CONTROL_C = _core_.WXK_CONTROL_C
+WXK_CONTROL_D = _core_.WXK_CONTROL_D
+WXK_CONTROL_E = _core_.WXK_CONTROL_E
+WXK_CONTROL_F = _core_.WXK_CONTROL_F
+WXK_CONTROL_G = _core_.WXK_CONTROL_G
+WXK_CONTROL_H = _core_.WXK_CONTROL_H
+WXK_CONTROL_I = _core_.WXK_CONTROL_I
+WXK_CONTROL_J = _core_.WXK_CONTROL_J
+WXK_CONTROL_K = _core_.WXK_CONTROL_K
+WXK_CONTROL_L = _core_.WXK_CONTROL_L
+WXK_CONTROL_M = _core_.WXK_CONTROL_M
+WXK_CONTROL_N = _core_.WXK_CONTROL_N
+WXK_CONTROL_O = _core_.WXK_CONTROL_O
+WXK_CONTROL_P = _core_.WXK_CONTROL_P
+WXK_CONTROL_Q = _core_.WXK_CONTROL_Q
+WXK_CONTROL_R = _core_.WXK_CONTROL_R
+WXK_CONTROL_S = _core_.WXK_CONTROL_S
+WXK_CONTROL_T = _core_.WXK_CONTROL_T
+WXK_CONTROL_U = _core_.WXK_CONTROL_U
+WXK_CONTROL_V = _core_.WXK_CONTROL_V
+WXK_CONTROL_W = _core_.WXK_CONTROL_W
+WXK_CONTROL_X = _core_.WXK_CONTROL_X
+WXK_CONTROL_Y = _core_.WXK_CONTROL_Y
+WXK_CONTROL_Z = _core_.WXK_CONTROL_Z
 WXK_BACK = _core_.WXK_BACK
 WXK_TAB = _core_.WXK_TAB
 WXK_RETURN = _core_.WXK_RETURN
@@ -1088,6 +1120,14 @@ class Point(object):
         _core_.Point_swiginit(self,_core_.new_Point(*args, **kwargs))
     __swig_destroy__ = _core_.delete_Point
     __del__ = lambda self : None;
+    def IsFullySpecified(*args, **kwargs):
+        """IsFullySpecified(self) -> bool"""
+        return _core_.Point_IsFullySpecified(*args, **kwargs)
+
+    def SetDefaults(*args, **kwargs):
+        """SetDefaults(self, Point pt)"""
+        return _core_.Point_SetDefaults(*args, **kwargs)
+
     def __eq__(*args, **kwargs):
         """
         __eq__(self, PyObject other) -> bool
@@ -2507,6 +2547,7 @@ IMAGE_ALPHA_OPAQUE = _core_.IMAGE_ALPHA_OPAQUE
 IMAGE_QUALITY_NEAREST = _core_.IMAGE_QUALITY_NEAREST
 IMAGE_QUALITY_BILINEAR = _core_.IMAGE_QUALITY_BILINEAR
 IMAGE_QUALITY_BICUBIC = _core_.IMAGE_QUALITY_BICUBIC
+IMAGE_QUALITY_BOX_AVERAGE = _core_.IMAGE_QUALITY_BOX_AVERAGE
 IMAGE_QUALITY_NORMAL = _core_.IMAGE_QUALITY_NORMAL
 IMAGE_QUALITY_HIGH = _core_.IMAGE_QUALITY_HIGH
 #---------------------------------------------------------------------------
@@ -3415,6 +3456,10 @@ class Image(Object):
         """
         return _core_.Image_Rotate90(*args, **kwargs)
 
+    def Rotate180(*args, **kwargs):
+        """Rotate180(self) -> Image"""
+        return _core_.Image_Rotate180(*args, **kwargs)
+
     def Mirror(*args, **kwargs):
         """
         Mirror(self, bool horizontally=True) -> Image
@@ -4116,6 +4161,9 @@ class EvtHandler(Object):
         :param id2: Used when it is desirable to bind a handler
                       to a range of IDs, such as with EVT_MENU_RANGE.
         """
+        assert isinstance(event, wx.PyEventBinder)
+        assert handler is None or callable(handler)
+        assert source is None or hasattr(source, 'GetId')
         if source is not None:
             id  = source.GetId()
         event.Bind(self, id, id2, handler)              
@@ -4395,6 +4443,8 @@ class MouseState(KeyboardState):
 
     x = property(GetX, SetX)
     y = property(GetY, SetY)
+    X = property(GetX, SetX)  # uppercase versions for 2.8 compatibility
+    Y = property(GetY, SetY)
     leftIsDown = property(LeftIsDown, SetLeftDown)
     middleIsDown = property(MiddleIsDown, SetMiddleDown)
     rightIsDown = property(RightIsDown, SetRightDown)
@@ -4531,7 +4581,7 @@ wxEVT_COMMAND_TOOL_ENTER = _core_.wxEVT_COMMAND_TOOL_ENTER
 wxEVT_COMMAND_TOOL_DROPDOWN_CLICKED = _core_.wxEVT_COMMAND_TOOL_DROPDOWN_CLICKED
 wxEVT_COMMAND_COMBOBOX_DROPDOWN = _core_.wxEVT_COMMAND_COMBOBOX_DROPDOWN
 wxEVT_COMMAND_COMBOBOX_CLOSEUP = _core_.wxEVT_COMMAND_COMBOBOX_CLOSEUP
-wxEVT_COMMAND_THREAD = _core_.wxEVT_COMMAND_THREAD
+wxEVT_THREAD = _core_.wxEVT_THREAD
 wxEVT_LEFT_DOWN = _core_.wxEVT_LEFT_DOWN
 wxEVT_LEFT_UP = _core_.wxEVT_LEFT_UP
 wxEVT_MIDDLE_DOWN = _core_.wxEVT_MIDDLE_DOWN
@@ -4821,7 +4871,7 @@ EVT_TEXT_CUT   =  wx.PyEventBinder( wxEVT_COMMAND_TEXT_CUT )
 EVT_TEXT_COPY  =  wx.PyEventBinder( wxEVT_COMMAND_TEXT_COPY )
 EVT_TEXT_PASTE =  wx.PyEventBinder( wxEVT_COMMAND_TEXT_PASTE )
 
-EVT_THREAD = wx.PyEventBinder( wxEVT_COMMAND_THREAD )
+EVT_THREAD = wx.PyEventBinder( wxEVT_THREAD )
 
 #---------------------------------------------------------------------------
 
@@ -5239,13 +5289,40 @@ _core_.NotifyEvent_swigregister(NotifyEvent)
 
 #---------------------------------------------------------------------------
 
-class ThreadEvent(CommandEvent):
+class ThreadEvent(Event):
     """Proxy of C++ ThreadEvent class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
     def __init__(self, *args, **kwargs): 
-        """__init__(self, EventType eventType=wxEVT_COMMAND_THREAD, int id=ID_ANY) -> ThreadEvent"""
+        """__init__(self, EventType eventType=wxEVT_THREAD, int id=ID_ANY) -> ThreadEvent"""
         _core_.ThreadEvent_swiginit(self,_core_.new_ThreadEvent(*args, **kwargs))
+    def GetExtraLong(*args, **kwargs):
+        """GetExtraLong(self) -> long"""
+        return _core_.ThreadEvent_GetExtraLong(*args, **kwargs)
+
+    def GetInt(*args, **kwargs):
+        """GetInt(self) -> int"""
+        return _core_.ThreadEvent_GetInt(*args, **kwargs)
+
+    def GetString(*args, **kwargs):
+        """GetString(self) -> String"""
+        return _core_.ThreadEvent_GetString(*args, **kwargs)
+
+    def SetExtraLong(*args, **kwargs):
+        """SetExtraLong(self, long extraLong)"""
+        return _core_.ThreadEvent_SetExtraLong(*args, **kwargs)
+
+    def SetInt(*args, **kwargs):
+        """SetInt(self, int intCommand)"""
+        return _core_.ThreadEvent_SetInt(*args, **kwargs)
+
+    def SetString(*args, **kwargs):
+        """SetString(self, String string)"""
+        return _core_.ThreadEvent_SetString(*args, **kwargs)
+
+    ExtraLong = property(GetExtraLong,SetExtraLong,doc="See `GetExtraLong` and `SetExtraLong`") 
+    Int = property(GetInt,SetInt,doc="See `GetInt` and `SetInt`") 
+    String = property(GetString,SetString,doc="See `GetString` and `SetString`") 
 _core_.ThreadEvent_swigregister(ThreadEvent)
 
 #---------------------------------------------------------------------------
@@ -5861,7 +5938,7 @@ class KeyEvent(Event,KeyboardState):
         GetUnicodeKey(self) -> int
 
         Returns the Unicode character corresponding to this key event.  This
-        function is only meaningfule in a Unicode build of wxPython.
+        function is only meaningful in a Unicode build of wxPython.
         """
         return _core_.KeyEvent_GetUnicodeKey(*args, **kwargs)
 
@@ -7430,7 +7507,7 @@ _core_.PyEvent_swigregister(PyEvent)
 class PyCommandEvent(CommandEvent):
     """
     wx.PyCommandEvent can be used as a base class for implementing custom
-    event types in Python, where the event shoudl travel up to parent
+    event types in Python, where the event should travel up to parent
     windows looking for a handler.  You should derived from this class
     instead of `wx.CommandEvent` because this class is Python-aware and is
     able to transport its Python bits safely through the wxWidgets event
@@ -7871,15 +7948,6 @@ class PyApp(EvtHandler):
         """
         return _core_.PyApp_ProcessIdle(*args, **kwargs)
 
-    def SendIdleEvents(*args, **kwargs):
-        """
-        SendIdleEvents(self, Window win, IdleEvent event) -> bool
-
-        Send idle event to window and all subwindows.  Returns True if more
-        idle time is requested.
-        """
-        return _core_.PyApp_SendIdleEvents(*args, **kwargs)
-
     def IsActive(*args, **kwargs):
         """
         IsActive(self) -> bool
@@ -8062,7 +8130,7 @@ class PyApp(EvtHandler):
         This will mean different things on the different platforms.
 
            * On X Windows systems this function will return ``False`` if it is
-             not able to open a connection to the X display, which can happen
+             not able to open a connection to the X server, which can happen
              if $DISPLAY is not set, or is not set correctly.
 
            * On Mac OS X a ``False`` return value will mean that wx is not
@@ -8176,7 +8244,7 @@ def PyApp_IsDisplayAvailable(*args):
     This will mean different things on the different platforms.
 
        * On X Windows systems this function will return ``False`` if it is
-         not able to open a connection to the X display, which can happen
+         not able to open a connection to the X server, which can happen
          if $DISPLAY is not set, or is not set correctly.
 
        * On Mac OS X a ``False`` return value will mean that wx is not
@@ -10590,16 +10658,6 @@ class Window(EvtHandler):
         """
         return _core_.Window_Thaw(*args, **kwargs)
 
-    def PrepareDC(*args, **kwargs):
-        """
-        PrepareDC(self, DC dc)
-
-        Call this function to prepare the device context for drawing a
-        scrolled image. It sets the device origin according to the current
-        scroll position.
-        """
-        return _core_.Window_PrepareDC(*args, **kwargs)
-
     def IsDoubleBuffered(*args, **kwargs):
         """
         IsDoubleBuffered(self) -> bool
@@ -11003,7 +11061,7 @@ class Window(EvtHandler):
 
     def GetPopupMenuSelectionFromUser(*args, **kwargs):
         """
-        GetPopupMenuSelectionFromUser(self, Menu menu, Point pos) -> int
+        GetPopupMenuSelectionFromUser(self, Menu menu, Point pos=DefaultPosition) -> int
 
         Simply return the id of the selected item or wxID_NONE without
         generating any events.
@@ -11013,6 +11071,15 @@ class Window(EvtHandler):
     def HasMultiplePages(*args, **kwargs):
         """HasMultiplePages(self) -> bool"""
         return _core_.Window_HasMultiplePages(*args, **kwargs)
+
+    def SendIdleEvents(*args, **kwargs):
+        """
+        SendIdleEvents(self, IdleEvent event) -> bool
+
+        Send idle event to window and all subwindows.  Returns True if more
+        idle time is requested.
+        """
+        return _core_.Window_SendIdleEvents(*args, **kwargs)
 
     def GetHandle(*args, **kwargs):
         """
@@ -11253,6 +11320,15 @@ class Window(EvtHandler):
         get the associated tooltip or None if none
         """
         return _core_.Window_GetToolTip(*args, **kwargs)
+
+    def GetToolTipString(self):
+        tip = self.GetToolTip()
+        if tip:
+            return tip.GetTip()
+        else:
+            return None
+
+    ToolTipString = property(GetToolTipString, SetToolTipString)
 
     def SetDropTarget(*args, **kwargs):
         """
@@ -12534,6 +12610,10 @@ class Control(Window):
         """SetLabelText(self, String text)"""
         return _core_.Control_SetLabelText(*args, **kwargs)
 
+    def SetLabelMarkup(*args, **kwargs):
+        """SetLabelMarkup(self, String markup) -> bool"""
+        return _core_.Control_SetLabelMarkup(*args, **kwargs)
+
     def Command(*args, **kwargs):
         """
         Command(self, CommandEvent event)
@@ -12890,6 +12970,11 @@ _core_.ControlWithItems_swigregister(ControlWithItems)
 
 #---------------------------------------------------------------------------
 
+TE_HT_UNKNOWN = _core_.TE_HT_UNKNOWN
+TE_HT_BEFORE = _core_.TE_HT_BEFORE
+TE_HT_ON_TEXT = _core_.TE_HT_ON_TEXT
+TE_HT_BELOW = _core_.TE_HT_BELOW
+TE_HT_BEYOND = _core_.TE_HT_BEYOND
 class TextEntryBase(object):
     """Proxy of C++ TextEntryBase class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
@@ -14116,6 +14201,10 @@ class Sizer(Object):
         """
         return _core_.Sizer_GetItem(*args, **kwargs)
 
+    def _SetItemMinSize(*args, **kwargs):
+        """_SetItemMinSize(self, PyObject item, Size size)"""
+        return _core_.Sizer__SetItemMinSize(*args, **kwargs)
+
     def GetItemIndex(self, item):
         """
         Returns the index of the given *item* within the sizer. Does not
@@ -14132,10 +14221,6 @@ class Sizer(Object):
                 break
             idx += 1
         return idx
-
-    def _SetItemMinSize(*args, **kwargs):
-        """_SetItemMinSize(self, PyObject item, Size size)"""
-        return _core_.Sizer__SetItemMinSize(*args, **kwargs)
 
     def GetItemById(*args, **kwargs):
         """GetItemById(self, int id, bool recursive=False) -> SizerItem"""
@@ -15942,6 +16027,7 @@ _core_.LayoutConstraints_swigregister(LayoutConstraints)
 #---------------------------------------------------------------------------
 
 COL_WIDTH_DEFAULT = _core_.COL_WIDTH_DEFAULT
+COL_WIDTH_AUTOSIZE = _core_.COL_WIDTH_AUTOSIZE
 COL_RESIZABLE = _core_.COL_RESIZABLE
 COL_SORTABLE = _core_.COL_SORTABLE
 COL_REORDERABLE = _core_.COL_REORDERABLE
@@ -16127,6 +16213,60 @@ class HeaderColumnSimple(SettableHeaderColumn):
         _core_.HeaderColumnSimple_swiginit(self,_core_.new_HeaderColumnSimple(*args, **kwargs))
 _core_.HeaderColumnSimple_swigregister(HeaderColumnSimple)
 
+#---------------------------------------------------------------------------
+
+class VersionInfo(object):
+    """Proxy of C++ VersionInfo class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """
+        __init__(self, String name, int major, int minor, int micro=0, String description=wxEmptyString, 
+            String copyright=wxEmptyString) -> VersionInfo
+        """
+        _core_.VersionInfo_swiginit(self,_core_.new_VersionInfo(*args, **kwargs))
+    def GetName(*args, **kwargs):
+        """GetName(self) -> String"""
+        return _core_.VersionInfo_GetName(*args, **kwargs)
+
+    def GetMajor(*args, **kwargs):
+        """GetMajor(self) -> int"""
+        return _core_.VersionInfo_GetMajor(*args, **kwargs)
+
+    def GetMinor(*args, **kwargs):
+        """GetMinor(self) -> int"""
+        return _core_.VersionInfo_GetMinor(*args, **kwargs)
+
+    def GetMicro(*args, **kwargs):
+        """GetMicro(self) -> int"""
+        return _core_.VersionInfo_GetMicro(*args, **kwargs)
+
+    def ToString(*args, **kwargs):
+        """ToString(self) -> String"""
+        return _core_.VersionInfo_ToString(*args, **kwargs)
+
+    def GetVersionString(*args, **kwargs):
+        """GetVersionString(self) -> String"""
+        return _core_.VersionInfo_GetVersionString(*args, **kwargs)
+
+    def HasDescription(*args, **kwargs):
+        """HasDescription(self) -> bool"""
+        return _core_.VersionInfo_HasDescription(*args, **kwargs)
+
+    def GetDescription(*args, **kwargs):
+        """GetDescription(self) -> String"""
+        return _core_.VersionInfo_GetDescription(*args, **kwargs)
+
+    def HasCopyright(*args, **kwargs):
+        """HasCopyright(self) -> bool"""
+        return _core_.VersionInfo_HasCopyright(*args, **kwargs)
+
+    def GetCopyright(*args, **kwargs):
+        """GetCopyright(self) -> String"""
+        return _core_.VersionInfo_GetCopyright(*args, **kwargs)
+
+_core_.VersionInfo_swigregister(VersionInfo)
+
 #----------------------------------------------------------------------------
 
 # Use Python's bool constants if available, make some if not
@@ -16162,7 +16302,6 @@ if RELEASE_VERSION != _core_.RELEASE_VERSION:
 
 def version():
     """Returns a string containing version and port info"""
-    ctype = wx.USE_UNICODE and 'unicode' or 'ansi'
     if wx.Platform == '__WXMSW__':
         port = 'msw'
     elif wx.Platform == '__WXMAC__':
@@ -16177,8 +16316,8 @@ def version():
     else:
         port = '?'
 
-    return "%s (%s-%s)" % (wx.VERSION_STRING, port, ctype)
-                       
+    return "%s %s (classic)" % (wx.VERSION_STRING, port)
+                      
     
 #----------------------------------------------------------------------------
 
@@ -16273,7 +16412,7 @@ class _wxPyUnbornObject(object):
 
 #----------------------------------------------------------------------------
 
-def CallAfter(callable, *args, **kw):
+def CallAfter(callableObj, *args, **kw):
     """
     Call the specified function after the current and pending event
     handlers have been completed.  This is also good for making GUI
@@ -16282,6 +16421,7 @@ def CallAfter(callable, *args, **kw):
 
     :see: `wx.CallLater`
     """
+    assert callable(callableObj), "callableObj is not callable"
     app = wx.GetApp()
     assert app is not None, 'No wx.App created yet'
 
@@ -16291,7 +16431,7 @@ def CallAfter(callable, *args, **kw):
                     lambda event: event.callable(*event.args, **event.kw) )
     evt = wx.PyEvent()
     evt.SetEventType(app._CallAfterId)
-    evt.callable = callable
+    evt.callable = callableObj
     evt.args = args
     evt.kw = kw
     wx.PostEvent(app, evt)
@@ -16315,9 +16455,10 @@ class CallLater:
 
     :see: `wx.CallAfter`
     """
-    def __init__(self, millis, callable, *args, **kwargs):
+    def __init__(self, millis, callableObj, *args, **kwargs):
+        assert callable(callableObj), "callableObj is not callable"
         self.millis = millis
-        self.callable = callable
+        self.callable = callableObj
         self.SetArgs(*args, **kwargs)
         self.runCount = 0
         self.running = False

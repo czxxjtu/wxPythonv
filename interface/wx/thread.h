@@ -2,7 +2,7 @@
 // Name:        thread.h
 // Purpose:     interface of all thread-related wxWidgets classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: thread.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: thread.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -355,7 +355,7 @@ public:
                 download_chunk(buffer, 1024);     // this takes time...
 
                 {
-                    // ensure noone reads m_data while we write it
+                    // ensure no one reads m_data while we write it
                     wxCriticalSectionLocker lock(m_dataCS);
                     memcpy(m_data+offset, buffer, 1024);
                     offset += 1024;
@@ -455,6 +455,37 @@ public:
     virtual ExitCode Entry() = 0;
 
     /**
+        Callback called by Delete() before actually deleting the thread.
+
+        This function can be overridden by the derived class to perform some
+        specific task when the thread is gracefully destroyed. Notice that it
+        will be executed in the context of the thread that called Delete() and
+        <b>not</b> in this thread's context.
+
+        TestDestroy() will be true for the thread before OnDelete() gets
+        executed.
+
+        @since 2.9.2
+
+        @see OnKill()
+    */
+    virtual void OnDelete();
+
+    /**
+        Callback called by Kill() before actually killing the thread.
+
+        This function can be overridden by the derived class to perform some
+        specific task when the thread is terminated. Notice that it will be
+        executed in the context of the thread that called Kill() and <b>not</b>
+        in this thread's context.
+
+        @since 2.9.2
+
+        @see OnDelete()
+    */
+    virtual void OnKill();
+
+    /**
         @deprecated
         Use CreateThread() instead.
     */
@@ -513,7 +544,7 @@ enum wxCriticalSectionType
 
     Finally, you should try to use wxCriticalSectionLocker class whenever
     possible instead of directly using wxCriticalSection for the same reasons
-    wxMutexLocker is preferrable to wxMutex - please see wxMutex for an example.
+    wxMutexLocker is preferable to wxMutex - please see wxMutex for an example.
 
     @library{wxbase}
     @category{threading}
@@ -558,6 +589,46 @@ public:
         protected by it. There is no error return for this function.
     */
     void Leave();
+};
+
+/**
+    The possible thread wait types.
+
+    @since 2.9.2
+*/
+enum wxThreadWait
+{
+    /**
+        No events are processed while waiting.
+
+        This is the default under all platforms except for wxMSW.
+     */
+    wxTHREAD_WAIT_BLOCK,
+
+    /**
+        Yield for event dispatching while waiting.
+
+        This flag is dangerous as it exposes the program using it to unexpected
+        reentrancies in the same way as calling wxYield() function does so you
+        are strongly advised to avoid its use and not wait for the thread
+        termination from the main (GUI) thread at all to avoid making your
+        application unresponsive.
+
+        Also notice that this flag is not portable as it is only implemented in
+        wxMSW and simply ignored under the other platforms.
+     */
+    wxTHREAD_WAIT_YIELD,
+
+    /**
+        Default wait mode for wxThread::Wait() and wxThread::Delete().
+
+        For compatibility reasons, the default wait mode is currently
+        wxTHREAD_WAIT_YIELD if WXWIN_COMPATIBILITY_2_8 is defined (and it is
+        by default). However, as mentioned above, you're strongly encouraged to
+        not use wxTHREAD_WAIT_YIELD and pass wxTHREAD_WAIT_BLOCK to wxThread
+        method explicitly.
+     */
+    wxTHREAD_WAIT_DEFAULT = wxTHREAD_WAIT_YIELD
 };
 
 /**
@@ -626,10 +697,10 @@ enum
     @section thread_types Types of wxThreads
 
     There are two types of threads in wxWidgets: @e detached and @e joinable,
-    modeled after the the POSIX thread API. This is different from the Win32 API
+    modeled after the POSIX thread API. This is different from the Win32 API
     where all threads are joinable.
 
-    By default wxThreads in wxWidgets use the @b detached behavior.
+    By default wxThreads in wxWidgets use the @b detached behaviour.
     Detached threads delete themselves once they have completed, either by themselves
     when they complete processing or through a call to Delete(), and thus
     @b must be created on the heap (through the new operator, for example).
@@ -788,7 +859,7 @@ enum
 
             if (m_pThread)         // does the thread still exist?
             {
-                m_out.Printf("MYFRAME: deleting thread");
+                wxMessageOutputDebug().Printf("MYFRAME: deleting thread");
 
                 if (m_pThread->Delete() != wxTHREAD_NO_ERROR )
                     wxLogError("Can't delete the thread!");
@@ -886,10 +957,10 @@ enum
     A common problem users experience with wxThread is that in their main thread
     they will check the thread every now and then to see if it has ended through
     IsRunning(), only to find that their application has run into problems
-    because the thread is using the default behavior (i.e. it's @b detached) and
+    because the thread is using the default behaviour (i.e. it's @b detached) and
     has already deleted itself.
     Naturally, they instead attempt to use joinable threads in place of the previous
-    behavior. However, polling a wxThread for when it has ended is in general a
+    behaviour. However, polling a wxThread for when it has ended is in general a
     bad idea - in fact calling a routine on any running wxThread should be avoided
     if possible. Instead, find a way to notify yourself when the thread has ended.
 
@@ -956,7 +1027,7 @@ public:
             performance issues on those systems with small default stack since those
             typically use fully committed memory for the stack.
             On the contrary, if you use a lot of threads (say several hundred),
-            virtual adress space can get tight unless you explicitly specify a
+            virtual address space can get tight unless you explicitly specify a
             smaller amount of thread stack space for each thread.
 
         @return One of:
@@ -970,6 +1041,15 @@ public:
         Calling Delete() gracefully terminates a @b detached thread, either when
         the thread calls TestDestroy() or when it finishes processing.
 
+        @param rc
+            The thread exit code, if rc is not NULL.
+
+        @param waitMode
+            As described in wxThreadWait documentation, wxTHREAD_WAIT_BLOCK
+            should be used as the wait mode even although currently
+            wxTHREAD_WAIT_YIELD is for compatibility reasons. This parameter is
+            new in wxWidgets 2.9.2.
+
         @note
             This function works on a joinable thread but in that case makes
             the TestDestroy() function of the thread return @true and then
@@ -978,7 +1058,8 @@ public:
 
         See @ref thread_deletion for a broader explanation of this routine.
     */
-    wxThreadError Delete(void** rc = NULL);
+    wxThreadError Delete(ExitCode *rc = NULL,
+                         wxThreadWait waitMode = wxTHREAD_WAIT_BLOCK);
 
     /**
         Returns the number of system CPUs or -1 if the value is unknown.
@@ -1125,6 +1206,10 @@ public:
         of detached threads.
 
         This function can only be called from another thread context.
+        
+        Finally, note that once a thread has completed and its Entry() function
+        returns, you cannot call Run() on it again (an assert will fail in debug
+        builds or @c wxTHREAD_RUNNING will be returned in release builds).
     */
     wxThreadError Run();
 
@@ -1189,9 +1274,15 @@ public:
 
         This function can only be called from another thread context.
 
+        @param waitMode
+            As described in wxThreadWait documentation, wxTHREAD_WAIT_BLOCK
+            should be used as the wait mode even although currently
+            wxTHREAD_WAIT_YIELD is for compatibility reasons. This parameter is
+            new in wxWidgets 2.9.2.
+
         See @ref thread_deletion for a broader explanation of this routine.
     */
-    ExitCode Wait();
+    ExitCode Wait(wxThreadWait flags = wxTHREAD_WAIT_BLOCK);
 
     /**
         Give the rest of the thread's time-slice to the system allowing the other

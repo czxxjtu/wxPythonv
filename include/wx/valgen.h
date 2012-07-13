@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        valgen.h
+// Name:        wx/valgen.h
 // Purpose:     wxGenericValidator class
 // Author:      Kevin Smith
 // Created:     Jan 22 1999
-// RCS-ID:      $Id: valgen.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: valgen.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1999 Julian Smart (assigned from Kevin)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

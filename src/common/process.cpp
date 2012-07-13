@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        process.cpp
+// Name:        src/common/process.cpp
 // Purpose:     Process termination classes
 // Author:      Guilhem Lavaux
 // Modified by: Vadim Zeitlin to check error codes, added Detach() method
 // Created:     24/06/98
-// RCS-ID:      $Id: process.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: process.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dcclient.h
+// Name:        wx/gtk/dcclient.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: dcclient.h 61724 2009-08-21 10:41:26Z VZ $
+// Id:          $Id: dcclient.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

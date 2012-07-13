@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/04/01
-// RCS-ID:      $Id: dc.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dc.mm 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -456,7 +456,7 @@ void wxCocoaDCImpl::DoDrawBitmap(const wxBitmap &bmp, wxCoord x, wxCoord y, bool
 {
     wxAutoNSAutoreleasePool pool;
     if(!CocoaTakeFocus()) return;
-    if(!bmp.Ok())
+    if(!bmp.IsOk())
         return;
 
 #if 0
@@ -540,13 +540,13 @@ void wxCocoaDCImpl::DoGetSizeMM( int* width, int* height ) const
 
 void wxCocoaDCImpl::SetTextForeground( const wxColour &col )
 {
-//  if (!Ok()) return;
+//  if (!IsOk()) return;
   m_textForegroundColour = col;
 };
 
 void wxCocoaDCImpl::SetTextBackground( const wxColour &col )
 {
-//  if (!Ok()) return;
+//  if (!IsOk()) return;
   m_textBackgroundColour = col;
 };
 

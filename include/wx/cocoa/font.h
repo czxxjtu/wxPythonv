@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        font.h
+// Name:        wx/cocoa/font.h
 // Purpose:     wxFont class
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: font.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: font.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -103,7 +103,6 @@ public:
 
     // implement base class pure virtuals
     virtual int GetPointSize() const;
-    virtual wxFontFamily GetFamily() const;
     virtual wxFontStyle GetStyle() const;
     virtual wxFontWeight GetWeight() const;
     virtual bool GetUnderlined() const;
@@ -148,6 +147,8 @@ protected:
 
     virtual wxGDIRefData *CreateGDIRefData() const;
     virtual wxGDIRefData *CloneGDIRefData(const wxGDIRefData *data) const;
+
+    virtual wxFontFamily DoGetFamily() const;
 
 private:
     DECLARE_DYNAMIC_CLASS(wxFont)

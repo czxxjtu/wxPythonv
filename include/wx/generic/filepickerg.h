@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     14/4/2006
 // Copyright:   (c) Francesco Montorsi
-// RCS-ID:      $Id: filepickerg.h 63690 2010-03-16 00:23:57Z VZ $
+// RCS-ID:      $Id: filepickerg.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -49,7 +49,7 @@ public:
 
     virtual wxControl *AsControl() { return this; }
 
-public:     // overrideable
+public:     // overridable
 
     virtual wxDialog *CreateDialog() = 0;
 
@@ -114,7 +114,7 @@ public:
                pos, size, style, validator, name);
     }
 
-public:     // overrideable
+public:     // overridable
 
     virtual long GetDialogStyle() const
     {
@@ -190,7 +190,7 @@ public:
                pos, size, style, validator, name);
     }
 
-public:     // overrideable
+public:     // overridable
 
     virtual long GetDialogStyle() const
     {

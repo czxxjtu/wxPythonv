@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: settings.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: settings.cpp 67018 2011-02-25 09:38:35Z JS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -110,6 +110,7 @@ wxColour wxSystemSettingsNative::GetColour(wxSystemColour index)
             break ;
 
         case wxSYS_COLOUR_HIGHLIGHTTEXT :
+        case wxSYS_COLOUR_LISTBOXHIGHLIGHTTEXT :
 #if wxOSX_USE_COCOA_OR_CARBON
             {
                 wxColour highlightcolor( wxMacCreateCGColorFromHITheme(-3 /* kThemeBrushPrimaryHighlightColor */) );

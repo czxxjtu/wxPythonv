@@ -2,7 +2,7 @@
 // Name:        process.h
 // Purpose:     interface of wxProcess
 // Author:      wxWidgets team
-// RCS-ID:      $Id: process.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: process.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -123,6 +123,9 @@ public:
         This function can be used to indicate to the child process that
         there is no more data to be read - usually, a filter program will only
         terminate when the input stream is closed.
+
+        Notice that GetOutputStream() will return @NULL after the output stream
+        is closed.
     */
     void CloseOutput();
 
@@ -166,8 +169,10 @@ public:
     wxInputStream* GetInputStream() const;
 
     /**
-        It returns an output stream correspoding to the input stream of the subprocess.
-        If it is @NULL, you have not turned on the redirection.
+        It returns an output stream corresponding to the input stream of the subprocess.
+
+        If it is @NULL, you have not turned on the redirection or already
+        called CloseOutput().
 
         @see Redirect().
     */

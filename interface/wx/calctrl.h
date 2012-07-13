@@ -2,7 +2,7 @@
 // Name:        calctrl.h
 // Purpose:     interface of wxCalendarCtrl
 // Author:      wxWidgets team
-// RCS-ID:      $Id: calctrl.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: calctrl.h 67987 2011-06-19 22:46:36Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -306,8 +306,8 @@ public:
     /**
         This function should be used instead of changing
         @c wxCAL_NO_MONTH_CHANGE style bit. It allows or disallows the user to
-        change the month interactively. Note that if the month can not be
-        changed, the year can not be changed neither.
+        change the month interactively. Note that if the month cannot be
+        changed, the year cannot be changed neither.
 
         @return @true if the value of this option really changed or @false if
                 it was already set to the requested value.
@@ -424,7 +424,9 @@ public:
     /**
         Sets the current date.
 
-        The @a date parameter must be valid.
+        The @a date parameter must be valid and in the currently valid range as
+        set by SetDateRange(), otherwise the current date is not changed and
+        the function returns @false.
     */
     virtual bool SetDate(const wxDateTime& date);
 
@@ -476,14 +478,12 @@ public:
 
     /**
         @name Date Range Functions
-
-        The functions in this section are currently implemented in the generic
-        and MSW versions and do nothing in the native GTK implementation.
      */
     //@{
 
     /**
-        Restrict the dates shown by the control to the specified range.
+        Restrict the dates that can be selected in the control to the specified
+        range.
 
         If either date is set, the corresponding limit will be enforced and
         @true returned. If none are set, the existing restrictions are removed

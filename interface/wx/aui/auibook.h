@@ -2,7 +2,7 @@
 // Name:        aui/auibook.h
 // Purpose:     interface of wxAuiNotebook
 // Author:      wxWidgets team
-// RCS-ID:      $Id: auibook.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: auibook.h 67428 2011-04-10 15:36:03Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -339,6 +339,20 @@ public:
         Sets the font for drawing text for selected UI elements.
     */
     virtual void SetSelectedFont(const wxFont& font) = 0;
+
+    /**
+        Sets the colour of the inactive tabs.
+
+        @since 2.9.2
+    */
+    virtual void SetColour(const wxColour& colour) = 0;
+
+    /**
+        Sets the colour of the selected tab.
+
+        @since 2.9.2
+    */
+    virtual void SetActiveColour(const wxColour& colour) = 0;
 
     /**
         Sets sizing information.

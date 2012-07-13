@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin, Ryan Norton
 // Modified by:
 // Created:     29/01/98
-// RCS-ID:      $Id: stringimpl.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: stringimpl.cpp 66728 2011-01-22 14:38:36Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 //              (c) 2004 Ryan Norton <wxprojects@comcast.net>
 // Licence:     wxWindows licence
@@ -395,14 +395,14 @@ bool wxStringImpl::Alloc(size_t nLen)
 
 wxStringImpl::iterator wxStringImpl::begin()
 {
-    if (length() > 0)
+    if ( !empty() )
         CopyBeforeWrite();
     return m_pchData;
 }
 
 wxStringImpl::iterator wxStringImpl::end()
 {
-    if (length() > 0)
+    if ( !empty() )
         CopyBeforeWrite();
     return m_pchData + length();
 }
@@ -528,7 +528,7 @@ size_t wxStringImpl::rfind(const wxStringImpl& str, size_t nStart) const
     if ( length() >= str.length() )
     {
         // avoids a corner case later
-        if ( length() == 0 && str.length() == 0 )
+        if ( empty() && str.empty() )
             return 0;
 
         // "top" is the point where search starts from

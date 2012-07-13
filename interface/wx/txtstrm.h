@@ -2,7 +2,7 @@
 // Name:        txtstrm.h
 // Purpose:     interface of wxTextInputStream
 // Author:      wxWidgets team
-// RCS-ID:      $Id: txtstrm.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: txtstrm.h 67286 2011-03-22 17:15:45Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -72,6 +72,13 @@ public:
         Destructor.
     */
     ~wxTextInputStream();
+
+    /**
+        Returns a pointer to the underlying input stream object.
+
+        @since 2.9.2
+    */
+    const wxInputStream& GetInputStream() const;
 
     /**
         Reads a character, returns 0 if there are no more characters in the
@@ -251,6 +258,13 @@ public:
         @since 2.9.0
      */
     void Flush();
+
+    /**
+        Returns a pointer to the underlying output stream object.
+
+        @since 2.9.2
+    */
+    const wxOutputStream& GetOutputStream() const;
 
     /**
         Returns the end-of-line mode. One of ::wxEOL_DOS, ::wxEOL_MAC and

@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        htmltag.h
+// Name:        wx/html/htmltag.h
 // Purpose:     wxHtmlTag class (represents single tag)
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: htmltag.h 64443 2010-05-30 23:12:25Z VZ $
+// RCS-ID:      $Id: htmltag.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1999 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing wxSlider
 // Author:      Vadim Zeitlin
 // Created:     16.04.01
-// Id:          $Id: slider.cpp 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: slider.cpp 66844 2011-02-05 16:36:30Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -531,7 +531,7 @@ void SliderWidgetsPage::DoSetTickFreq()
         return;
     }
 
-    m_slider->SetTickFreq(freq, 0 /* unused */);
+    m_slider->SetTickFreq(freq);
 }
 
 void SliderWidgetsPage::DoSetThumbLen()

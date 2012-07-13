@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        uri.cpp
+// Name:        src/common/uri.cpp
 // Purpose:     Implementation of a URI parser
 // Author:      Ryan Norton,
 //              Vadim Zeitlin (UTF-8 URI support, many other changes)
 // Created:     10/26/04
-// RCS-ID:      $Id: uri.cpp 58272 2009-01-21 17:02:11Z VZ $
+// RCS-ID:      $Id: uri.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 Ryan Norton,
 //                  2008 Vadim Zeitlin
 // Licence:     wxWindows licence

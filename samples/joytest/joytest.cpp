@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: joytest.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: joytest.cpp 66614 2011-01-07 04:51:21Z PC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -28,6 +28,12 @@
 #include "wx/joystick.h"
 
 #include "joytest.h"
+
+// the application icon (under Windows and OS/2 it is in resources and even
+// though we could still include the XPM here it would be unused)
+#if !defined(__WXMSW__) && !defined(__WXPM__)
+    #include "../sample.xpm"
+#endif
 
 MyFrame *frame = NULL;
 
@@ -88,8 +94,6 @@ bool MyApp::OnInit()
 
     frame->CenterOnScreen();
     frame->Show(true);
-
-    SetTopWindow(frame);
 
     return true;
 }

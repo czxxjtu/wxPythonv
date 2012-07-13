@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: scrolbar.cpp 54129 2008-06-11 19:30:52Z SC $
+// RCS-ID:      $Id: scrolbar.mm 67232 2011-03-18 15:10:15Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:       wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

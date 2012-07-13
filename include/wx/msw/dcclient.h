@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dcclient.h
+// Name:        wx/msw/dcclient.h
 // Purpose:     wxClientDC class
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: dcclient.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: dcclient.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

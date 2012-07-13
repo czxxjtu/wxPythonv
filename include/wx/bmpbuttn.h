@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/bmpbutton.h
+// Name:        wx/bmpbuttn.h
 // Purpose:     wxBitmapButton class interface
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     25.08.00
-// RCS-ID:      $Id: bmpbuttn.h 62347 2009-10-09 12:24:35Z SC $
+// RCS-ID:      $Id: bmpbuttn.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2000 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

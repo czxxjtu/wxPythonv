@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: bitmap.h 59711 2009-03-21 23:36:37Z VZ $
+// RCS-ID:      $Id: bitmap.h 66086 2010-11-10 13:51:51Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,6 @@ class WXDLLIMPEXP_FWD_CORE wxDC;
 class WXDLLIMPEXP_FWD_CORE wxDIB;
 #endif
 class WXDLLIMPEXP_FWD_CORE wxIcon;
-class WXDLLIMPEXP_FWD_CORE wxImage;
 class WXDLLIMPEXP_FWD_CORE wxMask;
 class WXDLLIMPEXP_FWD_CORE wxPalette;
 class WXDLLIMPEXP_FWD_CORE wxPixelDataBase;
@@ -115,6 +114,7 @@ public:
 
 #if wxUSE_IMAGE
     wxImage ConvertToImage() const;
+    wxBitmap ConvertToDisabled(unsigned char brightness = 255) const;
 #endif // wxUSE_IMAGE
 
     // get the given part of bitmap

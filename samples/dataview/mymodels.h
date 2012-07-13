@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Francesco Montorsi, Bo Yang
 // Created:     06/01/06
-// RCS-ID:      $Id: mymodels.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: mymodels.h 66403 2010-12-19 15:02:56Z VZ $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -163,6 +163,9 @@ public:
     virtual bool SetValue( const wxVariant &variant,
                            const wxDataViewItem &item, unsigned int col );
 
+    virtual bool IsEnabled( const wxDataViewItem &item,
+                            unsigned int col ) const;
+
     virtual wxDataViewItem GetParent( const wxDataViewItem &item ) const;
     virtual bool IsContainer( const wxDataViewItem &item ) const;
     virtual unsigned int GetChildren( const wxDataViewItem &parent,
@@ -222,11 +225,6 @@ public:
         return wxT("string");
     }
 
-    virtual unsigned int GetRowCount()
-    {
-        return m_textColValues.GetCount();
-    }
-
     virtual void GetValueByRow( wxVariant &variant,
                                 unsigned int row, unsigned int col ) const;
     virtual bool GetAttrByRow( unsigned int row, unsigned int col,
@@ -238,6 +236,14 @@ private:
     wxArrayString    m_textColValues;
     wxArrayString    m_iconColValues;
     wxIcon           m_icon[2];
-    int              m_virtualItems;
 };
 
+// ----------------------------------------------------------------------------
+// MyListStoreDerivedModel
+// ----------------------------------------------------------------------------
+
+class MyListStoreDerivedModel : public wxDataViewListStore
+{
+public:
+    virtual bool IsEnabledByRow(unsigned int row, unsigned int col) const;
+};

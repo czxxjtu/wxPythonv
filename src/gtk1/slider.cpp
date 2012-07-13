@@ -2,7 +2,7 @@
 // Name:        src/gtk1/slider.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: slider.cpp 58227 2009-01-19 13:55:27Z VZ $
+// Id:          $Id: slider.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -124,8 +124,6 @@ static gint gtk_slider_button_release_callback( GtkWidget *scale,
 //-----------------------------------------------------------------------------
 // wxSlider
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxSlider,wxControl)
 
 bool wxSlider::Create(wxWindow *parent, wxWindowID id,
         int value, int minValue, int maxValue,

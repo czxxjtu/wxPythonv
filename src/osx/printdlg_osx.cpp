@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: printdlg.cpp 58164 2009-01-17 08:46:00Z SC $
+// RCS-ID:      $Id: printdlg_osx.cpp 65561 2010-09-17 11:17:55Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

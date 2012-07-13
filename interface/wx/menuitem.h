@@ -2,7 +2,7 @@
 // Name:        menuitem.h
 // Purpose:     interface of wxMenu, wxMenuItem
 // Author:      wxWidgets team
-// RCS-ID:      $Id: menuitem.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: menuitem.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -349,7 +349,7 @@ public:
     /**
         Sets the label associated with the menu item.
         
-        Note that if the ID of this menu item corrisponds to a stock ID, then it is 
+        Note that if the ID of this menu item corresponds to a stock ID, then it is 
         not necessary to specify a label: wxWidgets will automatically use the stock
         item label associated with that ID. See the @ref wxMenuItem::wxMenuItem "constructor"
         for more info.

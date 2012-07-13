@@ -2,7 +2,7 @@
 // Name:        datetime.h
 // Purpose:     interface of wxDateTime
 // Author:      wxWidgets team
-// RCS-ID:      $Id: datetime.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: datetime.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@
     ParseFormat() which can parse any date in the given (rigid) format.
     ParseRfc822Date() is another function for parsing dates in predefined
     format -- the one of RFC 822 which (still...) defines the format of email
-    messages on the Internet. This format can not be described with
+    messages on the Internet. This format cannot be described with
     @c strptime(3)-like format strings used by Format(), hence the need for a
     separate function.
 
@@ -102,7 +102,7 @@ public:
         Local,
 
         //@{
-        /// zones from GMT (= Greenwhich Mean Time): they're guaranteed to be
+        /// zones from GMT (= Greenwich Mean Time): they're guaranteed to be
         /// consequent numbers, so writing something like `GMT0 + offset' is
         /// safe if abs(offset) <= 12
 
@@ -233,7 +233,7 @@ public:
         in the functions whose result depends on it (GetWeekOfYear() and
         GetWeekOfMonth()).
 
-        The desired behvaiour may be specified by giving one of the following
+        The desired behaviour may be specified by giving one of the following
         constants as argument to these functions.
     */
     enum WeekFlags
@@ -245,12 +245,48 @@ public:
 
 
     /**
+        Contains broken down date-time representation.
+
+        This struct is analogous to standard C <code>struct tm</code> and uses
+        the same, not always immediately obvious, conventions for its members:
+        notably its mon and mday fields count from 0 while yday counts from 1.
+     */
+    struct Tm
+    {
+        wxDateTime_t msec,  ///< Number of milliseconds.
+                     sec,   ///< Seconds in 0..59 (60 with leap seconds) range.
+                     min,   ///< Minutes in 0..59 range.
+                     hour,  ///< Hours since midnight in 0..23 range.
+                     mday,  ///< Day of the month in 1..31 range.
+                     yday;  ///< Day of the year in 0..365 range.
+        Month mon;          ///< Month, as an enumerated constant.
+        int year;           ///< Year.
+
+        /**
+            Check if the given date/time is valid (in Gregorian calendar).
+
+            Return @false if the components don't correspond to a correct date.
+         */
+        bool IsValid() const;
+
+        /**
+            Return the week day corresponding to this date.
+
+            Unlike the other fields, the week day is not always available and
+            so must be accessed using this method as it is computed on demand
+            when it is called.
+         */
+        WeekDay GetWeekDay();
+    };
+
+
+    /**
         @name Constructors, Assignment Operators and Setters
 
         Constructors and various Set() methods are collected here. If you
         construct a date object from separate values for day, month and year,
         you should use IsValid() method to check that the values were correct
-        as constructors can not return an error code.
+        as constructors cannot return an error code.
     */
     //@{
 
@@ -775,7 +811,7 @@ public:
         Returns the combined date-time representation in the ISO 8601 format
         @c "YYYY-MM-DDTHH:MM:SS". The @a sep parameter default value produces
         the result exactly corresponding to the ISO standard, but it can also
-        be useful to use a space as seprator if a more human-readable combined
+        be useful to use a space as separator if a more human-readable combined
         date-time representation is needed.
 
         @see FormatISODate(), FormatISOTime(), ParseISOCombined()
@@ -820,7 +856,7 @@ public:
 
         This function tries as hard as it can to interpret the given string as
         date and time. Unlike ParseRfc822Date(), it will accept anything that
-        may be accepted and will only reject strings which can not be parsed in
+        may be accepted and will only reject strings which cannot be parsed in
         any way at all. Notice that the function will fail if either date or
         time part is present but not both, use ParseDate() or ParseTime() to
         parse strings containing just the date or time component.
@@ -1349,7 +1385,7 @@ public:
     static time_t GetTimeNow();
 
     /**
-        Returns the current time broken down using the buffer whose adress is
+        Returns the current time broken down using the buffer whose address is
         passed to the function with @a tm to store the result.
     */
     static tm* GetTmNow(struct tm *tm);
@@ -1463,6 +1499,10 @@ public:
 */
 const wxDateTime wxDefaultDateTime;
 
+/*
+    wxInvalidDateTime is an alias for wxDefaultDateTime.
+*/
+#define wxInvalidDateTime wxDefaultDateTime
 
 
 /**

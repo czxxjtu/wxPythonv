@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-08-04
-// RCS-ID:      $Id: art_internal.cpp 63819 2010-04-01 17:16:57Z PC $
+// RCS-ID:      $Id: art_internal.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -153,7 +153,7 @@ wxRibbonHSLColour::wxRibbonHSLColour(const wxColour& col)
             hue += 120.0;
         }
         else // Max == blue
-        { 
+        {
             hue = 60.0 * (red - green) / (Max - Min);
             hue += 240.0;
         }

@@ -2,7 +2,7 @@
 // Name:        printing.cpp
 // Purpose:     wxHtml sample: wxHtmlEasyPrinting test
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: printing.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: printing.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) 1998-2009 wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -152,11 +152,8 @@ bool MyApp::OnInit()
     MyFrame *frame = new MyFrame(_("Printing test"),
         wxDefaultPosition, wxSize(640, 480));
 
-    // Show it and tell the application that it's our main window
-    // @@@ what does it do exactly, in fact? is it necessary here?
+    // Show it
     frame->Show(true);
-    SetTopWindow(frame);
-
 
     // success: wxApp::OnRun() will be called which will enter the main message
     // loop and the application will run. If we returned false here, the

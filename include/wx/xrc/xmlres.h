@@ -3,7 +3,7 @@
 // Purpose:     XML resources
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xmlres.h 61934 2009-09-14 23:22:00Z VZ $
+// RCS-ID:      $Id: xmlres.h 66219 2010-11-20 23:53:34Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -293,11 +293,15 @@ public:
 
 protected:
     // reports input error at position 'context'
-    void ReportError(wxXmlNode *context, const wxString& message);
+    void ReportError(const wxXmlNode *context, const wxString& message);
 
     // override this in derived class to customize errors reporting
-    virtual void DoReportError(const wxString& xrcFile, wxXmlNode *position,
+    virtual void DoReportError(const wxString& xrcFile, const wxXmlNode *position,
                                const wxString& message);
+
+    // Load the contents of a single file and returns its contents as a new
+    // wxXmlDocument (which will be owned by caller) on success or NULL.
+    wxXmlDocument *DoLoadFile(const wxString& file);
 
     // Scans the resources list for unloaded files and loads them. Also reloads
     // files that have been modified since last loading.
@@ -391,6 +395,8 @@ private:
 
     friend class wxXmlResourceHandler;
     friend class wxXmlResourceModule;
+    friend class wxIdRangeManager;
+    friend class wxIdRange;
 
     static wxXmlSubclassFactories *ms_subclassFactories;
 
@@ -485,7 +491,7 @@ protected:
 
     // Returns true if the node has a property class equal to classname,
     // e.g. <object class="wxDialog">.
-    bool IsOfClass(wxXmlNode *node, const wxString& classname);
+    static bool IsOfClass(wxXmlNode *node, const wxString& classname);
 
     // Gets node content from wxXML_ENTITY_NODE
     // The problem is, <tag>content<tag> is represented as

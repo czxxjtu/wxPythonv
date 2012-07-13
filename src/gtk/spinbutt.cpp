@@ -3,7 +3,7 @@
 // Purpose:     wxSpinButton
 // Author:      Robert
 // Modified by:
-// RCS-ID:      $Id: spinbutt.cpp 62785 2009-12-05 19:25:04Z PC $
+// RCS-ID:      $Id: spinbutt.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -71,9 +71,6 @@ gtk_value_changed(GtkSpinButton* spinbutton, wxSpinButton* win)
 //-----------------------------------------------------------------------------
 // wxSpinButton
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxSpinButton,wxControl)
-IMPLEMENT_DYNAMIC_CLASS(wxSpinEvent, wxNotifyEvent)
 
 BEGIN_EVENT_TABLE(wxSpinButton, wxControl)
     EVT_SIZE(wxSpinButton::OnSize)

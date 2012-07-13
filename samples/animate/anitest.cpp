@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Francesco Montorsi
 // Created:     02/07/2001
-// RCS-ID:      $Id: anitest.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: anitest.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -101,8 +101,6 @@ bool MyApp::OnInit()
                                  wxDefaultPosition, wxSize(500, 400),
                                  wxDEFAULT_FRAME_STYLE);
     frame->Show(true);
-
-    SetTopWindow(frame);
 
     return true;
 }
@@ -295,7 +293,7 @@ void MyFrame::OnOpen(wxCommandEvent& WXUNUSED(event))
         m_animationCtrl->Play();
     #else
         wxFileInputStream stream(filename);
-        if (!stream.Ok())
+        if (!stream.IsOk())
         {
             wxLogError(wxT("Sorry, this animation is not a valid format for wxAnimation."));
             return;

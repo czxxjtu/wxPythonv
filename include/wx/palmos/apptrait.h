@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by: Yunhui Fu
 // Created:     10/13/04
-// RCS-ID:      $Id: apptrait.h 60734 2009-05-24 19:39:40Z VZ $
+// RCS-ID:      $Id: apptrait.h 67288 2011-03-22 17:15:56Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -30,9 +30,11 @@ public:
     virtual void AfterChildWaitLoop(void *data);
 #if wxUSE_TIMER
     virtual wxTimerImpl *CreateTimerImpl(wxTimer *timer) { return new wxPalmOSTimerImpl(timer); }
-#endif
+#endif // wxUSE_TIMER
+#if wxUSE_THREADS
     virtual bool DoMessageFromThreadWait();
     virtual WXDWORD WaitForThread(WXHANDLE hThread);
+#endif // wxUSE_THREADS
 };
 
 #if wxUSE_GUI
@@ -46,8 +48,10 @@ public:
 #if wxUSE_TIMER
     // there is no wxTimer support yet
     virtual wxTimerImpl *CreateTimerImpl(wxTimer *timer);
-#endif
+#endif // wxUSE_TIMER
+#if wxUSE_THREADS
     virtual bool DoMessageFromThreadWait();
+#endif // wxUSE_THREADS
     virtual wxPortId GetToolkitVersion(int *majVer = NULL, int *minVer = NULL) const;
 };
 

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: listbox.cpp 64670 2010-06-21 15:30:07Z SC $
+// RCS-ID:      $Id: listbox.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -137,10 +137,10 @@ int wxMacDataBrowserListControl::DoListHitTest(const wxPoint& inpoint) const
             }
 
             if ( point.y < bounds.top )
-                // index(bounds) greater then key(point)
+                // index(bounds) greater than key(point)
                 high = mid - 1;
             else
-                // index(bounds) less then key(point)
+                // index(bounds) less than key(point)
                 low = mid + 1;
         }
     }
@@ -337,8 +337,8 @@ wxMacDataBrowserListControl::wxMacDataBrowserListControl( wxWindow *peer, const 
     err = SetHasScrollBars( (style & wxHSCROLL) != 0 , true );
 #if 0
     // shouldn't be necessary anymore under 10.2
-    m_peer->SetData( kControlNoPart, kControlDataBrowserIncludesFrameAndFocusTag, (Boolean)false );
-    m_peer->SetNeedsFocusRect( true );
+    GetPeer()->SetData( kControlNoPart, kControlDataBrowserIncludesFrameAndFocusTag, (Boolean)false );
+    GetPeer()->SetNeedsFocusRect( true );
 #endif
 }
 
@@ -406,7 +406,7 @@ wxMacDataBrowserColumn* wxMacDataBrowserListControl::DoInsertColumn( unsigned in
     // TODO: Why is m_font not defined when we enter wxLC_LIST mode, but is
     // defined for other modes?
     wxFontEncoding enc;
-    if ( m_font.Ok() )
+    if ( m_font.IsOk() )
         enc = m_font.GetEncoding();
     else
         enc = wxLocale::GetSystemEncoding();

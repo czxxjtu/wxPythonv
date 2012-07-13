@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        mac/corefoundation/stdpaths.cpp
+// Name:        src/osx/core/stdpaths_cf.cpp
 // Purpose:     wxStandardPaths implementation for CoreFoundation systems
 // Author:      David Elliott
 // Modified by:
 // Created:     2004-10-27
-// RCS-ID:      $Id: stdpaths_cf.cpp 64817 2010-07-05 06:36:21Z SC $
+// RCS-ID:      $Id: stdpaths_cf.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 David Elliott <dfe@cox.net>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

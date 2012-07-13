@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _control.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _control.i 67560 2011-04-20 22:47:27Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ __init__ as a plain old wx.Control is not very useful.", "");
     DocDeclStr(
         int , GetAlignment() const,
         "Get the control alignment (left/right/centre, top/bottom/centre)", "");
-    
+
 
     DocDeclStr(
         wxString , GetLabelText() const,
@@ -99,6 +99,23 @@ __init__ as a plain old wx.Control is not very useful.", "");
         "", "");
     
 
+    
+    // Set the label with markup (and mnemonics). Markup is a simple subset of
+    // HTML with tags such as <b>, <i> and <span>. By default it is not
+    // supported i.e. all the markup is simply stripped and SetLabel() is
+    // called but some controls in some ports do support this already and in
+    // the future most of them should.
+    //
+    // Notice that, being HTML-like, markup also supports XML entities so '<'
+    // should be encoded as "&lt;" and so on, a bare '<' in the input will
+    // likely result in an error. As an exception, a bare '&' is allowed and
+    // indicates that the next character is a mnemonic. To insert a literal '&'
+    // in the control you need to use "&amp;" in the input string.
+    //
+    // Returns true if the label was set, even if the markup in it was ignored.
+    // False is only returned if we failed to parse the label.
+    bool SetLabelMarkup(const wxString& markup);
+   
     
     DocDeclStr(
         void , Command(wxCommandEvent& event),
@@ -278,6 +295,8 @@ than the number of items in the control.", "");
         }
     }
 
+    // TODO?     wxClientData* DetachClientObject(unsigned int n);
+
 
     DocDeclStr(
         bool , HasClientData() const,
@@ -376,6 +395,17 @@ public:
 
 //---------------------------------------------------------------------------
 %newgroup;
+
+
+enum wxTextCtrlHitTestResult
+{
+    wxTE_HT_UNKNOWN = -2,   // this means HitTest() is simply not implemented
+    wxTE_HT_BEFORE,         // either to the left or upper
+    wxTE_HT_ON_TEXT,        // directly on
+    wxTE_HT_BELOW,          // below [the last line]
+    wxTE_HT_BEYOND          // after [the end of line]
+};
+
 
 
 class wxTextEntryBase
@@ -554,6 +584,9 @@ including) the character at the last position.  If both parameters are
 
     virtual bool AutoComplete(const wxArrayString& choices);
     virtual bool AutoCompleteFileNames();
+
+    // TODO
+    // bool AutoComplete(wxTextCompleter *completer);
 
 
     // status

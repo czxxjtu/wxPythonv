@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        editlbox.cpp
+// Name:        src/generic/editlbox.cpp
 // Purpose:     ListBox with editable items
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: editlbox.cpp 62764 2009-12-02 17:28:45Z PC $
+// RCS-ID:      $Id: editlbox.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

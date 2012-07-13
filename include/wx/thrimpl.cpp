@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        include/wx/thrimpl.cpp
+// Name:        wx/thrimpl.cpp
 // Purpose:     common part of wxThread Implementations
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     04.06.02 (extracted from src/*/thread.cpp files)
-// RCS-ID:      $Id: thrimpl.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: thrimpl.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Vadim Zeitlin (2002)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

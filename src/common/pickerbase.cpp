@@ -4,7 +4,7 @@
 // Author:      Francesco Montorsi
 // Modified by:
 // Created:     15/04/2006
-// RCS-ID:      $Id: pickerbase.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: pickerbase.cpp 67782 2011-05-24 21:19:35Z VZ $
 // Copyright:   (c) Francesco Montorsi
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -122,6 +122,16 @@ void wxPickerBase::PostCreation()
     // the picker's proportion value defaults to 1 when there's no text control
     // associated with it - in that case it defaults to 0
     m_sizer->Add(m_picker, HasTextCtrl() ? 0 : 1, GetDefaultPickerCtrlFlag(), 5);
+
+    // For aesthetic reasons, make sure the picker is at least as high as the
+    // associated text control and is always at least square.
+    const wxSize pickerBestSize(m_picker->GetBestSize());
+    const wxSize textBestSize( HasTextCtrl() ? m_text->GetBestSize() : wxSize());
+    wxSize pickerMinSize;
+    pickerMinSize.y = wxMax(pickerBestSize.y, textBestSize.y);
+    pickerMinSize.x = wxMax(pickerBestSize.x, pickerMinSize.y);
+    if ( pickerMinSize != pickerBestSize )
+        m_picker->SetMinSize(pickerMinSize);
 
     SetSizer(m_sizer);
 

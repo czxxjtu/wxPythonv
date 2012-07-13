@@ -1,18 +1,18 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        colordlg.cpp
+// Name:        src/osx/carbon/colordlg.cpp
 // Purpose:     wxColourDialog class. NOTE: you can use the generic class
 //              if you wish, instead of implementing this.
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: colordlg.cpp 64068 2010-04-20 19:09:38Z SC $
+// RCS-ID:      $Id: colordlg.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:       wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 #include "wx/wxprec.h"
 
-#include "wx/osx/colordlg.h"
+#include "wx/colordlg.h"
 #include "wx/fontdlg.h"
 
 

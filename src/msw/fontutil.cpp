@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        msw/fontutil.cpp
+// Name:        src/msw/fontutil.cpp
 // Purpose:     font-related helper functions for wxMSW
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     05.11.99
-// RCS-ID:      $Id: fontutil.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: fontutil.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -24,19 +24,18 @@
     #pragma hdrstop
 #endif
 
+#include "wx/fontutil.h"
+
 #ifndef WX_PRECOMP
     #include "wx/string.h"
     #include "wx/log.h"
     #include "wx/intl.h"
-    #include "wx/encinfo.h"
     #include "wx/wxcrtvararg.h"
+    #include "wx/msw/private.h"
 #endif //WX_PRECOMP
 
-#include "wx/msw/private.h"
-
-#include "wx/fontutil.h"
+#include "wx/encinfo.h"
 #include "wx/fontmap.h"
-
 #include "wx/tokenzr.h"
 
 // for MSVC5 and old w32api

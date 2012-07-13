@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     07.07.99
-// RCS-ID:      $Id: nettest.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: nettest.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -161,9 +161,8 @@ bool MyApp::OnInit()
     MyFrame *frame = new MyFrame(wxT("Dial-up wxWidgets demo"),
                                  wxPoint(50, 50), wxSize(450, 340));
 
-    // Show it and tell the application that it's our main window
+    // Show it
     frame->Show(true);
-    SetTopWindow(frame);
 
     // Init dial up manager
     m_dial = wxDialUpManager::Create();

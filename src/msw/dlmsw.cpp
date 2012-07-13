@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        msw/dlmsw.cpp
+// Name:        src/msw/dlmsw.cpp
 // Purpose:     Win32-specific part of wxDynamicLibrary and related classes
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-10 (partly extracted from common/dynlib.cpp)
-// RCS-ID:      $Id: dlmsw.cpp 64139 2010-04-25 12:07:37Z VS $
+// RCS-ID:      $Id: dlmsw.cpp 68934 2011-08-27 23:24:47Z RD $
 // Copyright:   (c) 1998-2005 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,7 @@
 
 #include "wx/msw/private.h"
 #include "wx/msw/debughlp.h"
+#include "wx/filename.h"
 
 const wxString wxDynamicLibrary::ms_dllext(wxT(".dll"));
 
@@ -79,16 +80,6 @@ public:
         wxVersionDLL *verDLL;
     };
 
-    // the declared type of the first EnumModulesProc() parameter changed in
-    // recent SDK versions and is no PCSTR instead of old PSTR, we know that
-    // it's const in version 11 and non-const in version 8 included with VC8
-    // (and earlier), suppose that it's only changed in version 11
-    #if defined(API_VERSION_NUMBER) && API_VERSION_NUMBER >= 11
-        typedef PCSTR NameStr_t;
-    #else
-        typedef PSTR NameStr_t;
-    #endif
-
     // TODO: fix EnumerateLoadedModules() to use EnumerateLoadedModules64()
     #ifdef __WIN64__
         typedef DWORD64 DWORD_32_64;
@@ -97,7 +88,7 @@ public:
     #endif
 
     static BOOL CALLBACK
-    EnumModulesProc(NameStr_t name, DWORD_32_64 base, ULONG size, void *data);
+    EnumModulesProc(PCSTR name, DWORD_32_64 base, ULONG size, void *data);
 };
 
 // ============================================================================
@@ -184,7 +175,7 @@ wxString wxVersionDLL::GetFileVersion(const wxString& filename) const
 
 /* static */
 BOOL CALLBACK
-wxDynamicLibraryDetailsCreator::EnumModulesProc(NameStr_t name,
+wxDynamicLibraryDetailsCreator::EnumModulesProc(PCSTR name,
                                                 DWORD_32_64 base,
                                                 ULONG size,
                                                 void *data)
@@ -234,13 +225,37 @@ wxDllType wxDynamicLibrary::GetProgramHandle()
 // loading/unloading DLLs
 // ----------------------------------------------------------------------------
 
+#ifndef MAX_PATH
+    #define MAX_PATH 260        // from VC++ headers
+#endif
+
 /* static */
 wxDllType
 wxDynamicLibrary::RawLoad(const wxString& libname, int flags)
 {
-    return flags & wxDL_GET_LOADED
-            ? ::GetModuleHandle(libname.t_str())
-            : ::LoadLibrary(libname.t_str());
+    if (flags & wxDL_GET_LOADED)
+        return ::GetModuleHandle(libname.t_str());
+
+    // Explicitly look in the same path as where the main wx HINSTANCE module
+    // is located (usually the executable or the DLL that uses wx).  Normally
+    // this is automatically part of the default search path but in some cases
+    // it may not be, such as when the wxPython extension modules need to load
+    // a DLL, but the intperpreter executable is located elsewhere.  Doing
+    // this allows us to always be able to dynamically load a DLL that is
+    // located at the same place as the wx modules.
+    wxString modpath, path;
+    ::GetModuleFileName(wxGetInstance(),
+                        wxStringBuffer(modpath, MAX_PATH+1),
+                        MAX_PATH);
+    
+    wxFileName::SplitPath(modpath, &path, NULL, NULL);
+    ::SetDllDirectory(path.t_str());
+    
+    wxDllType handle = ::LoadLibrary(libname.t_str());
+
+    // reset the search path
+    ::SetDllDirectory(NULL);
+    return handle;
 }
 
 /* static */
@@ -280,9 +295,15 @@ wxDynamicLibraryDetailsArray wxDynamicLibrary::ListLoaded()
         params.dlls = &dlls;
         params.verDLL = &verDLL;
 
+        // Note that the cast of EnumModulesProc is needed because the type of
+        // PENUMLOADED_MODULES_CALLBACK changed: in old SDK versions its first
+        // argument was non-const PSTR while now it's PCSTR. By explicitly
+        // casting to whatever the currently used headers require we ensure
+        // that the code compilers in any case.
         if ( !wxDbgHelpDLL::EnumerateLoadedModules
                             (
                                 ::GetCurrentProcess(),
+                                (PENUMLOADED_MODULES_CALLBACK)
                                 wxDynamicLibraryDetailsCreator::EnumModulesProc,
                                 &params
                             ) )

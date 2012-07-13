@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: nativdlg.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: nativdlg.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -66,9 +66,6 @@ bool MyApp::OnInit(void)
   // Make a panel
   frame->panel = new wxWindow(frame, wxID_ANY, wxPoint(0, 0), wxSize(400, 400), 0, wxT("MyMainFrame"));
   frame->Show(true);
-
-  // Return the main frame window
-  SetTopWindow(frame);
 
   return true;
 }

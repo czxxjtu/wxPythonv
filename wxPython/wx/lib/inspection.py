@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     26-Jan-2007
-# RCS-ID:      $Id: inspection.py 65244 2010-08-11 01:55:49Z RD $
+# RCS-ID:      $Id: inspection.py 68986 2011-09-03 04:33:29Z RD $
 # Copyright:   (c) 2007 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------------
@@ -390,7 +390,11 @@ class InspectionFrame(wx.Frame):
         
         perspective = config.Read('perspective', '')
         if perspective:
-            self.mgr.LoadPerspective(perspective)
+            try:
+                self.mgr.LoadPerspective(perspective)
+            except wx.PyAssertionError:
+                # ignore bad perspective string errors
+                pass
         self.includeSizers = config.ReadBool('includeSizers', False)
 
 

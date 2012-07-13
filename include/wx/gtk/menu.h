@@ -2,7 +2,7 @@
 // Name:        wx/gtk/menu.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: menu.h 64127 2010-04-24 15:08:00Z VZ $
+// Id:          $Id: menu.h 67721 2011-05-10 08:50:47Z VZ $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -78,6 +78,9 @@ public:
     void SetLayoutDirection(const wxLayoutDirection dir);
     wxLayoutDirection GetLayoutDirection() const;
 
+    // Returns the title, with mnemonics translated to wx format
+    wxString GetTitle() const;
+
     // TODO: virtual void SetTitle(const wxString& title);
 
     // implementation GTK only
@@ -98,7 +101,6 @@ private:
     // common part of Append (if pos == -1)  and Insert
     bool GtkAppend(wxMenuItem *item, int pos=-1);
 
-    GtkWidget *m_prevRadio;
 
     DECLARE_DYNAMIC_CLASS(wxMenu)
 };

@@ -5,7 +5,7 @@
 # Author:      Robin Dunn
 #
 # Created:     15-May-2001
-# RCS-ID:      $Id: listctrl.py 62249 2009-10-03 23:46:18Z RD $
+# RCS-ID:      $Id: listctrl.py 67956 2011-06-16 01:28:06Z RD $
 # Copyright:   (c) 2001 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------------
@@ -669,7 +669,7 @@ class TextEditMixin:
 FILENAME: CheckListCtrlMixin.py
 AUTHOR:   Bruce Who (bruce.who.hk at gmail.com)
 DATE:     2006-02-09
-$Revision: 62249 $
+$Revision: 67956 $
 DESCRIPTION:
     This script provide a mixin for ListCtrl which add a checkbox in the first
     column of each row. It is inspired by limodou's CheckList.py(which can be
@@ -801,5 +801,77 @@ class CheckListCtrlMixin:
     def ToggleItem(self, index):
         self.CheckItem(index, not self.IsChecked(index))
 
+
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+
+# Mode Flags
+HIGHLIGHT_ODD = 1   # Highlight the Odd rows
+HIGHLIGHT_EVEN = 2  # Highlight the Even rows
+
+class ListRowHighlighter:
+    """Editra Control Library: ListRowHighlighter
+    Mixin class that handles automatic background highlighting of alternate
+    rows in the a ListCtrl. The background of the rows are highlighted
+    automatically as items are added or inserted in the control based on the
+    mixins Mode and set Color. By default the Even rows will be highlighted with
+    the systems highlight color.
+
+    """
+    def __init__(self, color=None, mode=HIGHLIGHT_EVEN):
+        """Initialize the highlighter mixin
+        @keyword color: Set a custom highlight color (default uses system color)
+        @keyword mode: HIGHLIGHT_EVEN (default) or HIGHLIGHT_ODD
+
+        """
+        # Attributes
+        self._color = color
+        self._defaultb = wx.SystemSettings.GetColour(wx.SYS_COLOUR_LISTBOX)
+        self._mode = mode
+
+        # Event Handlers
+        self.Bind(wx.EVT_LIST_INSERT_ITEM, lambda evt: self.RefreshRows())
+        self.Bind(wx.EVT_LIST_DELETE_ITEM, lambda evt: self.RefreshRows())
+
+    def RefreshRows(self):
+        """Re-color all the rows"""
+        for row in xrange(self.GetItemCount()):
+            if self._defaultb is None:
+                self._defaultb = self.GetItemBackgroundColour(row)
+
+            if self._mode & HIGHLIGHT_EVEN:
+                dohlight = not row % 2
+            else:
+                dohlight = row % 2
+
+            if dohlight:
+                if self._color is None:
+                    if wx.Platform in ['__WXGTK__', '__WXMSW__']:
+                        color = wx.SystemSettings_GetColour(wx.SYS_COLOUR_3DLIGHT)
+                    else:
+                        color = wx.Colour(237, 243, 254)
+                else:
+                    color = self._color
+            else:
+                color = self._defaultb
+
+            self.SetItemBackgroundColour(row, color)
+
+    def SetHighlightColor(self, color):
+        """Set the color used to highlight the rows. Call L{RefreshRows} after
+        this if you wish to update all the rows highlight colors.
+        @param color: wx.Color or None to set default
+
+        """
+        self._color = color
+
+    def SetHighlightMode(self, mode):
+        """Set the highlighting mode to either HIGHLIGHT_EVEN or to
+        HIGHLIGHT_ODD. Call L{RefreshRows} afterwards to update the list
+        state.
+        @param mode: HIGHLIGHT_* mode value
+
+        """
+        self._mode = mode
 
 #----------------------------------------------------------------------------

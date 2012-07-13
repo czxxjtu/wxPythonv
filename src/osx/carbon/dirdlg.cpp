@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: dirdlg.cpp 64068 2010-04-20 19:09:38Z SC $
+// RCS-ID:      $Id: dirdlg.cpp 66615 2011-01-07 05:26:57Z PC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -18,7 +18,6 @@
 #ifndef WX_PRECOMP
     #include "wx/utils.h"
     #include "wx/dialog.h"
-    #include "wx/cmndata.h"
 #endif // WX_PRECOMP
 
 #include "wx/filename.h"

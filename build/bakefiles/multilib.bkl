@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!-- $Id: multilib.bkl 61944 2009-09-16 12:06:02Z PJC $ -->
+<!-- $Id: multilib.bkl 65089 2010-07-25 00:18:57Z VZ $ -->
 
 <makefile>
 
@@ -364,13 +364,7 @@
     <!--                            STC                                   -->
     <!-- ================================================================ -->
 
-    <template id="stc_base">
-        <include>$(TOP_SRCDIR)src/stc/scintilla/include</include>
-        <include>$(TOP_SRCDIR)src/stc/scintilla/src</include>
-        <define>__WX__</define>
-        <define>SCI_LEXER</define>
-        <define>LINK_LEXERS</define>
-        <cppflags-borland>-w-8027</cppflags-borland>
+    <template id="stc_base" template="wxscintilla_cppflags">
         <library>wxscintilla</library>
     </template>
 

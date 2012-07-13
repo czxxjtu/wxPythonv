@@ -2,7 +2,7 @@
 // Name:        grid.h
 // Purpose:     interface of wxGrid and related classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: grid.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: grid.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1630,7 +1630,7 @@ struct wxGridSizesInfo
     The default table class is called wxGridStringTable and holds an array of
     strings. An instance of such a class is created by CreateGrid().
 
-    wxGridCellRenderer is the abstract base class for rendereing contents in a
+    wxGridCellRenderer is the abstract base class for rendering contents in a
     cell. The following renderers are predefined:
 
     - wxGridCellBoolRenderer
@@ -1686,7 +1686,20 @@ public:
 
             The user won't be able to select any cells or rows in this mode.
          */
-        wxGridSelectColumns
+        wxGridSelectColumns,
+
+        /**
+            The selection mode allowing the user to select either the entire
+            columns or the entire rows but not individual cells nor blocks.
+
+            Notice that while this constant is defined as @code
+            wxGridSelectColumns | wxGridSelectRows @endcode this doesn't mean
+            that all the other combinations are valid -- at least currently
+            they are not.
+
+            @since 2.9.1
+         */
+        wxGridSelectRowsOrColumns
     };
 
     /**
@@ -2768,7 +2781,7 @@ public:
         @a resizeExistingRows is @true.
 
         If @a height is less than GetRowMinimalAcceptableHeight(), then the
-        minimal acceptable heihgt is used instead of it.
+        minimal acceptable height is used instead of it.
     */
     void SetDefaultRowSize(int height, bool resizeExistingRows = false);
 
@@ -2996,7 +3009,7 @@ public:
         Notice that currently there is no way to make some columns resizable in
         a grid where columns can't be resized by default as there doesn't seem
         to be any need for this in practice. There is also no way to make the
-        column marked as fixed using this method resizeable again because it is
+        column marked as fixed using this method resizable again because it is
         supposed that fixed columns are used for static parts of the grid and
         so should remain fixed during the entire grid lifetime.
 
@@ -3834,6 +3847,31 @@ public:
     bool InsertRows(int pos = 0, int numRows = 1, bool updateLabels = true);
 
     /**
+        Invalidates the cached attribute for the given cell.
+
+        For efficiency reasons, wxGrid may cache the recently used attributes
+        (currently it caches only the single most recently used one, in fact)
+        which can result in the cell appearance not being refreshed even when
+        the attribute returned by your custom wxGridCellAttrProvider-derived
+        class has changed. To force the grid to refresh the cell attribute,
+        this function may be used. Notice that calling it will not result in
+        actually redrawing the cell, you still need to call
+        wxWindow::RefreshRect() to invalidate the area occupied by the cell in
+        the window to do this. Also note that you don't need to call this
+        function if you store the attributes in wxGrid itself, i.e. use its
+        SetAttr() and similar methods, it is only useful when using a separate
+        custom attributes provider.
+
+        @param row
+            The row of the cell whose attribute needs to be queried again.
+        @param col
+            The column of the cell whose attribute needs to be queried again.
+
+        @since 2.9.2
+     */
+    void RefreshAttr(int row, int col);
+
+    /**
         Sets the cell attributes for all cells in the specified column.
 
         For more information about controlling grid cell attributes see the
@@ -4213,6 +4251,10 @@ public:
 
     /**
         Column at which the event occurred.
+
+        Notice that for a @c wxEVT_GRID_SELECT_CELL event this column is the
+        column of the newly selected cell while the previously selected cell
+        can be retrieved using wxGrid::GetGridCursorCol().
     */
     virtual int GetCol();
 
@@ -4223,6 +4265,10 @@ public:
 
     /**
         Row at which the event occurred.
+
+        Notice that for a @c wxEVT_GRID_SELECT_CELL event this row is the row
+        of the newly selected cell while the previously selected cell can be
+        retrieved using wxGrid::GetGridCursorRow().
     */
     virtual int GetRow();
 

@@ -4,7 +4,7 @@
 // Author:      Guilhem Lavaux
 // Modified by:
 // Created:     20/07/1997
-// RCS-ID:      $Id: url.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: url.cpp 66728 2011-01-22 14:38:36Z DS $
 // Copyright:   (c) 1997, 1998 Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ bool wxURL::FetchProtocol()
     {
         if (m_scheme == info->m_protoname)
         {
-            if (m_port.IsNull())
+            if ( m_port.empty() )
                 m_port = info->m_servname;
             m_protoinfo = info;
             m_protocol = (wxProtocol *)m_protoinfo->m_cinfo->CreateObject();

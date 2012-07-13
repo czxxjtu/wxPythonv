@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-05-25
-// RCS-ID:      $Id: ribbondemo.cpp 63817 2010-04-01 16:59:34Z PC $
+// RCS-ID:      $Id: ribbondemo.cpp 66612 2011-01-06 22:02:07Z VZ $
 // Copyright:   (C) Copyright 2009, Peter Cawley
 // Licence:     wxWindows Library Licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,9 @@
 #include "wx/dcbuffer.h"
 #include "wx/colordlg.h"
 #include "wx/artprov.h"
+#include "wx/combobox.h"
+#include "wx/tglbtn.h"
+#include "wx/wrapsizer.h"
 
 // -- application --
 
@@ -69,6 +72,7 @@ public:
         ID_POSITION_LEFT,
         ID_POSITION_LEFT_LABELS,
         ID_POSITION_LEFT_BOTH,
+        ID_TOGGLE_PANELS
     };
 
     void OnCircleButton(wxRibbonButtonBarEvent& evt);
@@ -104,6 +108,8 @@ public:
     void OnPositionLeftBoth(wxCommandEvent& evt);
     void OnPositionLeftDropdown(wxRibbonToolBarEvent& evt);
 
+    void OnTogglePanels(wxCommandEvent& evt);
+
 protected:
     wxRibbonGallery* PopulateColoursPanel(wxWindow* panel, wxColour def,
         int gallery_id);
@@ -120,6 +126,8 @@ protected:
     wxRibbonGallery* m_primary_gallery;
     wxRibbonGallery* m_secondary_gallery;
     wxTextCtrl* m_logwindow;
+    wxToggleButton* m_togglePanels;
+
     wxColourData m_colour_data;
     wxColour m_default_primary;
     wxColour m_default_secondary;
@@ -137,7 +145,6 @@ bool MyApp::OnInit()
         return false;
 
     wxFrame* frame = new MyFrame;
-    SetTopWindow(frame);
     frame->Show();
 
     return true;
@@ -178,6 +185,7 @@ EVT_MENU(ID_POSITION_LEFT_BOTH, MyFrame::OnPositionLeftBoth)
 EVT_MENU(ID_POSITION_TOP, MyFrame::OnPositionTopLabels)
 EVT_MENU(ID_POSITION_TOP_ICONS, MyFrame::OnPositionTopIcons)
 EVT_MENU(ID_POSITION_TOP_BOTH, MyFrame::OnPositionTopBoth)
+EVT_TOGGLEBUTTON(ID_TOGGLE_PANELS, MyFrame::OnTogglePanels)
 END_EVENT_TABLE()
 
 #include "align_center.xpm"
@@ -210,7 +218,9 @@ MyFrame::MyFrame()
 
     {
         wxRibbonPage* home = new wxRibbonPage(m_ribbon, wxID_ANY, wxT("Examples"), ribbon_xpm);
-        wxRibbonPanel *toolbar_panel = new wxRibbonPanel(home, wxID_ANY, wxT("Toolbar"), wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxRIBBON_PANEL_NO_AUTO_MINIMISE);
+        wxRibbonPanel *toolbar_panel = new wxRibbonPanel(home, wxID_ANY, wxT("Toolbar"), 
+                                            wxNullBitmap, wxDefaultPosition, wxDefaultSize, 
+                                            wxRIBBON_PANEL_NO_AUTO_MINIMISE);
         wxRibbonToolBar *toolbar = new wxRibbonToolBar(toolbar_panel, ID_MAIN_TOOLBAR);
         toolbar->AddTool(wxID_ANY, align_left_xpm);
         toolbar->AddTool(wxID_ANY, align_center_xpm);
@@ -227,29 +237,62 @@ MyFrame::MyFrame()
         toolbar->AddTool(wxID_ANY, wxArtProvider::GetBitmap(wxART_REPORT_VIEW, wxART_OTHER, wxSize(16, 15)));
         toolbar->AddTool(wxID_ANY, wxArtProvider::GetBitmap(wxART_LIST_VIEW, wxART_OTHER, wxSize(16, 15)));
         toolbar->AddSeparator();
-        toolbar->AddHybridTool(ID_POSITION_LEFT, position_left_xpm);
-        toolbar->AddHybridTool(ID_POSITION_TOP, position_top_xpm);
+        toolbar->AddHybridTool(ID_POSITION_LEFT, position_left_xpm, 
+                                "Align ribbonbar vertically\non the left\nfor demonstration purposes");
+        toolbar->AddHybridTool(ID_POSITION_TOP, position_top_xpm, 
+                                "Align the ribbonbar horizontally\nat the top\nfor demonstration purposes");
         toolbar->AddSeparator();
-        toolbar->AddHybridTool(wxID_PRINT, wxArtProvider::GetBitmap(wxART_PRINT, wxART_OTHER, wxSize(16, 15)));
+        toolbar->AddHybridTool(wxID_PRINT, wxArtProvider::GetBitmap(wxART_PRINT, wxART_OTHER, wxSize(16, 15)),
+                                "This is the Print button tooltip\ndemonstrating a tooltip");
         toolbar->SetRows(2, 3);
 
         wxRibbonPanel *selection_panel = new wxRibbonPanel(home, wxID_ANY, wxT("Selection"), wxBitmap(selection_panel_xpm));
         wxRibbonButtonBar *selection = new wxRibbonButtonBar(selection_panel);
-        selection->AddButton(ID_SELECTION_EXPAND_V, wxT("Expand Vertically"), wxBitmap(expand_selection_v_xpm), wxEmptyString);
+        selection->AddButton(ID_SELECTION_EXPAND_V, wxT("Expand Vertically"), wxBitmap(expand_selection_v_xpm),
+                                "This is a tooltip for Expand Vertically\ndemonstrating a tooltip");
         selection->AddButton(ID_SELECTION_EXPAND_H, wxT("Expand Horizontally"), wxBitmap(expand_selection_h_xpm), wxEmptyString);
         selection->AddButton(ID_SELECTION_CONTRACT, wxT("Contract"), wxBitmap(auto_crop_selection_xpm), wxBitmap(auto_crop_selection_small_xpm));
 
         wxRibbonPanel *shapes_panel = new wxRibbonPanel(home, wxID_ANY, wxT("Shapes"), wxBitmap(circle_small_xpm));
         wxRibbonButtonBar *shapes = new wxRibbonButtonBar(shapes_panel);
-        shapes->AddButton(ID_CIRCLE, wxT("Circle"), wxBitmap(circle_xpm), wxBitmap(circle_small_xpm));
+        shapes->AddButton(ID_CIRCLE, wxT("Circle"), wxBitmap(circle_xpm), wxBitmap(circle_small_xpm), 
+                            wxNullBitmap, wxNullBitmap, wxRIBBON_BUTTON_NORMAL,
+                            "This is a tooltip for the circle button\ndemonstrating another tooltip");
         shapes->AddButton(ID_CROSS, wxT("Cross"), wxBitmap(cross_xpm), wxEmptyString);
         shapes->AddHybridButton(ID_TRIANGLE, wxT("Triangle"), wxBitmap(triangle_xpm));
         shapes->AddButton(ID_SQUARE, wxT("Square"), wxBitmap(square_xpm), wxEmptyString);
         shapes->AddDropdownButton(ID_POLYGON, wxT("Other Polygon"), wxBitmap(hexagon_xpm), wxEmptyString);
 
-        new wxRibbonPanel(home, wxID_ANY, wxT("Another Panel"), wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxRIBBON_PANEL_EXT_BUTTON);
-    }
-    {
+        wxRibbonPanel *sizer_panel = new wxRibbonPanel(home, wxID_ANY, wxT("Panel with Sizer"), 
+                                                    wxNullBitmap, wxDefaultPosition, wxDefaultSize, 
+                                                    wxRIBBON_PANEL_DEFAULT_STYLE);
+
+        wxArrayString as;
+        as.Add("Item 1 using a box sizer now");
+        as.Add("Item 2 using a box sizer now");
+        wxComboBox* sizer_panelcombo = new wxComboBox(sizer_panel, wxID_ANY, 
+                                                    wxEmptyString, 
+                                                    wxDefaultPosition, wxDefaultSize, 
+                                                    as, wxCB_READONLY);
+
+        wxComboBox* sizer_panelcombo2 = new wxComboBox(sizer_panel, wxID_ANY, 
+                                                    wxEmptyString, 
+                                                    wxDefaultPosition, wxDefaultSize, 
+                                                    as, wxCB_READONLY);
+
+        sizer_panelcombo->Select(0);
+        sizer_panelcombo2->Select(1);
+        sizer_panelcombo->SetMinSize(wxSize(150, -1));
+        sizer_panelcombo2->SetMinSize(wxSize(150, -1));
+
+        //not using wxWrapSizer(wxHORIZONTAL) as it reports an incorrect min height
+        wxSizer* sizer_panelsizer = new wxBoxSizer(wxVERTICAL);
+        sizer_panelsizer->AddStretchSpacer(1);
+        sizer_panelsizer->Add(sizer_panelcombo, 0, wxALL|wxEXPAND, 2);
+        sizer_panelsizer->Add(sizer_panelcombo2, 0, wxALL|wxEXPAND, 2);
+        sizer_panelsizer->AddStretchSpacer(1);
+        sizer_panel->SetSizer(sizer_panelsizer);
+
         wxFont label_font(8, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT);
         m_bitmap_creation_dc.SetFont(label_font);
 
@@ -281,10 +324,14 @@ MyFrame::MyFrame()
         wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY |
         wxTE_LEFT | wxTE_BESTWRAP | wxBORDER_NONE);
 
+    m_togglePanels = new wxToggleButton(this, ID_TOGGLE_PANELS, "&Toggle panels");
+    m_togglePanels->SetValue(true);
+
     wxSizer *s = new wxBoxSizer(wxVERTICAL);
 
     s->Add(m_ribbon, 0, wxEXPAND);
     s->Add(m_logwindow, 1, wxEXPAND);
+    s->Add(m_togglePanels, wxSizerFlags().Border());
 
     SetSizer(s);
 }
@@ -341,7 +388,7 @@ wxRibbonGallery* MyFrame::PopulateColoursPanel(wxWindow* panel,
     else
         gallery = new wxRibbonGallery(panel, gallery_id);
     wxMemoryDC& dc = m_bitmap_creation_dc;
-    wxRibbonGalleryItem *def_item = 
+    wxRibbonGalleryItem *def_item =
         AddColourToGallery(gallery, wxT("Default"), dc, &def);
     gallery->SetSelection(def_item);
     AddColourToGallery(gallery, wxT("BLUE"), dc);
@@ -627,6 +674,11 @@ void MyFrame::OnPositionLeftDropdown(wxRibbonToolBarEvent& evt)
     menu.Append(ID_POSITION_LEFT_LABELS, wxT("Left with Labels"));
     menu.Append(ID_POSITION_LEFT_BOTH, wxT("Left with Both"));
     evt.PopupMenu(&menu);
+}
+
+void MyFrame::OnTogglePanels(wxCommandEvent& WXUNUSED(evt))
+{
+    m_ribbon->ShowPanels(m_togglePanels->GetValue());
 }
 
 void MyFrame::AddText(wxString msg)

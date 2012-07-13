@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _listctrl.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _listctrl.i 68058 2011-06-27 19:10:44Z RD $
 // Copyright:   (c) 2002 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -389,7 +389,7 @@ EVT_LIST_ITEM_FOCUSED      = wx.PyEventBinder(wxEVT_COMMAND_LIST_ITEM_FOCUSED   
 
 
 %{ // Python aware sorting function for wxPyListCtrl
-    static int wxCALLBACK wxPyListCtrl_SortItems(long item1, long item2, wxIntPtr funcPtr) {
+    static int wxCALLBACK wxPyListCtrl_SortItems(wxIntPtr item1, wxIntPtr item2, wxIntPtr funcPtr) {
         int retval = 0;
         PyObject* func = (PyObject*)funcPtr;
         wxPyBlock_t blocked = wxPyBeginBlockThreads();

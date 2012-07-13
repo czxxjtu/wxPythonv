@@ -2,7 +2,7 @@
 // Name:        wx/gtk/toolbar.h
 // Purpose:     GTK toolbar
 // Author:      Robert Roebling
-// RCS-ID:      $Id: toolbar.h 62994 2009-12-26 16:36:39Z VZ $
+// RCS-ID:      $Id: toolbar.h 67299 2011-03-23 17:37:14Z PC $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -11,6 +11,8 @@
 #define _WX_GTK_TOOLBAR_H_
 
 #if wxUSE_TOOLBAR
+
+typedef struct _GtkTooltips GtkTooltips;
 
 // ----------------------------------------------------------------------------
 // wxToolBar
@@ -58,8 +60,6 @@ public:
 
     // implementation from now on
     // --------------------------
-
-    void OnInternalIdle();
 
 protected:
     virtual wxSize DoGetBestSize() const;

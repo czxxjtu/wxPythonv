@@ -30,8 +30,8 @@ focus to that pane.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: auinavi.py 65202 2010-08-06 15:49:23Z CJP $"
-__revision__ = "$Revision: 65202 $"
+__svnid__ = "$Id: auinavi.py 65794 2010-10-13 14:10:09Z CJP $"
+__revision__ = "$Revision: 65794 $"
 
 __all__ = ['AuiPaneNavigator',]
 
@@ -79,11 +79,6 @@ class AuiPaneNavigator(wx.Dialog):
         self._listBox.Bind(wx.EVT_NAVIGATION_KEY, self.OnNavigationKey)
         self._listBox.Bind(wx.EVT_LISTBOX_DCLICK, self.OnItemSelected)
         self._listBox.Bind(wx.EVT_LISTBOX, lambda evt: self.HighlightPane())
-
-        # Set focus on the list box to avoid having to click on it to change
-        # the tab selection under GTK.
-        self._listBox.SetFocus()
-        self._listBox.SetSelection(0)
 
     def __del__(self):
         self._auimgr.HideHint()
@@ -227,3 +222,10 @@ class AuiPaneNavigator(wx.Dialog):
 
         """
         self._navi_keys = keylist
+
+    def ShowModal(self):
+        # Set focus on the list box to avoid having to click on it to change
+        # the tab selection under GTK.
+        self._listBox.SetFocus()
+        self._listBox.SetSelection(0)
+        return super(AuiPaneNavigator, self).ShowModal()

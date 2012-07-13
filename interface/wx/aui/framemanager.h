@@ -2,7 +2,7 @@
 // Name:        aui/aui.h
 // Purpose:     interface of wxAuiManager
 // Author:      wxWidgets team
-// RCS-ID:      $Id: framemanager.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: framemanager.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ enum wxAuiManagerDock
 
 
 /**
-    @todo wxAuiManager behavior style flags.
+    @todo wxAuiManager behaviour style flags.
 */
 enum wxAuiManagerOption
 {
@@ -50,7 +50,7 @@ enum wxAuiManagerOption
 
     wxAuiManager manages the panes associated with it for a particular wxFrame,
     using a pane's wxAuiPaneInfo information to determine each pane's docking
-    and floating behavior.
+    and floating behaviour.
 
     wxAuiManager uses wxWidgets' sizer mechanism to plan the layout of each
     frame. It uses a replaceable dock art class to do all drawing, so all
@@ -135,7 +135,7 @@ class wxAuiManager : public wxEvtHandler
 public:
     /**
         Constructor. @a managed_wnd specifies the wxFrame which should be managed.
-        @a flags  specifies options which allow the frame management behavior
+        @a flags  specifies options which allow the frame management behaviour
         to be modified.
     */
     wxAuiManager(wxWindow* managed_wnd = NULL,
@@ -244,7 +244,7 @@ public:
                     int insert_level = wxAUI_INSERT_PANE);
 
     /**
-        LoadPaneInfo() is similar to to LoadPerspective, with the exception that it
+        LoadPaneInfo() is similar to LoadPerspective, with the exception that it
         only loads information about a single pane.  It is used in combination with
         SavePaneInfo().
     */
@@ -299,7 +299,7 @@ public:
 
     /**
         This method is used to specify wxAuiManager's settings flags. @a flags
-        specifies options which allow the frame management behavior to be modified.
+        specifies options which allow the frame management behaviour to be modified.
     */
     void SetFlags(unsigned int flags);
 
@@ -442,7 +442,7 @@ public:
     wxAuiPaneInfo& DefaultPane();
 
     /**
-        DestroyOnClose() indicates whether a pane should be detroyed when it is closed.
+        DestroyOnClose() indicates whether a pane should be destroyed when it is closed.
         Normally a pane is simply hidden when the close button is clicked.
         Setting DestroyOnClose to @true will cause the window to be destroyed when
         the user clicks the pane's close button.
@@ -571,13 +571,35 @@ public:
     wxAuiPaneInfo& Hide();
 
     /**
+        Icon() sets the icon of the pane.
+
+        Notice that the height of the icon should be smaller than the value
+        returned by wxAuiDockArt::GetMetric(wxAUI_DOCKART_CAPTION_SIZE) to
+        ensure that it appears correctly.
+
+        @since 2.9.2
+    */
+    wxAuiPaneInfo& Icon(const wxBitmap& b);
+
+    /**
         IsBottomDockable() returns @true if the pane can be docked at the bottom of the
         managed frame.
+
+        @see IsDockable()
     */
     bool IsBottomDockable() const;
 
     /**
-        IsDocked() returns @true if the pane is docked.
+        Returns @true if the pane can be docked at any side.
+
+        @see IsTopDockable(), IsBottomDockable(), IsLeftDockable(), IsRightDockable()
+
+        @since 2.9.2
+    */
+    bool IsDockable() const;
+
+    /**
+        IsDocked() returns @true if the pane is currently docked.
     */
     bool IsDocked() const;
 
@@ -600,6 +622,8 @@ public:
     /**
         IsLeftDockable() returns @true if the pane can be docked on the left of the
         managed frame.
+
+        @see IsDockable()
     */
     bool IsLeftDockable() const;
 
@@ -623,6 +647,8 @@ public:
     /**
         IsRightDockable() returns @true if the pane can be docked on the right of the
         managed frame.
+
+        @see IsDockable()
     */
     bool IsRightDockable() const;
 
@@ -639,6 +665,8 @@ public:
     /**
         IsTopDockable() returns @true if the pane can be docked at the top of the
         managed frame.
+
+        @see IsDockable()
     */
     bool IsTopDockable() const;
 
@@ -793,6 +821,20 @@ public:
 
     See wxAuiManager for available event types.
 
+    @beginEventTable{wxAuiManagerEvent}
+    @event{EVT_AUI_PANE_BUTTON(func)}
+        Triggered when any button is pressed for any docked panes.
+    @event{EVT_AUI_PANE_CLOSE(func)}
+        Triggered when a docked or floating pane is closed.
+    @event{EVT_AUI_PANE_MAXIMIZE(func)}
+        Triggered when a pane is maximized.
+    @event{EVT_AUI_PANE_RESTORE(func)}
+        Triggered when a pane is restored.
+    @event{EVT_AUI_RENDER(func)}
+        This event can be caught to override the default renderer in order to
+        custom draw your wxAuiManager window (not recommended).
+    @endEventTable
+    
     @library{wxaui}
     @category{events,aui}
 

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cocoa/ObjcRef.mm
+// Name:        src/cocoa/ObjcRef.mm
 // Purpose:     wxObjcAutoRefBase implementation
 // Author:      David Elliott
 // Modified by: 
 // Created:     2004/03/28
-// RCS-ID:      $Id: ObjcRef.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: ObjcRef.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 David Elliott <dfe@cox.net>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

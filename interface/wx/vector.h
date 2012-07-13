@@ -2,7 +2,7 @@
 // Name:        vector.h
 // Purpose:     interface of wxVector<T>
 // Author:      wxWidgets team
-// RCS-ID:      $Id: vector.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: vector.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -77,7 +77,7 @@ public:
     wxVector(size_type size, const value_type& value);
 
     /**
-        Copy onstructor.
+        Copy constructor.
     */
     wxVector(const wxVector<T>& c);
 
@@ -235,6 +235,17 @@ public:
         Returns the size of the vector.
     */
     size_type size() const;
+
+    /**
+        Efficiently exchanges contents of this vector with another one.
+
+        After the execution of this function the contents of this vector is
+        equal to the original contents of @a v and the contents of @a v becomes
+        the original contents of this vector without copying the data.
+
+        @since 2.9.1
+     */
+    void swap(wxVector& v);
 };
 
 
@@ -248,7 +259,7 @@ public:
    ... // items are added to the vector v...
    wxVectorSort(v);
    @endcode
-      
+
    @see wxVector<T>
 */
 template<typename T>

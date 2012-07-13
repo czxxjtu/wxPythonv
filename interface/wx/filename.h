@@ -2,7 +2,7 @@
 // Name:        filename.h
 // Purpose:     interface of wxFileName
 // Author:      wxWidgets team
-// RCS-ID:      $Id: filename.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: filename.h 67723 2011-05-10 09:58:52Z VS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -129,7 +129,7 @@ wxULongLong wxInvalidSize;
     wxFileName::IsDirReadable() use wxFileName::GetPath() whereas methods dealing
     with file names like wxFileName::IsFileReadable() use wxFileName::GetFullPath().
 
-    If it is not known wether a string contains a directory name or a complete
+    If it is not known whether a string contains a directory name or a complete
     file name (such as when interpreting user input) you need to use the static
     function wxFileName::DirExists() (or its identical variants wxDir::Exists() and
     wxDirExists()) and construct the wxFileName instance accordingly.
@@ -332,7 +332,7 @@ public:
                 wxPathFormat format = wxPATH_NATIVE);
 
     /**
-        Creates the file name from volumne, path, name and extension.
+        Creates the file name from volume, path, name and extension.
     */
     void Assign(const wxString& volume, const wxString& path,
                 const wxString& name,
@@ -341,7 +341,7 @@ public:
                 wxPathFormat format = wxPATH_NATIVE);
 
     /**
-        Creates the file name from volumne, path, name and extension.
+        Creates the file name from volume, path, name and extension.
     */
     void Assign(const wxString& volume, const wxString& path,
                 const wxString& name,
@@ -557,8 +557,8 @@ public:
         units for multiples of 1024 is used, i.e. returned string will use
         suffixes of B, KB, MB, GB, TB for bytes, kilobytes, megabytes,
         gigabytes and terabytes respectively. With the IEC convention the names
-        of the units are changed to B, KiB, MiB, GiB and TiB fofr bytes,
-        kibibytes, mebibyes, gibibytes and tebibytes. Finally, with SI
+        of the units are changed to B, KiB, MiB, GiB and TiB for bytes,
+        kibibytes, mebibytes, gibibytes and tebibytes. Finally, with SI
         convention the same B, KB, MB, GB and TB suffixes are used but in their
         correct SI meaning, i.e. as multiples of 1000 and not 1024.
 
@@ -611,6 +611,10 @@ public:
         Don't include the trailing separator in the returned string. This is
         the default (the value of this flag is 0) and exists only for symmetry
         with wxPATH_GET_SEPARATOR.
+
+        @note If the path is a toplevel one (e.g. @c "/" on Unix or @c "C:\" on
+              Windows), then the returned path will contain trailing separator
+              even with @c wxPATH_NO_SEPARATOR.
     */
     wxString GetPath(int flags = wxPATH_GET_VOLUME,
                      wxPathFormat format = wxPATH_NATIVE) const;
@@ -962,9 +966,16 @@ public:
                       int flags = 0);
 
     /**
-        Normalize the path. With the default flags value, the path will be
-        made absolute, without any ".." and "." and all environment
-        variables will be expanded in it.
+        Normalize the path.
+
+        With the default flags value, the path will be made absolute, without
+        any ".." and "." and all environment variables will be expanded in it.
+
+        Notice that in some rare cases normalizing a valid path may result in
+        an invalid wxFileName object. E.g. normalizing "./" path using
+        wxPATH_NORM_DOTS but not wxPATH_NORM_ABSOLUTE will result in a
+        completely empty and thus invalid object. As long as there is a non
+        empty file name the result of normalization will be valid however.
 
         @param flags
             The kind of normalization to do with the file name. It can be

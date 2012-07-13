@@ -4,7 +4,7 @@
 // Author:      Francesco Montorsi
 // Modified by:
 // Created:     15/04/2006
-// RCS-ID:      $Id: fontpickerg.cpp 63945 2010-04-12 00:37:02Z VZ $
+// RCS-ID:      $Id: fontpickerg.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Francesco Montorsi
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void wxGenericFontButton::InitFontData()
 
 void wxGenericFontButton::OnButtonClick(wxCommandEvent& WXUNUSED(ev))
 {
-    // update the wxFontData to be shown in the the dialog
+    // update the wxFontData to be shown in the dialog
     m_data.SetInitialFont(m_selectedFont);
 
     // create the font dialog and display it
@@ -97,7 +97,7 @@ void wxGenericFontButton::OnButtonClick(wxCommandEvent& WXUNUSED(ev))
 
 void wxGenericFontButton::UpdateFont()
 {
-    if ( !m_selectedFont.Ok() )
+    if ( !m_selectedFont.IsOk() )
         return;
 
     SetForegroundColour(m_data.GetColour());

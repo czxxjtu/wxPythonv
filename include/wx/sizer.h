@@ -4,7 +4,7 @@
 // Author:      Robert Roebling and Robin Dunn
 // Modified by: Ron Lee, Vadim Zeitlin (wxSizerFlags)
 // Created:
-// RCS-ID:      $Id: sizer.h 63580 2010-02-28 11:09:02Z VZ $
+// RCS-ID:      $Id: sizer.h 66862 2011-02-08 13:36:13Z VZ $
 // Copyright:   (c) Robin Dunn, Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -665,6 +665,10 @@ public:
         m_position = pos;
         m_size = size;
         Layout();
+
+        // This call is required for wxWrapSizer to be able to calculate its
+        // minimal size correctly.
+        InformFirstDirection(wxHORIZONTAL, size.x, size.y);
     }
     void SetDimension(int x, int y, int width, int height)
         { SetDimension(wxPoint(x, y), wxSize(width, height)); }

@@ -2,7 +2,7 @@
 // Name:        vscroll.h
 // Purpose:     interface of wxVarHScrollHelper
 // Author:      wxWidgets team
-// RCS-ID:      $Id: vscroll.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: vscroll.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -715,7 +715,7 @@ public:
                       const wxString& name = wxPanelNameStr);
 
     /**
-        Same as the non-default constuctor, but returns a status code: @true if
+        Same as the non-default constructor, but returns a status code: @true if
         ok, @false if the window couldn't be created.
 
         Just as with the constructor, the @c wxVSCROLL style is always used,
@@ -791,7 +791,7 @@ public:
                       const wxString& name = wxPanelNameStr);
 
     /**
-        Same as the non-default constuctor, but returns a status code: @true if
+        Same as the non-default constructor, but returns a status code: @true if
         ok, @false if the window couldn't be created.
 
         Just as with the constructor, the @c wxHSCROLL style is always used,
@@ -868,7 +868,7 @@ public:
                        const wxString& name = wxPanelNameStr);
 
     /**
-        Same as the non-default constuctor, but returns a status code: @true if
+        Same as the non-default constructor, but returns a status code: @true if
         ok, @false if the window couldn't be created.
 
         Just as with the constructor, the @c wxHSCROLL and @c wxVSCROLL styles

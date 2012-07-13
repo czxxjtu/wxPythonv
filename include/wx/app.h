@@ -5,7 +5,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: app.h 64531 2010-06-09 13:23:13Z FM $
+// RCS-ID:      $Id: app.h 66648 2011-01-08 06:42:41Z PC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -497,7 +497,7 @@ protected:
     wxDECLARE_NO_COPY_CLASS(wxAppConsoleBase);
 };
 
-#if defined(__UNIX__)
+#if defined(__UNIX__) && !defined(__CYGWIN__)
     #include "wx/unix/app.h"
 #else
     // this has to be a class and not a typedef as we forward declare it
@@ -561,10 +561,6 @@ public:
         //
         // it should return true if more idle events are needed, false if not
     virtual bool ProcessIdle();
-
-        // Send idle event to window and all subwindows
-        // Returns true if more idle time is requested.
-    virtual bool SendIdleEvents(wxWindow* win, wxIdleEvent& event);
 
         // override base class version: GUI apps always use an event loop
     virtual bool UsesEventLoop() const { return true; }

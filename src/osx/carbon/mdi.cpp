@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: mdi.cpp 61475 2009-07-20 16:47:54Z VZ $
+// RCS-ID:      $Id: mdi.cpp 67206 2011-03-16 06:36:43Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ void wxMDIParentFrame::Init()
 }
 
 bool wxMDIParentFrame::Create(wxWindow *parent,
-    wxWindowID id,
+    wxWindowID winid,
     const wxString& title,
     const wxPoint& pos,
     const wxSize& size,
@@ -114,7 +114,7 @@ bool wxMDIParentFrame::Create(wxWindow *parent,
         m_windowMenu->Append(IDM_WINDOWNEXT, wxT("&Next"));
     }
 
-    if ( !wxFrame::Create( parent , id , title , pos , size , style , name ) )
+    if ( !wxFrame::Create( parent , winid , title , pos , size , style , name ) )
         return false;
 
     m_parentFrameActive = true;
@@ -328,7 +328,7 @@ void wxMDIChildFrame::Init()
 }
 
 bool wxMDIChildFrame::Create(wxMDIParentFrame *parent,
-                             wxWindowID id,
+                             wxWindowID winid,
                              const wxString& title,
                              const wxPoint& pos,
                              const wxSize& size,
@@ -339,10 +339,10 @@ bool wxMDIChildFrame::Create(wxMDIParentFrame *parent,
 
     SetName(name);
 
-    if ( id == wxID_ANY )
-        id = (int)NewControlId();
+    if ( winid == wxID_ANY )
+        winid = (int)NewControlId();
 
-    wxNonOwnedWindow::Create( parent, id, pos , size , MacRemoveBordersFromStyle(style) , name ) ;
+    wxNonOwnedWindow::Create( parent, winid, pos , size , MacRemoveBordersFromStyle(style) , name ) ;
 
     SetTitle( title );
 

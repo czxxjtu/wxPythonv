@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     20.09.01
-// RCS-ID:      $Id: toplevel.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: toplevel.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2001 Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,9 +44,9 @@ public:
                 const wxSize& size = wxDefaultSize,
                 long style = wxDEFAULT_FRAME_STYLE,
                 const wxString& name = wxFrameNameStr);
-    
+
     bool Create(wxWindow *parent, WXWindow nativeWindow);
-    
+
     virtual bool Destroy();
 
     virtual wxPoint GetClientAreaOrigin() const;
@@ -64,7 +64,7 @@ public:
     virtual void Iconize(bool iconize = true);
     virtual bool IsIconized() const;
     virtual void Restore();
-    
+
     virtual bool IsActive();
 
     virtual void ShowWithoutActivating();

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        http.h
+// Name:        wx/protocol/http.h
 // Purpose:     HTTP protocol
 // Author:      Guilhem Lavaux
 // Modified by: Simo Virokannas (authentication, Dec 2005)
 // Created:     August 1997
-// RCS-ID:      $Id: http.h 62160 2009-09-26 19:47:23Z JS $
+// RCS-ID:      $Id: http.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1997, 1998 Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

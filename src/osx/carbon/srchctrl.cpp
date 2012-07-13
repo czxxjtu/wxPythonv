@@ -3,7 +3,7 @@
 // Purpose:     implements mac carbon wxSearchCtrl
 // Author:      Vince Harron
 // Created:     2006-02-19
-// RCS-ID:      $Id: srchctrl.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: srchctrl.cpp 66826 2011-02-02 07:55:57Z SC $
 // Copyright:   Vince Harron
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -204,7 +204,7 @@ bool wxMacSearchFieldControl::SetFocus()
     return true;
 }
 
-wxWidgetImplType* wxWidgetImpl::CreateSearchControl( wxTextCtrl* wxpeer,
+wxWidgetImplType* wxWidgetImpl::CreateSearchControl( wxSearchCtrl* wxpeer,
                                     wxWindowMac* WXUNUSED(parent),
                                     wxWindowID WXUNUSED(id),
                                     const wxString& str,

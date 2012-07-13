@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: cursor.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: cursor.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1997-2003 Julian Smart and Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -236,12 +236,12 @@ wxCursor::wxCursor(const wxString& filename,
     switch ( kind )
     {
         case wxBITMAP_TYPE_CUR_RESOURCE:
-            hcursor = ::LoadCursor(wxGetInstance(), filename.fn_str());
+            hcursor = ::LoadCursor(wxGetInstance(), filename.t_str());
             break;
 
 #ifndef __WXWINCE__
         case wxBITMAP_TYPE_CUR:
-            hcursor = ::LoadCursorFromFile(filename.fn_str());
+            hcursor = ::LoadCursorFromFile(filename.t_str());
             break;
 #endif
 
@@ -391,7 +391,7 @@ const wxCursor *wxGetGlobalCursor()
 
 void wxSetCursor(const wxCursor& cursor)
 {
-    if ( cursor.Ok() )
+    if ( cursor.IsOk() )
     {
         ::SetCursor(GetHcursorOf(cursor));
 

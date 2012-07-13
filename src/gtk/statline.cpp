@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        statline.cpp
+// Name:        src/gtk/statline.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: statline.cpp 55288 2008-08-26 16:19:23Z PC $
+// Id:          $Id: statline.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,8 +20,6 @@
 //-----------------------------------------------------------------------------
 // wxStaticLine
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxStaticLine, wxControl)
 
 wxStaticLine::wxStaticLine()
 {

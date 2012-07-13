@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     12.04.99
-// RCS-ID:      $Id: buffer.h 64209 2010-05-05 07:45:33Z VS $
+// RCS-ID:      $Id: buffer.h 66780 2011-01-27 11:00:26Z SC $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -260,7 +260,7 @@ public:
         {
             if ( len == wxNO_LEN )
                 len = wxStrlen(str);
-            this->m_data = new Data(StrCopy(str, len), len);
+            this->m_data = new Data(this->StrCopy(str, len), len);
         }
         else
         {
@@ -295,7 +295,7 @@ public:
 
     wxCharTypeBuffer(const wxScopedCharTypeBuffer<T>& src)
     {
-        MakeOwnedCopyOf(src);
+        this->MakeOwnedCopyOf(src);
     }
 
     wxCharTypeBuffer& operator=(const wxScopedCharTypeBuffer<T>& src)

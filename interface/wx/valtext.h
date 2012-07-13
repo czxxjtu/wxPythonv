@@ -2,7 +2,7 @@
 // Name:        valtext.h
 // Purpose:     interface of wxTextValidator
 // Author:      wxWidgets team
-// RCS-ID:      $Id: valtext.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: valtext.h 66714 2011-01-19 10:48:28Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -42,7 +42,7 @@ enum wxTextValidatorStyle
     wxFILTER_DIGITS,
 
     /// Non-numeric characters are filtered out.
-    /// Works like @c wxFILTER_SIMPLE_NUMBER but allows also decimal points,
+    /// Works like @c wxFILTER_DIGITS but allows also decimal points,
     /// minus/plus signs and the 'e' or 'E' character to input exponents.
     /// Note that this is not the same behaviour of wxString::IsNumber().
     wxFILTER_NUMERIC,
@@ -77,7 +77,8 @@ enum wxTextValidatorStyle
     @library{wxcore}
     @category{validator}
 
-    @see @ref overview_validator, wxValidator, wxGenericValidator
+    @see @ref overview_validator, wxValidator, wxGenericValidator,
+        wxIntegerValidator, wxFloatingPointValidator
 */
 class wxTextValidator : public wxValidator
 {

@@ -3,7 +3,7 @@
 // Purpose:     implementation of wxHeaderCtrlBase
 // Author:      Vadim Zeitlin
 // Created:     2008-12-02
-// RCS-ID:      $Id: headerctrlcmn.cpp 58088 2009-01-13 23:15:03Z VZ $
+// RCS-ID:      $Id: headerctrlcmn.cpp 66740 2011-01-24 14:35:33Z VS $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -114,8 +114,15 @@ void wxHeaderCtrlBase::SetColumnCount(unsigned int count)
 void wxHeaderCtrlBase::OnSeparatorDClick(wxHeaderCtrlEvent& event)
 {
     const unsigned col = event.GetColumn();
+    const wxHeaderColumn& column = GetColumn(col);
 
-    int w = wxWindowBase::GetTextExtent(GetColumn(col).GetTitle()).x;
+    if ( !column.IsResizeable() )
+    {
+        event.Skip();
+        return;
+    }
+
+    int w = wxWindowBase::GetTextExtent(column.GetTitle()).x;
     w += 4*GetCharWidth(); // add some arbitrary margins around text
 
     if ( !UpdateColumnWidthToFit(col, w) )

@@ -2,7 +2,7 @@
 // Name:        string.h
 // Purpose:     interface of wxStringBuffer, wxString
 // Author:      wxWidgets team
-// RCS-ID:      $Id: string.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: string.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -324,7 +324,7 @@ public:
     void SetChar(size_t n, wxUniChar ch);
 
     /**
-        Returns a the last character.
+        Returns the last character.
 
         This is a wxWidgets 1.xx compatibility function;
         you should not use it in new code.
@@ -447,7 +447,7 @@ public:
     const wxScopedCharBuffer utf8_str() const;
 
     /**
-        Converts the strings contents to the wide character represention
+        Converts the strings contents to the wide character representation
         and returns it as a temporary wxWCharBuffer object (Unix and OS X)
         or returns a pointer to the internal string contents in wide character
         mode (Windows).
@@ -783,14 +783,32 @@ public:
     /**
         Gets all characters before the first occurrence of @e ch.
         Returns the whole string if @a ch is not found.
+
+        @param ch The character to look for.
+        @param rest Filled with the part of the string following the first
+            occurrence of @a ch or cleared if it was not found. The same string
+            is returned by AfterFirst() but it is more efficient to use this
+            output parameter if both the "before" and "after" parts are needed
+            than calling both functions one after the other. This parameter is
+            available in wxWidgets version 2.9.2 and later only.
+        @return Part of the string before the first occurrence of @a ch.
     */
-    wxString BeforeFirst(wxUniChar ch) const;
+    wxString BeforeFirst(wxUniChar ch, wxString *rest = NULL) const;
 
     /**
         Gets all characters before the last occurrence of @e ch.
         Returns the empty string if @a ch is not found.
+
+        @param ch The character to look for.
+        @param rest Filled with the part of the string following the last
+            occurrence of @a ch or the copy of this string if it was not found.
+            The same string is returned by AfterLast() but it is more efficient
+            to use this output parameter if both the "before" and "after" parts
+            are needed than calling both functions one after the other. This
+            parameter is available in wxWidgets version 2.9.2 and later only.
+        @return Part of the string before the last occurrence of @a ch.
     */
-    wxString BeforeLast(wxUniChar ch) const;
+    wxString BeforeLast(wxUniChar ch, wxString *rest = NULL) const;
 
     //@}
 
@@ -957,8 +975,13 @@ public:
         you are sure that this string contains a floating point number formatted with
         the rules of the locale currently in use (see wxLocale).
 
-        Refer to the docs of the standard function @c strtod() for more details about
-        the supported syntax.
+        Also notice that even this function is locale-specific it does not
+        support strings with thousands separators in them, even if the current
+        locale uses digits grouping. You may use wxNumberFormatter::FromString()
+        to parse such strings.
+
+        Please refer to the documentation of the standard function @c strtod()
+        for more details about the supported syntax.
 
         @see ToCDouble(), ToLong(), ToULong()
     */
@@ -997,8 +1020,12 @@ public:
         that this string contains an integer number formatted with
         the rules of the locale currently in use (see wxLocale).
 
-        Refer to the docs of the standard function @c strtol() for more details about
-        the supported syntax.
+        As with ToDouble(), this function does not support strings containing
+        thousands separators even if the current locale uses digits grouping.
+        You may use wxNumberFormatter::FromString() to parse such strings.
+
+        Please refer to the documentation of the standard function @c strtol()
+        for more details about the supported syntax.
 
         @see ToCDouble(), ToDouble(), ToULong()
     */
@@ -1299,7 +1326,7 @@ public:
     /**
         @member_group_name{iter, Iterator interface}
 
-        These methods return iterators to the beginnnig or end of the string.
+        These methods return iterators to the beginning or end of the string.
 
         Please see any STL reference (e.g. http://www.cppreference.com/wiki/string/start)
         for their documentation.
@@ -1446,7 +1473,7 @@ public:
 
 
     // STATIC FUNCTIONS
-    // Keep these functions separed from the other groups or Doxygen gets confused
+    // Keep these functions separated from the other groups or Doxygen gets confused
     // -----------------------------------------------------------------------------
 
     /**
@@ -1508,29 +1535,37 @@ public:
 
         Unlike FromDouble() the string returned by this function always uses
         the period character as decimal separator, independently of the current
-        locale.
+        locale. Otherwise its behaviour is identical to the other function.
 
         @since 2.9.1
 
         @see ToCDouble()
      */
-    static wxString FromCDouble(double val);
+    static wxString FromCDouble(double val, int precision = -1);
 
     /**
         Returns a string with the textual representation of the number.
 
-        This is a simple wrapper for @code wxString::Format("%g", val)
-        @endcode.
+        For the default value of @a precision, this function behaves as a
+        simple wrapper for @code wxString::Format("%g", val) @endcode. If @a
+        precision is positive (or zero), the @c %.Nf format is used with the
+        given precision value.
 
         Notice that the string returned by this function uses the decimal
         separator appropriate for the current locale, e.g. @c "," and not a
         period in French locale. Use FromCDouble() if this is unwanted.
 
+        @param val
+            The value to format.
+        @param precision
+            The number of fractional digits to use in or -1 to use the most
+            appropriate format. This parameter is new in wxWidgets 2.9.2.
+
         @since 2.9.1
 
         @see ToDouble()
      */
-    static wxString FromDouble(double val);
+    static wxString FromDouble(double val, int precision = -1);
 
     //@{
     /**

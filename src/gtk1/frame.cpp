@@ -2,7 +2,7 @@
 // Name:        src/gtk1/frame.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: frame.cpp 64145 2010-04-26 14:19:26Z VZ $
+// Id:          $Id: frame.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -55,8 +55,6 @@ extern bool g_isIdle;
 // ----------------------------------------------------------------------------
 // event tables
 // ----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxFrame, wxTopLevelWindow)
 
 // ============================================================================
 // implementation

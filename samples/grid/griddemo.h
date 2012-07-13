@@ -3,7 +3,7 @@
 // Purpose:     Grid control wxWidgets sample
 // Author:      Michael Bedward
 // Modified by:
-// RCS-ID:      $Id: griddemo.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: griddemo.h 65075 2010-07-24 11:56:11Z VZ $
 // Copyright:   (c) Michael Bedward, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,6 @@ class GridFrame : public wxFrame
     void SelectRow(wxCommandEvent& event);
     void SelectAll(wxCommandEvent& event);
     void OnAddToSelectToggle(wxCommandEvent& event);
-    void OnShowSelection(wxCommandEvent& event);
 
     void AutoSizeRow(wxCommandEvent& event);
     void AutoSizeCol(wxCommandEvent& event);
@@ -156,7 +155,6 @@ public:
         ID_BUGS_TABLE,
         ID_TABULAR_TABLE,
         ID_SELECT_UNSELECT,
-        ID_SHOW_SELECTION,
         ID_SELECT_ALL,
         ID_SELECT_ROW,
         ID_SELECT_COL,

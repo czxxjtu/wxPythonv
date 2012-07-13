@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dialog.h
+// Name:        wx/gtk/dialog.h
 // Purpose:
 // Author:      Robert Roebling
 // Created:
-// Id:          $Id: dialog.h 62356 2009-10-09 17:39:19Z PC $
+// Id:          $Id: dialog.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:           wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

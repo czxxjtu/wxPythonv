@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin (use hash map instead of list, global rewrite)
 // Created:     04/01/98
-// RCS-ID:      $Id: timer.cpp 63486 2010-02-15 17:34:21Z RD $
+// RCS-ID:      $Id: timer.cpp 66228 2010-11-22 01:22:47Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -173,15 +173,17 @@ LRESULT APIENTRY _EXPORT wxTimerWndProc(HWND hWnd, UINT message,
     {
         wxTimerMap::iterator node = TimerMap().find(wParam);
 
-        wxCHECK_MSG( node != TimerMap().end(), 0, wxT("bogus timer id in wxTimerProc") );
+        if ( node != TimerMap().end() )
+        {
+            wxProcessTimer(*(node->second));
 
-        wxProcessTimer(*(node->second));
+            return 0;
+        }
+        //else: Unknown timer, probably one of our timers that had fired just
+        //      before being removed from the timers map by Stop().
     }
-    else
-    {
-        return ::DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
+
+    return ::DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 // ----------------------------------------------------------------------------

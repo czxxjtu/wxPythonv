@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _dc.i 65132 2010-07-29 03:31:20Z RD $
+// RCS-ID:      $Id: _dc.i 67821 2011-05-31 20:17:45Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -24,6 +24,7 @@
 #ifdef __WXGTK__
 #include <wx/gtk/dc.h>
 #endif
+#include <wx/dcgraph.h>
 %}
 
 // TODO: 1. wrappers for wxDrawObject and wxDC::DrawObject
@@ -109,6 +110,20 @@ enum wxMappingMode
     wxMM_TWIPS,
     wxMM_POINTS,
     wxMM_METRIC
+};
+
+
+struct wxFontMetrics
+{
+    wxFontMetrics();
+    ~wxFontMetrics();
+    
+    int height,             // Total character height.
+        ascent,             // Part of the height above the baseline.
+        descent,            // Part of the height below the baseline.
+        internalLeading,    // Intra-line spacing.
+        externalLeading,    // Inter-line spacing.
+        averageWidth;       // Average font width, a.k.a. "x-width".
 };
 
 //---------------------------------------------------------------------------
@@ -706,6 +721,7 @@ clipped.", "
         virtual wxCoord , GetCharWidth() const,
         "Gets the average character width of the currently set font.", "");
     
+    wxFontMetrics GetFontMetrics() const;
 
 
     DocDeclAStr(
@@ -988,6 +1004,15 @@ mode, but mapping mode is currently ignored for PostScript output.
 highest values on the axis). The default orientation is the natural
 orientation, e.g. x axis from left to right and y axis from bottom up.", "");
 
+
+    
+    // TODO
+    //bool CanUseTransformMatrix() const;
+    //bool SetTransformMatrix(const wxAffineMatrix2D &matrix);
+    //wxAffineMatrix2D GetTransformMatrix() const;
+    //void ResetTransformMatrix();
+
+    
 
     DocDeclStr(
         wxRasterOperationMode , GetLogicalFunction() const,
@@ -1813,7 +1838,7 @@ EVT_PAINT event handler. Just create an object of this class instead
 of `wx.PaintDC` and that's all you have to do to (mostly) avoid
 flicker. The only thing to watch out for is that if you are using this
 class together with `wx.ScrolledWindow`, you probably do **not** want
-to call `wx.Window.PrepareDC` on it as it already does this internally
+to call `wx.ScrolledWindow.PrepareDC` on it as it already does this internally
 for the real underlying `wx.PaintDC`.
 
 If your window is already fully buffered in a `wx.Bitmap` then your
@@ -2064,6 +2089,7 @@ public:
 
 class wxSVGFileDC : public wxDC
 {
+public:
     wxSVGFileDC(wxString filename,
                 int width=320,
                 int height=240,

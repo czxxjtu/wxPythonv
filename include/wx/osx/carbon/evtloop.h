@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2006-01-12
-// RCS-ID:      $Id: evtloop.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: evtloop.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ protected:
     virtual int DoDispatchTimeout(unsigned long timeout);
 
     virtual void DoRun();
-    
+
     virtual void DoStop();
 
     virtual CFRunLoopRef CFGetCurrentRunLoop() const;

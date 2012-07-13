@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!-- $Id: Bakefiles.bkgen 60456 2009-05-01 10:14:15Z VZ $ -->
+<!-- $Id: Bakefiles.bkgen 66022 2010-11-05 16:05:38Z CE $ -->
 
 <bakefile-gen xmlns="http://www.bakefile.org/schema/bakefile-gen">
 
@@ -9,7 +9,7 @@
     Bakefiles.local.bkgen file in this directory and add <enable-formats>
     into it:
          <?xml version="1.0" ?>
-         <bakefile-gen>
+         <bakefile-gen xmlns="http://www.bakefile.org/schema/bakefile-gen">
              <enable-formats>dmars</enable-formats>
          </bakefile-gen>
 
@@ -62,11 +62,13 @@
     <!-- WinCE can't have console apps: -->
     <del-formats files="../../samples/console/*">msevc4prj</del-formats>
     <del-formats files="../../samples/sockets/*">msevc4prj</del-formats>
+    <del-formats files="../../utils/execmon/*">msevc4prj</del-formats>
     <del-formats files="../../utils/HelpGen/src/*">msevc4prj</del-formats>
     <del-formats files="../../utils/ifacecheck/src/*">msevc4prj</del-formats>
     <del-formats files="../../utils/wxrc/*">msevc4prj</del-formats>
     <del-formats files="../../tests/*">msevc4prj</del-formats>
     <del-formats files="../../tests/benchmarks/*">msevc4prj</del-formats>
+
 
     <!-- HtmlCtrl sample is Cocoa only (autoconf format) -->
     <del-formats files="../../samples/html/htmlctrl/htmlctrl.bkl">

@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing wxBitmapComboBox
 // Author:      Jaakko Salli
 // Created:     Sep-01-2006
-// Id:          $Id: bmpcombobox.cpp 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: bmpcombobox.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2006 Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -486,7 +486,7 @@ void BitmapComboBoxWidgetsPage::CreateCombo()
     m_sizerCombo->Add(m_combobox, 0, wxGROW | wxALL, 5);
     m_sizerCombo->Layout();
 
-    // Allow changing height inorder to demonstrate flexible
+    // Allow changing height in order to demonstrate flexible
     // size of image "thumbnail" painted in the control itself.
     long h = 0;
     m_textChangeHeight->GetValue().ToLong(&h);
@@ -712,10 +712,10 @@ void BitmapComboBoxWidgetsPage::LoadWidgetImages( wxArrayString* strings, wxImag
 #if wxUSE_IMAGE
             wxASSERT(fn.FileExists());
             wxImage image(fn.GetFullPath());
-            wxASSERT(image.Ok());
+            wxASSERT(image.IsOk());
             RescaleImage(image, foundSize.x, foundSize.y);
             wxBitmap bmp(image);
-            wxASSERT( bmp.Ok() );
+            wxASSERT( bmp.IsOk() );
 #else
             wxBitmap bmp(wxNullBitmap);
 #endif
@@ -842,7 +842,7 @@ wxBitmap BitmapComboBoxWidgetsPage::LoadBitmap(const wxString& filepath)
     }
 
     wxImage image(filepath);
-    if ( image.Ok() )
+    if ( image.IsOk() )
     {
         // Rescale very large images
         int ow = image.GetWidth();
@@ -884,7 +884,7 @@ wxBitmap BitmapComboBoxWidgetsPage::QueryBitmap(wxString* pStr)
 
     ::wxSetCursor( *wxHOURGLASS_CURSOR );
 
-    if ( filepath.length() )
+    if ( !filepath.empty() )
     {
         if ( pStr )
         {

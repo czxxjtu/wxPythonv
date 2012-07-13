@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/generic/fdrepgg.cpp
+// Name:        src/generic/fdrepdlg.cpp
 // Purpose:     Find/Replace dialogs
 // Author:      Markus Greither and Vadim Zeitlin
 // Modified by:
 // Created:     05/25/01
-// RCS-ID:      $Id: fdrepdlg.cpp 64019 2010-04-18 00:05:37Z VZ $
+// RCS-ID:      $Id: fdrepdlg.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

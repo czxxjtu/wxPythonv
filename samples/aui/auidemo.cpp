@@ -4,7 +4,7 @@
 // Author:      Benjamin I. Williams
 // Modified by:
 // Created:     2005-10-03
-// RCS-ID:      $Id: auidemo.cpp 63708 2010-03-18 15:07:39Z VZ $
+// RCS-ID:      $Id: auidemo.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (C) Copyright 2005, Kirix Corporation, All Rights Reserved.
 // Licence:     wxWindows Library Licence, Version 3.1
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,6 +85,7 @@ class MyFrame : public wxFrame
         ID_VerticalGradient,
         ID_HorizontalGradient,
         ID_LiveUpdate,
+        ID_AllowToolbarResizing,
         ID_Settings,
         ID_CustomizeToolbar,
         ID_DropDownToolbarItem,
@@ -158,6 +159,7 @@ private:
     void OnTabAlignment(wxCommandEvent &evt);
 
     void OnGradient(wxCommandEvent& evt);
+    void OnToolbarResizing(wxCommandEvent& evt);
     void OnManagerFlag(wxCommandEvent& evt);
     void OnNotebookFlag(wxCommandEvent& evt);
     void OnUpdateUI(wxUpdateUIEvent& evt);
@@ -568,7 +570,6 @@ bool MyApp::OnInit()
                                  wxT("wxAUI Sample Application"),
                                  wxDefaultPosition,
                                  wxSize(800, 600));
-    SetTopWindow(frame);
     frame->Show();
 
     return true;
@@ -612,6 +613,7 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(ID_NoGradient, MyFrame::OnGradient)
     EVT_MENU(ID_VerticalGradient, MyFrame::OnGradient)
     EVT_MENU(ID_HorizontalGradient, MyFrame::OnGradient)
+    EVT_MENU(ID_AllowToolbarResizing, MyFrame::OnToolbarResizing)
     EVT_MENU(ID_Settings, MyFrame::OnSettings)
     EVT_MENU(ID_CustomizeToolbar, MyFrame::OnCustomizeToolbar)
     EVT_MENU(ID_GridContent, MyFrame::OnChangeContentPane)
@@ -644,6 +646,7 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_UPDATE_UI(ID_NoGradient, MyFrame::OnUpdateUI)
     EVT_UPDATE_UI(ID_VerticalGradient, MyFrame::OnUpdateUI)
     EVT_UPDATE_UI(ID_HorizontalGradient, MyFrame::OnUpdateUI)
+    EVT_UPDATE_UI(ID_AllowToolbarResizing, MyFrame::OnUpdateUI)
     EVT_MENU_RANGE(MyFrame::ID_FirstPerspective, MyFrame::ID_FirstPerspective+1000,
                    MyFrame::OnRestorePerspective)
     EVT_AUITOOLBAR_TOOL_DROPDOWN(ID_DropDownToolbarItem, MyFrame::OnDropDownToolbarItem)
@@ -709,6 +712,8 @@ MyFrame::MyFrame(wxWindow* parent,
     options_menu->AppendRadioItem(ID_NoGradient, _("No Caption Gradient"));
     options_menu->AppendRadioItem(ID_VerticalGradient, _("Vertical Caption Gradient"));
     options_menu->AppendRadioItem(ID_HorizontalGradient, _("Horizontal Caption Gradient"));
+    options_menu->AppendSeparator();
+    options_menu->AppendCheckItem(ID_AllowToolbarResizing, _("Allow Toolbar Resizing"));
     options_menu->AppendSeparator();
     options_menu->Append(ID_Settings, _("Settings Pane"));
 
@@ -789,7 +794,7 @@ MyFrame::MyFrame(wxWindow* parent,
 
 
     wxAuiToolBar* tb2 = new wxAuiToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
-                                         wxAUI_TB_DEFAULT_STYLE | wxAUI_TB_OVERFLOW);
+                                         wxAUI_TB_DEFAULT_STYLE | wxAUI_TB_OVERFLOW | wxAUI_TB_HORIZONTAL);
     tb2->SetToolBitmapSize(wxSize(16,16));
 
     wxBitmap tb2_bmp1 = wxArtProvider::GetBitmap(wxART_QUESTION, wxART_OTHER, wxSize(16,16));
@@ -911,9 +916,19 @@ MyFrame::MyFrame(wxWindow* parent,
                   CloseButton(true).MaximizeButton(true));
 
     wxWindow* wnd10 = CreateTextCtrl(wxT("This pane will prompt the user before hiding."));
+
+    // Give this pane an icon, too, just for testing.
+    int iconSize = m_mgr.GetArtProvider()->GetMetric(wxAUI_DOCKART_CAPTION_SIZE);
+
+    // Make it even to use 16 pixel icons with default 17 caption height.
+    iconSize &= ~1;
+
     m_mgr.AddPane(wnd10, wxAuiPaneInfo().
                   Name(wxT("test10")).Caption(wxT("Text Pane with Hide Prompt")).
-                  Bottom().Layer(1).Position(1));
+                  Bottom().Layer(1).Position(1).
+                  Icon(wxArtProvider::GetBitmap(wxART_WARNING,
+                                                wxART_OTHER,
+                                                wxSize(iconSize, iconSize))));
 
     m_mgr.AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
                   Name(wxT("test11")).Caption(wxT("Fixed Pane")).
@@ -947,29 +962,24 @@ MyFrame::MyFrame(wxWindow* parent,
     // add the toolbars to the manager
     m_mgr.AddPane(tb1, wxAuiPaneInfo().
                   Name(wxT("tb1")).Caption(wxT("Big Toolbar")).
-                  ToolbarPane().Top().
-                  LeftDockable(false).RightDockable(false));
+                  ToolbarPane().Top());
 
     m_mgr.AddPane(tb2, wxAuiPaneInfo().
-                  Name(wxT("tb2")).Caption(wxT("Toolbar 2")).
-                  ToolbarPane().Top().Row(1).
-                  LeftDockable(false).RightDockable(false));
+                  Name(wxT("tb2")).Caption(wxT("Toolbar 2 (Horizontal)")).
+                  ToolbarPane().Top().Row(1));
 
     m_mgr.AddPane(tb3, wxAuiPaneInfo().
                   Name(wxT("tb3")).Caption(wxT("Toolbar 3")).
-                  ToolbarPane().Top().Row(1).Position(1).
-                  LeftDockable(false).RightDockable(false));
+                  ToolbarPane().Top().Row(1).Position(1));
 
     m_mgr.AddPane(tb4, wxAuiPaneInfo().
                   Name(wxT("tb4")).Caption(wxT("Sample Bookmark Toolbar")).
-                  ToolbarPane().Top().Row(2).
-                  LeftDockable(false).RightDockable(false));
+                  ToolbarPane().Top().Row(2));
 
     m_mgr.AddPane(tb5, wxAuiPaneInfo().
                   Name(wxT("tb5")).Caption(wxT("Sample Vertical Toolbar")).
                   ToolbarPane().Left().
-                  GripperTop().
-                  TopDockable(false).BottomDockable(false));
+                  GripperTop());
 
     m_mgr.AddPane(new wxButton(this, wxID_ANY, _("Test Button")),
                   wxAuiPaneInfo().Name(wxT("tb6")).
@@ -1052,6 +1062,22 @@ void MyFrame::OnGradient(wxCommandEvent& event)
     }
 
     m_mgr.GetArtProvider()->SetMetric(wxAUI_DOCKART_GRADIENT_TYPE, gradient);
+    m_mgr.Update();
+}
+
+void MyFrame::OnToolbarResizing(wxCommandEvent& WXUNUSED(evt))
+{
+    wxAuiPaneInfoArray& all_panes = m_mgr.GetAllPanes();
+    const size_t count = all_panes.GetCount();
+    for (size_t i = 0; i < count; ++i)
+    {
+        wxAuiToolBar* toolbar = wxDynamicCast(all_panes[i].window, wxAuiToolBar);
+        if (toolbar)
+        {
+            all_panes[i].Resizable(!all_panes[i].IsResizable());
+        }
+    }
+
     m_mgr.Update();
 }
 
@@ -1198,6 +1224,21 @@ void MyFrame::OnUpdateUI(wxUpdateUIEvent& event)
         case ID_HorizontalGradient:
             event.Check(m_mgr.GetArtProvider()->GetMetric(wxAUI_DOCKART_GRADIENT_TYPE) == wxAUI_GRADIENT_HORIZONTAL);
             break;
+        case ID_AllowToolbarResizing:
+        {
+            wxAuiPaneInfoArray& all_panes = m_mgr.GetAllPanes();
+            const size_t count = all_panes.GetCount();
+            for (size_t i = 0; i < count; ++i)
+            {
+                wxAuiToolBar* toolbar = wxDynamicCast(all_panes[i].window, wxAuiToolBar);
+                if (toolbar)
+                {
+                    event.Check(all_panes[i].IsResizable());
+                    break;
+                }
+            }
+            break;
+        }
         case ID_AllowFloating:
             event.Check((flags & wxAUI_MGR_ALLOW_FLOATING) != 0);
             break;
@@ -1507,7 +1548,7 @@ wxTextCtrl* MyFrame::CreateTextCtrl(const wxString& ctrl_text)
     static int n = 0;
 
     wxString text;
-    if (ctrl_text.Length() > 0)
+    if ( !ctrl_text.empty() )
         text = ctrl_text;
     else
         text.Printf(wxT("This is text box %d"), ++n);
@@ -1663,7 +1704,7 @@ wxString MyFrame::GetIntroText()
         "<li>Native, dockable floating frames</li>"
         "<li>Perspective saving and loading</li>"
         "<li>Native toolbars incorporating real-time, &quot;spring-loaded&quot; dragging</li>"
-        "<li>Customizable floating/docking behavior</li>"
+        "<li>Customizable floating/docking behaviour</li>"
         "<li>Completely customizable look-and-feel</li>"
         "<li>Optional transparent window effects (while dragging or docking)</li>"
         "<li>Splittable notebook control</li>"

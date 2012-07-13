@@ -2,7 +2,7 @@
 // Name:        src/generic/imaglist.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: imaglist.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: imaglist.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ int wxGenericImageList::Add( const wxBitmap &bitmap )
     }
     else
     {
-        // Mimic behavior of Windows ImageList_Add that automatically breaks up the added
+        // Mimic behaviour of Windows ImageList_Add that automatically breaks up the added
         // bitmap into sub-images of the correct size
         if (m_width > 0 && bitmap.GetWidth() > m_width && bitmap.GetHeight() >= m_height)
         {
@@ -106,7 +106,7 @@ int wxGenericImageList::Add( const wxBitmap &bitmap )
 int wxGenericImageList::Add( const wxBitmap& bitmap, const wxBitmap& mask )
 {
     wxBitmap bmp(bitmap);
-    if (mask.Ok())
+    if (mask.IsOk())
         bmp.SetMask(new wxMask(mask));
     return Add(bmp);
 }
@@ -214,7 +214,7 @@ bool wxGenericImageList::Replace( int index, const wxBitmap &bitmap, const wxBit
         m_images.Insert( next, newBitmap );
     }
 
-    if (mask.Ok())
+    if (mask.IsOk())
         newBitmap->SetMask(new wxMask(mask));
 
     return true;

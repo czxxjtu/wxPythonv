@@ -2,7 +2,7 @@
 // Name:        wx/gtk1/menu.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: menu.h 64145 2010-04-26 14:19:26Z VZ $
+// Id:          $Id: menu.h 66180 2010-11-17 05:57:21Z PC $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -72,6 +72,9 @@ public:
     virtual wxMenuItem* DoAppend(wxMenuItem *item);
     virtual wxMenuItem* DoInsert(size_t pos, wxMenuItem *item);
     virtual wxMenuItem* DoRemove(wxMenuItem *item);
+
+    // Returns the title, with mnemonics translated to wx format
+    wxString GetTitle() const;
 
     // TODO: virtual void SetTitle(const wxString& title);
 

@@ -2,7 +2,7 @@
 // Name:        src/gtk1/combobox.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: combobox.cpp 59292 2009-03-03 09:21:35Z VZ $
+// Id:          $Id: combobox.cpp 66728 2011-01-22 14:38:36Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -169,8 +169,6 @@ gtk_combo_select_child_callback( GtkList *WXUNUSED(list), GtkWidget *WXUNUSED(wi
 //-----------------------------------------------------------------------------
 // wxComboBox
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxComboBox,wxControl)
 
 BEGIN_EVENT_TABLE(wxComboBox, wxControl)
     EVT_SIZE(wxComboBox::OnSize)
@@ -746,7 +744,7 @@ void wxComboBox::Replace( long from, long to, const wxString& value )
 
     GtkWidget *entry = GTK_COMBO(m_widget)->entry;
     gtk_editable_delete_text( GTK_EDITABLE(entry), (gint)from, (gint)to );
-    if (value.IsNull()) return;
+    if ( value.empty() ) return;
     gint pos = (gint)to;
 
 #if wxUSE_UNICODE

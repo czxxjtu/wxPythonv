@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        statbox.h
+// Name:        wx/statbox.h
 // Purpose:     wxStaticBox base header
 // Author:      Julian Smart
 // Modified by:
 // Created:
 // Copyright:   (c) Julian Smart
-// RCS-ID:      $Id: statbox.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: statbox.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@ class WXDLLIMPEXP_CORE wxStaticBoxBase : public wxControl
 public:
     wxStaticBoxBase() { }
 
-    // overriden base class virtuals
+    // overridden base class virtuals
     virtual bool AcceptsFocus() const { return false; }
     virtual bool HasTransparentBackground() { return true; }
 

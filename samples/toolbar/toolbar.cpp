@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: toolbar.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: toolbar.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -315,8 +315,6 @@ bool MyApp::OnInit()
 
     wxInitAllImageHandlers();
 
-    SetTopWindow(frame);
-
     return true;
 }
 
@@ -496,7 +494,7 @@ void MyFrame::PopulateToolbar(wxToolBarBase* toolBar)
     {
         // create a tool with a custom bitmap for testing
         wxImage img(m_pathBmp);
-        if ( img.Ok() )
+        if ( img.IsOk() )
         {
             if ( img.GetWidth() > w && img.GetHeight() > h )
                 img = img.GetSubImage(wxRect(0, 0, w, h));
@@ -642,7 +640,7 @@ MyFrame::MyFrame(wxFrame* parent,
     m_extraToolBar = new wxToolBar(m_panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_TEXT|wxTB_FLAT|wxTB_TOP);
     PopulateToolbar(m_extraToolBar);
 #endif
-    
+
     m_textWindow = new wxTextCtrl(m_panel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
 
     wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);

@@ -3,7 +3,7 @@
 // Purpose:     Common dialogs demo
 // Author:      Julian Smart, Vadim Zeitlin, ABX
 // Created:     04/01/98
-// RCS-ID:      $Id: dialogs.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dialogs.h 67179 2011-03-13 13:33:12Z VZ $
 // Copyright:   (c) Julian Smart
 //              (c) 2004 ABX
 //              (c) Vadim Zeitlin
@@ -115,12 +115,26 @@ public:
 class MyApp: public wxApp
 {
 public:
+    MyApp() { m_startupProgressStyle = -1; }
+
     virtual bool OnInit();
+
+#if wxUSE_CMDLINE_PARSER
+    virtual void OnInitCmdLine(wxCmdLineParser& parser);
+    virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
+#endif // wxUSE_CMDLINE_PARSER
 
 protected:
 #if wxUSE_LOG
     virtual wxAppTraits *CreateTraits() { return new MyAppTraits; }
 #endif // wxUSE_LOG
+
+private:
+    // Flag set to a valid value if command line option "progress" is used,
+    // this allows testing of wxProgressDialog before the main event loop is
+    // started. If this option is not specified it is set to -1 by default
+    // meaning that progress dialog shouldn't be shown at all.
+    long m_startupProgressStyle;
 };
 
 #if USE_MODAL_PRESENTATION
@@ -191,12 +205,23 @@ class TestMessageBoxDialog : public wxDialog
 public:
     TestMessageBoxDialog(wxWindow *parent);
 
-private:
+    bool Create();
+
+protected:
+    wxString GetMessage() { return m_textMsg->GetValue(); }
+    long GetStyle();
+
+    void PrepareMessageDialog(wxMessageDialogBase &dlg);
+
+    virtual void AddAdditionalTextOptions(wxSizer *WXUNUSED(sizer)) { }
+    virtual void AddAdditionalFlags(wxSizer *WXUNUSED(sizer)) { }
+
     void OnApply(wxCommandEvent& event);
     void OnClose(wxCommandEvent& event);
     void OnUpdateLabelUI(wxUpdateUIEvent& event);
     void OnUpdateNoDefaultUI(wxUpdateUIEvent& event);
 
+private:
     enum
     {
         Btn_Yes,
@@ -239,6 +264,28 @@ private:
     DECLARE_EVENT_TABLE()
     wxDECLARE_NO_COPY_CLASS(TestMessageBoxDialog);
 };
+
+#if wxUSE_RICHMSGDLG
+class TestRichMessageDialog : public TestMessageBoxDialog
+{
+public:
+    TestRichMessageDialog(wxWindow *parent);
+
+protected:
+    // overrides method in base class
+    virtual void AddAdditionalTextOptions(wxSizer *sizer);
+    virtual void AddAdditionalFlags(wxSizer *sizer);
+
+    void OnApply(wxCommandEvent& event);
+
+private:
+    wxTextCtrl *m_textCheckBox;
+    wxCheckBox *m_initialValueCheckBox;
+    wxTextCtrl *m_textDetailed;
+
+    DECLARE_EVENT_TABLE()
+};
+#endif // wxUSE_RICHMSGDLG
 
 class TestDefaultActionDialog: public wxDialog
 {
@@ -302,6 +349,9 @@ public:
     void MessageBoxWindowModal(wxCommandEvent& event);
     void MessageBoxWindowModalClosed(wxWindowModalDialogEvent& event);
 #endif // wxUSE_MSGDLG
+#if wxUSE_RICHMSGDLG
+    void RichMessageDialog(wxCommandEvent& event);
+#endif // wxUSE_RICHMSGDLG
 
 #if wxUSE_COLOURDLG
     void ChooseColour(wxCommandEvent& event);
@@ -329,6 +379,7 @@ public:
     void Rearrange(wxCommandEvent& event);
 
 #if wxUSE_TEXTDLG
+    void LineEntry(wxCommandEvent& event);
     void TextEntry(wxCommandEvent& event);
     void PasswordEntry(wxCommandEvent& event);
 #endif // wxUSE_TEXTDLG
@@ -480,9 +531,11 @@ enum
     DIALOGS_MESSAGE_BOX_WINDOW_MODAL,
     DIALOGS_MESSAGE_DIALOG,
     DIALOGS_MESSAGE_BOX_WXINFO,
+    DIALOGS_RICH_MESSAGE_DIALOG,
     DIALOGS_SINGLE_CHOICE,
     DIALOGS_MULTI_CHOICE,
     DIALOGS_REARRANGE,
+    DIALOGS_LINE_ENTRY,
     DIALOGS_TEXT_ENTRY,
     DIALOGS_PASSWORD_ENTRY,
     DIALOGS_FILE_OPEN,

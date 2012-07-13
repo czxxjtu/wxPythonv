@@ -2,7 +2,7 @@
 // Name:        caret.h
 // Purpose:     interface of wxCaret
 // Author:      wxWidgets team
-// RCS-ID:      $Id: caret.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: caret.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -104,7 +104,7 @@ public:
 
     /**
         Returns @true if the caret is visible and @false if it is permanently
-        hidden (if it is is blinking and not shown currently but will be after
+        hidden (if it is blinking and not shown currently but will be after
         the next blink, this method still returns @true).
     */
     bool IsVisible() const;

@@ -2,7 +2,7 @@
 // Name:        ffile.h
 // Purpose:     interface of wxFFile
 // Author:      wxWidgets team
-// RCS-ID:      $Id: ffile.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: ffile.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -106,7 +106,7 @@ public:
     void Detach();
 
     /**
-        Returns @true if the an attempt has been made to read @e past
+        Returns @true if an attempt has been made to read @e past
         the end of the file.
 
         Note that the behaviour of the file descriptor based class  wxFile is different as

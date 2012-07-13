@@ -2,7 +2,7 @@
 // Name:        renderer.h
 // Purpose:     interface of wxRendererNative
 // Author:      wxWidgets team
-// RCS-ID:      $Id: renderer.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: renderer.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -204,6 +204,8 @@ public:
 
     virtual int GetHeaderButtonHeight(wxWindow *win);
 
+    virtual int GetHeaderButtonMargin(wxWindow *win);
+
     virtual void DrawTreeItemButton(wxWindow *win, wxDC& dc,
                                     const wxRect& rect, int flags = 0);
 
@@ -348,7 +350,7 @@ public:
         @c wxCONTROL_DISABLED and @c wxCONTROL_CURRENT bits, see @ref wxCONTROL_FLAGS.
 
         @return
-        The optimal width to contain the the unabreviated label text or
+        The optimal width to contain the unabbreviated label text or
         bitmap, the sort arrow if present, and internal margins.
     */
     virtual int DrawHeaderButton(wxWindow* win, wxDC& dc, const wxRect& rect,
@@ -363,7 +365,7 @@ public:
         @c wxCONTROL_DISABLED and @c wxCONTROL_CURRENT bits, see @ref wxCONTROL_FLAGS.
 
         @return
-        The optimal width to contain the the unabreviated label text or
+        The optimal width to contain the unabbreviated label text or
         bitmap, the sort arrow if present, and internal margins.
     */
     virtual int DrawHeaderButtonContents(wxWindow* win, wxDC& dc,
@@ -378,7 +380,7 @@ public:
         which are selected (e.g. often a blue rectangle) and @c wxCONTROL_CURRENT
         for the item that has the focus (often a dotted line around the item's text).
         @c wxCONTROL_FOCUSED may be used to indicate if the control has the focus
-        (othewise the the selection rectangle is e.g. often grey and not blue).
+        (otherwise the selection rectangle is e.g. often grey and not blue).
         This may be ignored by the renderer or deduced by the code directly from
         the @a win.
     */
@@ -493,6 +495,14 @@ public:
         available, or a generic height based on the @a win window's font.
     */
     virtual int GetHeaderButtonHeight(wxWindow* win) = 0;
+
+    /**
+        Returns the horizontal margin on the left and right sides of header
+        button's label.
+
+        @since 2.9.2
+     */
+    virtual int GetHeaderButtonMargin(wxWindow *win) = 0;
 
     /**
         Get the splitter parameters, see wxSplitterRenderParams.

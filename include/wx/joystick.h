@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        joystick.h
+// Name:        wx/joystick.h
 // Purpose:     wxJoystick base header
 // Author:      wxWidgets Team
 // Modified by:
 // Created:
 // Copyright:   (c) wxWidgets Team
-// RCS-ID:      $Id: joystick.h 54125 2008-06-11 19:17:41Z SC $
+// RCS-ID:      $Id: joystick.h 67254 2011-03-20 00:14:35Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

@@ -2,7 +2,7 @@
 // Name:        src/gtk/control.cpp
 // Purpose:     wxControl implementation for wxGTK
 // Author:      Robert Roebling
-// Id:          $Id: control.cpp 64404 2010-05-26 17:37:55Z RR $
+// Id:          $Id: control.cpp 67062 2011-02-27 12:48:07Z VZ $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart and Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -123,12 +123,11 @@ void wxControl::GTKFixSensitivity(bool onlyIfUnderMouse)
 
 void wxControl::GTKSetLabelForLabel(GtkLabel *w, const wxString& label)
 {
-    // save the original label
-    wxControlBase::SetLabel(label);
-
     const wxString labelGTK = GTKConvertMnemonics(label);
     gtk_label_set_text_with_mnemonic(w, wxGTK_CONV(labelGTK));
 }
+
+#if wxUSE_MARKUP
 
 void wxControl::GTKSetLabelWithMarkupForLabel(GtkLabel *w, const wxString& label)
 {
@@ -136,6 +135,7 @@ void wxControl::GTKSetLabelWithMarkupForLabel(GtkLabel *w, const wxString& label
     gtk_label_set_markup_with_mnemonic(w, wxGTK_CONV(labelGTK));
 }
 
+#endif // wxUSE_MARKUP
 
 // ----------------------------------------------------------------------------
 // GtkFrame helpers
@@ -160,6 +160,8 @@ GtkWidget* wxControl::GTKCreateFrame(const wxString& label)
 
 void wxControl::GTKSetLabelForFrame(GtkFrame *w, const wxString& label)
 {
+    wxControlBase::SetLabel(label);
+
     GtkLabel* labelwidget = GTK_LABEL(gtk_frame_get_label_widget(w));
     GTKSetLabelForLabel(labelwidget, label);
 }
@@ -312,19 +314,6 @@ wxControl::GetDefaultAttributesFromGTKWidget(wxGtkWidgetNewFromAdj_t widget_new,
     attr = GetDefaultAttributesFromGTKWidget(widget, useBase, state);
     gtk_widget_destroy(wnd);
     return attr;
-}
-
-// ----------------------------------------------------------------------------
-// idle handling
-// ----------------------------------------------------------------------------
-
-void wxControl::OnInternalIdle()
-{
-    if ( GTKShowFromOnIdle() )
-        return;
-
-    if ( wxUpdateUIEvent::CanUpdate(this) && IsShownOnScreen() )
-        UpdateWindowUI(wxUPDATE_UI_FROMIDLE);
 }
 
 #endif // wxUSE_CONTROLS

@@ -2,7 +2,7 @@
 // Name:        uri.h
 // Purpose:     interface of wxURI
 // Author:      wxWidgets team
-// RCS-ID:      $Id: uri.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: uri.h 67385 2011-04-03 20:52:18Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ enum wxURIHostType
     chance of wxURI "failing" on construction/creation.
 
     wxURI supports copy construction and standard assignment operators. wxURI
-    can also be inherited from to provide furthur functionality.
+    can also be inherited from to provide further functionality.
 
     To obtain individual components you can use one of the GetXXX() methods.
     However, you should check HasXXX() before calling a get method, which

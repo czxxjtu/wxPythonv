@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/corefoundation/hid.cpp
+// Name:        src/osx/core/hid.cpp
 // Purpose:     DARWIN HID layer for WX Implementation
 // Author:      Ryan Norton
 // Modified by:
 // Created:     11/11/2003
-// RCS-ID:      $Id: hid.cpp 64360 2010-05-20 17:58:38Z SC $
+// RCS-ID:      $Id: hid.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

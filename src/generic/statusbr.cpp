@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Francesco Montorsi
 // Created:     01/02/97
-// RCS-ID:      $Id: statusbr.cpp 62432 2009-10-16 21:32:51Z VZ $
+// RCS-ID:      $Id: statusbr.cpp 67326 2011-03-28 06:27:49Z PC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -345,7 +345,7 @@ int wxStatusBarGeneric::GetFieldFromPoint(const wxPoint& pt) const
     if (m_widthsAbs.IsEmpty())
         return wxNOT_FOUND;
 
-    // NOTE: we explicitely don't take in count the borders since they are only
+    // NOTE: we explicitly don't take in count the borders since they are only
     //       useful when rendering the status text, not for hit-test computations
 
     if (pt.y <= 0 || pt.y >= m_lastClientHeight)
@@ -414,9 +414,9 @@ void wxStatusBarGeneric::OnPaint(wxPaintEvent& WXUNUSED(event) )
         GdkWindowEdge edge =
             GetLayoutDirection() == wxLayout_RightToLeft ? GDK_WINDOW_EDGE_SOUTH_WEST :
                                                            GDK_WINDOW_EDGE_SOUTH_EAST;
-        gtk_paint_resize_grip( m_widget->style,
+        gtk_paint_resize_grip(gtk_widget_get_style(m_widget),
                             GTKGetDrawingWindow(),
-                            (GtkStateType) GTK_WIDGET_STATE (m_widget),
+                            gtk_widget_get_state(m_widget),
                             NULL,
                             m_widget,
                             "statusbar",

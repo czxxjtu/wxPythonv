@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        menuitem.h
+// Name:        wx/msw/menuitem.h
 // Purpose:     wxMenuItem class
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     11.11.97
-// RCS-ID:      $Id: menuitem.h 63272 2010-01-26 09:01:13Z VZ $
+// RCS-ID:      $Id: menuitem.h 67720 2011-05-10 08:50:38Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,11 +60,6 @@ public:
     // notice that it also returns the id as an unsigned int, as required by
     // Win32 API
     WXWPARAM GetMSWId() const;
-
-    // mark item as belonging to the given radio group
-    void SetAsRadioGroupStart();
-    void SetRadioGroupStart(int start);
-    void SetRadioGroupEnd(int end);
 
 #if WXWIN_COMPATIBILITY_2_8
     // compatibility only, don't use in new code
@@ -130,18 +125,6 @@ private:
     // common part of all ctors
     void Init();
 
-    // the positions of the first and last items of the radio group this item
-    // belongs to or -1: start is the radio group start and is valid for all
-    // but first radio group items (m_isRadioGroupStart == false), end is valid
-    // only for the first one
-    union
-    {
-        int start;
-        int end;
-    } m_radioGroup;
-
-    // does this item start a radio group?
-    bool m_isRadioGroupStart;
 
 #if wxUSE_OWNER_DRAWN
     // item bitmaps

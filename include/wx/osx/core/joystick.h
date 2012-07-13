@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        joystick.h
+// Name:        wx/osx/core/joystick.h
 // Purpose:     wxJoystick class
 // Author:      Ryan Norton
 // Modified by:
 // Created:     2/13/2005
-// RCS-ID:      $Id: joystick.h 50646 2007-12-12 01:35:53Z VZ $
+// RCS-ID:      $Id: joystick.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cocoa/NSTabView.mm
+// Name:        src/cocoa/NSTabView.mm
 // Purpose:     wxCocoaNSTabView
 // Author:      David Elliott
 // Modified by:
 // Created:     2004/04/08
-// RCS-ID:      $Id: NSTabView.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: NSTabView.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

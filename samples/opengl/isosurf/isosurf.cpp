@@ -4,7 +4,7 @@
 // Author:      Brian Paul (original gltk version), Wolfram Gloger
 // Modified by: Julian Smart, Francesco Montorsi
 // Created:     04/01/98
-// RCS-ID:      $Id: isosurf.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: isosurf.cpp 68110 2011-06-30 12:20:38Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ bool MyApp::OnInit()
         return false;
 
     // Create the main frame window
-    SetTopWindow(new MyFrame(NULL, wxT("wxWidgets OpenGL Isosurf Sample")));
+    new MyFrame(NULL, wxT("wxWidgets OpenGL Isosurf Sample"));
 
     return true;
 }
@@ -210,7 +210,7 @@ void TestGLCanvas::LoadSurface(const wxString& filename)
 
     {
         // we suppose to have in input a text file containing floating numbers
-        // space/newline-separed... first 3 numbers are the coordinates of a
+        // space/newline-separated... first 3 numbers are the coordinates of a
         // vertex and the following 3 are the relative vertex normal and so on...
 
         wxTextInputStream inFile(*stream);
@@ -232,7 +232,7 @@ void TestGLCanvas::LoadSurface(const wxString& filename)
 
     wxLogMessage(wxT("Loaded %d vertices, %d triangles from '%s'"),
                  m_numverts, m_numverts-2, filename.c_str());
-                 
+
     // NOTE: for some reason under wxGTK the following is required to avoid that
     //       the surface gets rendered in a small rectangle in the top-left corner of the frame
     PostSizeEventToParent();

@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     18/03/2002
-// RCS-ID:      $Id: artprov.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: artprov.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -231,12 +231,12 @@ wxArtProvider::~wxArtProvider()
              node; node = node->GetNext())
         {
             bmp = node->GetData()->CreateBitmap(id, client, size);
-            if ( bmp.Ok() )
+            if ( bmp.IsOk() )
                 break;
         }
 
         wxSize sizeNeeded = size;
-        if ( !bmp.Ok() )
+        if ( !bmp.IsOk() )
         {
             // no bitmap created -- as a fallback, try if we can find desired
             // icon in a bundle
@@ -440,7 +440,12 @@ class wxArtProviderModule: public wxModule
 public:
     bool OnInit()
     {
+#if wxUSE_ARTPROVIDER_STD
         wxArtProvider::InitStdProvider();
+#endif // wxUSE_ARTPROVIDER_STD
+#if wxUSE_ARTPROVIDER_TANGO
+        wxArtProvider::InitTangoProvider();
+#endif // wxUSE_ARTPROVIDER_TANGO
         wxArtProvider::InitNativeProvider();
         return true;
     }

@@ -4,7 +4,7 @@
 // Author:      Ryan Norton
 // Modified by:
 // Created:     2004-09-25
-// RCS-ID:      $Id: fontdlg.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: fontdlg.h 66615 2011-01-07 05:26:57Z PC $
 // Copyright:   (c) Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -13,7 +13,6 @@
 #define _WX_FONTDLG_H_
 
 #include "wx/dialog.h"
-#include "wx/cmndata.h"
 
 /*
  * Font dialog

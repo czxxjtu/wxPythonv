@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: cursor.cpp 63957 2010-04-12 16:26:16Z SC $
+// RCS-ID:      $Id: cursor.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -196,6 +196,14 @@ ClassicCursor gMacCursors[kwxCursorLast+1] =
 {0x000A, 0x0006}
 },
 
+{
+{0x07E0, 0x07E0, 0x07E0, 0x07E0, 0x0810, 0x1088, 0x1088, 0x1088,
+0x1388, 0x1008, 0x1008, 0x0810, 0x07E0, 0x07E0, 0x07E0, 0x07E0},
+{0x07E0, 0x07E0, 0x07E0, 0x07E0, 0x0FF0, 0x1FF8, 0x1FF8, 0x1FF8,
+0x1FF8, 0x1FF8, 0x1FF8, 0x0FF0, 0x07E0, 0x07E0, 0x07E0, 0x07E0},
+{0x0008, 0x0008}
+},
+    
 };
 
 #endif
@@ -231,7 +239,7 @@ wxCursorRefData::wxCursorRefData()
 #endif
 }
 
-wxCursorRefData::wxCursorRefData(const wxCursorRefData& cursor)
+wxCursorRefData::wxCursorRefData(const wxCursorRefData& cursor) : wxGDIRefData()
 {
     m_hCursor = NULL;
 
@@ -519,7 +527,7 @@ wxCursor::wxCursor(const wxString& cursor_file, wxBitmapType flags, int hotSpotX
 #if wxUSE_IMAGE
         wxImage image ;
         image.LoadFile( cursor_file, flags ) ;
-        if ( image.Ok() )
+        if ( image.IsOk() )
         {
             image.SetOption( wxIMAGE_OPTION_CUR_HOTSPOT_X, hotSpotX ) ;
             image.SetOption( wxIMAGE_OPTION_CUR_HOTSPOT_Y, hotSpotY ) ;

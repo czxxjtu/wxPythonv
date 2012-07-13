@@ -2,7 +2,7 @@
 // Name:        dc.h
 // Purpose:     interface of wxDC
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dc.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dc.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +79,28 @@ enum wxMappingMode
     wxMM_POINTS
 };
 
+/**
+    Simple collection of various font metrics.
+
+    This object is returned by wxDC::GetFontMetrics().
+
+    @since 2.9.2
+
+    @library{wxcore}
+    @category{dc,gdi}
+ */
+struct wxFontMetrics
+{
+    /// Constructor initializes all fields to 0.
+    wxFontMetrics();
+
+    int height,             ///< Total character height.
+        ascent,             ///< Part of the height above the baseline.
+        descent,            ///< Part of the height below the baseline.
+        internalLeading,    ///< Intra-line spacing.
+        externalLeading,    ///< Inter-line spacing.
+        averageWidth;       ///< Average font width, a.k.a. "x-width".
+};
 
 
 /**
@@ -91,7 +113,7 @@ enum wxMappingMode
     wxWidgets offers an alternative drawing API based on the modern drawing
     backends GDI+, CoreGraphics and Cairo. See wxGraphicsContext, wxGraphicsRenderer
     and related classes. There is also a wxGCDC linking the APIs by offering
-    the wxDC API ontop of a wxGraphicsContext.
+    the wxDC API on top of a wxGraphicsContext.
 
     wxDC is an abstract base class and cannot be created directly.
     Use wxPaintDC, wxClientDC, wxWindowDC, wxScreenDC, wxMemoryDC or
@@ -121,7 +143,7 @@ enum wxMappingMode
     a device unit is a @e pixel. For a printer, the device unit is defined by the
     resolution of the printer (usually given in @c DPI: dot-per-inch).
 
-    All wxDC functions use instead @b logical units, unless where explicitely
+    All wxDC functions use instead @b logical units, unless where explicitly
     stated. Logical units are arbitrary units mapped to device units using
     the current mapping mode (see wxDC::SetMapMode).
 
@@ -131,9 +153,25 @@ enum wxMappingMode
 
     @section dc_alpha_support Support for Transparency / Alpha Channel
 
-    On Mac OS X colours with alpha channel are supported. Instances of wxPen
-    or wxBrush that are built from wxColour use the colour's alpha values
-    when stroking or filling.
+    In general wxDC methods don't support alpha transparency and the alpha
+    component of wxColour is simply ignored and you need to use wxGraphicsContext
+    for full transparency support. There are, however, a few exceptions: first,
+    under Mac OS X colours with alpha channel are supported in all the normal
+    wxDC-derived classes as they use wxGraphicsContext internally. Second,
+    under all platforms wxSVGFileDC also fully supports alpha channel. In both
+    of these cases the instances of wxPen or wxBrush that are built from
+    wxColour use the colour's alpha values when stroking or filling.
+
+
+    @section Support for Transformation Matrix
+
+    On some platforms (currently only under MSW and only on Windows NT, i.e.
+    not Windows 9x/ME, systems) wxDC has support for applying an arbitrary
+    affine transformation matrix to its coordinate system. Call
+    CanUseTransformMatrix() to check if this support is available and then call
+    SetTransformMatrix() if it is. If the transformation matrix is not
+    supported, SetTransformMatrix() always simply returns false and doesn't do
+    anything.
 
 
     @library{wxcore}
@@ -523,7 +561,7 @@ public:
     /**
         @overload
     */
-    void DrawRotatedText(const wxString& text, const wxPoint&,
+    void DrawRotatedText(const wxString& text, const wxPoint& point,
                          double angle);
 
     /**
@@ -596,7 +634,12 @@ public:
 
         The coordinates refer to the top-left corner of the rectangle bounding
         the string. See GetTextExtent() for how to get the dimensions of a text
-        string, which can be used to position the text more precisely.
+        string, which can be used to position the text more precisely and
+        DrawLabel() if you need to align the string differently.
+
+        Starting from wxWidgets 2.9.2 @a text parameter can be a multi-line
+        string, i.e. contain new line characters, and will be rendered
+        correctly.
 
         @note The current @ref GetLogicalFunction() "logical function" is
               ignored by this function.
@@ -672,7 +715,7 @@ public:
         @overload
     */
     bool FloodFill(const wxPoint& pt, const wxColour& col,
-                   int style = wxFLOOD_SURFACE);
+                   wxFloodFillStyle style = wxFLOOD_SURFACE);
 
     /**
         Displays a cross hair using the current pen. This is a vertical and
@@ -767,6 +810,21 @@ public:
         Gets the average character width of the currently set font.
     */
     wxCoord GetCharWidth() const;
+
+    /**
+        Returns the various font characteristics.
+
+        This method allows to retrieve some of the font characteristics not
+        returned by GetTextExtent(), notably internal leading and average
+        character width.
+
+        Currently this method returns correct results only under wxMSW, in the
+        other ports the internal leading will always be 0 and the average
+        character width will be computed as the width of the character 'x'.
+
+        @since 2.9.2
+     */
+    wxFontMetrics GetFontMetrics() const;
 
     /**
         Gets the dimensions of the string using the currently selected font.
@@ -1097,7 +1155,7 @@ public:
             This sequence of operations ensures that the source's transparent
             area need not be black, and logical functions are supported.
             @n @b Note: on Windows, blitting with masks can be speeded up
-            considerably by compiling wxWidgets with the wxUSE_DC_CACHE option
+            considerably by compiling wxWidgets with the wxUSE_DC_CACHEING option
             enabled. You can also influence whether MaskBlt or the explicit
             mask blitting code above is used, by using wxSystemOptions and
             setting the @c no-maskblt option to 1.
@@ -1168,7 +1226,7 @@ public:
             This sequence of operations ensures that the source's transparent
             area need not be black, and logical functions are supported.
             @n @b Note: on Windows, blitting with masks can be speeded up
-            considerably by compiling wxWidgets with the wxUSE_DC_CACHE option
+            considerably by compiling wxWidgets with the wxUSE_DC_CACHEING option
             enabled. You can also influence whether MaskBlt or the explicit
             mask blitting code above is used, by using wxSystemOptions and
             setting the @c no-maskblt option to 1.
@@ -1452,6 +1510,58 @@ public:
         'zooming'.
     */
     void SetUserScale(double xScale, double yScale);
+
+
+    /**
+        @name Transformation matrix
+
+        See the notes about the availability of these functions in the class
+        documentation.
+    */
+    //@{
+
+    /**
+        Check if the use of transformation matrix is supported by the current
+        system.
+
+        Currently this function always returns @false for non-MSW platforms and
+        may return @false for old (Windows 9x/ME) Windows systems. Normally
+        support for the transformation matrix is always available in any
+        relatively recent Windows versions.
+
+        @since 2.9.2
+    */
+    bool CanUseTransformMatrix() const;
+
+    /**
+        Set the transformation matrix.
+
+        If transformation matrix is supported on the current system, the
+        specified @a matrix will be used to transform between wxDC and physical
+        coordinates. Otherwise the function returns @false and doesn't change
+        the coordinate mapping.
+
+        @since 2.9.2
+    */
+    bool SetTransformMatrix(const wxAffineMatrix2D& matrix);
+
+    /**
+        Return the transformation matrix used by this device context.
+
+        By default the transformation matrix is the identity matrix.
+
+        @since 2.9.2
+    */
+    wxAffineMatrix2D GetTransformMatrix() const;
+
+    /**
+        Revert the transformation matrix to identity matrix.
+
+        @since 2.9.2
+    */
+    void ResetTransformMatrix();
+
+    //@}
 };
 
 

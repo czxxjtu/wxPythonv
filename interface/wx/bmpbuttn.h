@@ -2,7 +2,7 @@
 // Name:        bmpbuttn.h
 // Purpose:     interface of wxBitmapButton
 // Author:      wxWidgets team
-// RCS-ID:      $Id: bmpbuttn.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: bmpbuttn.h 66611 2011-01-06 19:52:14Z SJL $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -33,7 +33,7 @@
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_BUTTON(id, func)}
-           Process a wxEVT_COMMAND_BUTTON_CLICKED event, when the button is clicked.
+           Process a @c wxEVT_COMMAND_BUTTON_CLICKED event, when the button is clicked.
     @endEventTable
 
     @library{wxcore}

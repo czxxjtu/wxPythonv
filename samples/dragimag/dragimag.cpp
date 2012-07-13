@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     28/2/2000
-// RCS-ID:      $Id: dragimag.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: dragimag.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ void MyCanvas::OnPaint( wxPaintEvent &WXUNUSED(event) )
 
 void MyCanvas::OnEraseBackground(wxEraseEvent& event)
 {
-    if (wxGetApp().GetBackgroundBitmap().Ok())
+    if (wxGetApp().GetBackgroundBitmap().IsOk())
     {
         wxSize sz = GetClientSize();
         wxRect rect(0, 0, sz.x, sz.y);
@@ -142,7 +142,7 @@ void MyCanvas::OnMouseEvent(wxMouseEvent& event)
         m_currentlyHighlighted = (DragShape*) NULL;
 
         m_draggedShape = (DragShape*) NULL;
-        
+
         Refresh(true);
     }
     else if (event.Dragging() && m_dragMode != TEST_DRAG_NONE)
@@ -230,7 +230,7 @@ void MyCanvas::OnMouseEvent(wxMouseEvent& event)
 
             if (mustUnhighlightOld || mustHighlightNew)
                 m_dragImage->Hide();
-            
+
             // Now with the drag image switched off, we can change the window contents.
             if (mustUnhighlightOld)
                 m_currentlyHighlighted = (DragShape*) NULL;
@@ -468,14 +468,14 @@ bool DragShape::HitTest(const wxPoint& pt) const
 
 bool DragShape::Draw(wxDC& dc, bool highlight)
 {
-    if (m_bitmap.Ok())
+    if (m_bitmap.IsOk())
     {
         wxMemoryDC memDC;
         memDC.SelectObject(m_bitmap);
 
         dc.Blit(m_pos.x, m_pos.y, m_bitmap.GetWidth(), m_bitmap.GetHeight(),
             & memDC, 0, 0, wxCOPY, true);
-            
+
         if (highlight)
         {
             dc.SetPen(*wxWHITE_PEN);
@@ -498,7 +498,7 @@ bool MyDragImage::UpdateBackingFromWindow(wxDC& WXUNUSED(windowDC), wxMemoryDC& 
 {
     destDC.SetClippingRegion(destRect);
 
-    if (wxGetApp().GetBackgroundBitmap().Ok())
+    if (wxGetApp().GetBackgroundBitmap().IsOk())
         wxGetApp().TileBitmap(destRect, destDC, wxGetApp().GetBackgroundBitmap());
 
     m_canvas->DrawShapes(destDC);

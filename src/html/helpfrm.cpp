@@ -4,7 +4,7 @@
 // Notes:       Based on htmlhelp.cpp, implementing a monolithic
 //              HTML Help controller class,  by Vaclav Slavik
 // Author:      Harm van der Heijden and Vaclav Slavik
-// RCS-ID:      $Id: helpfrm.cpp 63548 2010-02-25 00:03:30Z VZ $
+// RCS-ID:      $Id: helpfrm.cpp 67228 2011-03-18 09:16:14Z VZ $
 // Copyright:   (c) Harm van der Heijden and Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -89,6 +89,7 @@ void wxHtmlHelpFrame::Init(wxHtmlHelpData* data)
     m_Data = data;
     m_HtmlHelpWin = NULL;
     m_helpController = NULL;
+    m_shouldPreventAppExit = false;
 }
 
 void wxHtmlHelpFrame::SetController(wxHtmlHelpController* controller)
@@ -245,6 +246,11 @@ void wxHtmlHelpFrame::UseConfig(wxConfigBase *config, const wxString& rootPath)
         m_HtmlHelpWin->UseConfig(config, rootPath);
 }
 #endif // wxUSE_CONFIG
+
+void wxHtmlHelpFrame::SetShouldPreventAppExit(bool enable)
+{
+    m_shouldPreventAppExit = enable;
+}
 
 #ifdef __WXMAC__
 void wxHtmlHelpFrame::OnClose(wxCommandEvent& WXUNUSED(event))

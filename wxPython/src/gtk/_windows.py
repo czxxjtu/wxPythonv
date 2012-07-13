@@ -88,25 +88,6 @@ class Panel(_core.Window):
         """
         return _windows_.Panel_SetFocusIgnoringChildren(*args, **kwargs)
 
-    def MSWSetTransparentBackground(*args, **kwargs):
-        """MSWSetTransparentBackground(self, bool isTransparent=True)"""
-        return _windows_.Panel_MSWSetTransparentBackground(*args, **kwargs)
-
-    def HasTransparentBackground(*args, **kwargs):
-        """
-        HasTransparentBackground(self) -> bool
-
-        Returns True if this window's background is transparent (as, for
-        example, for `wx.StaticText`) and should show the parent window's
-        background.
-
-        This method is mostly used internally by the library itself and you
-        normally shouldn't have to call it. You may, however, have to override
-        it in your custom control classes to ensure that background is painted
-        correctly.
-        """
-        return _windows_.Panel_HasTransparentBackground(*args, **kwargs)
-
     def GetClassDefaultAttributes(*args, **kwargs):
         """
         GetClassDefaultAttributes(int variant=WINDOW_VARIANT_NORMAL) -> VisualAttributes
@@ -285,6 +266,17 @@ class ScrollHelper(object):
         """SendAutoScrollEvents(self, ScrollWinEvent event) -> bool"""
         return _windows_.ScrollHelper_SendAutoScrollEvents(*args, **kwargs)
 
+    def DoPrepareDC(*args, **kwargs):
+        """
+        DoPrepareDC(self, DC dc)
+
+        Call this function to prepare the device context for drawing a
+        scrolled image. It sets the device origin according to the current
+        scroll position.
+        """
+        return _windows_.ScrollHelper_DoPrepareDC(*args, **kwargs)
+
+    PrepareDC = DoPrepareDC 
     ScaleX = property(GetScaleX) 
     ScaleY = property(GetScaleY) 
     TargetWindow = property(GetTargetWindow,SetTargetWindow) 
@@ -507,6 +499,11 @@ class TopLevelWindow(_core.Window):
         return _windows_.TopLevelWindow_CenterOnScreen(*args, **kwargs)
 
     CentreOnScreen = CenterOnScreen 
+    def GetDefaultSize(*args, **kwargs):
+        """GetDefaultSize() -> Size"""
+        return _windows_.TopLevelWindow_GetDefaultSize(*args, **kwargs)
+
+    GetDefaultSize = staticmethod(GetDefaultSize)
     def GetDefaultItem(*args, **kwargs):
         """
         GetDefaultItem(self) -> Window
@@ -559,6 +556,10 @@ FrameNameStr = cvar.FrameNameStr
 DialogNameStr = cvar.DialogNameStr
 StatusLineNameStr = cvar.StatusLineNameStr
 ToolBarNameStr = cvar.ToolBarNameStr
+
+def TopLevelWindow_GetDefaultSize(*args):
+  """TopLevelWindow_GetDefaultSize() -> Size"""
+  return _windows_.TopLevelWindow_GetDefaultSize(*args)
 
 #---------------------------------------------------------------------------
 
@@ -771,6 +772,10 @@ class Dialog(TopLevelWindow):
     def CreateTextSizer(*args, **kwargs):
         """CreateTextSizer(self, String message) -> Sizer"""
         return _windows_.Dialog_CreateTextSizer(*args, **kwargs)
+
+    def CreateSeparatedSizer(*args, **kwargs):
+        """CreateSeparatedSizer(self, Sizer sizer) -> Sizer"""
+        return _windows_.Dialog_CreateSeparatedSizer(*args, **kwargs)
 
     def _CreateButtonSizer(*args, **kwargs):
         """_CreateButtonSizer(self, long flags) -> Sizer"""
@@ -1549,7 +1554,7 @@ class SplitterWindow(_core.Window):
         """
         SetSashPosition(self, int position, bool redraw=True)
 
-        Sets the sash position, in pixels.  If redraw is Ttrue then the panes
+        Sets the sash position, in pixels.  If redraw is True then the panes
         are resized and the sash and border are redrawn.
         """
         return _windows_.SplitterWindow_SetSashPosition(*args, **kwargs)
@@ -2792,12 +2797,15 @@ def PreSimpleHtmlListBox(*args, **kwargs):
 
 #---------------------------------------------------------------------------
 
+TBI_DOCK = _windows_.TBI_DOCK
+TBI_CUSTOM_STATUS_ITEM = _windows_.TBI_CUSTOM_STATUS_ITEM
+TBI_DEFAULT = _windows_.TBI_DEFAULT
 class TaskBarIcon(_core.EvtHandler):
     """Proxy of C++ TaskBarIcon class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
     def __init__(self, *args, **kwargs): 
-        """__init__(self) -> TaskBarIcon"""
+        """__init__(self, int iconType=TBI_DEFAULT) -> TaskBarIcon"""
         _windows_.TaskBarIcon_swiginit(self,_windows_.new_TaskBarIcon(*args, **kwargs))
         self._setOORInfo(self);TaskBarIcon._setCallbackInfo(self, self, TaskBarIcon)
 
@@ -3646,13 +3654,13 @@ class MessageDialog(Dialog):
 
 _windows_.MessageDialog_swigregister(MessageDialog)
 
-PD_AUTO_HIDE = _windows_.PD_AUTO_HIDE
-PD_APP_MODAL = _windows_.PD_APP_MODAL
 PD_CAN_ABORT = _windows_.PD_CAN_ABORT
+PD_APP_MODAL = _windows_.PD_APP_MODAL
+PD_AUTO_HIDE = _windows_.PD_AUTO_HIDE
 PD_ELAPSED_TIME = _windows_.PD_ELAPSED_TIME
 PD_ESTIMATED_TIME = _windows_.PD_ESTIMATED_TIME
-PD_REMAINING_TIME = _windows_.PD_REMAINING_TIME
 PD_SMOOTH = _windows_.PD_SMOOTH
+PD_REMAINING_TIME = _windows_.PD_REMAINING_TIME
 PD_CAN_SKIP = _windows_.PD_CAN_SKIP
 class ProgressDialog(Dialog):
     """
@@ -3697,7 +3705,7 @@ class ProgressDialog(Dialog):
         Pulse(self, String newmsg) --> (continue, skip)
 
         Just like `Update` but switches the dialog to use a gauge in
-        interminante mode and calls `wx.Gauge.Pulse` to show the user a bit of
+        indeterminate mode and calls `wx.Gauge.Pulse` to show the user a bit of
         progress.
         """
         return _windows_.ProgressDialog_Pulse(*args, **kwargs)
@@ -4659,6 +4667,9 @@ PRINTBIN_LARGECAPACITY = _windows_.PRINTBIN_LARGECAPACITY
 PRINTBIN_CASSETTE = _windows_.PRINTBIN_CASSETTE
 PRINTBIN_FORMSOURCE = _windows_.PRINTBIN_FORMSOURCE
 PRINTBIN_USER = _windows_.PRINTBIN_USER
+PreviewFrame_AppModal = _windows_.PreviewFrame_AppModal
+PreviewFrame_WindowModal = _windows_.PreviewFrame_WindowModal
+PreviewFrame_NonModal = _windows_.PreviewFrame_NonModal
 class PrintData(_core.Object):
     """Proxy of C++ PrintData class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
@@ -5446,6 +5457,10 @@ class PreviewFrame(Frame):
         """Initialize(self)"""
         return _windows_.PreviewFrame_Initialize(*args, **kwargs)
 
+    def InitializeWithModality(*args, **kwargs):
+        """InitializeWithModality(self, int kind)"""
+        return _windows_.PreviewFrame_InitializeWithModality(*args, **kwargs)
+
     def CreateControlBar(*args, **kwargs):
         """CreateControlBar(self)"""
         return _windows_.PreviewFrame_CreateControlBar(*args, **kwargs)
@@ -5490,6 +5505,10 @@ class PreviewControlBar(Panel):
         _windows_.PreviewControlBar_swiginit(self,_windows_.new_PreviewControlBar(*args, **kwargs))
         self._setOORInfo(self)
 
+    def SetPageInfo(*args, **kwargs):
+        """SetPageInfo(self, int minPage, int maxPage)"""
+        return _windows_.PreviewControlBar_SetPageInfo(*args, **kwargs)
+
     def GetZoomControl(*args, **kwargs):
         """GetZoomControl(self) -> int"""
         return _windows_.PreviewControlBar_GetZoomControl(*args, **kwargs)
@@ -5501,26 +5520,6 @@ class PreviewControlBar(Panel):
     def GetPrintPreview(*args, **kwargs):
         """GetPrintPreview(self) -> PrintPreview"""
         return _windows_.PreviewControlBar_GetPrintPreview(*args, **kwargs)
-
-    def OnNext(*args, **kwargs):
-        """OnNext(self)"""
-        return _windows_.PreviewControlBar_OnNext(*args, **kwargs)
-
-    def OnPrevious(*args, **kwargs):
-        """OnPrevious(self)"""
-        return _windows_.PreviewControlBar_OnPrevious(*args, **kwargs)
-
-    def OnFirst(*args, **kwargs):
-        """OnFirst(self)"""
-        return _windows_.PreviewControlBar_OnFirst(*args, **kwargs)
-
-    def OnLast(*args, **kwargs):
-        """OnLast(self)"""
-        return _windows_.PreviewControlBar_OnLast(*args, **kwargs)
-
-    def OnGoto(*args, **kwargs):
-        """OnGoto(self)"""
-        return _windows_.PreviewControlBar_OnGoto(*args, **kwargs)
 
     PrintPreview = property(GetPrintPreview,doc="See `GetPrintPreview`") 
     ZoomControl = property(GetZoomControl,SetZoomControl,doc="See `GetZoomControl` and `SetZoomControl`") 
@@ -5724,6 +5723,10 @@ class PyPreviewFrame(PreviewFrame):
     def Initialize(*args, **kwargs):
         """Initialize(self)"""
         return _windows_.PyPreviewFrame_Initialize(*args, **kwargs)
+
+    def InitializeWithModality(*args, **kwargs):
+        """InitializeWithModality(self, int kind)"""
+        return _windows_.PyPreviewFrame_InitializeWithModality(*args, **kwargs)
 
     def CreateCanvas(*args, **kwargs):
         """CreateCanvas(self)"""

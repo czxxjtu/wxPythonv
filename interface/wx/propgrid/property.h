@@ -2,7 +2,7 @@
 // Name:        property.h
 // Purpose:     interface of wxPGProperty
 // Author:      wxWidgets team
-// RCS-ID:      $Id: property.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: property.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -131,7 +131,7 @@
 #define wxPG_DIR_DIALOG_MESSAGE             wxS("DialogMessage")
 
 /**
-    wxArrayStringProperty's string delimiter character. If this is aquotation
+    wxArrayStringProperty's string delimiter character. If this is a quotation
     mark or hyphen, then strings will be quoted instead (with given
     character).
 
@@ -150,7 +150,7 @@
 #define wxPG_DATE_PICKER_STYLE              wxS("PickerStyle")
 
 /** SpinCtrl editor, int or double. How much number changes when button is
-    pressed (or up/down on keybard).
+    pressed (or up/down on keyboard).
 */
 #define wxPG_ATTR_SPINCTRL_STEP             wxS("Step")
 
@@ -172,6 +172,12 @@
     colour from property's list of choices.
 */
 #define wxPG_COLOUR_ALLOW_CUSTOM            wxS("AllowCustom")
+
+/**
+    wxColourProperty and its kind: Set to True in order to support editing
+    alpha colour component.
+*/
+#define wxPG_COLOUR_HAS_ALPHA               wxS("HasAlpha")
 
 /** @}
 */
@@ -215,9 +221,9 @@ wxPG_PROP_COLLAPSED                 = 0x0020,
     If property is selected, then indicates that validation failed for pending
     value.
 
-    If property is not selected, then indicates that the the actual property
-    value has failed validation (NB: this behavior is not currently supported,
-    but may be used in future).
+    If property is not selected, then indicates that the actual property
+    value has failed validation (NB: this behaviour is not currently supported,
+    but may be used in the future).
 */
 wxPG_PROP_INVALID_VALUE             = 0x0040,
 
@@ -287,6 +293,8 @@ wxPG_PROP_USES_COMMON_VALUE         = 0x00020000,
 
     @remarks
     This flag cannot be used with property iterators.
+
+    @see wxPGProperty::SetAutoUnspecified()
 */
 wxPG_PROP_AUTO_UNSPECIFIED          = 0x00040000,
 
@@ -407,11 +415,22 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
     Default float-to-text precision is 6 decimals, but this can be changed
     by modifying wxPG_FLOAT_PRECISION attribute.
 
+    Note that when displaying the value, sign is omitted if the resulting
+    textual representation is effectively zero (for example, -0.0001 with
+    precision of 3 will become 0.0 instead of -0.0). This behaviour is unlike 
+    what C standard library does, but should result in better end-user
+    experience in almost all cases.
+
     @subsection wxBoolProperty
 
     Represents a boolean value. wxChoice is used as editor control, by the
-    default. wxPG_BOOL_USE_CHECKBOX attribute can be set to true inorder to use
+<<<<<<< .mine
+    default. wxPG_BOOL_USE_CHECKBOX attribute can be set to true in order to
+    use check box instead.
+=======
+    default. wxPG_BOOL_USE_CHECKBOX attribute can be set to true in order to use
     check box instead.
+>>>>>>> .r67279
 
     @subsection wxLongStringProperty
 
@@ -460,7 +479,7 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
     Like wxLongStringProperty, but the button triggers file selector instead.
     Default wildcard is "All files..." but this can be changed by setting
     wxPG_FILE_WILDCARD attribute (see wxFileDialog for format details).
-    Attribute wxPG_FILE_SHOW_FULL_PATH can be set to @false inorder to show
+    Attribute wxPG_FILE_SHOW_FULL_PATH can be set to @false in order to show
     only the filename, not the entire path.
 
     @subsection wxEnumProperty
@@ -472,7 +491,7 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
 
     Represents a bit set that fits in a long integer. wxBoolProperty sub-
     properties are created for editing individual bits. Textctrl is created to
-    manually edit the flags as a text; a continous sequence of spaces, commas
+    manually edit the flags as a text; a continuous sequence of spaces, commas
     and semicolons are considered as a flag id separator.
 
     <b>Note:</b> When changing "choices" (ie. flag labels) of wxFlagsProperty,
@@ -483,13 +502,14 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
 
     @subsection wxArrayStringProperty
 
-    Allows editing of a list of strings in wxTextCtrl and in a separate dialog.
+    Allows editing of a list of strings in wxTextCtrl and in a separate
+    dialog. Supports "Delimiter" attribute, which defaults to comma (',').
 
     @subsection wxDateProperty
 
-    wxDateTime property. Default editor is DatePickerCtrl, altough TextCtrl
+    wxDateTime property. Default editor is DatePickerCtrl, although TextCtrl
     should work as well. wxPG_DATE_FORMAT attribute can be used to change
-    string wxDateTime::Format uses (altough default is recommended as it is
+    string wxDateTime::Format uses (although default is recommended as it is
     locale-dependant), and wxPG_DATE_PICKER_STYLE allows changing window
     style given to DatePickerCtrl (default is wxDP_DEFAULT|wxDP_SHOWCENTURY).
     Using wxDP_ALLOWNONE will enable better unspecified value support.
@@ -517,6 +537,9 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
     Represents wxColour. wxButton is used to trigger a colour picker dialog.
     There are various sub-classing opportunities with this class. See
     below in wxSystemColourProperty section for details.
+
+    Setting "HasAlpha" attribute to @true for this property allows user to
+    edit the alpha colour component.
 
     @subsection wxFontProperty
 
@@ -548,7 +571,7 @@ wxPG_PROP_BEING_DELETED             = 0x00200000
     @endcode
 
     in wxSystemColourProperty, and its derived class wxColourProperty, there
-    are various sub-classing features. To set basic list list of colour
+    are various sub-classing features. To set a basic list of colour
     names, call wxPGProperty::SetChoices().
 
     @code
@@ -749,7 +772,7 @@ public:
 
                 You might want to take into account that m_value is Null variant
                 if property value is unspecified (which is usually only case if
-                you explicitly enabled that sort behavior).
+                you explicitly enabled that sort behaviour).
     */
     virtual bool StringToValue( wxVariant& variant, const wxString& text, int argFlags = 0 ) const;
 
@@ -777,7 +800,7 @@ public:
           instead of OnEvent.
         - You might want to take into account that m_value is Mull variant if
           property value is unspecified (which is usually only case if you
-          explicitly enabled that sort behavior).
+          explicitly enabled that sort behaviour).
     */
     virtual bool IntToValue( wxVariant& variant, int number, int argFlags = 0 ) const;
 
@@ -800,7 +823,7 @@ public:
 
     /**
         Converts string to a value, and if successful, calls SetValue() on it.
-        Default behavior is to do nothing.
+        Default behaviour is to do nothing.
 
         @param text
             String to get the value from.
@@ -812,8 +835,13 @@ public:
     bool SetValueFromString( const wxString& text, int flags = 0 );
 
     /**
-        Converts integer to a value, and if succesful, calls SetValue() on it.
+<<<<<<< .mine
+        Converts integer to a value, and if successful, calls SetValue() on it.
+        Default behaviour is to do nothing.
+=======
+        Converts integer to a value, and if successful, calls SetValue() on it.
         Default behavior is to do nothing.
+>>>>>>> .r67279
 
         @param value
             Int to get the value from.
@@ -833,7 +861,7 @@ public:
             Normally -1, but can be an index to the property's list of items.
 
         @remarks
-        - Default behavior is to return wxSize(0,0), which means no image.
+        - Default behaviour is to return wxSize(0,0), which means no image.
         - Default image width or height is indicated with dimension -1.
         - You can also return wxPG_DEFAULT_IMAGE_SIZE which equals wxSize(-1, -1).
     */
@@ -844,7 +872,7 @@ public:
         usually processes most events. Some, such as button press events of
         TextCtrlAndButton class, can be handled here. Also, if custom handling
         for regular events is desired, then that can also be done (for example,
-        wxSystemColourProperty custom handles wxEVT_COMMAND_CHOICE_SELECTED
+        wxSystemColourProperty custom handles @c wxEVT_COMMAND_CHOICE_SELECTED
         to display colour picker dialog when 'custom' selection is made).
 
         If the event causes value to be changed, SetValueInEvent() should be called
@@ -863,7 +891,7 @@ public:
 
     /**
         Called after value of a child property has been altered. Must return
-        new value of the whole property (after any alterations warrented by
+        new value of the whole property (after any alterations warranted by
         child's new value).
 
         Note that this function is usually called at the time that value of
@@ -1140,9 +1168,14 @@ public:
     bool AreChildrenComponents() const;
 
     /**
-        Sets or clears given property flag.
+        Sets or clears given property flag. Mainly for internal use.
 
-        @see propgrid_propflags
+        @remarks Setting a property flag never has any side-effect, and is
+                 intended almost exclusively for internal use. So, for
+                 example, if you want to disable a property, call
+                 Enable(false) instead of setting wxPG_PROP_DISABLED flag.
+
+        @see HasFlag(), GetFlags()
     */
     void ChangeFlag( wxPGPropertyFlags flag, bool set );
 
@@ -1160,6 +1193,17 @@ public:
 
     /** Deletes all child properties. */
     void Empty();
+
+    /**
+        Enables or disables the property. Disabled property usually appears
+        as having grey text.
+
+        @param enable
+            If @false, property is disabled instead.
+
+        @see wxPropertyGridInterface::EnableProperty()
+    */
+    void Enable( bool enable = true );
 
     /**
         Composes text from values of child properties.
@@ -1458,7 +1502,7 @@ public:
     /**
         Returns true if property has editable wxTextCtrl when selected.
 
-        @remarks Altough disabled properties do not displayed editor, they still
+        @remarks Although disabled properties do not displayed editor, they still
                 return @true here as being disabled is considered a temporary
                 condition (unlike being read-only or having limited editing enabled).
     */
@@ -1498,6 +1542,18 @@ public:
                 from property's set of attributes.
     */
     void SetAttribute( const wxString& name, wxVariant value );
+
+    /**
+        Set if user can change the property's value to unspecified by
+        modifying the value of the editor control (usually by clearing
+        it).  Currently, this can work with following properties:
+        wxIntProperty, wxUIntProperty, wxFloatProperty, wxEditEnumProperty.
+
+        @param enable
+            Whether to enable or disable this behaviour (it is disabled by
+            default).
+    */
+    void SetAutoUnspecified( bool enable = true );
 
     /**
         Sets property's background colour.
@@ -1570,16 +1626,10 @@ public:
     void SetDefaultValue( wxVariant& value );
 
     /**
-        Sets given property flag.
+        Sets or clears given property flag, recursively. This function is
+        primarily intended for internal use.
 
-        @see propgrid_propflags
-    */
-    void SetFlag( wxPGPropertyFlags flag );
-
-    /**
-        Sets or clears given property flag, recursively.
-
-        @see propgrid_propflags
+        @see ChangeFlag()
     */
     void SetFlagRecursively( wxPGPropertyFlags flag, bool set );
 
@@ -1863,7 +1913,7 @@ public:
     wxPGChoices Copy() const;
 
     /**
-        Returns labe of item.
+        Returns label of item.
     */
     const wxString& GetLabel( unsigned int ind ) const;
 

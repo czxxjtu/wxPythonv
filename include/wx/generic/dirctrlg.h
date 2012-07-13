@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dirctrlg.h
+// Name:        wx/generic/dirctrlg.h
 // Purpose:     wxGenericDirCtrl class
 //              Builds on wxDirCtrl class written by Robert Roebling for the
 //              wxFile application, modified by Harm van der Heijden.
@@ -7,7 +7,7 @@
 // Author:      Robert Roebling, Harm van der Heijden, Julian Smart et al
 // Modified by:
 // Created:     21/3/2000
-// RCS-ID:      $Id: dirctrlg.h 61596 2009-08-03 20:45:07Z VZ $
+// RCS-ID:      $Id: dirctrlg.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Robert Roebling, Harm van der Heijden, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -189,6 +189,8 @@ protected:
     bool ExtractWildcard(const wxString& filterStr, int n, wxString& filter, wxString& description);
 
 private:
+    void PopulateNode(wxTreeItemId node);
+
     bool            m_showHidden;
     wxTreeItemId    m_rootId;
     wxString        m_defaultPath; // Starting path

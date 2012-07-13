@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        msw/stackwalk.cpp
+// Name:        src/unix/stackwalk.cpp
 // Purpose:     wxStackWalker implementation for Unix/glibc
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-18
-// RCS-ID:      $Id: stackwalk.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: stackwalk.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2005 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

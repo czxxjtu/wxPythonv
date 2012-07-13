@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: sashtest.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: sashtest.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -78,8 +78,6 @@ bool MyApp::OnInit(void)
 #endif // wxUSE_STATUSBAR
 
   frame->Show(true);
-
-  SetTopWindow(frame);
 
   return true;
 }

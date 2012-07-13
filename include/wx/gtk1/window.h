@@ -2,13 +2,15 @@
 // Name:        wx/gtk1/window.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: window.h 60984 2009-06-10 16:41:41Z VZ $
+// Id:          $Id: window.h 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GTKWINDOWH__
 #define __GTKWINDOWH__
+
+typedef struct _GtkTooltips GtkTooltips;
 
 // helper structure that holds class that holds GtkIMContext object and
 // some additional data needed for key events processing
@@ -112,7 +114,7 @@ public:
     // OnInternalIdle
     virtual void OnInternalIdle();
 
-    // Internal represention of Update()
+    // Internal representation of Update()
     void GtkUpdate();
 
     // For compatibility across platforms (not in event table)
@@ -153,7 +155,7 @@ public:
     void GtkUpdateScrollbar(int orient);
 
     // Called from GTK signal handlers. it indicates that
-    // the layouting functions have to be called later on
+    // the layout functions have to be called later on
     // (i.e. in idle time, implemented in OnInternalIdle() ).
     void GtkUpdateSize() { m_sizeSet = false; }
 

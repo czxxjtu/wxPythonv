@@ -4,7 +4,7 @@
  * Author:      Julian Smart
  * Modified by:
  * Created:     01/02/97
- * RCS-ID:      $Id: chkconf.h 63832 2010-04-02 19:30:41Z VZ $
+ * RCS-ID:      $Id: chkconf.h 67588 2011-04-23 16:03:10Z VZ $
  * Copyright:   (c) Julian Smart
  * Licence:     wxWindows licence
  */
@@ -239,7 +239,7 @@
    Compiler-specific checks.
  */
 
-// Borland
+/* Borland */
 #ifdef __BORLANDC__
 
 #if __BORLANDC__ < 0x500
@@ -336,6 +336,14 @@
 #endif  /* !wxUSE_DYNAMIC_LOADER */
 
 #if !wxUSE_DYNLIB_CLASS
+#   if wxUSE_DC_TRANSFORM_MATRIX
+#       ifdef wxABORT_ON_CONFIG_ERROR
+#           error "wxUSE_DC_TRANSFORM_MATRIX requires wxUSE_DYNLIB_CLASS"
+#       else
+#           undef wxUSE_DC_TRANSFORM_MATRIX
+#           define wxUSE_DC_TRANSFORM_MATRIX 0
+#       endif
+#   endif
 #   if wxUSE_UXTHEME
 #       ifdef wxABORT_ON_CONFIG_ERROR
 #           error "wxUSE_UXTHEME requires wxUSE_DYNLIB_CLASS"

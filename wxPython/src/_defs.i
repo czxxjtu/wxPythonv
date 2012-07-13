@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     6/24/97
-// RCS-ID:      $Id: _defs.i 65418 2010-08-25 23:00:12Z RD $
+// RCS-ID:      $Id: _defs.i 67445 2011-04-13 17:50:35Z RD $
 // Copyright:   (c) 1998 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1099,6 +1099,12 @@ enum {
     wxID_MDI_WINDOW_NEXT,
     wxID_MDI_WINDOW_LAST,
 
+    wxID_OSX_MENU_FIRST,
+    wxID_OSX_HIDE,
+    wxID_OSX_HIDEOTHERS,
+    wxID_OSX_SHOWALL,
+    wxID_OSX_MENU_LAST,
+
     wxID_FILEDLGG,
     wxID_FILECTRL,
     wxID_HIGHEST,
@@ -1257,6 +1263,35 @@ enum {
 
 
 enum wxKeyCode {
+    WXK_NONE = 0,
+    
+    WXK_CONTROL_A = 1,
+    WXK_CONTROL_B,
+    WXK_CONTROL_C,
+    WXK_CONTROL_D,
+    WXK_CONTROL_E,
+    WXK_CONTROL_F,
+    WXK_CONTROL_G,
+    WXK_CONTROL_H,
+    WXK_CONTROL_I,
+    WXK_CONTROL_J,
+    WXK_CONTROL_K,
+    WXK_CONTROL_L,
+    WXK_CONTROL_M,
+    WXK_CONTROL_N,
+    WXK_CONTROL_O,
+    WXK_CONTROL_P,
+    WXK_CONTROL_Q,
+    WXK_CONTROL_R,
+    WXK_CONTROL_S,
+    WXK_CONTROL_T,
+    WXK_CONTROL_U,
+    WXK_CONTROL_V,
+    WXK_CONTROL_W,
+    WXK_CONTROL_X,
+    WXK_CONTROL_Y,
+    WXK_CONTROL_Z,
+    
     WXK_BACK    =    8,
     WXK_TAB     =    9,
     WXK_RETURN  =    13,

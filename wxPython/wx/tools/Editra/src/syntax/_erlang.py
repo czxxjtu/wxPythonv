@@ -15,11 +15,12 @@ AUTHOR: Cody Precord
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: _erlang.py 63834 2010-04-03 06:04:33Z CJP $"
-__revision__ = "$Revision: 63834 $"
+__svnid__ = "$Id: _erlang.py 68798 2011-08-20 17:17:05Z CJP $"
+__revision__ = "$Revision: 68798 $"
 
 #-----------------------------------------------------------------------------#
 # Imports
+import wx
 import wx.stc as stc
 
 # Local Imports
@@ -50,10 +51,26 @@ SYNTAX_ITEMS = [(stc.STC_ERLANG_ATOM, 'default_style'),       # need new tag
                 (stc.STC_ERLANG_NUMBER, 'number_style'),
                 (stc.STC_ERLANG_OPERATOR, 'operator_style'),
                 (stc.STC_ERLANG_RECORD, 'keyword2_style'),
-                (stc.STC_ERLANG_SEPARATOR, 'default_style'),  # need style?
                 (stc.STC_ERLANG_STRING, 'string_style'),
                 (stc.STC_ERLANG_UNKNOWN, 'unknown_style'),
                 (stc.STC_ERLANG_VARIABLE, 'default_style')]   # need custom?
+
+# Version specific 
+if wx.VERSION >= (2, 9, 0, 0, ''):
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_ATOM_QUOTED, 'default_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_BIFS, 'default_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_COMMENT_DOC, 'dockey_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_COMMENT_DOC_MACRO, 'dockey_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_COMMENT_FUNCTION, 'comment_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_COMMENT_MODULE, 'comment_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_MACRO_QUOTED, 'default_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_MODULES, 'default_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_MODULES_ATT, 'default_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_NODE_NAME_QUOTED, 'default_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_PREPROC, 'pre_style')) # TODO
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_RECORD_QUOTED, 'default_style')) # TODO
+else:
+    SYNTAX_ITEMS.append((stc.STC_ERLANG_SEPARATOR, 'default_style')) # need style?
 
 #---- Extra Properties ----#
 FOLD = ('fold', '1')
@@ -66,7 +83,7 @@ FOLD_BRACE = ('fold.braces', '1')
 class SyntaxData(syndata.SyntaxDataBase):
     """SyntaxData object for Erlang""" 
     def __init__(self, langid):
-        syndata.SyntaxDataBase.__init__(self, langid)
+        super(SyntaxData, self).__init__(langid)
 
         # Setup
         self.SetLexer(stc.STC_LEX_ERLANG)

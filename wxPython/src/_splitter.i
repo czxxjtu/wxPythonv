@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     2-June-1998
-// RCS-ID:      $Id: _splitter.i 55854 2008-09-25 07:31:30Z RD $
+// RCS-ID:      $Id: _splitter.i 67558 2011-04-20 22:46:46Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -297,7 +297,7 @@ showing the top-level window.", "");
 
     DocDeclStr(
         void , SetSashPosition(int position, bool redraw = true),
-        "Sets the sash position, in pixels.  If redraw is Ttrue then the panes
+        "Sets the sash position, in pixels.  If redraw is True then the panes
 are resized and the sash and border are redrawn.", "");
     
 

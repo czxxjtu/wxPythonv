@@ -3,7 +3,7 @@
 // Purpose:     Controls wxWidgets sample
 // Author:      Robert Roebling
 // Modified by:
-// RCS-ID:      $Id: controls.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: controls.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -721,7 +721,7 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     for ( size_t n = 0; n < Image_Max; n++ )
     {
         wxBitmap bmp(s_iconNames[n]);
-        if ( !bmp.Ok() || (imagelist->Add(bmp) == -1) )
+        if ( !bmp.IsOk() || (imagelist->Add(bmp) == -1) )
         {
             wxLogWarning(wxT("Couldn't load the image '%s' for the book control page %d."),
                     s_iconNames[n], n);
@@ -855,7 +855,7 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     m_slider = new wxSlider( panel, ID_SLIDER, 0, 0, 200,
                              wxDefaultPosition, wxSize(155,wxDefaultCoord),
                              wxSL_AUTOTICKS | wxSL_LABELS);
-    m_slider->SetTickFreq(40, 0);
+    m_slider->SetTickFreq(40);
     sz->Add( m_slider, 0, wxALL, 10 );
 
     m_gaugeVert = new wxGauge( panel, wxID_ANY, 100,
@@ -949,14 +949,15 @@ MyPanel::MyPanel( wxFrame *frame, int x, int y, int w, int h )
     dc.DrawText(wxT("Bitmap"), 30, 40);
     dc.SelectObject( wxNullBitmap );
 
-    (void)new wxBitmapButton(panel, ID_BITMAP_BTN, bitmap, wxPoint(100, 20));
-    (void)new wxToggleButton(panel, ID_BITMAP_BTN_ENABLE,
-                             wxT("Enable/disable &bitmap"), wxPoint(100, 140));
+    wxPanel *panel2 = new wxPanel(panel, -1, wxPoint(100, 0), wxSize(100, 200));
+    (void)new wxBitmapButton(panel2, ID_BITMAP_BTN, bitmap, wxPoint(0, 20));
+    (void)new wxToggleButton(panel2, ID_BITMAP_BTN_ENABLE,
+                             wxT("Enable/disable &bitmap"), wxPoint(0, 140));
 
 #if defined(__WXMSW__) || defined(__WXMOTIF__)
     // test for masked bitmap display
     bitmap = wxBitmap(wxT("test2.bmp"), wxBITMAP_TYPE_BMP);
-    if (bitmap.Ok())
+    if (bitmap.IsOk())
     {
        bitmap.SetMask(new wxMask(bitmap, *wxBLUE));
 
@@ -1182,7 +1183,7 @@ void MyPanel::OnChangeColour(wxCommandEvent& WXUNUSED(event))
 
     SetThemeEnabled(false);
     // test panel colour changing and propagation to the subcontrols
-    if ( s_colOld.Ok() )
+    if ( s_colOld.IsOk() )
     {
         SetBackgroundColour(s_colOld);
         s_colOld = wxNullColour;

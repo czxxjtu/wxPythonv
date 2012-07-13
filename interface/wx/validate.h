@@ -2,7 +2,7 @@
 // Name:        validate.h
 // Purpose:     interface of wxValidator
 // Author:      wxWidgets team
-// RCS-ID:      $Id: validate.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: validate.h 66714 2011-01-19 10:48:28Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +38,8 @@
     @stdobjects
     ::wxDefaultValidator
 
-    @see @ref overview_validator, wxTextValidator, wxGenericValidator
+    @see @ref overview_validator, wxTextValidator, wxGenericValidator,
+        wxIntegerValidator, wxFloatingPointValidator
 */
 class wxValidator : public wxEvtHandler
 {
@@ -131,5 +132,5 @@ public:
 /**
     An empty, "null" wxValidator instance.
 */
-wxValidator wxDefaultValidator;
+const wxValidator wxDefaultValidator;
 

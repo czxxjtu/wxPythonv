@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     22.10.99
-// RCS-ID:      $Id: ctrlsub.h 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: ctrlsub.h 65040 2010-07-22 12:09:15Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -296,8 +296,13 @@ public:
     void SetClientData(unsigned int n, void* clientData);
     void* GetClientData(unsigned int n) const;
 
+    // SetClientObject() takes ownership of the pointer, GetClientObject()
+    // returns it but keeps the ownership while DetachClientObject() expects
+    // the caller to delete the pointer and also resets the internally stored
+    // one to NULL for this item
     void SetClientObject(unsigned int n, wxClientData* clientData);
     wxClientData* GetClientObject(unsigned int n) const;
+    wxClientData* DetachClientObject(unsigned int n);
 
     // return the type of client data stored in this control: usually it just
     // returns m_clientDataItemsType but must be overridden in the controls

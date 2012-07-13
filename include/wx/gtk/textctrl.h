@@ -3,7 +3,7 @@
 // Purpose:
 // Author:      Robert Roebling
 // Created:     01/02/97
-// Id:          $Id: textctrl.h 64404 2010-05-26 17:37:55Z RR $
+// Id:          $Id: textctrl.h 67326 2011-03-28 06:27:49Z PC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -214,6 +214,7 @@ private:
     GtkTextBuffer *m_buffer;
 
     GtkTextMark* m_showPositionOnThaw;
+    GSList* m_anonymousMarkList;
 
     // For wxTE_AUTO_URL
     void OnUrlMouseEvent(wxMouseEvent&);

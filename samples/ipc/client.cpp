@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:    Jurgen Doornik
 // Created:     25/01/99
-// RCS-ID:      $Id: client.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: client.cpp 65781 2010-10-07 20:43:20Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -232,10 +232,8 @@ void MyFrame::EnableControls()
 
 void MyFrame::OnClose(wxCloseEvent& event)
 {
-    if (m_client)
-    {
-        wxDELETE(m_client);
-    }
+    wxDELETE(m_client);
+
     event.Skip();
 }
 

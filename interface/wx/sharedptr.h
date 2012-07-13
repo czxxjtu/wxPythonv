@@ -2,7 +2,7 @@
 // Name:        sharedptr.h
 // Purpose:     interface of wxSharedPtr<T>
 // Author:      wxWidgets team
-// RCS-ID:      $Id: sharedptr.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: sharedptr.h 65111 2010-07-25 19:45:24Z RR $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -61,7 +61,9 @@ public:
     T operator*() const;
 
     /**
-        Returns pointer to its object or @NULL.
+        Smart pointer member access. Returns pointer to its object.
+
+        If the internal pointer is @NULL this method will cause an assert in debug mode.
     */
     T* operator->() const;
 

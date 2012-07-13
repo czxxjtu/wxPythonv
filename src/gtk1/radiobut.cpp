@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        radiobut.cpp
+// Name:        src/gtk1/radiobut.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: radiobut.cpp 58227 2009-01-19 13:55:27Z VZ $
+// Id:          $Id: radiobut.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -59,8 +59,6 @@ void gtk_radiobutton_clicked_callback( GtkToggleButton *button, wxRadioButton *r
 //-----------------------------------------------------------------------------
 // wxRadioButton
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxRadioButton,wxControl)
 
 bool wxRadioButton::Create( wxWindow *parent,
                             wxWindowID id,
@@ -182,10 +180,10 @@ bool wxRadioButton::IsOwnGtkWindow( GdkWindow *window )
 void wxRadioButton::OnInternalIdle()
 {
     wxCursor cursor = m_cursor;
-    if (g_globalCursor.Ok()) cursor = g_globalCursor;
+    if (g_globalCursor.IsOk()) cursor = g_globalCursor;
 
     GdkWindow *win = TOGGLE_BUTTON_EVENT_WIN(m_widget);
-    if ( win && cursor.Ok())
+    if ( win && cursor.IsOk())
     {
         /* I now set the cursor the anew in every OnInternalIdle call
        as setting the cursor in a parent window also effects the

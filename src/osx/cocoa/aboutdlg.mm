@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        osx/cocoa/aboutdlg.cpp
+// Name:        src/osx/cocoa/aboutdlg.mm
 // Purpose:     native wxAboutBox() implementation for wxMac
 // Author:      Vadim Zeitlin
 // Created:     2006-10-08
-// RCS-ID:      $Id: aboutdlg.cpp 54820 2008-07-29 20:04:11Z SC $
+// RCS-ID:      $Id: aboutdlg.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

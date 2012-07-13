@@ -3,7 +3,7 @@
 // Purpose:     Parser of the API/interface XML files
 // Author:      Francesco Montorsi
 // Created:     2008/03/17
-// RCS-ID:      $Id: xmlparser.cpp 64291 2010-05-11 21:10:18Z FM $
+// RCS-ID:      $Id: xmlparser.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) 2008 Francesco Montorsi
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -760,7 +760,7 @@ bool getID(unsigned long *id, const wxString& str)
 }
 
 // utility specialized to parse efficiently the gccXML list of IDs which occur
-// in nodes like <Class> ones... i.e. numeric values separed by " _" token
+// in nodes like <Class> ones... i.e. numeric values separated by " _" token
 bool getMemberIDs(wxClassMemberIdHashMap* map, wxClass* p, const wxString& str)
 {
     const wxStringCharType * const start = str.wx_str();
@@ -1280,7 +1280,7 @@ bool wxXmlGccInterface::ParseMethod(const wxXmlNode *p,
 
     // NOTE: gccxml is smart enough to mark as virtual those functions
     //       which are declared virtual in base classes but don't have
-    //       the "virtual" keyword explicitely indicated in the derived
+    //       the "virtual" keyword explicitly indicated in the derived
     //       classes... so we don't need any further logic for virtuals
 
     m.SetVirtual(p->GetAttribute("virtual") == "1");
@@ -1686,7 +1686,7 @@ bool wxXmlDoxygenInterface::ParseMethod(const wxXmlNode* p, wxMethod& m, wxStrin
 
     // NOTE: Doxygen is smart enough to mark as virtual those functions
     //       which are declared virtual in base classes but don't have
-    //       the "virtual" keyword explicitely indicated in the derived
+    //       the "virtual" keyword explicitly indicated in the derived
     //       classes... so we don't need any further logic for virtuals
 
     m.SetVirtual(p->GetAttribute("virt")=="virtual");

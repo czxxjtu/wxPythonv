@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dc.h
+// Name:        wx/osx/dc.h
 // Purpose:     wxDC class
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: dc.h 58168 2009-01-17 10:43:43Z SC $
+// RCS-ID:      $Id: dc.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

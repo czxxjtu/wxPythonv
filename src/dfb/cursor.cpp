@@ -3,7 +3,7 @@
 // Purpose:     wxCursor implementation
 // Author:      Vaclav Slavik
 // Created:     2006-08-08
-// RCS-ID:      $Id: cursor.cpp 55884 2008-09-25 17:56:07Z FM $
+// RCS-ID:      $Id: cursor.cpp 66429 2010-12-22 13:57:15Z VZ $
 // Copyright:   (c) 2006 REA Elektronik GmbH
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -29,6 +29,15 @@ public:
         : m_id(id), m_bitmap(bmp) {}
 
     virtual bool IsOk() const { return m_bitmap.IsOk(); }
+
+    // Create a deep copy of this object.
+    wxCursorRefData *Clone() const
+    {
+        wxBitmap bitmapCopy(m_bitmap);
+        bitmapCopy.UnShare();
+
+        return new wxCursorRefData(bitmapCopy, m_id);
+    }
 
     int      m_id;
     wxBitmap m_bitmap;
@@ -62,7 +71,7 @@ wxGDIRefData *wxCursor::CreateGDIRefData() const
 
 wxGDIRefData *wxCursor::CloneGDIRefData(const wxGDIRefData *data) const
 {
-    return new wxCursorRefData(*(wxCursorRefData *)data);
+    return static_cast<const wxCursorRefData *>(data)->Clone();
 }
 
 

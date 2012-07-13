@@ -2,7 +2,7 @@
 // Name:        wx/gtk1/app.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: app.h 59711 2009-03-21 23:36:37Z VZ $
+// Id:          $Id: app.h 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@ public:
 
     unsigned char  *m_colorCube;
 
-    // Used by the the wxGLApp and wxGLCanvas class for GL-based X visual
+    // Used by the wxGLApp and wxGLCanvas class for GL-based X visual
     // selection.
     void           *m_glVisualInfo; // this is actually an XVisualInfo*
     void           *m_glFBCInfo; // this is actually an GLXFBConfig*

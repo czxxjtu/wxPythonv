@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/carbon/colour.cpp
+// Name:        src/osx/core/colour.cpp
 // Purpose:     wxColour class
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: colour.cpp 63623 2010-03-04 08:29:04Z SC $
+// RCS-ID:      $Id: colour.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,6 @@
 #endif
 
 #include "wx/osx/private.h"
-
-IMPLEMENT_DYNAMIC_CLASS(wxColour, wxObject)
 
 #if wxOSX_USE_COCOA_OR_CARBON
 wxColour::wxColour(const RGBColor& col)
@@ -111,7 +109,7 @@ void wxColour::InitCGColorRef( CGColorRef col )
 {
     m_cgColour.reset( col );
     size_t noComp = CGColorGetNumberOfComponents( col );
-    
+
     const CGFloat *components = NULL;
     if ( noComp >= 1 && noComp <= 4 )
     {
@@ -130,7 +128,7 @@ void wxColour::InitFromComponents(const CGFloat* components, size_t numComponent
         m_red = m_green = m_blue = 0;
         return;
     }
-    
+
     if ( numComponents >= 3 )
     {
         m_red = (int)(components[0]*255+0.5);

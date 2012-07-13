@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/carbon/mimetype.cpp
+// Name:        src/osx/carbon/mimetmac.cpp
 // Purpose:     Mac Carbon implementation for wx MIME-related classes
 // Author:      Ryan Norton
 // Modified by:
 // Created:     04/16/2005
-// RCS-ID:      $Id: mimetmac.cpp 61475 2009-07-20 16:47:54Z VZ $
+// RCS-ID:      $Id: mimetmac.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2005 Ryan Norton (<wxprojects@comcast.net>)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

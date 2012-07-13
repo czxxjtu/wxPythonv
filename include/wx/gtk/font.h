@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        font.h
+// Name:        wx/gtk/font.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: font.h 62349 2009-10-09 13:04:59Z VZ $
+// Id:          $Id: font.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,6 @@ public:
 
     // implement base class pure virtuals
     virtual int GetPointSize() const;
-    virtual wxFontFamily GetFamily() const;
     virtual wxFontStyle GetStyle() const;
     virtual wxFontWeight GetWeight() const;
     virtual wxString GetFaceName() const;
@@ -110,6 +109,8 @@ protected:
 
     virtual wxGDIRefData* CreateGDIRefData() const;
     virtual wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const;
+
+    virtual wxFontFamily DoGetFamily() const;
 
 private:
     DECLARE_DYNAMIC_CLASS(wxFont)

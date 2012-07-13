@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cocoa/glcanvas.mm
+// Name:        src/cocoa/glcanvas.mm
 // Purpose:     wxGLContext, wxGLCanvas
 // Author:      David Elliott
 // Modified by:
 // Created:     2004/09/29
-// RCS-ID:      $Id: glcanvas.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: glcanvas.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

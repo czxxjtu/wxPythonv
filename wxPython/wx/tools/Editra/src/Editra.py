@@ -16,8 +16,8 @@ running Editra.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: Editra.py 65750 2010-10-03 20:38:53Z CJP $"
-__revision__ = "$Revision: 65750 $"
+__svnid__ = "$Id: Editra.py 68906 2011-08-26 01:55:43Z CJP $"
+__revision__ = "$Revision: 68906 $"
 
 #--------------------------------------------------------------------------#
 # Dependencies
@@ -31,9 +31,9 @@ if not hasattr(sys, 'frozen') and 'wx' not in sys.modules:
     import wxversion
     wxversion.ensureMinimal('2.8')
 
+import codecs
 import base64
 import locale
-import time
 import getopt
 import shutil
 import wx
@@ -66,7 +66,7 @@ import ed_event
 import updater
 import plugin
 import ed_ipc
-import ed_msg
+import ed_session
 import ebmlib
 from syntax import synglob
 
@@ -97,6 +97,14 @@ class Editra(wx.App, events.AppEventHandlerMixin):
 
         # Disable debug popups
         wx.Log.EnableLogging(False)
+        # XXX: Temporary - disable assertions on OSX to work around 
+        #      upstream bug in drawing code "couldnt draw the rotated text"
+        if wx.Platform == '__WXMAC__':
+            self.SetAssertMode(wx.PYAPP_ASSERT_SUPPRESS)
+
+        # Purge old logs
+        logfile = dev_tool.EdLogFile()
+        logfile.PurgeOldLogs(7)
 
         if ed_glob.SINGLE:
             # Setup the instance checker
@@ -118,12 +126,20 @@ class Editra(wx.App, events.AppEventHandlerMixin):
                             p = ebmlib.GetAbsPath(p)
                         except:
                             pass
-                        nargs.append(p)
-                    exml.SetFiles(nargs)
-                exml.SetArgs(opts.items())
+                        fxml = ed_ipc.IPCFile()
+                        fxml.value = p
+                        nargs.append(fxml)
+                    exml.filelist = nargs
+                arglist = list()
+                for arg, val in opts.items():
+                    axml = ed_ipc.IPCArg()
+                    axml.name = arg
+                    axml.value = val
+                    arglist.append(axml)
+                exml.arglist = arglist
 
                 # TODO: need to process other command line options as well i.e) -g
-                self._log("[app][info] Sending: %s" % exml.GetXml())
+                self._log("[app][info] Sending: %s" % exml.Xml)
                 rval = ed_ipc.SendCommands(exml, profiler.Profile_Get('SESSION_KEY'))
                 # If sending the command failed then let the editor startup
                 # a new instance
@@ -205,8 +221,18 @@ class Editra(wx.App, events.AppEventHandlerMixin):
             self.locale = None
 
         # Check and set encoding if necessary
-        if not profiler.Profile_Get('ENCODING'):
-            profiler.Profile_Set('ENCODING', locale.getpreferredencoding())
+        d_enc = profiler.Profile_Get('ENCODING')
+        if not d_enc:
+            profiler.Profile_Set('ENCODING', ed_txt.DEFAULT_ENCODING)
+        else:
+            # Ensure the default encoding is valid
+            # Fixes up older installs on some systems that may have an
+            # invalid encoding set.
+            try:
+                codecs.lookup(d_enc)
+            except (LookupError, TypeError):
+                self._log("[app][err] Resetting bad encoding: %s" % d_enc)
+                profiler.Profile_Set('ENCODING', ed_txt.DEFAULT_ENCODING)
 
         # Setup the Error Reporter
         if profiler.Profile_Get('REPORTER', 'bool', True):
@@ -255,7 +281,7 @@ class Editra(wx.App, events.AppEventHandlerMixin):
         self._pluginmgr.WritePluginConfig()
         profiler.TheProfile.Write(profiler.Profile_Get('MYPROFILE'))
         if not self._lock or force:
-            if hasattr(self, '_server'):
+            if getattr(self, '_server', None):
                 self._server.Shutdown()
 
             try:
@@ -311,7 +337,7 @@ class Editra(wx.App, events.AppEventHandlerMixin):
 
         if awin is None:
             awin = self.GetTopWindow()
-            if awin is None or getattr(awin, '__name__', '?') != "MainWindow":
+            if not isinstance(awin, ed_main.MainWindow):
                 if len(self.GetMainWindows()):
                     awin = self.GetMainWindows()[0]
 
@@ -530,23 +556,24 @@ class Editra(wx.App, events.AppEventHandlerMixin):
         self._log("[app][info] IN OnCommandReceived")
         cmds = evt.GetCommands()
         if isinstance(cmds, ed_ipc.IPCCommand):
-            self._log("[app][info] OnCommandReceived %s" % cmds.GetXml())
-            if not len(cmds.GetFiles()):
+            self._log("[app][info] OnCommandReceived %s" % cmds.Xml)
+            if not len(cmds.filelist):
                 self.OpenNewWindow()
             else:
                 # TODO: change goto line handling to require one
                 #       arg per file specified on the command line
                 #       i.e) -g 23,44,100
                 line = -1
-                for arg, val in cmds.GetArgs():
+                for argobj in cmds.arglist:
+                    arg = argobj.name
                     if arg == '-g':
-                        line = val
+                        line = int(argobj.value)
                         if line > 0:
                             line -= 1
                         break
 
-                for fname in cmds.GetFiles():
-                    self.OpenFile(fname, line)
+                for fname in cmds.filelist:
+                    self.OpenFile(fname.value, line)
 
     def OnCloseWindow(self, evt):
         """Close the currently active window
@@ -740,13 +767,19 @@ def InitConfig():
         else:
             dev_tool.DEBUGP("[InitConfig][info] Updating Profile to current version")
 
+            # When upgrading from an older version make sure all
+            # config directories are available.
+            for cfg in ("cache", "styles", "plugins", "profiles", "sessions"):
+                if not util.HasConfigDir(cfg):
+                    util.MakeConfigDir(cfg)
+
             # Load and update profile
             pstr = profiler.GetProfileStr()
             pstr = util.RepairConfigState(pstr)
             profiler.TheProfile.Load(pstr)
             profiler.TheProfile.Update()
 
-            #---- Temporary Profile Adaptions ----#
+            #---- Temporary Profile Adaption ----#
 
             # Added after 0.5.32
             mconfig = profiler.Profile_Get('LEXERMENU', default=None)
@@ -779,20 +812,21 @@ def InitConfig():
 
             # After 0.4.65 LAST_SESSION now points a session file and not
             # to a list of files to open.
+            ed_glob.CONFIG['SESSION_DIR'] = util.ResolvConfigDir(u"sessions")
+            smgr = ed_session.EdSessionMgr(ed_glob.CONFIG['SESSION_DIR'])
             sess = profiler.Profile_Get('LAST_SESSION')
             if isinstance(sess, list):
-                profiler.Profile_Set('LAST_SESSION', u'')
+                profiler.Profile_Set('LAST_SESSION', smgr.DefaultSession)
+            else:
+                # After 0.6.58 session is reduced to a name instead of path
+                if os.path.sep in sess:
+                    name = smgr.SessionNameFromPath(sess)
+                    profiler.Profile_Set('LAST_SESSION', name)
 
-            #---- End Temporary Profile Adaptions ----#
+            #---- End Temporary Profile Adaption ----#
 
             # Write out updated profile
             profiler.TheProfile.Write(pstr)
-
-            # When upgrading from an older version make sure all
-            # config directories are available.
-            for cfg in ("cache", "styles", "plugins", "profiles", "sessions"):
-                if not util.HasConfigDir(cfg):
-                    util.MakeConfigDir(cfg)
 
             profile_updated = True
     else:
@@ -819,6 +853,9 @@ def InitConfig():
         if wx.Platform == '__WXMSW__':
             profiler.Profile_Set('EOL_MODE', ed_glob.EOL_MODE_CRLF)
             profiler.Profile_Set('ICONSZ', (16, 16))
+        elif wx.Platform == '__WXMAC__':
+            # Default to 32x32 toolbar icons on OSX
+            profiler.Profile_Set('ICONSZ', (32, 32))
 
     #---- Profile Loaded / Installed ----#
 
@@ -1116,7 +1153,7 @@ def _Main(opts, args):
     wx.CallAfter(frame.Raise)
 
     # Install handlers to exit app if os is shutting down/restarting
-    ebmlib.InstallTermHandler(editra_app.Exit, [], dict(force=True))
+    ebmlib.InstallTermHandler(editra_app.Exit, force=True)
 
     editra_app.MainLoop()
     dev_tool.DEBUGP("[main][info] MainLoop finished exiting application")

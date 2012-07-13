@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/private/epolldispatcher.h
+// Name:        wx/unix/private/epolldispatcher.h
 // Purpose:     wxEpollDispatcher class
 // Authors:     Lukasz Michalski
 // Created:     April 2007
 // Copyright:   (c) Lukasz Michalski
-// RCS-ID:      $Id: epolldispatcher.h 58487 2009-01-29 00:26:40Z VS $
+// RCS-ID:      $Id: epolldispatcher.h 67254 2011-03-20 00:14:35Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

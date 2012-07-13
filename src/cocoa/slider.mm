@@ -5,7 +5,7 @@
 //              Mark Oxenham
 // Modified by:
 // Created:     2003/06/19
-// RCS-ID:      $Id: slider.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: slider.mm 66844 2011-02-05 16:36:30Z VZ $
 // Copyright:   (c) 2003 David Elliott
 //              (c) 2007 Software 2000 Ltd.
 // Licence:     wxWindows licence
@@ -26,8 +26,7 @@
 #import <AppKit/NSEvent.h>
 #import <AppKit/NSWindow.h>
 
-IMPLEMENT_DYNAMIC_CLASS(wxSlider, wxControl)
-    BEGIN_EVENT_TABLE(wxSlider, wxSliderBase)
+BEGIN_EVENT_TABLE(wxSlider, wxSliderBase)
 END_EVENT_TABLE()
 WX_IMPLEMENT_COCOA_OWNER(wxSlider,NSSlider,NSControl,NSView)
 
@@ -88,8 +87,7 @@ bool wxSlider::Create(wxWindow *parent, wxWindowID winid,
     // minValue > maxValue not handled, tickMarks set to 0
     if ( style & wxSL_AUTOTICKS )
         tickMarks = ((maxValue - minValue >= 0) ? (maxValue - minValue) : 0);
-    // arg2 needed a value, doesnt do anything
-    SetTickFreq(tickMarks,1);
+    SetTickFreq(tickMarks);
 
     return true;
 }
@@ -207,7 +205,7 @@ int wxSlider::GetMax() const
     return [GetNSSlider() maxValue];
 }
 
-void wxSlider::SetTickFreq(int n, int pos)
+void wxSlider::DoSetTickFreq(int n)
 {
     const int numTicks = (n > 0) ? ((GetMax() - GetMin()) / n) + 1 : 0;
     [GetNSSlider() setNumberOfTickMarks:numTicks];

@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: gauge.h 52834 2008-03-26 15:06:00Z FM $
+// RCS-ID:      $Id: gauge.h 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ public:
     virtual void SetRange(int range);
     virtual void SetValue(int pos);
 
-    // overriden base class virtuals
+    // overridden base class virtuals
     virtual bool SetForegroundColour(const wxColour& col);
     virtual bool SetBackgroundColour(const wxColour& col);
 

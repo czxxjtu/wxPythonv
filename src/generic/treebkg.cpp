@@ -4,7 +4,7 @@
 // Author:      Evgeniy Tarassov, Vadim Zeitlin
 // Modified by:
 // Created:     2005-09-15
-// RCS-ID:      $Id: treebkg.cpp 63632 2010-03-05 23:55:19Z VZ $
+// RCS-ID:      $Id: treebkg.cpp 65931 2010-10-27 16:54:36Z VZ $
 // Copyright:   (c) 2005 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -554,11 +554,6 @@ bool wxTreebook::SetPageImage(size_t n, int imageId)
     GetTreeCtrl()->SetItemImage(pageId, imageId);
 
     return true;
-}
-
-int wxTreebook::GetSelection() const
-{
-   return m_selection;
 }
 
 int wxTreebook::DoSetSelection(size_t pagePos, int flags)

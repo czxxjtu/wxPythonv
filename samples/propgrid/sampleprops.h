@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     2006-03-05
-// RCS-ID:      $Id: sampleprops.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: sampleprops.h 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -12,6 +12,7 @@
 #ifndef _WX_SAMPLES_PROPGRID_SAMPLEPROPS_H_
 #define _WX_SAMPLES_PROPGRID_SAMPLEPROPS_H_
 
+#include "wx/fontdata.h"
 
 DECLARE_VARIANT_OBJECT(wxFontData)
 
@@ -28,7 +29,7 @@ public:
 
     void OnSetValue();
 
-    // Inorder to have different value type in a derived property
+    // In order to have different value type in a derived property
     // class, we will override GetValue to return custom variant,
     // instead of changing the base m_value. This allows the methods
     // in base class to function properly.

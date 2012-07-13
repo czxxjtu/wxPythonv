@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        htmlcell.h
+// Name:        wx/html/htmlcell.h
 // Purpose:     wxHtmlCell class is used by wxHtmlWindow/wxHtmlWinParser
 //              as a basic visual element of HTML page
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: htmlcell.h 60363 2009-04-25 23:19:04Z VZ $
+// RCS-ID:      $Id: htmlcell.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1999-2003 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

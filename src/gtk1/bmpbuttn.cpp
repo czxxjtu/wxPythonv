@@ -2,7 +2,7 @@
 // Name:        src/gtk1/bmpbuttn.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: bmpbuttn.cpp 61724 2009-08-21 10:41:26Z VZ $
+// Id:          $Id: bmpbuttn.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -113,8 +113,6 @@ static void gtk_bmpbutton_release_callback( GtkWidget *WXUNUSED(widget), wxBitma
 //-----------------------------------------------------------------------------
 // wxBitmapButton
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxBitmapButton,wxButton)
 
 void wxBitmapButton::Init()
 {

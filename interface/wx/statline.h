@@ -2,7 +2,7 @@
 // Name:        statline.h
 // Purpose:     interface of wxStaticLine
 // Author:      wxWidgets team
-// RCS-ID:      $Id: statline.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: statline.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,7 @@
 
     The line may be only vertical or horizontal. Moreover, not all ports
     (notably not wxGTK) support specifying the transversal direction of the
-    line (e.g. height for a horizontal line) so for maximial portability you
+    line (e.g. height for a horizontal line) so for maximal portability you
     should specify it as wxDefaultCoord.
 
     @beginStyleTable

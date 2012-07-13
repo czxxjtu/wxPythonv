@@ -1,12 +1,12 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        gbsizer.cpp
+// Name:        src/common/gbsizer.cpp
 // Purpose:     wxGridBagSizer:  A sizer that can lay out items in a grid,
 //              with items at specified cells, and with the option of row
 //              and/or column spanning
 //
 // Author:      Robin Dunn
 // Created:     03-Nov-2003
-// RCS-ID:      $Id: gbsizer.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: gbsizer.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Robin Dunn
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,6 @@ wxGBSizerItem::wxGBSizerItem( wxSizer *sizer,
 wxGBSizerItem::wxGBSizerItem()
     : wxSizerItem(),
       m_pos(-1,-1),
-      m_span(-1,-1),
       m_gbsizer(NULL)
 {
 }
@@ -473,9 +472,9 @@ wxSize wxGridBagSizer::CalcMin()
             item->GetEndPos(endrow, endcol);
 
             // fill heights and widths upto this item if needed
-            while ( m_rowHeights.GetCount() <= (size_t)endrow )
+            while ( (int)m_rowHeights.GetCount() <= endrow )
                 m_rowHeights.Add(m_emptyCellSize.GetHeight());
-            while ( m_colWidths.GetCount() <= (size_t)endcol )
+            while ( (int)m_colWidths.GetCount() <= endcol )
                 m_colWidths.Add(m_emptyCellSize.GetWidth());
 
             // See if this item increases the size of its row(s) or col(s)

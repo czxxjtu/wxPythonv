@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: thread.cpp 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: thread.cpp 67185 2011-03-14 11:54:32Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -467,12 +467,12 @@ wxThreadError wxThread::Resume()
 // stopping thread
 // ---------------
 
-wxThread::ExitCode wxThread::Wait()
+wxThread::ExitCode wxThread::Wait(wxThreadWait WXUNUSED(waitMode))
 {
     return 0;
 }
 
-wxThreadError wxThread::Delete(ExitCode *pRc)
+wxThreadError wxThread::Delete(ExitCode *pRc, wxThreadWait WXUNUSED(waitMode))
 {
     return wxTHREAD_NO_ERROR;
 }

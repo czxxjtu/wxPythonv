@@ -2,7 +2,7 @@
 // Name:        src/gtk1/textctrl.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: textctrl.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: textctrl.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling, Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -200,8 +200,6 @@ static void wxgtk_text_draw( GtkWidget *widget, GdkRectangle *rect)
 //-----------------------------------------------------------------------------
 //  wxTextCtrl
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxTextCtrl, wxTextCtrlBase)
 
 BEGIN_EVENT_TABLE(wxTextCtrl, wxTextCtrlBase)
     EVT_CHAR(wxTextCtrl::OnChar)
@@ -728,7 +726,7 @@ void wxTextCtrl::OnEnabled( bool WXUNUSED(enable) )
     // disabled and enabled mode, or we end up with a different colour under the
     // text.
     wxColour oldColour = GetBackgroundColour();
-    if (oldColour.Ok())
+    if (oldColour.IsOk())
     {
         // Need to set twice or it'll optimize the useful stuff out
         if (oldColour == * wxWHITE)
@@ -1112,7 +1110,7 @@ bool wxTextCtrl::SetBackgroundColour( const wxColour &colour )
     if (!m_widget->window)
         return false;
 
-    if (!m_backgroundColour.Ok())
+    if (!m_backgroundColour.IsOk())
         return false;
 
     if (m_windowStyle & wxTE_MULTILINE)
@@ -1244,9 +1242,9 @@ void wxTextCtrl::OnUpdateRedo(wxUpdateUIEvent& event)
 void wxTextCtrl::OnInternalIdle()
 {
     wxCursor cursor = m_cursor;
-    if (g_globalCursor.Ok()) cursor = g_globalCursor;
+    if (g_globalCursor.IsOk()) cursor = g_globalCursor;
 
-    if (cursor.Ok())
+    if (cursor.IsOk())
     {
         GdkWindow *window = NULL;
         if (HasFlag(wxTE_MULTILINE))
@@ -1257,7 +1255,7 @@ void wxTextCtrl::OnInternalIdle()
         if (window)
             gdk_window_set_cursor( window, cursor.GetCursor() );
 
-        if (!g_globalCursor.Ok())
+        if (!g_globalCursor.IsOk())
             cursor = *wxSTANDARD_CURSOR;
 
         window = m_widget->window;

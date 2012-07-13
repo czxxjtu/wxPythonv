@@ -3,7 +3,7 @@
 // Purpose:     SVG sample
 // Author:      Chris Elliott
 // Modified by:
-// RCS-ID:      $Id: svgtest.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: svgtest.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -66,29 +66,29 @@ public:
     void OnNewWindow(wxCommandEvent& event);
     void OnQuit(wxCommandEvent& event);
     void FileSavePicture (wxCommandEvent& event);
-    
+
     unsigned int GetCountOfChildren() const
         { return m_nWinCreated; }
 
 private:
     unsigned int m_nWinCreated;
-        
+
     DECLARE_EVENT_TABLE()
 };
 
 class MyChild: public wxMDIChildFrame
 {
 public:
-    MyChild(wxMDIParentFrame *parent, const wxString& title, 
-            const wxPoint& pos = wxDefaultPosition, 
-            const wxSize& size = wxDefaultSize, 
+    MyChild(wxMDIParentFrame *parent, const wxString& title,
+            const wxPoint& pos = wxDefaultPosition,
+            const wxSize& size = wxDefaultSize,
             const long style = wxDEFAULT_FRAME_STYLE);
     ~MyChild();
 
     void OnActivate(wxActivateEvent& event);
     void OnQuit(wxCommandEvent& event);
     bool OnSave(wxString filename);
-    
+
     MyFrame* GetFrame()
         { return m_frame; }
 
@@ -108,7 +108,7 @@ public:
 private:
     int m_index;
     MyChild* m_child;
-    
+
     DECLARE_EVENT_TABLE()
 };
 
@@ -159,8 +159,6 @@ bool MyApp::OnInit()
                                  wxDEFAULT_FRAME_STYLE | wxHSCROLL | wxVSCROLL);
 
     frame->Show(true);
-
-    SetTopWindow(frame);
 
     return true;
 }
@@ -213,7 +211,7 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event) )
 {
     (void)wxMessageBox(wxT("wxWidgets SVG sample\n")
         wxT("Author: Chris Elliott (c) 2002-2009\n")
-        wxT("Usage: click File|New to show tests"), 
+        wxT("Usage: click File|New to show tests"),
         wxT("About SVG Test"));
 }
 
@@ -224,7 +222,7 @@ void MyFrame::OnNewWindow(wxCommandEvent& WXUNUSED(event) )
 
     wxString title;
     title.Printf(wxT("SVG Test Window %d"), m_nWinCreated );
-    
+
     // counts number of children previously, even if now closed
     m_nWinCreated ++;
 
@@ -519,14 +517,14 @@ MyChild::MyChild(wxMDIParentFrame *parent, const wxString& title,
     : wxMDIChildFrame(parent, wxID_ANY, title, pos, size, style)
 {
     m_frame = (MyFrame *) parent;
-    
+
 #if wxUSE_STATUSBAR
     CreateStatusBar();
     SetStatusText(title);
 #endif // wxUSE_STATUSBAR
 
     m_canvas = new MyCanvas(this, wxPoint(0, 0), GetClientSize());
-    
+
     // Give it scrollbars
     m_canvas->SetScrollbars(20, 20, 50, 50);
 }

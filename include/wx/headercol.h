@@ -3,7 +3,7 @@
 // Purpose:     declaration of wxHeaderColumn class
 // Author:      Vadim Zeitlin
 // Created:     2008-12-02
-// RCS-ID:      $Id: headercol.h 58009 2009-01-11 00:57:08Z VZ $
+// RCS-ID:      $Id: headercol.h 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,10 @@
 enum
 {
     // special value for column width meaning unspecified/default
-    wxCOL_WIDTH_DEFAULT = -1
+    wxCOL_WIDTH_DEFAULT = -1,
+
+    // size the column automatically to fit all values
+    wxCOL_WIDTH_AUTOSIZE = -2
 };
 
 // bit masks for the various column attributes
@@ -94,7 +97,7 @@ public:
     // unspecified/default
     virtual int GetWidth() const = 0;
 
-    // minimal width can be set for resizeable columns to forbid resizing them
+    // minimal width can be set for resizable columns to forbid resizing them
     // below the specified size (set to 0 to remove)
     virtual int GetMinWidth() const = 0;
 
@@ -174,8 +177,8 @@ public:
     void ClearFlag(int flag);
     void ToggleFlag(int flag);
 
-    virtual void SetResizeable(bool resizeable)
-        { ChangeFlag(wxCOL_RESIZABLE, resizeable); }
+    virtual void SetResizeable(bool resizable)
+        { ChangeFlag(wxCOL_RESIZABLE, resizable); }
     virtual void SetSortable(bool sortable)
         { ChangeFlag(wxCOL_SORTABLE, sortable); }
     virtual void SetReorderable(bool reorderable)

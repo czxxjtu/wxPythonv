@@ -6,7 +6,7 @@
 // Copyright:  (C) 1999-1997, Guilhem Lavaux
 //             (C) 1999-2000, Guillermo Rodriguez Garcia
 //             (C) 2008 Vadim Zeitlin
-// RCS_ID:     $Id: sockmsw.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS_ID:     $Id: sockmsw.cpp 68098 2011-06-29 17:50:27Z VZ $
 // Licence:    wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -347,7 +347,7 @@ LRESULT CALLBACK wxSocket_Internal_WinProc(HWND hWnd,
                 // only then). Ignore such dummy notifications.
                 {
                     fd_set fds;
-                    timeval tv = { 0 };
+                    timeval tv = { 0, 0 };
 
                     wxFD_ZERO(&fds);
                     wxFD_SET(socket->m_fd, &fds);

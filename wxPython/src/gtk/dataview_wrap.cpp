@@ -2463,159 +2463,160 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_PyLong swig_types[0]
-#define SWIGTYPE_p_char swig_types[1]
-#define SWIGTYPE_p_double swig_types[2]
-#define SWIGTYPE_p_int swig_types[3]
-#define SWIGTYPE_p_p_wxDataViewColumn swig_types[4]
-#define SWIGTYPE_p_unsigned_char swig_types[5]
-#define SWIGTYPE_p_unsigned_int swig_types[6]
-#define SWIGTYPE_p_unsigned_long swig_types[7]
-#define SWIGTYPE_p_void swig_types[8]
-#define SWIGTYPE_p_wxANIHandler swig_types[9]
-#define SWIGTYPE_p_wxAcceleratorTable swig_types[10]
-#define SWIGTYPE_p_wxActivateEvent swig_types[11]
-#define SWIGTYPE_p_wxArrayInt swig_types[12]
-#define SWIGTYPE_p_wxArrayString swig_types[13]
-#define SWIGTYPE_p_wxBMPHandler swig_types[14]
-#define SWIGTYPE_p_wxBoxSizer swig_types[15]
-#define SWIGTYPE_p_wxCURHandler swig_types[16]
-#define SWIGTYPE_p_wxChildFocusEvent swig_types[17]
-#define SWIGTYPE_p_wxClientData swig_types[18]
-#define SWIGTYPE_p_wxClipboardTextEvent swig_types[19]
-#define SWIGTYPE_p_wxCloseEvent swig_types[20]
-#define SWIGTYPE_p_wxColour swig_types[21]
-#define SWIGTYPE_p_wxCommandEvent swig_types[22]
-#define SWIGTYPE_p_wxContextMenuEvent swig_types[23]
-#define SWIGTYPE_p_wxControl swig_types[24]
-#define SWIGTYPE_p_wxControlWithItems swig_types[25]
-#define SWIGTYPE_p_wxDC swig_types[26]
-#define SWIGTYPE_p_wxDataFormat swig_types[27]
-#define SWIGTYPE_p_wxDataObject swig_types[28]
-#define SWIGTYPE_p_wxDataViewBitmapRenderer swig_types[29]
-#define SWIGTYPE_p_wxDataViewChoiceByIndexRenderer swig_types[30]
-#define SWIGTYPE_p_wxDataViewChoiceRenderer swig_types[31]
-#define SWIGTYPE_p_wxDataViewColumn swig_types[32]
-#define SWIGTYPE_p_wxDataViewCtrl swig_types[33]
-#define SWIGTYPE_p_wxDataViewCustomRenderer swig_types[34]
-#define SWIGTYPE_p_wxDataViewDateRenderer swig_types[35]
-#define SWIGTYPE_p_wxDataViewEvent swig_types[36]
-#define SWIGTYPE_p_wxDataViewIconText swig_types[37]
-#define SWIGTYPE_p_wxDataViewIconTextRenderer swig_types[38]
-#define SWIGTYPE_p_wxDataViewIndexListModel swig_types[39]
-#define SWIGTYPE_p_wxDataViewItem swig_types[40]
-#define SWIGTYPE_p_wxDataViewItemArray swig_types[41]
-#define SWIGTYPE_p_wxDataViewItemArray_iterator swig_types[42]
-#define SWIGTYPE_p_wxDataViewItemAttr swig_types[43]
-#define SWIGTYPE_p_wxDataViewListCtrl swig_types[44]
-#define SWIGTYPE_p_wxDataViewListStore swig_types[45]
-#define SWIGTYPE_p_wxDataViewModel swig_types[46]
-#define SWIGTYPE_p_wxDataViewModelNotifier swig_types[47]
-#define SWIGTYPE_p_wxDataViewProgressRenderer swig_types[48]
-#define SWIGTYPE_p_wxDataViewRenderer swig_types[49]
-#define SWIGTYPE_p_wxDataViewSpinRenderer swig_types[50]
-#define SWIGTYPE_p_wxDataViewTextRenderer swig_types[51]
-#define SWIGTYPE_p_wxDataViewToggleRenderer swig_types[52]
-#define SWIGTYPE_p_wxDataViewTreeCtrl swig_types[53]
-#define SWIGTYPE_p_wxDataViewTreeStore swig_types[54]
-#define SWIGTYPE_p_wxDataViewTreeStoreContainerNode swig_types[55]
-#define SWIGTYPE_p_wxDataViewTreeStoreNode swig_types[56]
-#define SWIGTYPE_p_wxDataViewTreeStoreNodeList swig_types[57]
-#define SWIGTYPE_p_wxDataViewTreeStoreNodeList_iterator swig_types[58]
-#define SWIGTYPE_p_wxDataViewVirtualListModel swig_types[59]
-#define SWIGTYPE_p_wxDateEvent swig_types[60]
-#define SWIGTYPE_p_wxDisplayChangedEvent swig_types[61]
-#define SWIGTYPE_p_wxDropFilesEvent swig_types[62]
-#define SWIGTYPE_p_wxDuplexMode swig_types[63]
-#define SWIGTYPE_p_wxEraseEvent swig_types[64]
-#define SWIGTYPE_p_wxEvent swig_types[65]
-#define SWIGTYPE_p_wxEventBlocker swig_types[66]
-#define SWIGTYPE_p_wxEvtHandler swig_types[67]
-#define SWIGTYPE_p_wxFSFile swig_types[68]
-#define SWIGTYPE_p_wxFileSystem swig_types[69]
-#define SWIGTYPE_p_wxFlexGridSizer swig_types[70]
-#define SWIGTYPE_p_wxFocusEvent swig_types[71]
-#define SWIGTYPE_p_wxGBSizerItem swig_types[72]
-#define SWIGTYPE_p_wxGIFHandler swig_types[73]
-#define SWIGTYPE_p_wxGridBagSizer swig_types[74]
-#define SWIGTYPE_p_wxGridSizer swig_types[75]
-#define SWIGTYPE_p_wxHeaderColumn swig_types[76]
-#define SWIGTYPE_p_wxHeaderColumnSimple swig_types[77]
-#define SWIGTYPE_p_wxICOHandler swig_types[78]
-#define SWIGTYPE_p_wxIcon swig_types[79]
-#define SWIGTYPE_p_wxIconizeEvent swig_types[80]
-#define SWIGTYPE_p_wxIdleEvent swig_types[81]
-#define SWIGTYPE_p_wxImage swig_types[82]
-#define SWIGTYPE_p_wxImageHandler swig_types[83]
-#define SWIGTYPE_p_wxImageList swig_types[84]
-#define SWIGTYPE_p_wxIndividualLayoutConstraint swig_types[85]
-#define SWIGTYPE_p_wxInitDialogEvent swig_types[86]
-#define SWIGTYPE_p_wxJPEGHandler swig_types[87]
-#define SWIGTYPE_p_wxKeyEvent swig_types[88]
-#define SWIGTYPE_p_wxLayoutConstraints swig_types[89]
-#define SWIGTYPE_p_wxMaximizeEvent swig_types[90]
-#define SWIGTYPE_p_wxMenu swig_types[91]
-#define SWIGTYPE_p_wxMenuBar swig_types[92]
-#define SWIGTYPE_p_wxMenuEvent swig_types[93]
-#define SWIGTYPE_p_wxMenuItem swig_types[94]
-#define SWIGTYPE_p_wxMouseCaptureChangedEvent swig_types[95]
-#define SWIGTYPE_p_wxMouseCaptureLostEvent swig_types[96]
-#define SWIGTYPE_p_wxMouseEvent swig_types[97]
-#define SWIGTYPE_p_wxMoveEvent swig_types[98]
-#define SWIGTYPE_p_wxNavigationKeyEvent swig_types[99]
-#define SWIGTYPE_p_wxNcPaintEvent swig_types[100]
-#define SWIGTYPE_p_wxNotifyEvent swig_types[101]
-#define SWIGTYPE_p_wxObject swig_types[102]
-#define SWIGTYPE_p_wxPCXHandler swig_types[103]
-#define SWIGTYPE_p_wxPNGHandler swig_types[104]
-#define SWIGTYPE_p_wxPNMHandler swig_types[105]
-#define SWIGTYPE_p_wxPaintEvent swig_types[106]
-#define SWIGTYPE_p_wxPaletteChangedEvent swig_types[107]
-#define SWIGTYPE_p_wxPaperSize swig_types[108]
-#define SWIGTYPE_p_wxPoint swig_types[109]
-#define SWIGTYPE_p_wxPyApp swig_types[110]
-#define SWIGTYPE_p_wxPyCommandEvent swig_types[111]
-#define SWIGTYPE_p_wxPyDataViewCustomRenderer swig_types[112]
-#define SWIGTYPE_p_wxPyDataViewIndexListModel swig_types[113]
-#define SWIGTYPE_p_wxPyDataViewModel swig_types[114]
-#define SWIGTYPE_p_wxPyDataViewModelNotifier swig_types[115]
-#define SWIGTYPE_p_wxPyDataViewVirtualListModel swig_types[116]
-#define SWIGTYPE_p_wxPyEvent swig_types[117]
-#define SWIGTYPE_p_wxPyEvtHandler swig_types[118]
-#define SWIGTYPE_p_wxPyImageHandler swig_types[119]
-#define SWIGTYPE_p_wxPySizer swig_types[120]
-#define SWIGTYPE_p_wxPyValidator swig_types[121]
-#define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[122]
-#define SWIGTYPE_p_wxRect swig_types[123]
-#define SWIGTYPE_p_wxRefCounter swig_types[124]
-#define SWIGTYPE_p_wxScrollEvent swig_types[125]
-#define SWIGTYPE_p_wxScrollWinEvent swig_types[126]
-#define SWIGTYPE_p_wxSetCursorEvent swig_types[127]
-#define SWIGTYPE_p_wxSettableHeaderColumn swig_types[128]
-#define SWIGTYPE_p_wxShowEvent swig_types[129]
-#define SWIGTYPE_p_wxSize swig_types[130]
-#define SWIGTYPE_p_wxSizeEvent swig_types[131]
-#define SWIGTYPE_p_wxSizer swig_types[132]
-#define SWIGTYPE_p_wxSizerItem swig_types[133]
-#define SWIGTYPE_p_wxStaticBoxSizer swig_types[134]
-#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[135]
-#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[136]
-#define SWIGTYPE_p_wxTGAHandler swig_types[137]
-#define SWIGTYPE_p_wxTIFFHandler swig_types[138]
-#define SWIGTYPE_p_wxTextCtrlBase swig_types[139]
-#define SWIGTYPE_p_wxThreadEvent swig_types[140]
-#define SWIGTYPE_p_wxUpdateUIEvent swig_types[141]
-#define SWIGTYPE_p_wxValidator swig_types[142]
-#define SWIGTYPE_p_wxVariant swig_types[143]
-#define SWIGTYPE_p_wxVariantVector swig_types[144]
-#define SWIGTYPE_p_wxVisualAttributes swig_types[145]
-#define SWIGTYPE_p_wxWindow swig_types[146]
-#define SWIGTYPE_p_wxWindowCreateEvent swig_types[147]
-#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[148]
-#define SWIGTYPE_p_wxWrapSizer swig_types[149]
-#define SWIGTYPE_p_wxXPMHandler swig_types[150]
-static swig_type_info *swig_types[152];
-static swig_module_info swig_module = {swig_types, 151, 0, 0, 0, 0};
+#define SWIGTYPE_p_PyDataViewIndexListModel swig_types[0]
+#define SWIGTYPE_p_PyDataViewVirtualListModel swig_types[1]
+#define SWIGTYPE_p_PyLong swig_types[2]
+#define SWIGTYPE_p_char swig_types[3]
+#define SWIGTYPE_p_double swig_types[4]
+#define SWIGTYPE_p_int swig_types[5]
+#define SWIGTYPE_p_p_wxDataViewColumn swig_types[6]
+#define SWIGTYPE_p_unsigned_char swig_types[7]
+#define SWIGTYPE_p_unsigned_int swig_types[8]
+#define SWIGTYPE_p_unsigned_long swig_types[9]
+#define SWIGTYPE_p_void swig_types[10]
+#define SWIGTYPE_p_wxANIHandler swig_types[11]
+#define SWIGTYPE_p_wxAcceleratorTable swig_types[12]
+#define SWIGTYPE_p_wxActivateEvent swig_types[13]
+#define SWIGTYPE_p_wxArrayInt swig_types[14]
+#define SWIGTYPE_p_wxArrayString swig_types[15]
+#define SWIGTYPE_p_wxBMPHandler swig_types[16]
+#define SWIGTYPE_p_wxBoxSizer swig_types[17]
+#define SWIGTYPE_p_wxCURHandler swig_types[18]
+#define SWIGTYPE_p_wxChildFocusEvent swig_types[19]
+#define SWIGTYPE_p_wxClientData swig_types[20]
+#define SWIGTYPE_p_wxClipboardTextEvent swig_types[21]
+#define SWIGTYPE_p_wxCloseEvent swig_types[22]
+#define SWIGTYPE_p_wxColour swig_types[23]
+#define SWIGTYPE_p_wxCommandEvent swig_types[24]
+#define SWIGTYPE_p_wxContextMenuEvent swig_types[25]
+#define SWIGTYPE_p_wxControl swig_types[26]
+#define SWIGTYPE_p_wxControlWithItems swig_types[27]
+#define SWIGTYPE_p_wxDC swig_types[28]
+#define SWIGTYPE_p_wxDataFormat swig_types[29]
+#define SWIGTYPE_p_wxDataObject swig_types[30]
+#define SWIGTYPE_p_wxDataViewBitmapRenderer swig_types[31]
+#define SWIGTYPE_p_wxDataViewChoiceByIndexRenderer swig_types[32]
+#define SWIGTYPE_p_wxDataViewChoiceRenderer swig_types[33]
+#define SWIGTYPE_p_wxDataViewColumn swig_types[34]
+#define SWIGTYPE_p_wxDataViewCtrl swig_types[35]
+#define SWIGTYPE_p_wxDataViewCustomRenderer swig_types[36]
+#define SWIGTYPE_p_wxDataViewDateRenderer swig_types[37]
+#define SWIGTYPE_p_wxDataViewEvent swig_types[38]
+#define SWIGTYPE_p_wxDataViewIconText swig_types[39]
+#define SWIGTYPE_p_wxDataViewIconTextRenderer swig_types[40]
+#define SWIGTYPE_p_wxDataViewIndexListModel swig_types[41]
+#define SWIGTYPE_p_wxDataViewItem swig_types[42]
+#define SWIGTYPE_p_wxDataViewItemArray swig_types[43]
+#define SWIGTYPE_p_wxDataViewItemArray_iterator swig_types[44]
+#define SWIGTYPE_p_wxDataViewItemAttr swig_types[45]
+#define SWIGTYPE_p_wxDataViewListCtrl swig_types[46]
+#define SWIGTYPE_p_wxDataViewListStore swig_types[47]
+#define SWIGTYPE_p_wxDataViewModel swig_types[48]
+#define SWIGTYPE_p_wxDataViewModelNotifier swig_types[49]
+#define SWIGTYPE_p_wxDataViewProgressRenderer swig_types[50]
+#define SWIGTYPE_p_wxDataViewRenderer swig_types[51]
+#define SWIGTYPE_p_wxDataViewSpinRenderer swig_types[52]
+#define SWIGTYPE_p_wxDataViewTextRenderer swig_types[53]
+#define SWIGTYPE_p_wxDataViewToggleRenderer swig_types[54]
+#define SWIGTYPE_p_wxDataViewTreeCtrl swig_types[55]
+#define SWIGTYPE_p_wxDataViewTreeStore swig_types[56]
+#define SWIGTYPE_p_wxDataViewTreeStoreContainerNode swig_types[57]
+#define SWIGTYPE_p_wxDataViewTreeStoreNode swig_types[58]
+#define SWIGTYPE_p_wxDataViewTreeStoreNodeList swig_types[59]
+#define SWIGTYPE_p_wxDataViewTreeStoreNodeList_iterator swig_types[60]
+#define SWIGTYPE_p_wxDataViewVirtualListModel swig_types[61]
+#define SWIGTYPE_p_wxDateEvent swig_types[62]
+#define SWIGTYPE_p_wxDisplayChangedEvent swig_types[63]
+#define SWIGTYPE_p_wxDropFilesEvent swig_types[64]
+#define SWIGTYPE_p_wxDuplexMode swig_types[65]
+#define SWIGTYPE_p_wxEraseEvent swig_types[66]
+#define SWIGTYPE_p_wxEvent swig_types[67]
+#define SWIGTYPE_p_wxEventBlocker swig_types[68]
+#define SWIGTYPE_p_wxEvtHandler swig_types[69]
+#define SWIGTYPE_p_wxFSFile swig_types[70]
+#define SWIGTYPE_p_wxFileSystem swig_types[71]
+#define SWIGTYPE_p_wxFlexGridSizer swig_types[72]
+#define SWIGTYPE_p_wxFocusEvent swig_types[73]
+#define SWIGTYPE_p_wxFont swig_types[74]
+#define SWIGTYPE_p_wxGBSizerItem swig_types[75]
+#define SWIGTYPE_p_wxGIFHandler swig_types[76]
+#define SWIGTYPE_p_wxGridBagSizer swig_types[77]
+#define SWIGTYPE_p_wxGridSizer swig_types[78]
+#define SWIGTYPE_p_wxHeaderColumn swig_types[79]
+#define SWIGTYPE_p_wxHeaderColumnSimple swig_types[80]
+#define SWIGTYPE_p_wxICOHandler swig_types[81]
+#define SWIGTYPE_p_wxIcon swig_types[82]
+#define SWIGTYPE_p_wxIconizeEvent swig_types[83]
+#define SWIGTYPE_p_wxIdleEvent swig_types[84]
+#define SWIGTYPE_p_wxImage swig_types[85]
+#define SWIGTYPE_p_wxImageHandler swig_types[86]
+#define SWIGTYPE_p_wxImageList swig_types[87]
+#define SWIGTYPE_p_wxIndividualLayoutConstraint swig_types[88]
+#define SWIGTYPE_p_wxInitDialogEvent swig_types[89]
+#define SWIGTYPE_p_wxJPEGHandler swig_types[90]
+#define SWIGTYPE_p_wxKeyEvent swig_types[91]
+#define SWIGTYPE_p_wxLayoutConstraints swig_types[92]
+#define SWIGTYPE_p_wxMaximizeEvent swig_types[93]
+#define SWIGTYPE_p_wxMenu swig_types[94]
+#define SWIGTYPE_p_wxMenuBar swig_types[95]
+#define SWIGTYPE_p_wxMenuEvent swig_types[96]
+#define SWIGTYPE_p_wxMenuItem swig_types[97]
+#define SWIGTYPE_p_wxMouseCaptureChangedEvent swig_types[98]
+#define SWIGTYPE_p_wxMouseCaptureLostEvent swig_types[99]
+#define SWIGTYPE_p_wxMouseEvent swig_types[100]
+#define SWIGTYPE_p_wxMoveEvent swig_types[101]
+#define SWIGTYPE_p_wxNavigationKeyEvent swig_types[102]
+#define SWIGTYPE_p_wxNcPaintEvent swig_types[103]
+#define SWIGTYPE_p_wxNotifyEvent swig_types[104]
+#define SWIGTYPE_p_wxObject swig_types[105]
+#define SWIGTYPE_p_wxPCXHandler swig_types[106]
+#define SWIGTYPE_p_wxPNGHandler swig_types[107]
+#define SWIGTYPE_p_wxPNMHandler swig_types[108]
+#define SWIGTYPE_p_wxPaintEvent swig_types[109]
+#define SWIGTYPE_p_wxPaletteChangedEvent swig_types[110]
+#define SWIGTYPE_p_wxPaperSize swig_types[111]
+#define SWIGTYPE_p_wxPoint swig_types[112]
+#define SWIGTYPE_p_wxPyApp swig_types[113]
+#define SWIGTYPE_p_wxPyCommandEvent swig_types[114]
+#define SWIGTYPE_p_wxPyDataViewCustomRenderer swig_types[115]
+#define SWIGTYPE_p_wxPyDataViewModel swig_types[116]
+#define SWIGTYPE_p_wxPyDataViewModelNotifier swig_types[117]
+#define SWIGTYPE_p_wxPyEvent swig_types[118]
+#define SWIGTYPE_p_wxPyEvtHandler swig_types[119]
+#define SWIGTYPE_p_wxPyImageHandler swig_types[120]
+#define SWIGTYPE_p_wxPySizer swig_types[121]
+#define SWIGTYPE_p_wxPyValidator swig_types[122]
+#define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[123]
+#define SWIGTYPE_p_wxRect swig_types[124]
+#define SWIGTYPE_p_wxRefCounter swig_types[125]
+#define SWIGTYPE_p_wxScrollEvent swig_types[126]
+#define SWIGTYPE_p_wxScrollWinEvent swig_types[127]
+#define SWIGTYPE_p_wxSetCursorEvent swig_types[128]
+#define SWIGTYPE_p_wxSettableHeaderColumn swig_types[129]
+#define SWIGTYPE_p_wxShowEvent swig_types[130]
+#define SWIGTYPE_p_wxSize swig_types[131]
+#define SWIGTYPE_p_wxSizeEvent swig_types[132]
+#define SWIGTYPE_p_wxSizer swig_types[133]
+#define SWIGTYPE_p_wxSizerItem swig_types[134]
+#define SWIGTYPE_p_wxStaticBoxSizer swig_types[135]
+#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[136]
+#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[137]
+#define SWIGTYPE_p_wxTGAHandler swig_types[138]
+#define SWIGTYPE_p_wxTIFFHandler swig_types[139]
+#define SWIGTYPE_p_wxTextCtrlBase swig_types[140]
+#define SWIGTYPE_p_wxThreadEvent swig_types[141]
+#define SWIGTYPE_p_wxUpdateUIEvent swig_types[142]
+#define SWIGTYPE_p_wxValidator swig_types[143]
+#define SWIGTYPE_p_wxVariant swig_types[144]
+#define SWIGTYPE_p_wxVariantVector swig_types[145]
+#define SWIGTYPE_p_wxVisualAttributes swig_types[146]
+#define SWIGTYPE_p_wxWindow swig_types[147]
+#define SWIGTYPE_p_wxWindowCreateEvent swig_types[148]
+#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[149]
+#define SWIGTYPE_p_wxWrapSizer swig_types[150]
+#define SWIGTYPE_p_wxXPMHandler swig_types[151]
+static swig_type_info *swig_types[153];
+static swig_module_info swig_module = {swig_types, 152, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2730,6 +2731,38 @@ SWIG_From_int  (int value)
 {    
   return SWIG_From_long  (value);
 }
+
+
+
+wxVariant wxDVCVariant_in_helper(PyObject* source)
+{
+    wxVariant ret;
+
+    if (wxPySimple_typecheck(source, wxT("wxDataViewIconText"), -1)) {
+        wxDataViewIconText* ptr;
+        wxPyConvertSwigPtr(source, (void**)&ptr, wxT("wxDataViewIconText"));
+        ret << *ptr;
+    }  
+    else
+        ret = wxVariant_in_helper(source);
+    return ret;
+}
+
+PyObject* wxDVCVariant_out_helper(const wxVariant& value)
+{
+    PyObject* ret;
+
+    if ( value.IsType("wxDataViewIconText") )
+    {
+        wxDataViewIconText val;
+        val << value;
+        ret = wxPyConstructObject(new wxDataViewIconText(val), wxT("wxDataViewIconText"), 0);
+    }
+    else
+        ret = wxVariant_out_helper(value);
+    return ret;
+}
+
 
 
 #define PYCALLBACK_BOOL_DVIDVI_pure(PCLASS, CBNAME)                             \
@@ -2918,6 +2951,7 @@ SWIG_From_int  (int value)
             rval = PCLASS::CBNAME(a);                                           \
         return rval;                                                            \
     }
+
 
 
 #define PYCALLBACK_BOOL_DVIUINT_pure(PCLASS, CBNAME)                            \
@@ -3175,7 +3209,7 @@ SWIG_From_int  (int value)
 
 
 #define PYCALLBACK_BOOL_RECTDVMDVIUINT(PCLASS, CBNAME)                         \
-    bool CBNAME(wxRect a, wxDataViewModel* b, const wxDataViewItem& c, unsigned int d) { \
+    bool CBNAME(const wxRect& a, wxDataViewModel* b, const wxDataViewItem& c, unsigned int d) { \
         bool found;                                                             \
         bool rval = false;                                                      \
         wxPyBlock_t blocked = wxPyBeginBlockThreads();                          \
@@ -3196,7 +3230,7 @@ SWIG_From_int  (int value)
 
 
 #define PYCALLBACK_BOOL_POINTRECTDVMDVIUINT(PCLASS, CBNAME)                     \
-    bool CBNAME(wxPoint a, wxRect b, wxDataViewModel* c, const wxDataViewItem& d, unsigned int e) { \
+    bool CBNAME(const wxPoint& a, const wxRect& b, wxDataViewModel* c, const wxDataViewItem& d, unsigned int e) { \
         bool found;                                                             \
         bool rval = false;                                                      \
         wxPyBlock_t blocked = wxPyBeginBlockThreads();                          \
@@ -3364,6 +3398,8 @@ public:
     PYCALLBACK_BOOL_DVIA(wxDataViewModelNotifier, ItemsChanged)
 
     PYCALLBACK_BOOL_DVIUINT_pure(wxDataViewModelNotifier, ValueChanged)
+    PYCALLBACK_BOOL_(wxDataViewModelNotifier, BeforeReset)
+    PYCALLBACK_BOOL_(wxDataViewModelNotifier, AfterReset)
     PYCALLBACK_BOOL__pure(wxDataViewModelNotifier, Cleared)
     PYCALLBACK_VOID__pure(wxDataViewModelNotifier, Resort)
 
@@ -3433,7 +3469,7 @@ public:
             ro = wxPyCBH_callCallbackObj(m_myInst, Py_BuildValue("(Oi)", io, col));
             Py_DECREF(io);
             if (ro) {
-                variant = wxVariant_in_helper(ro);
+                variant = wxDVCVariant_in_helper(ro);
                 Py_DECREF(ro);
             }
         }
@@ -3452,7 +3488,7 @@ public:
         bool found;
         wxPyBlock_t blocked = wxPyBeginBlockThreads();
         if ((found = wxPyCBH_findCallback(m_myInst, "SetValue"))) {
-            PyObject* vo = wxVariant_out_helper(variant);
+            PyObject* vo = wxDVCVariant_out_helper(variant);
             PyObject* io = wxPyConstructObject((void*)&item, wxT("wxDataViewItem"), 0);
             rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(OOi)", vo, io, col));
             Py_DECREF(vo);
@@ -3466,7 +3502,7 @@ public:
         return rval;
     }
 
-    bool GetAttr( const wxDataViewItem &item, unsigned int col, wxDataViewItemAttr &attr )
+    bool GetAttr( const wxDataViewItem &item, unsigned int col, wxDataViewItemAttr &attr ) const
     {
         bool rval = false;
         bool found;
@@ -3479,12 +3515,29 @@ public:
             Py_DECREF(ao);
         }
         else {
-            PyErr_SetString(PyExc_NotImplementedError,
-              "The SetValue method should be implemented in derived class");
+            rval = wxDataViewModel::GetAttr(item, col, attr);
         }
         wxPyEndBlockThreads(blocked);
         return rval;
     }
+
+    bool IsEnabled(const wxDataViewItem &item, unsigned int col) const
+    {
+        bool rval = false;                                                      
+        bool found;                                                             
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();                          
+        if ((found = wxPyCBH_findCallback(m_myInst, "IsEnabled"))) {                
+            PyObject* ao = wxPyConstructObject((void*)&item, wxT("wxDataViewItem"), 0);
+            rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(Oi)", ao, col));
+            Py_DECREF(ao);                                                      
+        }                                                                       
+        else {                                                                  
+            rval = wxDataViewModel::IsEnabled(item, col);
+        }                                                                       
+        wxPyEndBlockThreads(blocked);                                           
+        return rval;                                                            
+    }
+    
 
     PYPRIVATE;
 };
@@ -3498,15 +3551,16 @@ SWIGINTERN wxVariant wxDataViewIndexListModel_GetValueByRow(wxDataViewIndexListM
 
 // Create a C++ class for the Py version
 
-class wxPyDataViewIndexListModel : public wxDataViewIndexListModel
+class PyDataViewIndexListModel : public wxDataViewIndexListModel
 {
 public:
-    wxPyDataViewIndexListModel( unsigned int initial_size = 0)
+    PyDataViewIndexListModel( unsigned int initial_size = 0)
         : wxDataViewIndexListModel(initial_size) {}
 
     PYCALLBACK_UINT__pure_const(wxDataViewIndexListModel, GetColumnCount);
     PYCALLBACK_STRING_UINT_pure_const(wxDataViewIndexListModel, GetColumnType);
 
+    //PYCALLBACK_UINT__pure_const(wxDataViewIndexListModel, GetCount);
     PYCALLBACK_DVI_DVI_const(wxDataViewIndexListModel, GetParent);
     PYCALLBACK_BOOL_DVI_const(wxDataViewIndexListModel, IsContainer);
     PYCALLBACK_BOOL_DVI_const(wxDataViewIndexListModel, HasContainerColumns);
@@ -3514,6 +3568,21 @@ public:
 
     PYCALLBACK_INT_DVIDVIUINTBOOL_const(wxDataViewIndexListModel, Compare);
     PYCALLBACK_BOOL__const(wxDataViewIndexListModel, HasDefaultCompare);
+
+    unsigned int GetCount() const
+    {                                             
+        bool found;                                                            
+        unsigned int rval;                                                     
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();                         
+        if ((found = wxPyCBH_findCallback(m_myInst, "GetCount")))              
+            rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("()"));        
+        else {                                                                 
+            PyErr_SetString(PyExc_NotImplementedError,                         
+              "The GetCount method should be implemented in derived class"); 
+        }                                                                    
+        wxPyEndBlockThreads(blocked);                                        
+        return rval;                                                         
+    }
 
 
     virtual void GetValueByRow( wxVariant &variant,
@@ -3527,7 +3596,7 @@ public:
             PyObject* ro;
             ro = wxPyCBH_callCallbackObj(m_myInst, Py_BuildValue("(ii)", row, col));
             if (ro) {
-                variant = wxVariant_in_helper(ro);
+                variant = wxDVCVariant_in_helper(ro);
                 Py_DECREF(ro);
             }
         }
@@ -3546,7 +3615,7 @@ public:
         bool found;
         wxPyBlock_t blocked = wxPyBeginBlockThreads();
         if ((found = wxPyCBH_findCallback(m_myInst, "SetValueByRow"))) {
-            PyObject* vo = wxVariant_out_helper(variant);
+            PyObject* vo = wxDVCVariant_out_helper(variant);
             rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(Oii)", vo, row, col));
             Py_DECREF(vo);
         }
@@ -3559,8 +3628,8 @@ public:
     }
 
 
-    virtual bool GetAttrByRow( unsigned int row, unsigned int col,
-                               wxDataViewItemAttr &attr )
+    virtual bool GetAttrByRow( unsigned row, unsigned col,
+                               wxDataViewItemAttr &attr ) const
     {
         bool rval = false;
         bool found;
@@ -3571,14 +3640,31 @@ public:
             Py_DECREF(ao);
         }
         else {
-            PyErr_SetString(PyExc_NotImplementedError,
-              "The GetAttrByRow method should be implemented in derived class");
+            rval = wxDataViewListModel::GetAttrByRow(row, col, attr);
         }
         wxPyEndBlockThreads(blocked);
         return rval;
     }
 
 
+    virtual bool IsEnabledByRow(unsigned int row,
+                                unsigned int col) const
+    {
+        bool rval = false;
+        bool found;
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();
+        if ((found = wxPyCBH_findCallback(m_myInst, "IsEnabledByRow"))) {
+            rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(ii)", row, col));
+        }
+        else {
+            rval = wxDataViewListModel::IsEnabledByRow(row, col);
+        }
+        wxPyEndBlockThreads(blocked);
+        return rval;
+    }
+
+
+    
     // TODO: Should we also allow to override the other (non-list) virtuals
     // from wxDataViewModel too?  GetValue, SetValue, GetAttr...
     
@@ -3593,15 +3679,16 @@ SWIGINTERN wxVariant wxDataViewVirtualListModel_GetValueByRow(wxDataViewVirtualL
 
 // Create a C++ class for the Py version
 
-class wxPyDataViewVirtualListModel : public wxDataViewVirtualListModel
+class PyDataViewVirtualListModel : public wxDataViewVirtualListModel
 {
 public:
-    wxPyDataViewVirtualListModel( unsigned int initial_size = 0)
+    PyDataViewVirtualListModel( unsigned int initial_size = 0)
         : wxDataViewVirtualListModel(initial_size) {}
 
     PYCALLBACK_UINT__pure_const(wxDataViewVirtualListModel, GetColumnCount);
     PYCALLBACK_STRING_UINT_pure_const(wxDataViewVirtualListModel, GetColumnType);
 
+    //PYCALLBACK_UINT__pure_const(wxDataViewVirtualListModel, GetCount);
     PYCALLBACK_DVI_DVI_const(wxDataViewVirtualListModel, GetParent);
     PYCALLBACK_BOOL_DVI_const(wxDataViewVirtualListModel, IsContainer);
     PYCALLBACK_BOOL_DVI_const(wxDataViewVirtualListModel, HasContainerColumns);
@@ -3609,6 +3696,21 @@ public:
 
     PYCALLBACK_INT_DVIDVIUINTBOOL_const(wxDataViewVirtualListModel, Compare);
     PYCALLBACK_BOOL__const(wxDataViewVirtualListModel, HasDefaultCompare);
+
+    unsigned int GetCount() const
+    {                                             
+        bool found;                                                            
+        unsigned int rval;                                                     
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();                         
+        if ((found = wxPyCBH_findCallback(m_myInst, "GetCount")))              
+            rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("()"));        
+        else {                                                                 
+            PyErr_SetString(PyExc_NotImplementedError,                         
+              "The GetCount method should be implemented in derived class"); 
+        }                                                                    
+        wxPyEndBlockThreads(blocked);                                        
+        return rval;                                                         
+    }
 
 
     virtual void GetValueByRow( wxVariant &variant,
@@ -3622,7 +3724,7 @@ public:
             PyObject* ro;
             ro = wxPyCBH_callCallbackObj(m_myInst, Py_BuildValue("(ii)", row, col));
             if (ro) {
-                variant = wxVariant_in_helper(ro);
+                variant = wxDVCVariant_in_helper(ro);
                 Py_DECREF(ro);
             }
         }
@@ -3641,7 +3743,7 @@ public:
         bool found;
         wxPyBlock_t blocked = wxPyBeginBlockThreads();
         if ((found = wxPyCBH_findCallback(m_myInst, "SetValueByRow"))) {
-            PyObject* vo = wxVariant_out_helper(variant);
+            PyObject* vo = wxDVCVariant_out_helper(variant);
             rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(Oii)", vo, row, col));
             Py_DECREF(vo);
         }
@@ -3654,8 +3756,8 @@ public:
     }
 
 
-    virtual bool GetAttrByRow( unsigned int row, unsigned int col,
-                               wxDataViewItemAttr &attr )
+    virtual bool GetAttrByRow( unsigned row, unsigned col,
+                               wxDataViewItemAttr &attr ) const
     {
         bool rval = false;
         bool found;
@@ -3666,14 +3768,31 @@ public:
             Py_DECREF(ao);
         }
         else {
-            PyErr_SetString(PyExc_NotImplementedError,
-              "The GetAttrByRow method should be implemented in derived class");
+            rval = wxDataViewListModel::GetAttrByRow(row, col, attr);
         }
         wxPyEndBlockThreads(blocked);
         return rval;
     }
 
 
+    virtual bool IsEnabledByRow(unsigned int row,
+                                unsigned int col) const
+    {
+        bool rval = false;
+        bool found;
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();
+        if ((found = wxPyCBH_findCallback(m_myInst, "IsEnabledByRow"))) {
+            rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(ii)", row, col));
+        }
+        else {
+            rval = wxDataViewListModel::IsEnabledByRow(row, col);
+        }
+        wxPyEndBlockThreads(blocked);
+        return rval;
+    }
+
+
+    
     // TODO: Should we also allow to override the other (non-list) virtuals
     // from wxDataViewModel too?  GetValue, SetValue, GetAttr...
     
@@ -3683,7 +3802,7 @@ public:
 SWIGINTERN wxVariant wxDataViewRenderer_GetValue(wxDataViewRenderer const *self){
             wxVariant var;
             if (! self->GetValue(var))
-                var = wxVariant_in_helper(Py_None);
+                var = wxDVCVariant_in_helper(Py_None);
             return var;
         }
 
@@ -3702,10 +3821,10 @@ SWIG_AsVal_int (PyObject * obj, int *val)
   return res;
 }
 
-SWIGINTERN wxVariant wxDataViewRenderer_GetValueFromEditorCtrl(wxDataViewRenderer *self,wxControl *editor){
+SWIGINTERN wxVariant wxDataViewRenderer_GetValueFromEditorCtrl(wxDataViewRenderer *self,wxWindow *editor){
             wxVariant var;
             if (! self->GetValueFromEditorCtrl(editor, var))
-                var = wxVariant_in_helper(Py_None);
+                var = wxDVCVariant_in_helper(Py_None);
             return var;
         }
  // Derive from the class in C++ for virtualization
@@ -3719,20 +3838,32 @@ public:
         : wxDataViewCustomRenderer(varianttype, mode, align)
     {}
 
+    // Make some protected methods visible
+    wxSize GetTextExtent(const wxString& str) const
+    {
+        return wxDataViewCustomRenderer::GetTextExtent(str);
+    }
+
+    const wxDataViewCtrl* GetView() const
+    {
+        return wxDataViewCustomRenderer::GetView();
+    }
+
+    
     PYCALLBACK_SIZE__constpure(wxDataViewCustomRenderer, GetSize);
     PYCALLBACK_BOOL_RECTDCINT_pure(wxDataViewCustomRenderer, Render);
     PYCALLBACK_BOOL_RECTDVMDVIUINT(wxDataViewCustomRenderer, Activate);
     PYCALLBACK_BOOL_POINTRECTDVMDVIUINT(wxDataViewCustomRenderer, LeftClick);
-//    PYCALLBACK_BOOL_POINTRECTDVMDVIUINT(wxDataViewCustomRenderer, RightClick);
     PYCALLBACK_BOOL_POINTRECTDVMDVIUINT(wxDataViewCustomRenderer, StartDrag);
 
+    
     virtual bool SetValue( const wxVariant& value )
     {
         bool found;
         bool rval = false;
         wxPyBlock_t blocked = wxPyBeginBlockThreads();
         if ((found = wxPyCBH_findCallback(m_myInst, "SetValue"))) {
-            PyObject* v = wxVariant_out_helper(value);
+            PyObject* v = wxDVCVariant_out_helper(value);
             rval = wxPyCBH_callCallback(m_myInst, Py_BuildValue("(O)", v));
             Py_DECREF(v);
         }
@@ -3755,7 +3886,7 @@ public:
             PyObject* ro;
             ro = wxPyCBH_callCallbackObj(m_myInst, Py_BuildValue("()"));
             if (ro) {
-                value = wxVariant_in_helper(ro);
+                value = wxDVCVariant_in_helper(ro);
                 Py_DECREF(ro);
             }
         }
@@ -3769,7 +3900,7 @@ public:
 
     PYCALLBACK_BOOL__const(wxDataViewCustomRenderer, HasEditorCtrl);
 
-    virtual wxControl* CreateEditorCtrl(wxWindow * parent,
+    virtual wxWindow* CreateEditorCtrl(wxWindow * parent,
                                         wxRect labelRect,
                                         const wxVariant& value)
     {
@@ -3780,7 +3911,7 @@ public:
             PyObject* ro;
             PyObject* po = wxPyConstructObject((void*)parent, wxT("wxWindow"), 0);
             PyObject* rto = wxPyConstructObject((void*)&labelRect, wxT("wxRect"), 0);
-            PyObject* vo = wxVariant_out_helper(value);
+            PyObject* vo = wxDVCVariant_out_helper(value);
             ro = wxPyCBH_callCallbackObj(m_myInst, Py_BuildValue("(OOO)", po, rto, vo));
             Py_DECREF(po);
             Py_DECREF(rto);
@@ -3806,11 +3937,11 @@ public:
         wxPyBlock_t blocked = wxPyBeginBlockThreads();
         if ((found = wxPyCBH_findCallback(m_myInst, "GetValueFromEditorCtrl"))) {
             PyObject* ro;
-            PyObject* io = wxPyConstructObject((void*)editor, wxT("wxControl"), 0);
+            PyObject* io = wxPyMake_wxObject2(editor, false, true);
             ro = wxPyCBH_callCallbackObj(m_myInst, Py_BuildValue("(O)", io));
             Py_DECREF(io);
             if (ro) {
-                value = wxVariant_in_helper(ro);
+                value = wxDVCVariant_in_helper(ro);
                 Py_DECREF(ro);
             }
         }
@@ -3825,7 +3956,32 @@ public:
     PYCALLBACK_VOID_(wxDataViewCustomRenderer, CancelEditing);
     PYCALLBACK_BOOL_(wxDataViewCustomRenderer, FinishEditing);
 
+    void SetAttr(const wxDataViewItemAttr &a)
+    {                                  
+        bool found;                                                             
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();                          
+        if ((found = wxPyCBH_findCallback(m_myInst, "SetAttr"))) {                
+            PyObject* ao = wxPyConstructObject((void*)&a, wxT("wxDataViewItemAttr"), 0);
+            wxPyCBH_callCallback(m_myInst, Py_BuildValue("(O)", ao));           
+            Py_DECREF(ao);                                                      
+        }                                                                       
+        wxPyEndBlockThreads(blocked);                                           
+        if (! found)                                                            
+            wxDataViewCustomRenderer::SetAttr(a);                                                  
+    }
 
+    virtual void SetEnabled(bool enabled)
+    {
+        bool found;                                                     
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();                  
+        if ((found = wxPyCBH_findCallback(m_myInst, "SetEnabled")))          
+            wxPyCBH_callCallback(m_myInst, Py_BuildValue("(i)",enabled));  
+        wxPyEndBlockThreads(blocked);                                   
+        if (! found)                                                    
+            wxDataViewCustomRenderer::SetEnabled(enabled);                                        
+    }                        
+    
+   
     PYPRIVATE;
 };
 
@@ -4915,6 +5071,66 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewModelNotifier_BeforeReset(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewModelNotifier *arg1 = (wxDataViewModelNotifier *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewModelNotifier, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModelNotifier_BeforeReset" "', expected argument " "1"" of type '" "wxDataViewModelNotifier *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewModelNotifier * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->BeforeReset();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewModelNotifier_AfterReset(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewModelNotifier *arg1 = (wxDataViewModelNotifier *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewModelNotifier, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModelNotifier_AfterReset" "', expected argument " "1"" of type '" "wxDataViewModelNotifier *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewModelNotifier * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->AfterReset();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewModelNotifier_Resort(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxDataViewModelNotifier *arg1 = (wxDataViewModelNotifier *) 0 ;
@@ -5415,6 +5631,48 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewItemAttr_GetEffectiveFont(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewItemAttr *arg1 = (wxDataViewItemAttr *) 0 ;
+  wxFont *arg2 = 0 ;
+  wxFont result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "font", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewItemAttr_GetEffectiveFont",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewItemAttr, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewItemAttr_GetEffectiveFont" "', expected argument " "1"" of type '" "wxDataViewItemAttr const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewItemAttr * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxFont,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewItemAttr_GetEffectiveFont" "', expected argument " "2"" of type '" "wxFont const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewItemAttr_GetEffectiveFont" "', expected argument " "2"" of type '" "wxFont const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxFont * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = ((wxDataViewItemAttr const *)arg1)->GetEffectiveFont((wxFont const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj((new wxFont(static_cast< const wxFont& >(result))), SWIGTYPE_p_wxFont, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *DataViewItemAttr_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -5751,7 +6009,7 @@ SWIGINTERN PyObject *_wrap_DataViewModel_GetAttr(PyObject *SWIGUNUSEDPARM(self),
   if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOOO:DataViewModel_GetAttr",kwnames,&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewModel, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModel_GetAttr" "', expected argument " "1"" of type '" "wxDataViewModel *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModel_GetAttr" "', expected argument " "1"" of type '" "wxDataViewModel const *""'"); 
   }
   arg1 = reinterpret_cast< wxDataViewModel * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDataViewItem,  0  | 0);
@@ -5777,7 +6035,60 @@ SWIGINTERN PyObject *_wrap_DataViewModel_GetAttr(PyObject *SWIGUNUSEDPARM(self),
   arg4 = reinterpret_cast< wxDataViewItemAttr * >(argp4);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (bool)(arg1)->GetAttr((wxDataViewItem const &)*arg2,arg3,*arg4);
+    result = (bool)((wxDataViewModel const *)arg1)->GetAttr((wxDataViewItem const &)*arg2,arg3,*arg4);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewModel_IsEnabled(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewModel *arg1 = (wxDataViewModel *) 0 ;
+  wxDataViewItem *arg2 = 0 ;
+  unsigned int arg3 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "item",(char *) "col", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:DataViewModel_IsEnabled",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModel_IsEnabled" "', expected argument " "1"" of type '" "wxDataViewModel const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewModel * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDataViewItem,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewModel_IsEnabled" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewModel_IsEnabled" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxDataViewItem * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataViewModel_IsEnabled" "', expected argument " "3"" of type '" "unsigned int""'");
+  } 
+  arg3 = static_cast< unsigned int >(val3);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewModel const *)arg1)->IsEnabled((wxDataViewItem const &)*arg2,arg3);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -6369,6 +6680,66 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewModel_BeforeReset(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewModel *arg1 = (wxDataViewModel *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModel_BeforeReset" "', expected argument " "1"" of type '" "wxDataViewModel *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewModel * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->BeforeReset();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewModel_AfterReset(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewModel *arg1 = (wxDataViewModel *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModel_AfterReset" "', expected argument " "1"" of type '" "wxDataViewModel *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewModel * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->AfterReset();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewModel_Resort(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxDataViewModel *arg1 = (wxDataViewModel *) 0 ;
@@ -6560,6 +6931,36 @@ SWIGINTERN PyObject *_wrap_DataViewModel_HasDefaultCompare(PyObject *SWIGUNUSEDP
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = (bool)((wxDataViewModel const *)arg1)->HasDefaultCompare();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewModel_IsListModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewModel *arg1 = (wxDataViewModel *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewModel_IsListModel" "', expected argument " "1"" of type '" "wxDataViewModel const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewModel * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewModel const *)arg1)->IsListModel();
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -6858,6 +7259,56 @@ SWIGINTERN PyObject *_wrap_DataViewIndexListModel_GetAttrByRow(PyObject *SWIGUNU
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = (bool)(arg1)->GetAttrByRow(arg2,arg3,*arg4);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewIndexListModel_IsEnabledByRow(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewIndexListModel *arg1 = (wxDataViewIndexListModel *) 0 ;
+  unsigned int arg2 ;
+  unsigned int arg3 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  unsigned int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "row",(char *) "col", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:DataViewIndexListModel_IsEnabledByRow",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewIndexListModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewIndexListModel_IsEnabledByRow" "', expected argument " "1"" of type '" "wxDataViewIndexListModel const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewIndexListModel * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewIndexListModel_IsEnabledByRow" "', expected argument " "2"" of type '" "unsigned int""'");
+  } 
+  arg2 = static_cast< unsigned int >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataViewIndexListModel_IsEnabledByRow" "', expected argument " "3"" of type '" "unsigned int""'");
+  } 
+  arg3 = static_cast< unsigned int >(val3);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewIndexListModel const *)arg1)->IsEnabledByRow(arg2,arg3);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -7223,6 +7674,34 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewIndexListModel_GetCount(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewIndexListModel *arg1 = (wxDataViewIndexListModel *) 0 ;
+  unsigned int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewIndexListModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewIndexListModel_GetCount" "', expected argument " "1"" of type '" "wxDataViewIndexListModel const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewIndexListModel * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (unsigned int)((wxDataViewIndexListModel const *)arg1)->GetCount();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewIndexListModel_GetItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   wxDataViewIndexListModel *arg1 = (wxDataViewIndexListModel *) 0 ;
@@ -7272,7 +7751,7 @@ SWIGINTERN PyObject *DataViewIndexListModel_swigregister(PyObject *SWIGUNUSEDPAR
 SWIGINTERN PyObject *_wrap_new_PyDataViewIndexListModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   unsigned int arg1 = (unsigned int) 0 ;
-  wxPyDataViewIndexListModel *result = 0 ;
+  PyDataViewIndexListModel *result = 0 ;
   unsigned int val1 ;
   int ecode1 = 0 ;
   PyObject * obj0 = 0 ;
@@ -7290,11 +7769,11 @@ SWIGINTERN PyObject *_wrap_new_PyDataViewIndexListModel(PyObject *SWIGUNUSEDPARM
   }
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxPyDataViewIndexListModel *)new wxPyDataViewIndexListModel(arg1);
+    result = (PyDataViewIndexListModel *)new PyDataViewIndexListModel(arg1);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxPyDataViewIndexListModel, SWIG_POINTER_NEW |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyDataViewIndexListModel, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -7303,7 +7782,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_PyDataViewIndexListModel__setCallbackInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  wxPyDataViewIndexListModel *arg1 = (wxPyDataViewIndexListModel *) 0 ;
+  PyDataViewIndexListModel *arg1 = (PyDataViewIndexListModel *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
   PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
@@ -7316,11 +7795,11 @@ SWIGINTERN PyObject *_wrap_PyDataViewIndexListModel__setCallbackInfo(PyObject *S
   };
   
   if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:PyDataViewIndexListModel__setCallbackInfo",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxPyDataViewIndexListModel, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PyDataViewIndexListModel, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewIndexListModel__setCallbackInfo" "', expected argument " "1"" of type '" "wxPyDataViewIndexListModel *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewIndexListModel__setCallbackInfo" "', expected argument " "1"" of type '" "PyDataViewIndexListModel *""'"); 
   }
-  arg1 = reinterpret_cast< wxPyDataViewIndexListModel * >(argp1);
+  arg1 = reinterpret_cast< PyDataViewIndexListModel * >(argp1);
   arg2 = obj1;
   arg3 = obj2;
   {
@@ -7339,7 +7818,7 @@ fail:
 SWIGINTERN PyObject *PyDataViewIndexListModel_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_wxPyDataViewIndexListModel, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_PyDataViewIndexListModel, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -7532,6 +8011,56 @@ SWIGINTERN PyObject *_wrap_DataViewVirtualListModel_GetAttrByRow(PyObject *SWIGU
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = (bool)(arg1)->GetAttrByRow(arg2,arg3,*arg4);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewVirtualListModel_IsEnabledByRow(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewVirtualListModel *arg1 = (wxDataViewVirtualListModel *) 0 ;
+  unsigned int arg2 ;
+  unsigned int arg3 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  unsigned int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "row",(char *) "col", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:DataViewVirtualListModel_IsEnabledByRow",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewVirtualListModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewVirtualListModel_IsEnabledByRow" "', expected argument " "1"" of type '" "wxDataViewVirtualListModel const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewVirtualListModel * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewVirtualListModel_IsEnabledByRow" "', expected argument " "2"" of type '" "unsigned int""'");
+  } 
+  arg2 = static_cast< unsigned int >(val2);
+  ecode3 = SWIG_AsVal_unsigned_SS_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataViewVirtualListModel_IsEnabledByRow" "', expected argument " "3"" of type '" "unsigned int""'");
+  } 
+  arg3 = static_cast< unsigned int >(val3);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewVirtualListModel const *)arg1)->IsEnabledByRow(arg2,arg3);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -7897,6 +8426,34 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewVirtualListModel_GetCount(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewVirtualListModel *arg1 = (wxDataViewVirtualListModel *) 0 ;
+  unsigned int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewVirtualListModel, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewVirtualListModel_GetCount" "', expected argument " "1"" of type '" "wxDataViewVirtualListModel const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewVirtualListModel * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (unsigned int)((wxDataViewVirtualListModel const *)arg1)->GetCount();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_From_unsigned_SS_int(static_cast< unsigned int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewVirtualListModel_GetItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   wxDataViewVirtualListModel *arg1 = (wxDataViewVirtualListModel *) 0 ;
@@ -7946,7 +8503,7 @@ SWIGINTERN PyObject *DataViewVirtualListModel_swigregister(PyObject *SWIGUNUSEDP
 SWIGINTERN PyObject *_wrap_new_PyDataViewVirtualListModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   unsigned int arg1 = (unsigned int) 0 ;
-  wxPyDataViewVirtualListModel *result = 0 ;
+  PyDataViewVirtualListModel *result = 0 ;
   unsigned int val1 ;
   int ecode1 = 0 ;
   PyObject * obj0 = 0 ;
@@ -7964,11 +8521,11 @@ SWIGINTERN PyObject *_wrap_new_PyDataViewVirtualListModel(PyObject *SWIGUNUSEDPA
   }
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxPyDataViewVirtualListModel *)new wxPyDataViewVirtualListModel(arg1);
+    result = (PyDataViewVirtualListModel *)new PyDataViewVirtualListModel(arg1);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxPyDataViewVirtualListModel, SWIG_POINTER_NEW |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyDataViewVirtualListModel, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -7977,7 +8534,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_PyDataViewVirtualListModel__setCallbackInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
-  wxPyDataViewVirtualListModel *arg1 = (wxPyDataViewVirtualListModel *) 0 ;
+  PyDataViewVirtualListModel *arg1 = (PyDataViewVirtualListModel *) 0 ;
   PyObject *arg2 = (PyObject *) 0 ;
   PyObject *arg3 = (PyObject *) 0 ;
   void *argp1 = 0 ;
@@ -7990,11 +8547,11 @@ SWIGINTERN PyObject *_wrap_PyDataViewVirtualListModel__setCallbackInfo(PyObject 
   };
   
   if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:PyDataViewVirtualListModel__setCallbackInfo",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxPyDataViewVirtualListModel, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PyDataViewVirtualListModel, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewVirtualListModel__setCallbackInfo" "', expected argument " "1"" of type '" "wxPyDataViewVirtualListModel *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewVirtualListModel__setCallbackInfo" "', expected argument " "1"" of type '" "PyDataViewVirtualListModel *""'"); 
   }
-  arg1 = reinterpret_cast< wxPyDataViewVirtualListModel * >(argp1);
+  arg1 = reinterpret_cast< PyDataViewVirtualListModel * >(argp1);
   arg2 = obj1;
   arg3 = obj2;
   {
@@ -8013,7 +8570,7 @@ fail:
 SWIGINTERN PyObject *PyDataViewVirtualListModel_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_wxPyDataViewVirtualListModel, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_PyDataViewVirtualListModel, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -8223,6 +8780,85 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewRenderer_SetAttr(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewRenderer *arg1 = (wxDataViewRenderer *) 0 ;
+  wxDataViewItemAttr *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "attr", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewRenderer_SetAttr",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewRenderer_SetAttr" "', expected argument " "1"" of type '" "wxDataViewRenderer *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewRenderer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDataViewItemAttr,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewRenderer_SetAttr" "', expected argument " "2"" of type '" "wxDataViewItemAttr const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewRenderer_SetAttr" "', expected argument " "2"" of type '" "wxDataViewItemAttr const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxDataViewItemAttr * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetAttr((wxDataViewItemAttr const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewRenderer_SetEnabled(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewRenderer *arg1 = (wxDataViewRenderer *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "enabled", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewRenderer_SetEnabled",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewRenderer_SetEnabled" "', expected argument " "1"" of type '" "wxDataViewRenderer *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewRenderer * >(argp1);
+  ecode2 = SWIG_AsVal_bool(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewRenderer_SetEnabled" "', expected argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetEnabled(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewRenderer_GetVariantType(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxDataViewRenderer *arg1 = (wxDataViewRenderer *) 0 ;
@@ -8251,6 +8887,65 @@ SWIGINTERN PyObject *_wrap_DataViewRenderer_GetVariantType(PyObject *SWIGUNUSEDP
     resultobj = PyString_FromStringAndSize((&result)->c_str(), (&result)->Len());
 #endif
   }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewRenderer_PrepareForItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewRenderer *arg1 = (wxDataViewRenderer *) 0 ;
+  wxDataViewModel *arg2 = (wxDataViewModel *) 0 ;
+  wxDataViewItem *arg3 = 0 ;
+  unsigned int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  unsigned int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "model",(char *) "item",(char *) "column", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOOO:DataViewRenderer_PrepareForItem",kwnames,&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewRenderer_PrepareForItem" "', expected argument " "1"" of type '" "wxDataViewRenderer *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewRenderer * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxDataViewModel, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewRenderer_PrepareForItem" "', expected argument " "2"" of type '" "wxDataViewModel const *""'"); 
+  }
+  arg2 = reinterpret_cast< wxDataViewModel * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_wxDataViewItem,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DataViewRenderer_PrepareForItem" "', expected argument " "3"" of type '" "wxDataViewItem const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewRenderer_PrepareForItem" "', expected argument " "3"" of type '" "wxDataViewItem const &""'"); 
+  }
+  arg3 = reinterpret_cast< wxDataViewItem * >(argp3);
+  ecode4 = SWIG_AsVal_unsigned_SS_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "DataViewRenderer_PrepareForItem" "', expected argument " "4"" of type '" "unsigned int""'");
+  } 
+  arg4 = static_cast< unsigned int >(val4);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->PrepareForItem((wxDataViewModel const *)arg2,(wxDataViewItem const &)*arg3,arg4);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -8520,7 +9215,7 @@ SWIGINTERN PyObject *_wrap_DataViewRenderer_CreateEditorCtrl(PyObject *SWIGUNUSE
   wxWindow *arg2 = (wxWindow *) 0 ;
   wxRect arg3 ;
   wxVariant *arg4 = 0 ;
-  wxControl *result = 0 ;
+  wxWindow *result = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -8566,7 +9261,7 @@ SWIGINTERN PyObject *_wrap_DataViewRenderer_CreateEditorCtrl(PyObject *SWIGUNUSE
   }
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxControl *)(arg1)->CreateEditorCtrl(arg2,arg3,(wxVariant const &)*arg4);
+    result = (wxWindow *)(arg1)->CreateEditorCtrl(arg2,arg3,(wxVariant const &)*arg4);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -8582,7 +9277,7 @@ fail:
 SWIGINTERN PyObject *_wrap_DataViewRenderer_GetValueFromEditorCtrl(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   wxDataViewRenderer *arg1 = (wxDataViewRenderer *) 0 ;
-  wxControl *arg2 = (wxControl *) 0 ;
+  wxWindow *arg2 = (wxWindow *) 0 ;
   wxVariant result;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -8600,11 +9295,11 @@ SWIGINTERN PyObject *_wrap_DataViewRenderer_GetValueFromEditorCtrl(PyObject *SWI
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewRenderer_GetValueFromEditorCtrl" "', expected argument " "1"" of type '" "wxDataViewRenderer *""'"); 
   }
   arg1 = reinterpret_cast< wxDataViewRenderer * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxControl, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxWindow, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewRenderer_GetValueFromEditorCtrl" "', expected argument " "2"" of type '" "wxControl *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewRenderer_GetValueFromEditorCtrl" "', expected argument " "2"" of type '" "wxWindow *""'"); 
   }
-  arg2 = reinterpret_cast< wxControl * >(argp2);
+  arg2 = reinterpret_cast< wxWindow * >(argp2);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = wxDataViewRenderer_GetValueFromEditorCtrl(arg1,arg2);
@@ -8741,7 +9436,7 @@ fail:
 SWIGINTERN PyObject *_wrap_DataViewRenderer_GetEditorCtrl(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxDataViewRenderer *arg1 = (wxDataViewRenderer *) 0 ;
-  wxControl *result = 0 ;
+  wxWindow *result = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -8755,7 +9450,7 @@ SWIGINTERN PyObject *_wrap_DataViewRenderer_GetEditorCtrl(PyObject *SWIGUNUSEDPA
   arg1 = reinterpret_cast< wxDataViewRenderer * >(argp1);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxControl *)(arg1)->GetEditorCtrl();
+    result = (wxWindow *)(arg1)->GetEditorCtrl();
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -9451,6 +10146,67 @@ SWIGINTERN PyObject *DataViewSpinRenderer_swiginit(PyObject *SWIGUNUSEDPARM(self
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_DataViewCustomRenderer_GetAttr(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewCustomRenderer *arg1 = (wxDataViewCustomRenderer *) 0 ;
+  wxDataViewItemAttr *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewCustomRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCustomRenderer_GetAttr" "', expected argument " "1"" of type '" "wxDataViewCustomRenderer const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCustomRenderer * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    {
+      wxDataViewItemAttr const &_result_ref = ((wxDataViewCustomRenderer const *)arg1)->GetAttr();
+      result = (wxDataViewItemAttr *) &_result_ref;
+    }
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxDataViewItemAttr, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCustomRenderer_GetEnabled(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewCustomRenderer *arg1 = (wxDataViewCustomRenderer *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewCustomRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCustomRenderer_GetEnabled" "', expected argument " "1"" of type '" "wxDataViewCustomRenderer const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCustomRenderer * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewCustomRenderer const *)arg1)->GetEnabled();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *DataViewCustomRenderer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -9827,6 +10583,41 @@ fail:
     if (temp1)
     delete arg1;
   }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyDataViewCustomRenderer__setCallbackInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxPyDataViewCustomRenderer *arg1 = (wxPyDataViewCustomRenderer *) 0 ;
+  PyObject *arg2 = (PyObject *) 0 ;
+  PyObject *arg3 = (PyObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "self",(char *) "_class", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:PyDataViewCustomRenderer__setCallbackInfo",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxPyDataViewCustomRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewCustomRenderer__setCallbackInfo" "', expected argument " "1"" of type '" "wxPyDataViewCustomRenderer *""'"); 
+  }
+  arg1 = reinterpret_cast< wxPyDataViewCustomRenderer * >(argp1);
+  arg2 = obj1;
+  arg3 = obj2;
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->_setCallbackInfo(arg2,arg3);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -10316,6 +11107,80 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_PyDataViewCustomRenderer_GetTextExtent(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxPyDataViewCustomRenderer *arg1 = (wxPyDataViewCustomRenderer *) 0 ;
+  wxString *arg2 = 0 ;
+  wxSize result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool temp2 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "str", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:PyDataViewCustomRenderer_GetTextExtent",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxPyDataViewCustomRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewCustomRenderer_GetTextExtent" "', expected argument " "1"" of type '" "wxPyDataViewCustomRenderer const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxPyDataViewCustomRenderer * >(argp1);
+  {
+    arg2 = wxString_in_helper(obj1);
+    if (arg2 == NULL) SWIG_fail;
+    temp2 = true;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = ((wxPyDataViewCustomRenderer const *)arg1)->GetTextExtent((wxString const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj((new wxSize(static_cast< const wxSize& >(result))), SWIGTYPE_p_wxSize, SWIG_POINTER_OWN |  0 );
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp2)
+    delete arg2;
+  }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyDataViewCustomRenderer_GetView(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxPyDataViewCustomRenderer *arg1 = (wxPyDataViewCustomRenderer *) 0 ;
+  wxDataViewCtrl *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxPyDataViewCustomRenderer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyDataViewCustomRenderer_GetView" "', expected argument " "1"" of type '" "wxPyDataViewCustomRenderer const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxPyDataViewCustomRenderer * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (wxDataViewCtrl *)((wxPyDataViewCustomRenderer const *)arg1)->GetView();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *PyDataViewCustomRenderer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -10336,7 +11201,6 @@ SWIGINTERN PyObject *_wrap_new_DataViewColumn(PyObject *SWIGUNUSEDPARM(self), Py
   wxAlignment arg5 = (wxAlignment) wxALIGN_CENTER ;
   int arg6 = (int) wxDATAVIEW_COL_RESIZABLE ;
   wxDataViewColumn *result = 0 ;
-  void *argp2 = 0 ;
   int res2 = 0 ;
   unsigned int val3 ;
   int ecode3 = 0 ;
@@ -10358,11 +11222,10 @@ SWIGINTERN PyObject *_wrap_new_DataViewColumn(PyObject *SWIGUNUSEDPARM(self), Py
   
   if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO|OOO:new_DataViewColumn",kwnames,&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
   arg1 = obj0;
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxDataViewRenderer, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_wxDataViewRenderer, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_DataViewColumn" "', expected argument " "2"" of type '" "wxDataViewRenderer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_DataViewColumn" "', expected argument " "2"" of type '" "wxDataViewRenderer *""'");
   }
-  arg2 = reinterpret_cast< wxDataViewRenderer * >(argp2);
   ecode3 = SWIG_AsVal_unsigned_SS_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_DataViewColumn" "', expected argument " "3"" of type '" "unsigned int""'");
@@ -10546,6 +11409,8 @@ SWIGINTERN PyObject *_wrap_new_DataViewCtrl(PyObject *SWIGUNUSEDPARM(self), PyOb
   long arg5 = (long) 0 ;
   wxValidator const &arg6_defvalue = wxDefaultValidator ;
   wxValidator *arg6 = (wxValidator *) &arg6_defvalue ;
+  wxString const &arg7_defvalue = wxDataViewCtrlNameStr ;
+  wxString *arg7 = (wxString *) &arg7_defvalue ;
   wxDataViewCtrl *result = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -10557,17 +11422,19 @@ SWIGINTERN PyObject *_wrap_new_DataViewCtrl(PyObject *SWIGUNUSEDPARM(self), PyOb
   int ecode5 = 0 ;
   void *argp6 = 0 ;
   int res6 = 0 ;
+  bool temp7 = false ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
   PyObject * obj3 = 0 ;
   PyObject * obj4 = 0 ;
   PyObject * obj5 = 0 ;
+  PyObject * obj6 = 0 ;
   char *  kwnames[] = {
-    (char *) "parent",(char *) "id",(char *) "pos",(char *) "size",(char *) "style",(char *) "validator", NULL 
+    (char *) "parent",(char *) "id",(char *) "pos",(char *) "size",(char *) "style",(char *) "validator",(char *) "name", NULL 
   };
   
-  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"O|OOOOO:new_DataViewCtrl",kwnames,&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"O|OOOOOO:new_DataViewCtrl",kwnames,&obj0,&obj1,&obj2,&obj3,&obj4,&obj5,&obj6)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxWindow, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_DataViewCtrl" "', expected argument " "1"" of type '" "wxWindow *""'"); 
@@ -10609,15 +11476,30 @@ SWIGINTERN PyObject *_wrap_new_DataViewCtrl(PyObject *SWIGUNUSEDPARM(self), PyOb
     }
     arg6 = reinterpret_cast< wxValidator * >(argp6);
   }
+  if (obj6) {
+    {
+      arg7 = wxString_in_helper(obj6);
+      if (arg7 == NULL) SWIG_fail;
+      temp7 = true;
+    }
+  }
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxDataViewCtrl *)new wxDataViewCtrl(arg1,arg2,(wxPoint const &)*arg3,(wxSize const &)*arg4,arg5,(wxValidator const &)*arg6);
+    result = (wxDataViewCtrl *)new wxDataViewCtrl(arg1,arg2,(wxPoint const &)*arg3,(wxSize const &)*arg4,arg5,(wxValidator const &)*arg6,(wxString const &)*arg7);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxDataViewCtrl, SWIG_POINTER_NEW |  0 );
+  {
+    if (temp7)
+    delete arg7;
+  }
   return resultobj;
 fail:
+  {
+    if (temp7)
+    delete arg7;
+  }
   return NULL;
 }
 
@@ -10636,6 +11518,123 @@ SWIGINTERN PyObject *_wrap_new_PreDataViewCtrl(PyObject *SWIGUNUSEDPARM(self), P
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxDataViewCtrl, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCtrl_Create(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  wxWindow *arg2 = (wxWindow *) 0 ;
+  int arg3 = (int) -1 ;
+  wxPoint const &arg4_defvalue = wxDefaultPosition ;
+  wxPoint *arg4 = (wxPoint *) &arg4_defvalue ;
+  wxSize const &arg5_defvalue = wxDefaultSize ;
+  wxSize *arg5 = (wxSize *) &arg5_defvalue ;
+  long arg6 = (long) 0 ;
+  wxValidator const &arg7_defvalue = wxDefaultValidator ;
+  wxValidator *arg7 = (wxValidator *) &arg7_defvalue ;
+  wxString const &arg8_defvalue = wxDataViewCtrlNameStr ;
+  wxString *arg8 = (wxString *) &arg8_defvalue ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  wxPoint temp4 ;
+  wxSize temp5 ;
+  long val6 ;
+  int ecode6 = 0 ;
+  void *argp7 = 0 ;
+  int res7 = 0 ;
+  bool temp8 = false ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  PyObject * obj6 = 0 ;
+  PyObject * obj7 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "parent",(char *) "id",(char *) "pos",(char *) "size",(char *) "style",(char *) "validator",(char *) "name", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO|OOOOOO:DataViewCtrl_Create",kwnames,&obj0,&obj1,&obj2,&obj3,&obj4,&obj5,&obj6,&obj7)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_Create" "', expected argument " "1"" of type '" "wxDataViewCtrl *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxWindow, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_Create" "', expected argument " "2"" of type '" "wxWindow *""'"); 
+  }
+  arg2 = reinterpret_cast< wxWindow * >(argp2);
+  if (obj2) {
+    ecode3 = SWIG_AsVal_int(obj2, &val3);
+    if (!SWIG_IsOK(ecode3)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataViewCtrl_Create" "', expected argument " "3"" of type '" "int""'");
+    } 
+    arg3 = static_cast< int >(val3);
+  }
+  if (obj3) {
+    {
+      arg4 = &temp4;
+      if ( ! wxPoint_helper(obj3, &arg4)) SWIG_fail;
+    }
+  }
+  if (obj4) {
+    {
+      arg5 = &temp5;
+      if ( ! wxSize_helper(obj4, &arg5)) SWIG_fail;
+    }
+  }
+  if (obj5) {
+    ecode6 = SWIG_AsVal_long(obj5, &val6);
+    if (!SWIG_IsOK(ecode6)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "DataViewCtrl_Create" "', expected argument " "6"" of type '" "long""'");
+    } 
+    arg6 = static_cast< long >(val6);
+  }
+  if (obj6) {
+    res7 = SWIG_ConvertPtr(obj6, &argp7, SWIGTYPE_p_wxValidator,  0  | 0);
+    if (!SWIG_IsOK(res7)) {
+      SWIG_exception_fail(SWIG_ArgError(res7), "in method '" "DataViewCtrl_Create" "', expected argument " "7"" of type '" "wxValidator const &""'"); 
+    }
+    if (!argp7) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewCtrl_Create" "', expected argument " "7"" of type '" "wxValidator const &""'"); 
+    }
+    arg7 = reinterpret_cast< wxValidator * >(argp7);
+  }
+  if (obj7) {
+    {
+      arg8 = wxString_in_helper(obj7);
+      if (arg8 == NULL) SWIG_fail;
+      temp8 = true;
+    }
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->Create(arg2,arg3,(wxPoint const &)*arg4,(wxSize const &)*arg5,arg6,(wxValidator const &)*arg7,(wxString const &)*arg8);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  {
+    if (temp8)
+    delete arg8;
+  }
+  return resultobj;
+fail:
+  {
+    if (temp8)
+    delete arg8;
+  }
   return NULL;
 }
 
@@ -11748,7 +12747,6 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_PrependColumn(PyObject *SWIGUNUSEDPARM(s
   bool result;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
@@ -11762,11 +12760,10 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_PrependColumn(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_PrependColumn" "', expected argument " "1"" of type '" "wxDataViewCtrl *""'"); 
   }
   arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxDataViewColumn, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_wxDataViewColumn, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_PrependColumn" "', expected argument " "2"" of type '" "wxDataViewColumn *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_PrependColumn" "', expected argument " "2"" of type '" "wxDataViewColumn *""'");
   }
-  arg2 = reinterpret_cast< wxDataViewColumn * >(argp2);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = (bool)(arg1)->PrependColumn(arg2);
@@ -11792,7 +12789,6 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_InsertColumn(PyObject *SWIGUNUSEDPARM(se
   int res1 = 0 ;
   unsigned int val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
   int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
@@ -11812,11 +12808,10 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_InsertColumn(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewCtrl_InsertColumn" "', expected argument " "2"" of type '" "unsigned int""'");
   } 
   arg2 = static_cast< unsigned int >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_wxDataViewColumn, 0 |  0 );
+  res3 = SWIG_ConvertPtr(obj2, SWIG_as_voidptrptr(&arg3), SWIGTYPE_p_wxDataViewColumn, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DataViewCtrl_InsertColumn" "', expected argument " "3"" of type '" "wxDataViewColumn *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DataViewCtrl_InsertColumn" "', expected argument " "3"" of type '" "wxDataViewColumn *""'");
   }
-  arg3 = reinterpret_cast< wxDataViewColumn * >(argp3);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = (bool)(arg1)->InsertColumn(arg2,arg3);
@@ -11839,7 +12834,6 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_AppendColumn(PyObject *SWIGUNUSEDPARM(se
   bool result;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
@@ -11853,11 +12847,10 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_AppendColumn(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_AppendColumn" "', expected argument " "1"" of type '" "wxDataViewCtrl *""'"); 
   }
   arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_wxDataViewColumn, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_wxDataViewColumn, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_AppendColumn" "', expected argument " "2"" of type '" "wxDataViewColumn *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_AppendColumn" "', expected argument " "2"" of type '" "wxDataViewColumn *""'");
   }
-  arg2 = reinterpret_cast< wxDataViewColumn * >(argp2);
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     result = (bool)(arg1)->AppendColumn(arg2);
@@ -12204,6 +13197,75 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_GetIndent(PyObject *SWIGUNUSEDPARM(self)
     if (PyErr_Occurred()) SWIG_fail;
   }
   resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCtrl_GetCurrentItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  wxDataViewItem result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_GetCurrentItem" "', expected argument " "1"" of type '" "wxDataViewCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = ((wxDataViewCtrl const *)arg1)->GetCurrentItem();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj((new wxDataViewItem(static_cast< const wxDataViewItem& >(result))), SWIGTYPE_p_wxDataViewItem, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCtrl_SetCurrentItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  wxDataViewItem *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "item", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewCtrl_SetCurrentItem",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_SetCurrentItem" "', expected argument " "1"" of type '" "wxDataViewCtrl *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDataViewItem,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_SetCurrentItem" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewCtrl_SetCurrentItem" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxDataViewItem * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetCurrentItem((wxDataViewItem const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -12813,6 +13875,97 @@ SWIGINTERN PyObject *_wrap_DataViewCtrl_GetItemRect(PyObject *SWIGUNUSEDPARM(sel
     if (PyErr_Occurred()) SWIG_fail;
   }
   resultobj = SWIG_NewPointerObj((new wxRect(static_cast< const wxRect& >(result))), SWIGTYPE_p_wxRect, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCtrl_SetRowHeight(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  int arg2 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "rowHeight", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewCtrl_SetRowHeight",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_SetRowHeight" "', expected argument " "1"" of type '" "wxDataViewCtrl *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewCtrl_SetRowHeight" "', expected argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)(arg1)->SetRowHeight(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCtrl_StartEditor(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  wxDataViewItem *arg2 = 0 ;
+  unsigned int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  unsigned int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "item",(char *) "column", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOO:DataViewCtrl_StartEditor",kwnames,&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_StartEditor" "', expected argument " "1"" of type '" "wxDataViewCtrl *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDataViewItem,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewCtrl_StartEditor" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewCtrl_StartEditor" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxDataViewItem * >(argp2);
+  ecode3 = SWIG_AsVal_unsigned_SS_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "DataViewCtrl_StartEditor" "', expected argument " "3"" of type '" "unsigned int""'");
+  } 
+  arg3 = static_cast< unsigned int >(val3);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->StartEditor((wxDataViewItem const &)*arg2,arg3);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -14042,6 +15195,232 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewListCtrl_ItemToRow(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
+  wxDataViewItem *arg2 = 0 ;
+  int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "item", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewListCtrl_ItemToRow",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewListCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewListCtrl_ItemToRow" "', expected argument " "1"" of type '" "wxDataViewListCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewListCtrl * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDataViewItem,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewListCtrl_ItemToRow" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DataViewListCtrl_ItemToRow" "', expected argument " "2"" of type '" "wxDataViewItem const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxDataViewItem * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (int)((wxDataViewListCtrl const *)arg1)->ItemToRow((wxDataViewItem const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewListCtrl_RowToItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
+  int arg2 ;
+  wxDataViewItem result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "row", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewListCtrl_RowToItem",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewListCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewListCtrl_RowToItem" "', expected argument " "1"" of type '" "wxDataViewListCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewListCtrl * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewListCtrl_RowToItem" "', expected argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = ((wxDataViewListCtrl const *)arg1)->RowToItem(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj((new wxDataViewItem(static_cast< const wxDataViewItem& >(result))), SWIGTYPE_p_wxDataViewItem, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewListCtrl_GetSelectedRow(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
+  int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewListCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewListCtrl_GetSelectedRow" "', expected argument " "1"" of type '" "wxDataViewListCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewListCtrl * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (int)((wxDataViewListCtrl const *)arg1)->GetSelectedRow();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewListCtrl_SelectRow(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
+  unsigned int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "row", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewListCtrl_SelectRow",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewListCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewListCtrl_SelectRow" "', expected argument " "1"" of type '" "wxDataViewListCtrl *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewListCtrl * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewListCtrl_SelectRow" "', expected argument " "2"" of type '" "unsigned int""'");
+  } 
+  arg2 = static_cast< unsigned int >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SelectRow(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewListCtrl_UnselectRow(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
+  unsigned int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "row", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewListCtrl_UnselectRow",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewListCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewListCtrl_UnselectRow" "', expected argument " "1"" of type '" "wxDataViewListCtrl *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewListCtrl * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewListCtrl_UnselectRow" "', expected argument " "2"" of type '" "unsigned int""'");
+  } 
+  arg2 = static_cast< unsigned int >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->UnselectRow(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewListCtrl_IsRowSelected(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
+  unsigned int arg2 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "row", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewListCtrl_IsRowSelected",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewListCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewListCtrl_IsRowSelected" "', expected argument " "1"" of type '" "wxDataViewListCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewListCtrl * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewListCtrl_IsRowSelected" "', expected argument " "2"" of type '" "unsigned int""'");
+  } 
+  arg2 = static_cast< unsigned int >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewListCtrl const *)arg1)->IsRowSelected(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewListCtrl_AppendColumn(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   wxDataViewListCtrl *arg1 = (wxDataViewListCtrl *) 0 ;
@@ -14621,7 +16000,7 @@ SWIGINTERN PyObject *_wrap_DataViewListCtrl_AppendItem(PyObject *SWIGUNUSEDPARM(
     Py_ssize_t idx;
     for (idx=0; idx<size; idx+=1) {
       PyObject* item = PySequence_GetItem(obj1, idx);
-      temp2.push_back( wxVariant_in_helper(item) );
+      temp2.push_back( wxDVCVariant_in_helper(item) );
       Py_DECREF(item);
     }
     arg2 = &temp2;
@@ -14674,7 +16053,7 @@ SWIGINTERN PyObject *_wrap_DataViewListCtrl_PrependItem(PyObject *SWIGUNUSEDPARM
     Py_ssize_t idx;
     for (idx=0; idx<size; idx+=1) {
       PyObject* item = PySequence_GetItem(obj1, idx);
-      temp2.push_back( wxVariant_in_helper(item) );
+      temp2.push_back( wxDVCVariant_in_helper(item) );
       Py_DECREF(item);
     }
     arg2 = &temp2;
@@ -14736,7 +16115,7 @@ SWIGINTERN PyObject *_wrap_DataViewListCtrl_InsertItem(PyObject *SWIGUNUSEDPARM(
     Py_ssize_t idx;
     for (idx=0; idx<size; idx+=1) {
       PyObject* item = PySequence_GetItem(obj2, idx);
-      temp3.push_back( wxVariant_in_helper(item) );
+      temp3.push_back( wxDVCVariant_in_helper(item) );
       Py_DECREF(item);
     }
     arg3 = &temp3;
@@ -18967,6 +20346,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewModelNotifier_ItemsChanged", (PyCFunction) _wrap_DataViewModelNotifier_ItemsChanged, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModelNotifier_ValueChanged", (PyCFunction) _wrap_DataViewModelNotifier_ValueChanged, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModelNotifier_Cleared", (PyCFunction)_wrap_DataViewModelNotifier_Cleared, METH_O, NULL},
+	 { (char *)"DataViewModelNotifier_BeforeReset", (PyCFunction)_wrap_DataViewModelNotifier_BeforeReset, METH_O, NULL},
+	 { (char *)"DataViewModelNotifier_AfterReset", (PyCFunction)_wrap_DataViewModelNotifier_AfterReset, METH_O, NULL},
 	 { (char *)"DataViewModelNotifier_Resort", (PyCFunction)_wrap_DataViewModelNotifier_Resort, METH_O, NULL},
 	 { (char *)"DataViewModelNotifier_SetOwner", (PyCFunction) _wrap_DataViewModelNotifier_SetOwner, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModelNotifier_GetOwner", (PyCFunction)_wrap_DataViewModelNotifier_GetOwner, METH_O, NULL},
@@ -18986,6 +20367,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewItemAttr_GetBold", (PyCFunction)_wrap_DataViewItemAttr_GetBold, METH_O, NULL},
 	 { (char *)"DataViewItemAttr_GetItalic", (PyCFunction)_wrap_DataViewItemAttr_GetItalic, METH_O, NULL},
 	 { (char *)"DataViewItemAttr_IsDefault", (PyCFunction)_wrap_DataViewItemAttr_IsDefault, METH_O, NULL},
+	 { (char *)"DataViewItemAttr_GetEffectiveFont", (PyCFunction) _wrap_DataViewItemAttr_GetEffectiveFont, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewItemAttr_swigregister", DataViewItemAttr_swigregister, METH_VARARGS, NULL},
 	 { (char *)"DataViewItemAttr_swiginit", DataViewItemAttr_swiginit, METH_VARARGS, NULL},
 	 { (char *)"DataViewModel_GetColumnCount", (PyCFunction)_wrap_DataViewModel_GetColumnCount, METH_O, NULL},
@@ -18995,6 +20377,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewModel_SetValue", (PyCFunction) _wrap_DataViewModel_SetValue, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_ChangeValue", (PyCFunction) _wrap_DataViewModel_ChangeValue, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_GetAttr", (PyCFunction) _wrap_DataViewModel_GetAttr, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewModel_IsEnabled", (PyCFunction) _wrap_DataViewModel_IsEnabled, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_GetParent", (PyCFunction) _wrap_DataViewModel_GetParent, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_IsContainer", (PyCFunction) _wrap_DataViewModel_IsContainer, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_HasContainerColumns", (PyCFunction) _wrap_DataViewModel_HasContainerColumns, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19007,11 +20390,14 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewModel_ItemsChanged", (PyCFunction) _wrap_DataViewModel_ItemsChanged, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_ValueChanged", (PyCFunction) _wrap_DataViewModel_ValueChanged, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_Cleared", (PyCFunction)_wrap_DataViewModel_Cleared, METH_O, NULL},
+	 { (char *)"DataViewModel_BeforeReset", (PyCFunction)_wrap_DataViewModel_BeforeReset, METH_O, NULL},
+	 { (char *)"DataViewModel_AfterReset", (PyCFunction)_wrap_DataViewModel_AfterReset, METH_O, NULL},
 	 { (char *)"DataViewModel_Resort", (PyCFunction)_wrap_DataViewModel_Resort, METH_O, NULL},
 	 { (char *)"DataViewModel_AddNotifier", (PyCFunction) _wrap_DataViewModel_AddNotifier, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_RemoveNotifier", (PyCFunction) _wrap_DataViewModel_RemoveNotifier, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_Compare", (PyCFunction) _wrap_DataViewModel_Compare, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewModel_HasDefaultCompare", (PyCFunction)_wrap_DataViewModel_HasDefaultCompare, METH_O, NULL},
+	 { (char *)"DataViewModel_IsListModel", (PyCFunction)_wrap_DataViewModel_IsListModel, METH_O, NULL},
 	 { (char *)"DataViewModel_IsVirtualListModel", (PyCFunction)_wrap_DataViewModel_IsVirtualListModel, METH_O, NULL},
 	 { (char *)"DataViewModel_swigregister", DataViewModel_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_PyDataViewModel", (PyCFunction)_wrap_new_PyDataViewModel, METH_NOARGS, NULL},
@@ -19022,6 +20408,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewIndexListModel_GetValueByRow", (PyCFunction) _wrap_DataViewIndexListModel_GetValueByRow, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_SetValueByRow", (PyCFunction) _wrap_DataViewIndexListModel_SetValueByRow, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_GetAttrByRow", (PyCFunction) _wrap_DataViewIndexListModel_GetAttrByRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewIndexListModel_IsEnabledByRow", (PyCFunction) _wrap_DataViewIndexListModel_IsEnabledByRow, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_RowPrepended", (PyCFunction)_wrap_DataViewIndexListModel_RowPrepended, METH_O, NULL},
 	 { (char *)"DataViewIndexListModel_RowInserted", (PyCFunction) _wrap_DataViewIndexListModel_RowInserted, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_RowAppended", (PyCFunction)_wrap_DataViewIndexListModel_RowAppended, METH_O, NULL},
@@ -19031,6 +20418,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewIndexListModel_RowValueChanged", (PyCFunction) _wrap_DataViewIndexListModel_RowValueChanged, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_Reset", (PyCFunction) _wrap_DataViewIndexListModel_Reset, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_GetRow", (PyCFunction) _wrap_DataViewIndexListModel_GetRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewIndexListModel_GetCount", (PyCFunction)_wrap_DataViewIndexListModel_GetCount, METH_O, NULL},
 	 { (char *)"DataViewIndexListModel_GetItem", (PyCFunction) _wrap_DataViewIndexListModel_GetItem, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewIndexListModel_swigregister", DataViewIndexListModel_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_PyDataViewIndexListModel", (PyCFunction) _wrap_new_PyDataViewIndexListModel, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19041,6 +20429,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewVirtualListModel_GetValueByRow", (PyCFunction) _wrap_DataViewVirtualListModel_GetValueByRow, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_SetValueByRow", (PyCFunction) _wrap_DataViewVirtualListModel_SetValueByRow, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_GetAttrByRow", (PyCFunction) _wrap_DataViewVirtualListModel_GetAttrByRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewVirtualListModel_IsEnabledByRow", (PyCFunction) _wrap_DataViewVirtualListModel_IsEnabledByRow, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_RowPrepended", (PyCFunction)_wrap_DataViewVirtualListModel_RowPrepended, METH_O, NULL},
 	 { (char *)"DataViewVirtualListModel_RowInserted", (PyCFunction) _wrap_DataViewVirtualListModel_RowInserted, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_RowAppended", (PyCFunction)_wrap_DataViewVirtualListModel_RowAppended, METH_O, NULL},
@@ -19050,6 +20439,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewVirtualListModel_RowValueChanged", (PyCFunction) _wrap_DataViewVirtualListModel_RowValueChanged, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_Reset", (PyCFunction) _wrap_DataViewVirtualListModel_Reset, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_GetRow", (PyCFunction) _wrap_DataViewVirtualListModel_GetRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewVirtualListModel_GetCount", (PyCFunction)_wrap_DataViewVirtualListModel_GetCount, METH_O, NULL},
 	 { (char *)"DataViewVirtualListModel_GetItem", (PyCFunction) _wrap_DataViewVirtualListModel_GetItem, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewVirtualListModel_swigregister", DataViewVirtualListModel_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_PyDataViewVirtualListModel", (PyCFunction) _wrap_new_PyDataViewVirtualListModel, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19062,7 +20452,10 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewRenderer_GetOwner", (PyCFunction)_wrap_DataViewRenderer_GetOwner, METH_O, NULL},
 	 { (char *)"DataViewRenderer_SetValue", (PyCFunction) _wrap_DataViewRenderer_SetValue, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewRenderer_GetValue", (PyCFunction)_wrap_DataViewRenderer_GetValue, METH_O, NULL},
+	 { (char *)"DataViewRenderer_SetAttr", (PyCFunction) _wrap_DataViewRenderer_SetAttr, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewRenderer_SetEnabled", (PyCFunction) _wrap_DataViewRenderer_SetEnabled, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewRenderer_GetVariantType", (PyCFunction)_wrap_DataViewRenderer_GetVariantType, METH_O, NULL},
+	 { (char *)"DataViewRenderer_PrepareForItem", (PyCFunction) _wrap_DataViewRenderer_PrepareForItem, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewRenderer_SetMode", (PyCFunction) _wrap_DataViewRenderer_SetMode, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewRenderer_GetMode", (PyCFunction)_wrap_DataViewRenderer_GetMode, METH_O, NULL},
 	 { (char *)"DataViewRenderer_SetAlignment", (PyCFunction) _wrap_DataViewRenderer_SetAlignment, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19103,6 +20496,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_DataViewSpinRenderer", (PyCFunction) _wrap_new_DataViewSpinRenderer, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewSpinRenderer_swigregister", DataViewSpinRenderer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"DataViewSpinRenderer_swiginit", DataViewSpinRenderer_swiginit, METH_VARARGS, NULL},
+	 { (char *)"DataViewCustomRenderer_GetAttr", (PyCFunction)_wrap_DataViewCustomRenderer_GetAttr, METH_O, NULL},
+	 { (char *)"DataViewCustomRenderer_GetEnabled", (PyCFunction)_wrap_DataViewCustomRenderer_GetEnabled, METH_O, NULL},
 	 { (char *)"DataViewCustomRenderer_swigregister", DataViewCustomRenderer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_DataViewChoiceRenderer", (PyCFunction) _wrap_new_DataViewChoiceRenderer, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewChoiceRenderer_GetChoice", (PyCFunction) _wrap_DataViewChoiceRenderer_GetChoice, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19116,6 +20511,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewDateRenderer_swigregister", DataViewDateRenderer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"DataViewDateRenderer_swiginit", DataViewDateRenderer_swiginit, METH_VARARGS, NULL},
 	 { (char *)"new_PyDataViewCustomRenderer", (PyCFunction) _wrap_new_PyDataViewCustomRenderer, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"PyDataViewCustomRenderer__setCallbackInfo", (PyCFunction) _wrap_PyDataViewCustomRenderer__setCallbackInfo, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"PyDataViewCustomRenderer_RenderText", (PyCFunction) _wrap_PyDataViewCustomRenderer_RenderText, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"PyDataViewCustomRenderer_GetSize", (PyCFunction)_wrap_PyDataViewCustomRenderer_GetSize, METH_O, NULL},
 	 { (char *)"PyDataViewCustomRenderer_Render", (PyCFunction) _wrap_PyDataViewCustomRenderer_Render, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19123,6 +20519,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"PyDataViewCustomRenderer_LeftClick", (PyCFunction) _wrap_PyDataViewCustomRenderer_LeftClick, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"PyDataViewCustomRenderer_StartDrag", (PyCFunction) _wrap_PyDataViewCustomRenderer_StartDrag, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"PyDataViewCustomRenderer_GetDC", (PyCFunction)_wrap_PyDataViewCustomRenderer_GetDC, METH_O, NULL},
+	 { (char *)"PyDataViewCustomRenderer_GetTextExtent", (PyCFunction) _wrap_PyDataViewCustomRenderer_GetTextExtent, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"PyDataViewCustomRenderer_GetView", (PyCFunction)_wrap_PyDataViewCustomRenderer_GetView, METH_O, NULL},
 	 { (char *)"PyDataViewCustomRenderer_swigregister", PyDataViewCustomRenderer_swigregister, METH_VARARGS, NULL},
 	 { (char *)"PyDataViewCustomRenderer_swiginit", PyDataViewCustomRenderer_swiginit, METH_VARARGS, NULL},
 	 { (char *)"new_DataViewColumn", (PyCFunction) _wrap_new_DataViewColumn, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19134,6 +20532,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewColumn_swiginit", DataViewColumn_swiginit, METH_VARARGS, NULL},
 	 { (char *)"new_DataViewCtrl", (PyCFunction) _wrap_new_DataViewCtrl, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"new_PreDataViewCtrl", (PyCFunction)_wrap_new_PreDataViewCtrl, METH_NOARGS, NULL},
+	 { (char *)"DataViewCtrl_Create", (PyCFunction) _wrap_DataViewCtrl_Create, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_AssociateModel", (PyCFunction) _wrap_DataViewCtrl_AssociateModel, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_GetModel", (PyCFunction)_wrap_DataViewCtrl_GetModel, METH_O, NULL},
 	 { (char *)"DataViewCtrl_PrependTextColumn", (PyCFunction) _wrap_DataViewCtrl_PrependTextColumn, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19161,6 +20560,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewCtrl_GetSortingColumn", (PyCFunction)_wrap_DataViewCtrl_GetSortingColumn, METH_O, NULL},
 	 { (char *)"DataViewCtrl_SetIndent", (PyCFunction) _wrap_DataViewCtrl_SetIndent, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_GetIndent", (PyCFunction)_wrap_DataViewCtrl_GetIndent, METH_O, NULL},
+	 { (char *)"DataViewCtrl_GetCurrentItem", (PyCFunction)_wrap_DataViewCtrl_GetCurrentItem, METH_O, NULL},
+	 { (char *)"DataViewCtrl_SetCurrentItem", (PyCFunction) _wrap_DataViewCtrl_SetCurrentItem, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_GetSelection", (PyCFunction)_wrap_DataViewCtrl_GetSelection, METH_O, NULL},
 	 { (char *)"DataViewCtrl_GetSelections", (PyCFunction)_wrap_DataViewCtrl_GetSelections, METH_O, NULL},
 	 { (char *)"DataViewCtrl_SetSelections", (PyCFunction) _wrap_DataViewCtrl_SetSelections, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19176,6 +20577,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewCtrl_EnsureVisible", (PyCFunction) _wrap_DataViewCtrl_EnsureVisible, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_HitTest", (PyCFunction) _wrap_DataViewCtrl_HitTest, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_GetItemRect", (PyCFunction) _wrap_DataViewCtrl_GetItemRect, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewCtrl_SetRowHeight", (PyCFunction) _wrap_DataViewCtrl_SetRowHeight, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewCtrl_StartEditor", (PyCFunction) _wrap_DataViewCtrl_StartEditor, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_EnableDragSource", (PyCFunction) _wrap_DataViewCtrl_EnableDragSource, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_EnableDropTarget", (PyCFunction) _wrap_DataViewCtrl_EnableDropTarget, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewCtrl_GetClassDefaultAttributes", (PyCFunction) _wrap_DataViewCtrl_GetClassDefaultAttributes, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19214,6 +20617,12 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_PreDataViewListCtrl", (PyCFunction)_wrap_new_PreDataViewListCtrl, METH_NOARGS, NULL},
 	 { (char *)"DataViewListCtrl_Create", (PyCFunction) _wrap_DataViewListCtrl_Create, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewListCtrl_GetStore", (PyCFunction)_wrap_DataViewListCtrl_GetStore, METH_O, NULL},
+	 { (char *)"DataViewListCtrl_ItemToRow", (PyCFunction) _wrap_DataViewListCtrl_ItemToRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewListCtrl_RowToItem", (PyCFunction) _wrap_DataViewListCtrl_RowToItem, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewListCtrl_GetSelectedRow", (PyCFunction)_wrap_DataViewListCtrl_GetSelectedRow, METH_O, NULL},
+	 { (char *)"DataViewListCtrl_SelectRow", (PyCFunction) _wrap_DataViewListCtrl_SelectRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewListCtrl_UnselectRow", (PyCFunction) _wrap_DataViewListCtrl_UnselectRow, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewListCtrl_IsRowSelected", (PyCFunction) _wrap_DataViewListCtrl_IsRowSelected, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewListCtrl_AppendColumn", (PyCFunction) _wrap_DataViewListCtrl_AppendColumn, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewListCtrl_PrependColumn", (PyCFunction) _wrap_DataViewListCtrl_PrependColumn, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewListCtrl_InsertColumn", (PyCFunction) _wrap_DataViewListCtrl_InsertColumn, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -19410,7 +20819,7 @@ static void *_p_wxSysColourChangedEventTo_p_wxEvent(void *x) {
     return (void *)((wxEvent *)  ((wxSysColourChangedEvent *) x));
 }
 static void *_p_wxThreadEventTo_p_wxEvent(void *x) {
-    return (void *)((wxEvent *) (wxCommandEvent *) ((wxThreadEvent *) x));
+    return (void *)((wxEvent *)  ((wxThreadEvent *) x));
 }
 static void *_p_wxDropFilesEventTo_p_wxEvent(void *x) {
     return (void *)((wxEvent *)  ((wxDropFilesEvent *) x));
@@ -19454,14 +20863,14 @@ static void *_p_wxPyDataViewModelTo_p_wxDataViewModel(void *x) {
 static void *_p_wxDataViewIndexListModelTo_p_wxDataViewModel(void *x) {
     return (void *)((wxDataViewModel *)  ((wxDataViewIndexListModel *) x));
 }
-static void *_p_wxPyDataViewIndexListModelTo_p_wxDataViewModel(void *x) {
-    return (void *)((wxDataViewModel *) (wxDataViewIndexListModel *) ((wxPyDataViewIndexListModel *) x));
+static void *_p_PyDataViewIndexListModelTo_p_wxDataViewModel(void *x) {
+    return (void *)((wxDataViewModel *) (wxDataViewIndexListModel *) ((PyDataViewIndexListModel *) x));
 }
 static void *_p_wxDataViewVirtualListModelTo_p_wxDataViewModel(void *x) {
     return (void *)((wxDataViewModel *)  ((wxDataViewVirtualListModel *) x));
 }
-static void *_p_wxPyDataViewVirtualListModelTo_p_wxDataViewModel(void *x) {
-    return (void *)((wxDataViewModel *) (wxDataViewVirtualListModel *) ((wxPyDataViewVirtualListModel *) x));
+static void *_p_PyDataViewVirtualListModelTo_p_wxDataViewModel(void *x) {
+    return (void *)((wxDataViewModel *) (wxDataViewVirtualListModel *) ((PyDataViewVirtualListModel *) x));
 }
 static void *_p_wxDataViewTreeStoreTo_p_wxDataViewModel(void *x) {
     return (void *)((wxDataViewModel *)  ((wxDataViewTreeStore *) x));
@@ -19481,14 +20890,14 @@ static void *_p_wxDataViewTreeCtrlTo_p_wxControl(void *x) {
 static void *_p_wxDataViewCtrlTo_p_wxControl(void *x) {
     return (void *)((wxControl *)  ((wxDataViewCtrl *) x));
 }
-static void *_p_wxPyDataViewVirtualListModelTo_p_wxDataViewVirtualListModel(void *x) {
-    return (void *)((wxDataViewVirtualListModel *)  ((wxPyDataViewVirtualListModel *) x));
+static void *_p_PyDataViewVirtualListModelTo_p_wxDataViewVirtualListModel(void *x) {
+    return (void *)((wxDataViewVirtualListModel *)  ((PyDataViewVirtualListModel *) x));
 }
 static void *_p_wxDataViewListStoreTo_p_wxDataViewIndexListModel(void *x) {
     return (void *)((wxDataViewIndexListModel *)  ((wxDataViewListStore *) x));
 }
-static void *_p_wxPyDataViewIndexListModelTo_p_wxDataViewIndexListModel(void *x) {
-    return (void *)((wxDataViewIndexListModel *)  ((wxPyDataViewIndexListModel *) x));
+static void *_p_PyDataViewIndexListModelTo_p_wxDataViewIndexListModel(void *x) {
+    return (void *)((wxDataViewIndexListModel *)  ((PyDataViewIndexListModel *) x));
 }
 static void *_p_wxDataViewListStoreTo_p_wxRefCounter(void *x) {
     return (void *)((wxRefCounter *) (wxDataViewModel *)(wxDataViewIndexListModel *) ((wxDataViewListStore *) x));
@@ -19502,14 +20911,14 @@ static void *_p_wxPyDataViewModelTo_p_wxRefCounter(void *x) {
 static void *_p_wxDataViewIndexListModelTo_p_wxRefCounter(void *x) {
     return (void *)((wxRefCounter *) (wxDataViewModel *) ((wxDataViewIndexListModel *) x));
 }
-static void *_p_wxPyDataViewIndexListModelTo_p_wxRefCounter(void *x) {
-    return (void *)((wxRefCounter *) (wxDataViewModel *)(wxDataViewIndexListModel *) ((wxPyDataViewIndexListModel *) x));
+static void *_p_PyDataViewIndexListModelTo_p_wxRefCounter(void *x) {
+    return (void *)((wxRefCounter *) (wxDataViewModel *)(wxDataViewIndexListModel *) ((PyDataViewIndexListModel *) x));
 }
 static void *_p_wxDataViewVirtualListModelTo_p_wxRefCounter(void *x) {
     return (void *)((wxRefCounter *) (wxDataViewModel *) ((wxDataViewVirtualListModel *) x));
 }
-static void *_p_wxPyDataViewVirtualListModelTo_p_wxRefCounter(void *x) {
-    return (void *)((wxRefCounter *) (wxDataViewModel *)(wxDataViewVirtualListModel *) ((wxPyDataViewVirtualListModel *) x));
+static void *_p_PyDataViewVirtualListModelTo_p_wxRefCounter(void *x) {
+    return (void *)((wxRefCounter *) (wxDataViewModel *)(wxDataViewVirtualListModel *) ((PyDataViewVirtualListModel *) x));
 }
 static void *_p_wxDataViewTreeStoreTo_p_wxRefCounter(void *x) {
     return (void *)((wxRefCounter *) (wxDataViewModel *) ((wxDataViewTreeStore *) x));
@@ -19701,7 +21110,7 @@ static void *_p_wxSysColourChangedEventTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvent *) ((wxSysColourChangedEvent *) x));
 }
 static void *_p_wxThreadEventTo_p_wxObject(void *x) {
-    return (void *)((wxObject *) (wxEvent *)(wxCommandEvent *) ((wxThreadEvent *) x));
+    return (void *)((wxObject *) (wxEvent *) ((wxThreadEvent *) x));
 }
 static void *_p_wxControlTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvtHandler *)(wxWindow *) ((wxControl *) x));
@@ -19973,9 +21382,6 @@ static void *_p_wxUpdateUIEventTo_p_wxCommandEvent(void *x) {
 static void *_p_wxClipboardTextEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxClipboardTextEvent *) x));
 }
-static void *_p_wxThreadEventTo_p_wxCommandEvent(void *x) {
-    return (void *)((wxCommandEvent *)  ((wxThreadEvent *) x));
-}
 static void *_p_wxWindowDestroyEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxWindowDestroyEvent *) x));
 }
@@ -19994,6 +21400,8 @@ static void *_p_wxDataViewTreeStoreContainerNodeTo_p_wxDataViewTreeStoreNode(voi
 static void *_p_wxPyValidatorTo_p_wxValidator(void *x) {
     return (void *)((wxValidator *)  ((wxPyValidator *) x));
 }
+static swig_type_info _swigt__p_PyDataViewIndexListModel = {"_p_PyDataViewIndexListModel", "PyDataViewIndexListModel *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_PyDataViewVirtualListModel = {"_p_PyDataViewVirtualListModel", "PyDataViewVirtualListModel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PyLong = {"_p_PyLong", "PyLong *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_double = {"_p_double", "double *|wxDouble *", 0, 0, (void*)0, 0};
@@ -20014,7 +21422,6 @@ static swig_type_info _swigt__p_wxWindowCreateEvent = {"_p_wxWindowCreateEvent",
 static swig_type_info _swigt__p_wxDateEvent = {"_p_wxDateEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxUpdateUIEvent = {"_p_wxUpdateUIEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxClipboardTextEvent = {"_p_wxClipboardTextEvent", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_wxThreadEvent = {"_p_wxThreadEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxWindowDestroyEvent = {"_p_wxWindowDestroyEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxContextMenuEvent = {"_p_wxContextMenuEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxPyCommandEvent = {"_p_wxPyCommandEvent", 0, 0, 0, 0, 0};
@@ -20078,6 +21485,7 @@ static swig_type_info _swigt__p_wxPaletteChangedEvent = {"_p_wxPaletteChangedEve
 static swig_type_info _swigt__p_wxDisplayChangedEvent = {"_p_wxDisplayChangedEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxMouseCaptureChangedEvent = {"_p_wxMouseCaptureChangedEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxSysColourChangedEvent = {"_p_wxSysColourChangedEvent", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxThreadEvent = {"_p_wxThreadEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxDropFilesEvent = {"_p_wxDropFilesEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxFocusEvent = {"_p_wxFocusEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxShowEvent = {"_p_wxShowEvent", 0, 0, 0, 0, 0};
@@ -20091,6 +21499,7 @@ static swig_type_info _swigt__p_wxPyValidator = {"_p_wxPyValidator", 0, 0, 0, 0,
 static swig_type_info _swigt__p_wxPyEvtHandler = {"_p_wxPyEvtHandler", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxMenuBar = {"_p_wxMenuBar", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxPyApp = {"_p_wxPyApp", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxFont = {"_p_wxFont", "wxFont *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxHeaderColumn = {"_p_wxHeaderColumn", "wxHeaderColumn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxHeaderColumnSimple = {"_p_wxHeaderColumnSimple", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxIcon = {"_p_wxIcon", "wxIcon *", 0, 0, (void*)0, 0};
@@ -20132,12 +21541,10 @@ static swig_type_info _swigt__p_wxWrapSizer = {"_p_wxWrapSizer", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxPaperSize = {"_p_wxPaperSize", "enum wxPaperSize *|wxPaperSize *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxPoint = {"_p_wxPoint", "wxPoint *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxPyDataViewCustomRenderer = {"_p_wxPyDataViewCustomRenderer", "wxPyDataViewCustomRenderer *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_wxPyDataViewIndexListModel = {"_p_wxPyDataViewIndexListModel", "wxPyDataViewIndexListModel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxPyDataViewModel = {"_p_wxPyDataViewModel", "wxPyDataViewModel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxPyDataViewModelNotifier = {"_p_wxPyDataViewModelNotifier", "wxPyDataViewModelNotifier *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_wxPyDataViewVirtualListModel = {"_p_wxPyDataViewVirtualListModel", "wxPyDataViewVirtualListModel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxRect = {"_p_wxRect", "wxRect *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_wxRefCounter = {"_p_wxRefCounter", "wxRefCounter *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_wxRefCounter = {"_p_wxRefCounter", "wxRefCounter *|wxObjectRefData *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxSettableHeaderColumn = {"_p_wxSettableHeaderColumn", "wxSettableHeaderColumn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxSize = {"_p_wxSize", "wxSize *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxValidator = {"_p_wxValidator", "wxValidator *", 0, 0, (void*)0, 0};
@@ -20147,6 +21554,8 @@ static swig_type_info _swigt__p_wxVisualAttributes = {"_p_wxVisualAttributes", "
 static swig_type_info _swigt__p_wxWindow = {"_p_wxWindow", "wxWindow *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
+  &_swigt__p_PyDataViewIndexListModel,
+  &_swigt__p_PyDataViewVirtualListModel,
   &_swigt__p_PyLong,
   &_swigt__p_char,
   &_swigt__p_double,
@@ -20219,6 +21628,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxFileSystem,
   &_swigt__p_wxFlexGridSizer,
   &_swigt__p_wxFocusEvent,
+  &_swigt__p_wxFont,
   &_swigt__p_wxGBSizerItem,
   &_swigt__p_wxGIFHandler,
   &_swigt__p_wxGridBagSizer,
@@ -20260,10 +21670,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxPyApp,
   &_swigt__p_wxPyCommandEvent,
   &_swigt__p_wxPyDataViewCustomRenderer,
-  &_swigt__p_wxPyDataViewIndexListModel,
   &_swigt__p_wxPyDataViewModel,
   &_swigt__p_wxPyDataViewModelNotifier,
-  &_swigt__p_wxPyDataViewVirtualListModel,
   &_swigt__p_wxPyEvent,
   &_swigt__p_wxPyEvtHandler,
   &_swigt__p_wxPyImageHandler,
@@ -20300,6 +21708,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxXPMHandler,
 };
 
+static swig_cast_info _swigc__p_PyDataViewIndexListModel[] = {  {&_swigt__p_PyDataViewIndexListModel, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_PyDataViewVirtualListModel[] = {  {&_swigt__p_PyDataViewVirtualListModel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PyLong[] = {  {&_swigt__p_PyLong, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
@@ -20319,11 +21729,10 @@ static swig_cast_info _swigc__p_wxWindowCreateEvent[] = {{&_swigt__p_wxWindowCre
 static swig_cast_info _swigc__p_wxDateEvent[] = {{&_swigt__p_wxDateEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxUpdateUIEvent[] = {{&_swigt__p_wxUpdateUIEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxClipboardTextEvent[] = {{&_swigt__p_wxClipboardTextEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxThreadEvent[] = {{&_swigt__p_wxThreadEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWindowDestroyEvent[] = {{&_swigt__p_wxWindowDestroyEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxContextMenuEvent[] = {{&_swigt__p_wxContextMenuEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyCommandEvent[] = {{&_swigt__p_wxPyCommandEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxCommandEvent[] = {  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxThreadEvent, _p_wxThreadEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxCommandEvent, 0, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxCommandEvent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxCommandEvent[] = {  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxCommandEvent, 0, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxCommandEvent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxControlWithItems[] = {{&_swigt__p_wxControlWithItems, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxTextCtrlBase[] = {{&_swigt__p_wxTextCtrlBase, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxControl[] = {  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxControl, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxControl, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxControl, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxControl, 0, 0},{0, 0, 0, 0}};
@@ -20340,14 +21749,14 @@ static swig_cast_info _swigc__p_wxDataViewDateRenderer[] = {  {&_swigt__p_wxData
 static swig_cast_info _swigc__p_wxDataViewEvent[] = {  {&_swigt__p_wxDataViewEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewIconText[] = {  {&_swigt__p_wxDataViewIconText, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewIconTextRenderer[] = {  {&_swigt__p_wxDataViewIconTextRenderer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxDataViewIndexListModel[] = {  {&_swigt__p_wxDataViewListStore, _p_wxDataViewListStoreTo_p_wxDataViewIndexListModel, 0, 0},  {&_swigt__p_wxDataViewIndexListModel, 0, 0, 0},  {&_swigt__p_wxPyDataViewIndexListModel, _p_wxPyDataViewIndexListModelTo_p_wxDataViewIndexListModel, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxDataViewIndexListModel[] = {  {&_swigt__p_wxDataViewListStore, _p_wxDataViewListStoreTo_p_wxDataViewIndexListModel, 0, 0},  {&_swigt__p_wxDataViewIndexListModel, 0, 0, 0},  {&_swigt__p_PyDataViewIndexListModel, _p_PyDataViewIndexListModelTo_p_wxDataViewIndexListModel, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewItem[] = {  {&_swigt__p_wxDataViewItem, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewItemArray[] = {  {&_swigt__p_wxDataViewItemArray, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewItemArray_iterator[] = {  {&_swigt__p_wxDataViewItemArray_iterator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewItemAttr[] = {  {&_swigt__p_wxDataViewItemAttr, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewListCtrl[] = {  {&_swigt__p_wxDataViewListCtrl, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewListStore[] = {  {&_swigt__p_wxDataViewListStore, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxDataViewModel[] = {  {&_swigt__p_wxDataViewListStore, _p_wxDataViewListStoreTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewModel, 0, 0, 0},  {&_swigt__p_wxPyDataViewModel, _p_wxPyDataViewModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewIndexListModel, _p_wxDataViewIndexListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxPyDataViewIndexListModel, _p_wxPyDataViewIndexListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewVirtualListModel, _p_wxDataViewVirtualListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxPyDataViewVirtualListModel, _p_wxPyDataViewVirtualListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewTreeStore, _p_wxDataViewTreeStoreTo_p_wxDataViewModel, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxDataViewModel[] = {  {&_swigt__p_wxDataViewListStore, _p_wxDataViewListStoreTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewModel, 0, 0, 0},  {&_swigt__p_wxPyDataViewModel, _p_wxPyDataViewModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewIndexListModel, _p_wxDataViewIndexListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_PyDataViewIndexListModel, _p_PyDataViewIndexListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewVirtualListModel, _p_wxDataViewVirtualListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_PyDataViewVirtualListModel, _p_PyDataViewVirtualListModelTo_p_wxDataViewModel, 0, 0},  {&_swigt__p_wxDataViewTreeStore, _p_wxDataViewTreeStoreTo_p_wxDataViewModel, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewModelNotifier[] = {  {&_swigt__p_wxDataViewModelNotifier, 0, 0, 0},  {&_swigt__p_wxPyDataViewModelNotifier, _p_wxPyDataViewModelNotifierTo_p_wxDataViewModelNotifier, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewProgressRenderer[] = {  {&_swigt__p_wxDataViewProgressRenderer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewRenderer[] = {  {&_swigt__p_wxDataViewRenderer, 0, 0, 0},  {&_swigt__p_wxDataViewTextRenderer, _p_wxDataViewTextRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewBitmapRenderer, _p_wxDataViewBitmapRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewIconTextRenderer, _p_wxDataViewIconTextRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewToggleRenderer, _p_wxDataViewToggleRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewProgressRenderer, _p_wxDataViewProgressRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewSpinRenderer, _p_wxDataViewSpinRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewCustomRenderer, _p_wxDataViewCustomRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewChoiceRenderer, _p_wxDataViewChoiceRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewChoiceByIndexRenderer, _p_wxDataViewChoiceByIndexRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxPyDataViewCustomRenderer, _p_wxPyDataViewCustomRendererTo_p_wxDataViewRenderer, 0, 0},  {&_swigt__p_wxDataViewDateRenderer, _p_wxDataViewDateRendererTo_p_wxDataViewRenderer, 0, 0},{0, 0, 0, 0}};
@@ -20360,7 +21769,7 @@ static swig_cast_info _swigc__p_wxDataViewTreeStoreContainerNode[] = {  {&_swigt
 static swig_cast_info _swigc__p_wxDataViewTreeStoreNode[] = {  {&_swigt__p_wxDataViewTreeStoreContainerNode, _p_wxDataViewTreeStoreContainerNodeTo_p_wxDataViewTreeStoreNode, 0, 0},  {&_swigt__p_wxDataViewTreeStoreNode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewTreeStoreNodeList[] = {  {&_swigt__p_wxDataViewTreeStoreNodeList, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataViewTreeStoreNodeList_iterator[] = {  {&_swigt__p_wxDataViewTreeStoreNodeList_iterator, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxDataViewVirtualListModel[] = {  {&_swigt__p_wxDataViewVirtualListModel, 0, 0, 0},  {&_swigt__p_wxPyDataViewVirtualListModel, _p_wxPyDataViewVirtualListModelTo_p_wxDataViewVirtualListModel, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxDataViewVirtualListModel[] = {  {&_swigt__p_wxDataViewVirtualListModel, 0, 0, 0},  {&_swigt__p_PyDataViewVirtualListModel, _p_PyDataViewVirtualListModelTo_p_wxDataViewVirtualListModel, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDuplexMode[] = {  {&_swigt__p_wxDuplexMode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxMenuEvent[] = {{&_swigt__p_wxMenuEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxCloseEvent[] = {{&_swigt__p_wxCloseEvent, 0, 0, 0},{0, 0, 0, 0}};
@@ -20383,6 +21792,7 @@ static swig_cast_info _swigc__p_wxPaletteChangedEvent[] = {{&_swigt__p_wxPalette
 static swig_cast_info _swigc__p_wxDisplayChangedEvent[] = {{&_swigt__p_wxDisplayChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxMouseCaptureChangedEvent[] = {{&_swigt__p_wxMouseCaptureChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSysColourChangedEvent[] = {{&_swigt__p_wxSysColourChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxThreadEvent[] = {{&_swigt__p_wxThreadEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDropFilesEvent[] = {{&_swigt__p_wxDropFilesEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxFocusEvent[] = {{&_swigt__p_wxFocusEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxShowEvent[] = {{&_swigt__p_wxShowEvent, 0, 0, 0},{0, 0, 0, 0}};
@@ -20397,6 +21807,7 @@ static swig_cast_info _swigc__p_wxPyEvtHandler[] = {{&_swigt__p_wxPyEvtHandler, 
 static swig_cast_info _swigc__p_wxMenuBar[] = {{&_swigt__p_wxMenuBar, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyApp[] = {{&_swigt__p_wxPyApp, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxEvtHandler[] = {  {&_swigt__p_wxEventBlocker, _p_wxEventBlockerTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxMenu, _p_wxMenuTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyValidator, _p_wxPyValidatorTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxValidator, _p_wxValidatorTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxWindow, _p_wxWindowTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyEvtHandler, _p_wxPyEvtHandlerTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxEvtHandler, 0, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyApp, _p_wxPyAppTo_p_wxEvtHandler, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxFont[] = {  {&_swigt__p_wxFont, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxHeaderColumnSimple[] = {{&_swigt__p_wxHeaderColumnSimple, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxHeaderColumn[] = {  {&_swigt__p_wxHeaderColumn, 0, 0, 0},  {&_swigt__p_wxSettableHeaderColumn, _p_wxSettableHeaderColumnTo_p_wxHeaderColumn, 0, 0},  {&_swigt__p_wxHeaderColumnSimple, _p_wxHeaderColumnSimpleTo_p_wxHeaderColumn, 0, 0},  {&_swigt__p_wxDataViewColumn, _p_wxDataViewColumnTo_p_wxHeaderColumn, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxIcon[] = {  {&_swigt__p_wxIcon, 0, 0, 0},{0, 0, 0, 0}};
@@ -20438,12 +21849,10 @@ static swig_cast_info _swigc__p_wxObject[] = {  {&_swigt__p_wxLayoutConstraints,
 static swig_cast_info _swigc__p_wxPaperSize[] = {  {&_swigt__p_wxPaperSize, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPoint[] = {  {&_swigt__p_wxPoint, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyDataViewCustomRenderer[] = {  {&_swigt__p_wxPyDataViewCustomRenderer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxPyDataViewIndexListModel[] = {  {&_swigt__p_wxPyDataViewIndexListModel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyDataViewModel[] = {  {&_swigt__p_wxPyDataViewModel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyDataViewModelNotifier[] = {  {&_swigt__p_wxPyDataViewModelNotifier, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxPyDataViewVirtualListModel[] = {  {&_swigt__p_wxPyDataViewVirtualListModel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxRect[] = {  {&_swigt__p_wxRect, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxRefCounter[] = {  {&_swigt__p_wxRefCounter, 0, 0, 0},  {&_swigt__p_wxDataViewListStore, _p_wxDataViewListStoreTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewModel, _p_wxDataViewModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxPyDataViewModel, _p_wxPyDataViewModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewIndexListModel, _p_wxDataViewIndexListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxPyDataViewIndexListModel, _p_wxPyDataViewIndexListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewVirtualListModel, _p_wxDataViewVirtualListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxPyDataViewVirtualListModel, _p_wxPyDataViewVirtualListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewTreeStore, _p_wxDataViewTreeStoreTo_p_wxRefCounter, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxRefCounter[] = {  {&_swigt__p_wxRefCounter, 0, 0, 0},  {&_swigt__p_wxDataViewListStore, _p_wxDataViewListStoreTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewModel, _p_wxDataViewModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxPyDataViewModel, _p_wxPyDataViewModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewIndexListModel, _p_wxDataViewIndexListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_PyDataViewIndexListModel, _p_PyDataViewIndexListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewVirtualListModel, _p_wxDataViewVirtualListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_PyDataViewVirtualListModel, _p_PyDataViewVirtualListModelTo_p_wxRefCounter, 0, 0},  {&_swigt__p_wxDataViewTreeStore, _p_wxDataViewTreeStoreTo_p_wxRefCounter, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSettableHeaderColumn[] = {  {&_swigt__p_wxSettableHeaderColumn, 0, 0, 0},  {&_swigt__p_wxHeaderColumnSimple, _p_wxHeaderColumnSimpleTo_p_wxSettableHeaderColumn, 0, 0},  {&_swigt__p_wxDataViewColumn, _p_wxDataViewColumnTo_p_wxSettableHeaderColumn, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSize[] = {  {&_swigt__p_wxSize, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxValidator[] = {  {&_swigt__p_wxValidator, 0, 0, 0},  {&_swigt__p_wxPyValidator, _p_wxPyValidatorTo_p_wxValidator, 0, 0},{0, 0, 0, 0}};
@@ -20453,6 +21862,8 @@ static swig_cast_info _swigc__p_wxVisualAttributes[] = {  {&_swigt__p_wxVisualAt
 static swig_cast_info _swigc__p_wxWindow[] = {  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxWindow, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxWindow, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxWindow, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxWindow, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxWindow, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
+  _swigc__p_PyDataViewIndexListModel,
+  _swigc__p_PyDataViewVirtualListModel,
   _swigc__p_PyLong,
   _swigc__p_char,
   _swigc__p_double,
@@ -20525,6 +21936,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxFileSystem,
   _swigc__p_wxFlexGridSizer,
   _swigc__p_wxFocusEvent,
+  _swigc__p_wxFont,
   _swigc__p_wxGBSizerItem,
   _swigc__p_wxGIFHandler,
   _swigc__p_wxGridBagSizer,
@@ -20566,10 +21978,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxPyApp,
   _swigc__p_wxPyCommandEvent,
   _swigc__p_wxPyDataViewCustomRenderer,
-  _swigc__p_wxPyDataViewIndexListModel,
   _swigc__p_wxPyDataViewModel,
   _swigc__p_wxPyDataViewModelNotifier,
-  _swigc__p_wxPyDataViewVirtualListModel,
   _swigc__p_wxPyEvent,
   _swigc__p_wxPyEvtHandler,
   _swigc__p_wxPyImageHandler,

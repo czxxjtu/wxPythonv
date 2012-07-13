@@ -2,7 +2,7 @@
 // Name:        src/gtk1/scrolbar.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: scrolbar.cpp 58227 2009-01-19 13:55:27Z VZ $
+// Id:          $Id: scrolbar.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -164,8 +164,6 @@ gtk_scrollbar_button_release_callback( GtkRange *WXUNUSED(widget),
 //-----------------------------------------------------------------------------
 // wxScrollBar
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxScrollBar,wxControl)
 
 wxScrollBar::~wxScrollBar()
 {

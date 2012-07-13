@@ -2,7 +2,7 @@
 // Name:        object.h
 // Purpose:     interface of wxRefCounter
 // Author:      wxWidgets team
-// RCS-ID:      $Id: object.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: object.h 67879 2011-06-07 13:06:17Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -257,7 +257,7 @@ public:
 
     /**
         This virtual function is redefined for every class that requires run-time
-        type information, when using the ::DECLARE_CLASS macro (or similar).
+        type information, when using the ::wxDECLARE_CLASS macro (or similar).
     */
     virtual wxClassInfo* GetClassInfo() const;
 
@@ -708,7 +708,9 @@ public:
 /**
     Used inside a class declaration to declare that the class should be made
     known to the class hierarchy, but objects of this class cannot be created
-    dynamically. The same as wxDECLARE_DYNAMIC_CLASS().
+    dynamically.
+
+    The same as wxDECLARE_ABSTRACT_CLASS().
 
     @header{wx/object.h}
 */

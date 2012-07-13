@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        textdlgg.h
+// Name:        wx/generic/textdlgg.h
 // Purpose:     wxTextEntryDialog class
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: textdlgg.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: textdlgg.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

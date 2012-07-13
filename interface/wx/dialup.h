@@ -2,7 +2,7 @@
 // Name:        dialup.h
 // Purpose:     interface of wxDialUpManager
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dialup.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dialup.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -93,7 +93,7 @@ public:
 
     /**
         Enable automatic checks for the connection status and sending of
-        wxEVT_DIALUP_CONNECTED/wxEVT_DIALUP_DISCONNECTED events. The interval
+        @c wxEVT_DIALUP_CONNECTED/wxEVT_DIALUP_DISCONNECTED events. The interval
         parameter is only for Unix where we do the check manually and specifies
         how often should we repeat the check (each minute by default). Under
         Windows, the notification about the change of connection status is sent
@@ -207,7 +207,7 @@ public:
     bool IsConnectedEvent() const;
 
     /**
-        Does this event come from wxDialUpManager::Dial() or from some extrenal
+        Does this event come from wxDialUpManager::Dial() or from some external
         process (i.e. does it result from our own attempt to establish the
         connection)?
     */

@@ -2,7 +2,7 @@
 // Name:        window.h
 // Purpose:     interface of wxWindow
 // Author:      wxWidgets team
-// RCS-ID:      $Id: window.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: window.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -49,6 +49,25 @@ enum wxShowEffect
     /// Expanding or collapsing effect
     wxSHOW_EFFECT_EXPAND
 };
+
+
+
+/**
+   struct containing all the visual attributes of a control
+*/
+struct  wxVisualAttributes
+{
+    // the font used for control label/text inside it
+    wxFont font;
+
+    // the foreground colour
+    wxColour colFg;
+
+    // the background colour, may be wxNullColour if the controls background
+    // colour is not solid
+    wxColour colBg;
+};
+
 
 /**
     Different window variants, on platforms like eg mac uses different
@@ -218,8 +237,12 @@ enum wxWindowVariant
         See wxKeyEvent.
     @event{EVT_KEY_UP(func)}
         Process a @c wxEVT_KEY_UP event (any key has been released).
+        See wxKeyEvent.
     @event{EVT_CHAR(func)}
         Process a @c wxEVT_CHAR event.
+        See wxKeyEvent.
+    @event{EVT_CHAR_HOOK(func)}
+        Process a @c wxEVT_CHAR_HOOK event.
         See wxKeyEvent.
     @event{EVT_MOUSE_CAPTURE_LOST(func)}
         Process a @c wxEVT_MOUSE_CAPTURE_LOST event. See wxMouseCaptureLostEvent.
@@ -235,8 +258,6 @@ enum wxWindowVariant
         Process scroll events. See wxScrollWinEvent.
     @event{EVT_SET_CURSOR(func)}
         Process a @c wxEVT_SET_CURSOR event. See wxSetCursorEvent.
-    @event{EVT_SHOW(func)}
-        Process a @c wxEVT_SHOW event. See wxShowEvent.
     @event{EVT_SIZE(func)}
         Process a @c wxEVT_SIZE event. See wxSizeEvent.
     @event{EVT_SYS_COLOUR_CHANGED(func)}
@@ -296,6 +317,13 @@ public:
     */
     virtual ~wxWindow();
 
+
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0,
+                const wxString& name = wxPanelNameStr);
 
     /**
         @name Focus functions
@@ -463,7 +491,7 @@ public:
     */
     wxWindow* GetPrevSibling() const;
     /**
-        Reparents the window, i.e the window will be removed from its
+        Reparents the window, i.e. the window will be removed from its
         current parent window (e.g. a non-standard toolbar in a wxFrame)
         and then re-inserted into another.
 
@@ -851,6 +879,11 @@ public:
     */
     virtual wxSize GetMinSize() const;
 
+    int GetMinWidth() const;
+    int GetMinHeight() const;
+    int GetMaxWidth() const;
+    int GetMaxHeight() const;
+
     /**
         Returns the size of the entire window in pixels, including title bar, border,
         scrollbars, etc.
@@ -897,11 +930,30 @@ public:
     void GetVirtualSize(int* width, int* height) const;
 
     /**
+       Return the largest of ClientSize and BestSize (as determined
+       by a sizer, interior children, or other means)
+    */
+    virtual wxSize GetBestVirtualSize() const;
+
+    /**
         Returns the size of the left/right and top/bottom borders of this window in x
         and y components of the result respectively.
     */
     virtual wxSize GetWindowBorderSize() const;
 
+    /**
+       wxSizer and friends use this to give a chance to a component to recalc
+       its min size once one of the final size components is known. Override
+       this function when that is useful (such as for wxStaticText which can
+       stretch over several lines). Parameter availableOtherDir
+       tells the item how much more space there is available in the opposite
+       direction (-1 if unknown).
+    */
+    virtual bool
+    InformFirstDirection(int direction,
+                         int size,
+                         int availableOtherDir);
+    
     /**
         Resets the cached best size value so it will be recalculated the next time it
         is needed.
@@ -977,6 +1029,11 @@ public:
         @overload
     */
     void SetClientSize(const wxSize& size);
+
+    /**
+        @overload
+    */
+    void SetClientSize(const wxRect& rect);
 
     /**
         This normally does not need to be called by user code.
@@ -1133,9 +1190,12 @@ public:
 
         @see wxTopLevelWindow::SetSizeHints, @ref overview_windowsizing
     */
-    void SetSizeHints( const wxSize& minSize,
-                       const wxSize& maxSize=wxDefaultSize,
-                       const wxSize& incSize=wxDefaultSize);
+    virtual void SetSizeHints( const wxSize& minSize,
+                               const wxSize& maxSize=wxDefaultSize,
+                               const wxSize& incSize=wxDefaultSize);
+    virtual void SetSizeHints( int minW, int minH,
+                               int maxW = -1, int maxH = -1,
+                               int incW = -1, int incH = -1 );
 
     /**
         Sets the virtual size of the window in pixels.
@@ -1200,20 +1260,6 @@ public:
     void CentreOnParent(int direction = wxBOTH);
 
     /**
-        Centres the window.
-
-        @param direction
-            Specifies the direction for the centring. May be wxHORIZONTAL,
-            wxVERTICAL or wxBOTH. It may also include the wxCENTRE_ON_SCREEN
-            flag.
-
-        @remarks This function is not meant to be called directly by user code,
-                 but via Centre, Center, CentreOnParent, or CenterOnParent.
-                 This function can be overriden to fine-tune centring behaviour.
-    */
-    virtual void DoCentre(int direction);
-
-    /**
         This gets the position of the window in pixels, relative to the parent window
         for the child windows or relative to the display origin for the top level windows.
 
@@ -1275,6 +1321,20 @@ public:
     wxRect GetScreenRect() const;
 
     /**
+       Get the origin of the client area of the window relative to the
+       window top left corner (the client area may be shifted because of
+       the borders, scrollbars, other decorations...)
+    */
+    virtual wxPoint GetClientAreaOrigin() const;
+
+    /**
+       Get the client rectangle in window (i.e. client) coordinates
+    */
+    wxRect GetClientRect() const;
+
+
+    
+    /**
         Moves the window to the given position.
 
         @param x
@@ -1311,6 +1371,8 @@ public:
         @see SetSize()
     */
     void Move(const wxPoint& pt, int flags = wxSIZE_USE_EXISTING);
+
+    void SetPosition(const wxPoint& pt);
 
     //@}
 
@@ -1559,7 +1621,7 @@ public:
         @endWxPerlOnly
     */
     void GetTextExtent(const wxString& string,
-                        int* w, int* h,
+                       int* w, int* h,
                        int* descent = NULL,
                        int* externalLeading = NULL,
                        const wxFont* font = NULL) const;
@@ -1577,6 +1639,11 @@ public:
         @see wxRegion, wxRegionIterator
     */
     const wxRegion& GetUpdateRegion() const;
+
+    /**
+       Get the update rectangle bounding box in client coords
+    */
+    wxRect GetUpdateClientRect() const;
 
     /**
         Returns @true if this window background is transparent (as, for example,
@@ -1633,6 +1700,8 @@ public:
         @param colour
             The colour to be used as the background colour; pass
             wxNullColour to reset to the default colour.
+            Note that you may want to use wxSystemSettings::GetColour() to retrieve 
+            a suitable colour to use rather than setting an hard-coded one.
 
         @remarks The background colour is usually painted by the default
                  wxEraseEvent event handler function under Windows and
@@ -1650,32 +1719,32 @@ public:
 
         @see GetBackgroundColour(), SetForegroundColour(),
              GetForegroundColour(), ClearBackground(),
-             Refresh(), wxEraseEvent
+             Refresh(), wxEraseEvent, wxSystemSettings
     */
     virtual bool SetBackgroundColour(const wxColour& colour);
 
     /**
         Sets the background style of the window.
 
-        The default background style is wxBG_STYLE_ERASE which indicates that
-        the window background may be erased in EVT_ERASE_BACKGROUND handler.
+        The default background style is @c wxBG_STYLE_ERASE which indicates that
+        the window background may be erased in @c EVT_ERASE_BACKGROUND handler.
         This is a safe, compatibility default; however you may want to change it
-        to wxBG_STYLE_SYSTEM if you don't define any erase background event
+        to @c wxBG_STYLE_SYSTEM if you don't define any erase background event
         handlers at all, to avoid unnecessary generation of erase background
         events and always let system erase the background. And you should
-        change the background style to wxBG_STYLE_PAINT if you define an
-        EVT_PAINT handler which completely overwrites the window background as
-        in this case erasing it previously, either in EVT_ERASE_BACKGROUND
+        change the background style to @c wxBG_STYLE_PAINT if you define an
+        @c EVT_PAINT handler which completely overwrites the window background as
+        in this case erasing it previously, either in @c EVT_ERASE_BACKGROUND
         handler or in the system default handler, would result in flicker as
         the background pixels will be repainted twice every time the window is
         redrawn. Do ensure that the background is entirely erased by your
-        EVT_PAINT handler in this case however as otherwise garbage may be left
+        @c EVT_PAINT handler in this case however as otherwise garbage may be left
         on screen.
 
         Notice that in previous versions of wxWidgets a common way to work
         around the above mentioned flickering problem was to define an empty
-        EVT_ERASE_BACKGROUND handler. Setting background style to
-        wxBG_STYLE_PAINT is a simpler and more efficient solution to the same
+        @c EVT_ERASE_BACKGROUND handler. Setting background style to
+        @c wxBG_STYLE_PAINT is a simpler and more efficient solution to the same
         problem.
 
         @see SetBackgroundColour(), GetForegroundColour(),
@@ -1776,6 +1845,10 @@ public:
         by default so that the default look and feel is simulated best.
     */
     virtual void SetThemeEnabled(bool enable);
+
+    /**
+     */
+    virtual bool GetThemeEnabled() const;
 
     /**
         Returns @true if the system supports transparent windows and calling
@@ -2010,7 +2083,7 @@ public:
 
     /**
         Sets the style of the window. Please note that some styles cannot be changed
-        after the window creation and that Refresh() might need to be be called
+        after the window creation and that Refresh() might need to be called
         after changing the others for the change to take place immediately.
 
         See @ref overview_windowstyles "Window styles" for more information about flags.
@@ -2088,13 +2161,13 @@ public:
                  control. See also wxNavigationKeyEvent and
                  HandleAsNavigationKey.
     */
-    bool Navigate(int flags = IsForward);
+    bool Navigate(int flags = wxNavigationKeyEvent::IsForward);
 
     /**
         Performs a keyboard navigation action inside this window.
         See Navigate() for more information.
     */
-    bool NavigateIn(int flags = IsForward);
+    bool NavigateIn(int flags = wxNavigationKeyEvent::IsForward);
 
     //@}
 
@@ -2233,6 +2306,11 @@ public:
         for a top level window if you want to bring it to top, although this is not
         needed if Show() is called immediately after the frame creation.
 
+        Notice that the default state of newly created top level windows is hidden
+        (to allow you to create their contents without flicker) unlike for
+        all the other, not derived from wxTopLevelWindow, windows that
+        are by default created in the shown state.
+
         @param show
             If @true displays the window. Otherwise, hides it.
 
@@ -2370,6 +2448,10 @@ public:
         The parameter @a menu is the menu to show.
         The parameter @a pos (or the parameters @a x and @a y) is the
         position at which to show the menu in client coordinates.
+        It is recommended to not explicitly specify coordinates when
+        calling this method in response to mouse click, because some of
+        the ports (namely, wxGTK) can do a better job of positioning
+        the menu in that case.
 
         @return
              The selected menu item id or @c wxID_NONE if none selected or an
@@ -2377,7 +2459,8 @@ public:
 
         @since 2.9.0
     */
-    int GetPopupMenuSelectionFromUser(wxMenu& menu, const wxPoint& pos);
+    int GetPopupMenuSelectionFromUser(wxMenu& menu,
+                                      const wxPoint& pos = wxDefaultPosition);
 
     /**
         @overload
@@ -2704,7 +2787,7 @@ public:
 
 
     /**
-        @name Constraints, sizers and window layouting functions
+        @name Constraints, sizers and window layout functions
     */
     //@{
 
@@ -2747,7 +2830,7 @@ public:
         This method calls SetSizer() and then wxSizer::SetSizeHints which sets the initial
         window size to the size needed to accommodate all sizer elements and sets the
         size hints which, if this window is a top level one, prevent the user from
-        resizing it to be less than this minimial size.
+        resizing it to be less than this minimal size.
     */
     void SetSizerAndFit(wxSizer* sizer, bool deleteOld = true);
 
@@ -2773,7 +2856,6 @@ public:
                  the sizer will have effect.
     */
     void SetConstraints(wxLayoutConstraints* constraints);
-
 
     /**
         Invokes the constraint-based layout algorithm or the sizer-based algorithm
@@ -2803,6 +2885,8 @@ public:
         @see SetSizer(), SetConstraints()
     */
     void SetAutoLayout(bool autoLayout);
+
+    bool GetAutoLayout() const;
 
     //@}
 
@@ -2903,6 +2987,22 @@ public:
     */
     //@{
 
+    wxHitTest HitTest(wxCoord x, wxCoord y) const;
+    wxHitTest HitTest(const wxPoint& pt) const;
+
+    /**
+       Get the window border style from the given flags: this is different from
+       simply doing flags & wxBORDER_MASK because it uses GetDefaultBorder() to
+       translate wxBORDER_DEFAULT to something reasonable
+    */
+    wxBorder GetBorder(long flags) const;
+
+    /**
+       Get border for the flags of this window
+    */
+    wxBorder GetBorder() const;
+
+    
     /**
         Does the window-specific updating after processing the update event.
         This function is called by UpdateWindowUI() in order to check return
@@ -2987,6 +3087,8 @@ public:
     */
     virtual bool IsDoubleBuffered() const;
 
+    void SetDoubleBuffered(bool on);
+
     /**
         Returns @true if the window is retained, @false otherwise.
 
@@ -3020,6 +3122,7 @@ public:
     */
     virtual void MakeModal(bool modal = true);
 
+    
     /**
         This virtual function is normally only used internally, but
         sometimes an application may need it to implement functionality
@@ -3255,6 +3358,20 @@ public:
 
 
 protected:
+
+    /**
+        Centres the window.
+
+        @param direction
+            Specifies the direction for the centring. May be wxHORIZONTAL,
+            wxVERTICAL or wxBOTH. It may also include the wxCENTRE_ON_SCREEN
+            flag.
+
+        @remarks This function is not meant to be called directly by user code,
+                 but via Centre, Center, CentreOnParent, or CenterOnParent.
+                 This function can be overridden to fine-tune centring behaviour.
+    */
+    virtual void DoCentre(int direction);
 
     /**
         Gets the size which best suits the window: for a control, it would be

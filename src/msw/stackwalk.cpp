@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        msw/stackwalk.cpp
+// Name:        src/msw/stackwalk.cpp
 // Purpose:     wxStackWalker implementation for Win32
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-08
-// RCS-ID:      $Id: stackwalk.cpp 62925 2009-12-18 14:47:08Z VZ $
+// RCS-ID:      $Id: stackwalk.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2003-2005 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

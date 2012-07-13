@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: menu.cpp 63176 2010-01-18 08:56:20Z SC $
+// RCS-ID:      $Id: menu.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ public :
         MenuItemIndex i = FindMenuItemIndex() ;
         if ( i > 0 )
         {
-            if ( bitmap.Ok() )
+            if ( bitmap.IsOk() )
             {
 #if wxUSE_BMPBUTTON
                 ControlButtonContentInfo info ;

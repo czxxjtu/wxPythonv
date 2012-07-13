@@ -15,8 +15,8 @@ messages from ed_msg to display progress of different actions.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_statbar.py 65718 2010-10-01 20:25:49Z CJP $"
-__revision__ = "$Revision: 65718 $"
+__svnid__ = "$Id: ed_statbar.py 68356 2011-07-24 20:20:53Z CJP $"
+__revision__ = "$Revision: 68356 $"
 
 #--------------------------------------------------------------------------#
 # Imports
@@ -27,6 +27,7 @@ import wx.stc
 import ed_glob
 import util
 import ed_msg
+import ed_menu
 from syntax.synglob import GetDescriptionFromId
 from eclib import ProgressStatusBar, EncodingDialog
 from extern.decorlib import anythread
@@ -51,6 +52,7 @@ class EdStatBar(ProgressStatusBar):
         self._widths = list()
         self._cleanup_timer = wx.Timer(self, EdStatBar.ID_CLEANUP_TIMER)
         self._eolmenu = wx.Menu()
+        self._lexmenu = None
         self._log = wx.GetApp().GetLog()
 
         # Setup
@@ -67,6 +69,7 @@ class EdStatBar(ProgressStatusBar):
                              kind=wx.ITEM_CHECK)
 
         # Event Handlers
+        self.Bind(wx.EVT_WINDOW_DESTROY, self.OnDestroy, self)
         self.Bind(wx.EVT_LEFT_DCLICK, self.OnLeftDClick)
         self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
         self.Bind(wx.EVT_TIMER, self.OnExpireMessage,
@@ -81,12 +84,17 @@ class EdStatBar(ProgressStatusBar):
         ed_msg.Subscribe(self.OnUpdateDoc, ed_msg.EDMSG_FILE_OPENED)
         ed_msg.Subscribe(self.OnUpdateDoc, ed_msg.EDMSG_UI_STC_LEXER)
 
-    def __del__(self):
+    def OnDestroy(self, evt):
         """Unsubscribe from messages"""
-        ed_msg.Unsubscribe(self.OnProgress)
-        ed_msg.Unsubscribe(self.OnUpdateText)
-        ed_msg.Unsubscribe(self.OnUpdateDoc)
-        super(EdStatBar, self).__del__()
+        if self._lexmenu:
+            self._lexmenu.Destroy()
+        if self._eolmenu:
+            self._eolmenu.Destroy()
+        if evt.GetId() == self.GetId():
+            ed_msg.Unsubscribe(self.OnProgress)
+            ed_msg.Unsubscribe(self.OnUpdateText)
+            ed_msg.Unsubscribe(self.OnUpdateDoc)
+        evt.Skip()
 
     def __SetStatusText(self, txt, field):
         """Safe method to use for setting status text with CallAfter.
@@ -196,7 +204,21 @@ class EdStatBar(ProgressStatusBar):
             if dlg.ShowModal() == wx.ID_OK:
                 buff.SetEncoding(dlg.GetEncoding())
                 self.UpdateFields()
-            dlg.Destroy()
+
+            # NOTE: Got an error report about a PyDeadObject error here. The
+            #       error does not make any sense since the dialog is not
+            #       destroyed or deleted by anything before this. Add validity
+            #       check to ensure reference is still valid.
+            if dlg:
+                dlg.Destroy()
+        elif self.GetFieldRect(ed_glob.SB_LEXER).Contains(pt):
+            # Change Lexer popup menu
+            if self._lexmenu:
+                self._lexmenu.Destroy()
+            self._lexmenu = wx.Menu()
+            ed_menu.EdMenuBar.PopulateLexerMenu(self._lexmenu)
+            rect = self.GetFieldRect(ed_glob.SB_LEXER)
+            self.PopupMenu(self._lexmenu, (rect.x, rect.y))
         else:
             evt.Skip()
 

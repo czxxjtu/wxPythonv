@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        common/stdpbase.cpp
+// Name:        src/common/stdpbase.cpp
 // Purpose:     wxStandardPathsBase methods common to all ports
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2004-10-19
-// RCS-ID:      $Id: stdpbase.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: stdpbase.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

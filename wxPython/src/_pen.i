@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _pen.i 52772 2008-03-24 22:38:42Z RD $
+// RCS-ID:      $Id: _pen.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -158,7 +158,10 @@ public:
     %property(Stipple, GetStipple, SetStipple, doc="See `GetStipple` and `SetStipple`");
 #endif
 
+    bool IsTransparent() const;
+    bool IsNonTransparent() const;
     
+
     %extend {
         bool __eq__(const wxPen* other) { return other ? (*self == *other) : false; }
         bool __ne__(const wxPen* other) { return other ? (*self != *other) : true;  }

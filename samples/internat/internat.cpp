@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin/Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: internat.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: internat.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -271,7 +271,6 @@ bool MyApp::OnInit()
 
     // Show the frame
     frame->Show(true);
-    SetTopWindow(frame);
 
     return true;
 }
@@ -399,7 +398,7 @@ void MyFrame::OnPlay(wxCommandEvent& WXUNUSED(event))
         str = wxGetTranslation(wxTRANSLATE("Bad luck! try again..."));
 
         // note also that if we want 'str' to contain a localized string
-        // we need to use wxGetTranslation explicitely as wxTRANSLATE just
+        // we need to use wxGetTranslation explicitly as wxTRANSLATE just
         // tells xgettext to extract the string but has no effect on the
         // runtime of the program!
     }

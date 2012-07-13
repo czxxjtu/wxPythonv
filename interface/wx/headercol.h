@@ -3,15 +3,27 @@
 // Purpose:     interface of wxHeaderColumn
 // Author:      Vadim Zeitlin
 // Created:     2008-12-01
-// RCS-ID:      $Id: headercol.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: headercol.h 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 /**
-    Special value used for column width meaning unspecified or default.
+    Column width special values.
  */
-enum { wxCOL_WIDTH_DEFAULT = -1 };
+enum
+{
+    /// Special value used for column width meaning unspecified or default.
+    wxCOL_WIDTH_DEFAULT = -1,
+
+    /**
+        Size the column automatically to fit all values.
+
+        @note On OS X, this style is only implemented in the Cocoa build on
+              OS X >= 10.5; it behaves identically to wxCOL_WIDTH_DEFAULT otherwise.
+     */
+    wxCOL_WIDTH_AUTOSIZE = -2
+};
 
 /**
     Bit flags used as wxHeaderColumn flags.
@@ -77,7 +89,8 @@ public:
         Returns the current width of the column.
 
         @return
-            Width of the column in pixels, never wxCOL_WIDTH_DEFAULT.
+            Width of the column in pixels, never wxCOL_WIDTH_DEFAULT or
+            wxCOL_WIDTH_AUTOSIZE.
     */
     virtual int GetWidth() const = 0;
 
@@ -199,15 +212,16 @@ public:
         Set the column width.
 
         @param width
-            The column width in pixels or the special wxCOL_WIDTH_DEFAULT value
-            meaning to use default width.
+            The column width in pixels or the special wxCOL_WIDTH_DEFAULT
+            (meaning to use default width) or wxCOL_WIDTH_AUTOSIZE (size to
+            fit the content) value.
      */
     virtual void SetWidth(int width) = 0;
 
     /**
         Set the minimal column width.
 
-        This method can be used with resizeable columns (i.e. those for which
+        This method can be used with resizable columns (i.e. those for which
         wxCOL_RESIZABLE flag is set in GetFlags() or, alternatively,
         IsResizeable() returns @true) to prevent the user from making them
         narrower than the given width.
@@ -288,11 +302,11 @@ public:
         Call this to enable or disable interactive resizing of the column by
         the user.
 
-        By default, the columns are resizeable.
+        By default, the columns are resizable.
 
-        Equivalent to ChangeFlag(wxCOL_RESIZABLE, resizeable).
+        Equivalent to ChangeFlag(wxCOL_RESIZABLE, resizable).
      */
-    virtual void SetResizeable(bool resizeable);
+    virtual void SetResizeable(bool resizable);
 
     /**
         Allow clicking the column to sort the control contents by the field in

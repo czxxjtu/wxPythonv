@@ -4,7 +4,7 @@
 // Author:      Arthur Seaton, Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: memory.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: memory.cpp 66898 2011-02-16 05:13:00Z PC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -118,8 +118,9 @@ void wxMemStruct::ErrorMsg ()
 */
 int wxMemStruct::AssertList ()
 {
-    if (wxDebugContext::GetHead () != 0 && ! (wxDebugContext::GetHead ())->AssertIt () ||
-        wxDebugContext::GetTail () != 0 && ! wxDebugContext::GetTail ()->AssertIt ()) {
+    if ((wxDebugContext::GetHead() && !wxDebugContext::GetHead()->AssertIt()) ||
+        (wxDebugContext::GetTail() && !wxDebugContext::GetTail()->AssertIt()))
+    {
         ErrorMsg ("Head or tail pointers trashed");
         return 0;
     }

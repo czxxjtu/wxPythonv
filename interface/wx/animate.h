@@ -2,7 +2,7 @@
 // Name:        animate.h
 // Purpose:     interface of wxAnimation* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: animate.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: animate.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -70,7 +70,7 @@ public:
     /**
         Creates the control with the given @a anim animation.
 
-        After control creation you must explicitely call Play() to start to play
+        After control creation you must explicitly call Play() to start to play
         the animation. Until that function won't be called, the first frame
         of the animation is displayed.
 
@@ -183,7 +183,7 @@ public:
 
     Note that on wxGTK wxAnimation is capable of loading the formats supported
     by the internally-used @c gdk-pixbuf library (typically this means only
-    or @c wxANIMATION_TYPE_GIF).
+    @c wxANIMATION_TYPE_GIF).
     On other platforms wxAnimation is always capable of loading both GIF and ANI
     formats (i.e. both @c wxANIMATION_TYPE_GIF and @c wxANIMATION_TYPE_ANI).
 

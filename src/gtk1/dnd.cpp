@@ -2,7 +2,7 @@
 // Name:        src/gtk1/dnd.cpp
 // Purpose:     wxDropTarget class
 // Author:      Robert Roebling
-// Id:          $Id: dnd.cpp 61724 2009-08-21 10:41:26Z VZ $
+// Id:          $Id: dnd.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -777,11 +777,11 @@ void wxDropSource::SetIcons(const wxIcon &iconCopy,
     m_iconMove = iconMove;
     m_iconNone = iconNone;
 
-    if ( !m_iconCopy.Ok() )
+    if ( !m_iconCopy.IsOk() )
         m_iconCopy = wxIcon(page_xpm);
-    if ( !m_iconMove.Ok() )
+    if ( !m_iconMove.IsOk() )
         m_iconMove = m_iconCopy;
-    if ( !m_iconNone.Ok() )
+    if ( !m_iconNone.IsOk() )
         m_iconNone = m_iconCopy;
 }
 

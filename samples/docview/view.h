@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin: merge with the MDI version and general cleanup
 // Created:     04/01/98
-// RCS-ID:      $Id: view.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: view.h 68051 2011-06-27 00:09:37Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 //              (c) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -25,7 +25,7 @@ class MyCanvas : public wxScrolledWindow
 public:
     // view may be NULL if we're not associated with one yet, but parent must
     // be a valid pointer
-    MyCanvas(wxView *view, wxWindow *parent);
+    MyCanvas(wxView *view, wxWindow *parent = NULL);
     virtual ~MyCanvas();
 
     virtual void OnDraw(wxDC& dc);
@@ -67,7 +67,7 @@ private:
 class DrawingView : public wxView
 {
 public:
-    DrawingView() { m_canvas = NULL; m_frame = NULL; }
+    DrawingView() : wxView(), m_canvas(NULL) {}
 
     virtual bool OnCreate(wxDocument *doc, long flags);
     virtual void OnDraw(wxDC *dc);
@@ -79,7 +79,6 @@ public:
 private:
     void OnCut(wxCommandEvent& event);
 
-    wxFrame *m_frame;
     MyCanvas *m_canvas;
 
     DECLARE_EVENT_TABLE()
@@ -94,7 +93,7 @@ private:
 class TextEditView : public wxView
 {
 public:
-    TextEditView() : wxView() { m_frame = NULL; m_text = NULL; }
+    TextEditView() : wxView(), m_text(NULL) {}
 
     virtual bool OnCreate(wxDocument *doc, long flags);
     virtual void OnDraw(wxDC *dc);
@@ -107,7 +106,6 @@ private:
     void OnPaste(wxCommandEvent& WXUNUSED(event)) { m_text->Paste(); }
     void OnSelectAll(wxCommandEvent& WXUNUSED(event)) { m_text->SelectAll(); }
 
-    wxFrame *m_frame;
     wxTextCtrl *m_text;
 
     DECLARE_EVENT_TABLE()
@@ -121,29 +119,9 @@ private:
 class ImageCanvas : public wxScrolledWindow
 {
 public:
-    ImageCanvas(wxView*, wxWindow* parent);
+    ImageCanvas(wxView*);
 
     virtual void OnDraw(wxDC& dc);
-
-    // in a normal multiple document application a canvas is associated with
-    // one view from the beginning until the end, but to support the single
-    // document mode in which all documents reuse the same MyApp::GetCanvas()
-    // we need to allow switching the canvas from one view to another one
-
-    void SetView(wxView* view)
-    {
-        wxASSERT_MSG( !m_view, "shouldn't be already associated with a view" );
-
-        m_view = view;
-    }
-
-    void ResetView()
-    {
-        wxASSERT_MSG( m_view, "should be associated with a view" );
-
-        m_view = NULL;
-    }
-
 private:
     wxView *m_view;
 };
@@ -155,7 +133,7 @@ private:
 class ImageView : public wxView
 {
 public:
-    ImageView() : wxView(), m_frame(NULL) {}
+    ImageView() : wxView() {}
 
     virtual bool OnCreate(wxDocument*, long flags);
     virtual void OnDraw(wxDC*);
@@ -165,10 +143,27 @@ public:
     ImageDocument* GetDocument();
 
 private:
-    wxFrame* m_frame;
     ImageCanvas* m_canvas;
 
     DECLARE_DYNAMIC_CLASS(ImageView)
+};
+
+// ----------------------------------------------------------------------------
+// ImageDetailsView
+// ----------------------------------------------------------------------------
+
+class ImageDetailsView : public wxView
+{
+public:
+    ImageDetailsView(ImageDetailsDocument *doc);
+
+    virtual void OnDraw(wxDC *dc);
+    virtual bool OnClose(bool deleteWindow);
+
+private:
+    wxFrame *m_frame;
+
+    wxDECLARE_NO_COPY_CLASS(ImageDetailsView);
 };
 
 #endif // _WX_SAMPLES_DOCVIEW_VIEW_H_

@@ -3,7 +3,7 @@
  *  Purpose:     Various preprocessor helpers
  *  Author:      Vadim Zeitlin
  *  Created:     2006-09-30
- *  RCS-ID:      $Id: cpp.h 59704 2009-03-21 17:18:01Z VZ $
+ *  RCS-ID:      $Id: cpp.h 66054 2010-11-07 13:16:20Z VZ $
  *  Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
  *  Licence:     wxWindows licence
  */
@@ -27,6 +27,16 @@
 
 /* a Unicode-friendly version of wxSTRINGIZE_T */
 #define wxSTRINGIZE_T(x)            wxAPPLY_T(wxSTRINGIZE(x))
+
+/*
+    Special workarounds for compilers with broken "##" operator. For all the
+    other ones we can just use it directly.
+ */
+#ifdef wxCOMPILER_BROKEN_CONCAT_OPER
+    #define wxPREPEND_L(x)      L ## x
+    #define wxAPPEND_i64(x)     x ## i64
+    #define wxAPPEND_ui64(x)    x ## ui64
+#endif /* wxCOMPILER_BROKEN_CONCAT_OPER */
 
 /*
    Helper macros for wxMAKE_UNIQUE_NAME: normally this works by appending the

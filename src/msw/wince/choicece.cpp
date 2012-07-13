@@ -4,7 +4,7 @@
 // Author:      Wlodzimierz ABX Skiba
 // Modified by:
 // Created:     29.07.2004
-// RCS-ID:      $Id: choicece.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: choicece.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) Wlodzimierz Skiba
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,12 +33,6 @@
 #endif
 
 #include "wx/spinbutt.h" // for wxSpinnerBestSize
-
-#if wxUSE_EXTENDED_RTTI
-// TODO
-#else
-IMPLEMENT_DYNAMIC_CLASS(wxChoice, wxControl)
-#endif
 
 #define GetBuddyHwnd()      (HWND)(m_hwndBuddy)
 

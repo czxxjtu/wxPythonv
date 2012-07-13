@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     11-Nov-2006
-// RCS-ID:      $Id: combo.i 64579 2010-06-13 11:13:18Z JMS $
+// RCS-ID:      $Id: combo.i 68064 2011-06-27 21:31:30Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -230,7 +230,7 @@ Window Styles
 MustHaveApp(wxPyComboCtrl);
 %rename(ComboCtrl) wxPyComboCtrl;
 
-class wxPyComboCtrl : public wxControl
+class wxPyComboCtrl : public wxControl, public wxTextEntry
 {
 public:
     %pythonAppend wxPyComboCtrl      "self._setOORInfo(self);" setCallbackInfo(ComboCtrl)
@@ -255,6 +255,10 @@ public:
 
     void _setCallbackInfo(PyObject* self, PyObject* _class);
 
+    
+    virtual void Popup();
+    virtual void Dismiss();
+    
     DocDeclStr(
         virtual void , ShowPopup(),
         "Show the popup window.", "");
@@ -360,6 +364,11 @@ with wx.CB_READONLY style the string must be accepted by the popup (for
 instance, exist in the dropdown list), otherwise the call to
 SetValue is ignored.", "");
 
+    virtual void ChangeValue(const wxString& value);
+    virtual void WriteText(const wxString& text);
+    virtual void AppendText(const wxString& text);
+    virtual wxString GetRange(long from, long to) const;
+    
     virtual void Copy();
     virtual void Cut();
     virtual void Paste();
@@ -370,6 +379,17 @@ SetValue is ignored.", "");
     virtual void Replace(long from, long to, const wxString& value);
     virtual void Remove(long from, long to);
     virtual void Undo();
+    virtual void Redo();
+    virtual bool CanUndo() const;
+    virtual bool CanRedo() const;
+
+    virtual void GetSelection(long *OUTPUT, long *OUTPUT) const;
+
+    virtual bool IsEditable() const;
+    virtual void SetEditable(bool editable);
+
+    virtual bool SetHint(const wxString& hint);
+    virtual wxString GetHint() const;
 
     %Rename(SetMark, void , SetSelection(long from, long to));
 
@@ -385,6 +405,7 @@ wx.CB_READONLY style.", "");
         void , SetValueWithEvent(const wxString& value, bool withEvent = true),
         "Same as `SetValue`, but also sends a EVT_TEXT event if withEvent is true.", "");
 
+    void SetValueByUser(const wxString& value);
 
     //
     // Popup customization methods
@@ -449,8 +470,8 @@ most appropriate side is used (which, currently, is always wx.LEFT).", "");
 
     :param bmpNormal:  Default button image
     :param pushButtonBg: If ``True``, blank push button background is painted below the image.
-    :param bmpPressed:  Depressed butotn image.
-    :param bmpHover:  Button imate to use when the mouse hovers over it.
+    :param bmpPressed:  Depressed button image.
+    :param bmpHover:  Button image to use when the mouse hovers over it.
     :param bmpDisabled: Disabled button image.
 ", "");
 
@@ -601,8 +622,7 @@ derived class calls `DoShowPopup`.  Flags are same as for `DoShowPopup`.
     %property(PopupWindow, GetPopupWindow);
     %property(TextCtrl, GetTextCtrl);
     %property(Button, GetButton);
-    %property(Value, GetValue, SetValue);
-    %property(InsertionPoint, GetInsertionPoint);
+//    %property(InsertionPoint, GetInsertionPoint);
     %property(CustomPaintWidth, GetCustomPaintWidth, SetCustomPaintWidth);
     %property(ButtonSize, GetButtonSize);
     %property(TextIndent, GetTextIndent, SetTextIndent);
@@ -619,7 +639,7 @@ derived class calls `DoShowPopup`.  Flags are same as for `DoShowPopup`.
 %newgroup
 
 
-// C++ implemetation of Python aware wxComboCtrl
+// C++ implemetation of Python aware wxComboPopup
 %{
 class wxPyComboPopup : public wxComboPopup
 {
@@ -785,6 +805,13 @@ style, etc.  Return ``True`` for success, ``False`` otherwise.  (NOTE:
 this return value is not currently checked...)", "");
 
 
+    // Calls Destroy() for the popup control (i.e. one returned by
+    // GetControl()) and makes sure that 'this' is deleted at the end.
+    // Default implementation works for both cases where popup control
+    // class is multiple inherited or created on heap as a separate
+    // object.
+    virtual void DestroyPopup();
+    
     DocDeclStr(
         virtual wxWindow *, GetControl(),
         "The derived class must implement this method and it should return a
@@ -1010,6 +1037,10 @@ public:
 
     void SetSelection(int n);
     %Rename(SetMark, void , SetSelection(long from, long to));
+
+    // Implemented in wxItemContainer, but hidden in wxPyComboCtrl, so list
+    // it explicitly here.
+    %pythoncode { GetString = wx.ItemContainer.GetString }
 
 
     // Callback for drawing. Font, background and text colour have been

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        spinctrl.h
+// Name:        wx/spinctrl.h
 // Purpose:     wxSpinCtrlBase class
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     22.07.99
-// RCS-ID:      $Id: spinctrl.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: spinctrl.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

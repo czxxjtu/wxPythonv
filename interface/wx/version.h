@@ -2,7 +2,7 @@
 // Name:        version.h
 // Purpose:     wxWidgets version numbers
 // Author:      wxWidgets team
-// RCS-ID:      $Id: numdlg.h 52425 2008-03-10 15:24:38Z FM $
+// RCS-ID:      $Id: version.h 67232 2011-03-18 15:10:15Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

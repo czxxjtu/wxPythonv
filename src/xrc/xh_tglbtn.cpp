@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        xh_tglbtn.cpp
+// Name:        src/xrc/xh_tglbtn.cpp
 // Purpose:     XRC resource for wxToggleButton
 // Author:      Bob Mitchell
 // Created:     2000/03/21
-// RCS-ID:      $Id: xh_tglbtn.cpp 64915 2010-07-12 22:50:09Z VZ $
+// RCS-ID:      $Id: xh_tglbtn.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2000 Bob Mitchell and Verant Interactive
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

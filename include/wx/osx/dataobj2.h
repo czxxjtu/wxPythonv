@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        mac/dataobj2.h
+// Name:        wx/osx/dataobj2.h
 // Purpose:     declaration of standard wxDataObjectSimple-derived classes
 // Author:      David Webster (adapted from Robert Roebling's gtk port
 // Modified by:
 // Created:     10/21/99
-// RCS-ID:      $Id: dataobj2.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: dataobj2.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998, 1999 Vadim Zeitlin, Robert Roebling
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     12-Oct-2000
-# RCS-ID:      $Id: setup.py 65598 2010-09-23 18:15:36Z RD $
+# RCS-ID:      $Id: setup.py 68061 2011-06-27 19:13:17Z RD $
 # Copyright:   (c) 2000 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -151,6 +151,7 @@ swig_sources = run_swig(['core.i'], 'src', GENDIR, PKGDIR,
                           'src/_control.i',
                           'src/_swigtype.i',
                           'src/_headercol.i',
+                          'src/_versioninfo.i',
                           ],
                         True)
 
@@ -304,6 +305,7 @@ swig_sources = run_swig(['controls.i'], 'src', GENDIR, PKGDIR,
                           'src/_axbase.i',
                           'src/_filectrl.i',
                           'src/_infobar.i',
+                          'src/_cmdlinkbtn.i',
                           ],
                         True)
 ext = Extension('_controls_', swig_sources,
@@ -850,6 +852,7 @@ WX_PKGLIST =      [ 'wx',
                     'wx.lib',
                     'wx.lib.agw',
                     'wx.lib.agw.aui',
+                    'wx.lib.agw.persist',
                     'wx.lib.agw.ribbon',
                     'wx.lib.analogclock',
                     'wx.lib.analogclock.lib_setup',

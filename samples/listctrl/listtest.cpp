@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: listtest.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: listtest.cpp 67734 2011-05-13 13:30:07Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -70,13 +70,13 @@ const wxChar *SMALL_VIRTUAL_VIEW_ITEMS[][2] =
 static const int NUM_ICONS = 9;
 
 int wxCALLBACK
-MyCompareFunction(long item1, long item2, wxIntPtr WXUNUSED(sortData))
+MyCompareFunction(wxIntPtr item1, wxIntPtr item2, wxIntPtr WXUNUSED(sortData))
 {
     // inverse the order
     if (item1 < item2)
-        return -1;
-    if (item1 > item2)
         return 1;
+    if (item1 > item2)
+        return -1;
 
     return 0;
 }
@@ -99,8 +99,6 @@ bool MyApp::OnInit()
 
     // Show the frame
     frame->Show(true);
-
-    SetTopWindow(frame);
 
     return true;
 }
@@ -283,7 +281,7 @@ MyFrame::MyFrame(const wxChar *title)
 
 #ifdef __WXMSW__
     // this is useful to know specially when debugging :)
-    wxLogMessage("Your version of comctl32.dll is: %d", 
+    wxLogMessage("Your version of comctl32.dll is: %d",
                  wxApp::GetComCtl32Version());
 #endif
 

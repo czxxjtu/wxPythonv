@@ -2,7 +2,7 @@
 // Name:        font.h
 // Purpose:     interface of wxFont
 // Author:      wxWidgets team
-// RCS-ID:      $Id: font.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: font.h 67052 2011-02-27 12:47:05Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -36,11 +36,9 @@ enum wxFontFamily
     /// See also wxFont::IsFixedWidth() for an easy way to test for monospace property.
     wxFONTFAMILY_TELETYPE = wxTELETYPE,
 
-    /// Returned by wxFont::GetFamily() when the face name of the font cannot
-    /// be classified into one of the previous wxFontFamily values.
-    wxFONTFAMILY_UNKNOWN = wxFONTFAMILY_MAX,
-
-    wxFONTFAMILY_MAX
+    /// Invalid font family value, returned by wxFont::GetFamily() when the
+    /// font is invalid for example.
+    wxFONTFAMILY_UNKNOWN
 };
 
 /**
@@ -70,6 +68,27 @@ enum wxFontWeight
     wxFONTWEIGHT_LIGHT = wxLIGHT,    //!< Light font.
     wxFONTWEIGHT_BOLD = wxBOLD,      //!< Bold font.
     wxFONTWEIGHT_MAX
+};
+
+/**
+    Symbolic font sizes.
+
+    The elements of this enum correspond to CSS absolute size specifications,
+    see http://www.w3.org/TR/CSS21/fonts.html#font-size-props
+
+    @see wxFont::SetSymbolicSize()
+
+    @since 2.9.2
+ */
+enum wxFontSymbolicSize
+{
+    wxFONTSIZE_XX_SMALL = -3,   //!< Extra small.
+    wxFONTSIZE_X_SMALL,         //!< Very small.
+    wxFONTSIZE_SMALL,           //!< Small.
+    wxFONTSIZE_MEDIUM,          //!< Normal.
+    wxFONTSIZE_LARGE,           //!< Large.
+    wxFONTSIZE_X_LARGE,         //!< Very large.
+    wxFONTSIZE_XX_LARGE         //!< Extra large.
 };
 
 /**
@@ -237,13 +256,10 @@ enum wxFontEncoding
     /// (this is used by wxEncodingConverter and wxUTFFile only for now)
     wxFONTENCODING_UNICODE,
 
-    // alternative names for Far Eastern encodings
-    // Chinese
     wxFONTENCODING_GB2312 = wxFONTENCODING_CP936, //!< Simplified Chinese
     wxFONTENCODING_BIG5 = wxFONTENCODING_CP950,   //!< Traditional Chinese
-
-        // Japanese (see http://zsigri.tripod.com/fontboard/cjk/jis.html)
-    wxFONTENCODING_SHIFT_JIS = wxFONTENCODING_CP932 //!< Shift JIS
+    wxFONTENCODING_SHIFT_JIS = wxFONTENCODING_CP932, //!< Shift JIS
+    wxFONTENCODING_EUC_KR = wxFONTENCODING_CP949 //!< Korean
 };
 
 
@@ -425,16 +441,17 @@ public:
     virtual wxString GetFaceName() const;
 
     /**
-        Gets the font family.
+        Gets the font family if possible.
+
         As described in ::wxFontFamily docs the returned value acts as a rough,
         basic classification of the main font properties (look, spacing).
 
         If the current font face name is not recognized by wxFont or by the
-        underlying system, @c wxFONTFAMILY_UNKNOWN is returned.
+        underlying system, @c wxFONTFAMILY_DEFAULT is returned.
 
-        Note that currently this function is rather unreliable (@c wxFONTFAMILY_UNKNOWN
-        is returned in too many cases) and not particularly useful.
-        Font families mostly make sense only for font creation; see SetFamily().
+        Note that currently this function is not very precise and so not
+        particularly useful. Font families mostly make sense only for font
+        creation, see SetFamily().
 
         @see SetFamily()
     */
@@ -579,6 +596,15 @@ public:
     wxFont Smaller() const;
 
     /**
+        Returns underlined version of this font.
+
+        @see MakeUnderlined()
+
+        @since 2.9.2
+     */
+    wxFont Underlined() const;
+
+    /**
         Changes this font to be bold.
 
         @see Bold()
@@ -619,6 +645,15 @@ public:
         @since 2.9.1
      */
     wxFont& MakeSmaller();
+
+    /**
+        Changes this font to be underlined.
+
+        @see Underlined()
+
+        @since 2.9.2
+     */
+    wxFont& MakeUnderlined();
 
     /**
         Changes the size of this font.
@@ -776,6 +811,28 @@ public:
         @see GetStyle()
     */
     virtual void SetStyle(wxFontStyle style);
+
+    /**
+        Sets the font size using a predefined symbolic size name.
+
+        This function allows to change font size to be (very) large or small
+        compared to the standard font size.
+
+        @see SetSymbolicSizeRelativeTo().
+
+        @since 2.9.2
+     */
+    void SetSymbolicSize(wxFontSymbolicSize size);
+
+    /**
+        Sets the font size compared to the base font size.
+
+        This is the same as SetSymbolicSize() except that it uses the given
+        font size as the normal font size instead of the standard font size.
+
+        @since 2.9.2
+     */
+    void SetSymbolicSizeRelativeTo(wxFontSymbolicSize size, int base);
 
     /**
         Sets underlining.

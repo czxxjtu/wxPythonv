@@ -2,7 +2,7 @@
 // Name:        src/gtk1/toplevel.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: toplevel.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: toplevel.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1100,7 +1100,7 @@ void wxTopLevelWindowGTK::SetIcons( const wxIconBundle &icons )
         return;
 
     wxIcon icon = icons.GetIcon(-1);
-    if (icon.Ok())
+    if (icon.IsOk())
     {
         wxMask *mask = icon.GetMask();
         GdkBitmap *bm = NULL;

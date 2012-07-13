@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        wx/unix/tls.h
+// Name:        wx/msw/tls.h
 // Purpose:     Win32 implementation of wxTlsValue<>
 // Author:      Vadim Zeitlin
 // Created:     2008-08-08
-// RCS-ID:      $Id: tls.h 63653 2010-03-08 12:21:58Z VS $
+// RCS-ID:      $Id: tls.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

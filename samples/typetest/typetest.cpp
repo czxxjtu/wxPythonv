@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: typetest.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: typetest.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -115,8 +115,6 @@ bool MyApp::OnInit()
 
     // Show the frame
     frame->Show(true);
-
-    SetTopWindow(frame);
 
     return true;
 }

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: dialog.cpp 63828 2010-04-02 14:52:08Z SC $
+// RCS-ID:      $Id: dialog.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ void wxDialog::EndWindowModal()
 
 void wxDialog::DoShowWindowModal()
 {
-    // If someone wants to add support for this to wxOSX Carbon, here would 
+    // If someone wants to add support for this to wxOSX Carbon, here would
     // be the place to start: http://trac.wxwidgets.org/ticket/9459
     // Unfortunately, supporting sheets in Carbon isn't as straightforward
     // as with Cocoa, so it will probably take some tweaking.

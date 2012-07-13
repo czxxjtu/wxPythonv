@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/03/18
-// Id:          $Id: listbox.mm 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: listbox.mm 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,6 @@ static void _SetWidthOfTableColumnToFitItems(NSTableColumn *tableColumn, NSArray
 // class wxListBox
 // ============================================================================
 
-IMPLEMENT_DYNAMIC_CLASS(wxListBox, wxControlWithItems)
 BEGIN_EVENT_TABLE(wxListBox, wxListBoxBase)
 END_EVENT_TABLE()
 WX_IMPLEMENT_COCOA_OWNER(wxListBox,NSTableView,NSControl,NSView)

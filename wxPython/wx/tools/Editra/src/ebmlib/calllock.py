@@ -21,8 +21,8 @@ lock.Lock() # Executes DoSomething
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: calllock.py 65710 2010-10-01 16:36:54Z CJP $"
-__revision__ = "$Revision: 65710 $"
+__svnid__ = "$Id: calllock.py 65794 2010-10-13 14:10:09Z CJP $"
+__revision__ = "$Revision: 65794 $"
 
 __all__ = [ 'CallLock', 'StaticCallLock', 'LockCall']
 
@@ -82,7 +82,7 @@ class StaticCallLock(CallLock):
 #-----------------------------------------------------------------------------#
 
 def LockCall(lock, callable, args=[], kwargs={}):
-    """Convinience function for locking an function call with
+    """Convenience function for locking an function call with
     the provided CallLock object.
 
     """

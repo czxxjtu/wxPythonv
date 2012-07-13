@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon, Vaclav Slavik, Robert Roebling
 // Modified by:
 // Created:     25.03.02
-// RCS-ID:      $Id: utilsx11.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: utilsx11.cpp 65385 2010-08-22 22:15:42Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -537,7 +537,7 @@ void wxSetFullScreenStateX11(WXDisplay* display, WXWindow rootWindow,
 
 // FIXME what about tables??
 
-int wxCharCodeXToWX(KeySym keySym)
+int wxCharCodeXToWX(WXKeySym keySym)
 {
     int id;
     switch (keySym)
@@ -717,9 +717,9 @@ int wxCharCodeXToWX(KeySym keySym)
     return id;
 }
 
-KeySym wxCharCodeWXToX(int id)
+WXKeySym wxCharCodeWXToX(int id)
 {
-    KeySym keySym;
+    WXKeySym keySym;
 
     switch (id)
     {

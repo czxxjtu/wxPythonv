@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/generic/spinctlg.h
+// Name:        wx/osx/spinctrl.h
 // Purpose:     generic wxSpinCtrl class
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     28.10.99
-// RCS-ID:      $Id: spinctrl.h 62356 2009-10-09 17:39:19Z PC $
+// RCS-ID:      $Id: spinctrl.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

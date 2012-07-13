@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:         dynload.h
+// Name:         wx/dynload.h
 // Purpose:      Dynamic loading framework
 // Author:       Ron Lee, David Falkinder, Vadim Zeitlin and a cast of 1000's
 //               (derived in part from dynlib.cpp (c) 1998 Guilhem Lavaux)
 // Modified by:
 // Created:      03/12/01
-// RCS-ID:       $Id: dynload.h 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:       $Id: dynload.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:    (c) 2001 Ron Lee <ron@debian.org>
 // Licence:      wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

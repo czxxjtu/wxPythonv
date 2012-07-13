@@ -4,7 +4,7 @@
 // Author:      John Labenski
 // Modified by:
 // Created:     14.06.03 (extracted from src/*/filedlg.cpp)
-// RCS-ID:      $Id: fldlgcmn.cpp 62722 2009-11-26 16:17:00Z VZ $
+// RCS-ID:      $Id: fldlgcmn.cpp 66592 2011-01-05 18:27:58Z PC $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,16 @@
     #include "wx/intl.h"
     #include "wx/window.h"
 #endif // WX_PRECOMP
+
+extern WXDLLEXPORT_DATA(const char) wxFileDialogNameStr[] = "filedlg";
+extern WXDLLEXPORT_DATA(const char) wxFileSelectorPromptStr[] = "Select a file";
+extern WXDLLEXPORT_DATA(const char) wxFileSelectorDefaultWildcardStr[] =
+#if defined(__WXMSW__) || defined(__OS2__)
+    "*.*"
+#else // Unix/Mac
+    "*"
+#endif
+    ;
 
 //----------------------------------------------------------------------------
 // wxFileDialogBase
@@ -186,7 +196,7 @@ void wxFileDialogBase::SetPath(const wxString& path)
     wxString ext;
     wxFileName::SplitPath(path, &m_dir, &m_fileName, &ext);
     if ( !ext.empty() )
-        m_fileName << _T('.') << ext;
+        m_fileName << wxT('.') << ext;
     m_path = path;
 }
 

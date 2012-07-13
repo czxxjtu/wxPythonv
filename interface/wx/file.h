@@ -2,7 +2,7 @@
 // Name:        file.h
 // Purpose:     interface of wxTempFile, wxFile
 // Author:      wxWidgets team
-// RCS-ID:      $Id: file.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: file.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -173,12 +173,12 @@ public:
             or test if it can be opened for writing with Access(). */
         write,
 
-        /** Open file for reading and writing; can not be used with Access() */
+        /** Open file for reading and writing; cannot be used with Access() */
         read_write,
 
         /** Open file for appending: the file is opened for writing, but the old contents
             of the file are not erased and the file pointer is initially placed at the end
-            of the file; can not be used with Access().
+            of the file; cannot be used with Access().
 
             This is the same as OpenMode::write if the file doesn't exist.
         */
@@ -230,6 +230,32 @@ public:
         @note This destructor is not virtual so you should not use wxFile polymorphically.
     */
     ~wxFile();
+
+    /**
+        Returns the error code for the last unsuccessful operation.
+
+        The error code is system-dependent and corresponds to the value of the
+        standard @c errno variable when the last error occurred.
+
+        Notice that only simple accessors such as IsOpened() and Eof() (and
+        this method itself) don't modify the last error value, all other
+        methods can potentially change it if an error occurs, including the
+        const ones such as Tell() or Length().
+
+        @since 2.9.2
+
+        @see ClearLastError()
+    */
+    int GetLastError() const;
+
+    /**
+        Resets the error code.
+
+        GetLastError() will return 0 until the next error occurs.
+
+        @since 2.9.2
+    */
+    void ClearLastError();
 
     /**
         This function verifies if we may access the given file in specified mode.

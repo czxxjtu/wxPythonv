@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/toplevel.cpp
+// Name:        src/osx/toplevel_osx.cpp
 // Purpose:     implements wxTopLevelWindow for Mac
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     24.09.01
-// RCS-ID:      $Id: toplevel_osx.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: toplevel_osx.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2001-2004 Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -73,10 +73,7 @@ bool wxTopLevelWindowMac::Create(wxWindow *parent,
                                  long style,
                                  const wxString& name)
 {
-    int w = WidthDefault(size.x);
-    int h = HeightDefault(size.y);
-
-    if ( !wxNonOwnedWindow::Create(parent, id, pos, wxSize(w,h), style, name) )
+    if ( !wxNonOwnedWindow::Create(parent, id, pos, size, style, name) )
         return false;
 
     wxWindow::SetLabel( title ) ;
@@ -91,9 +88,9 @@ bool wxTopLevelWindowMac::Create(wxWindow *parent,
 {
     if ( !wxNonOwnedWindow::Create(parent, nativeWindow ) )
         return false;
-    
+
     wxTopLevelWindows.Append(this);
-    
+
     return true;
 }
 
@@ -127,7 +124,7 @@ bool wxTopLevelWindowMac::IsMaximized() const
 {
     if ( m_nowpeer == NULL )
         return false;
-    
+
     return m_nowpeer->IsMaximized();
 }
 
@@ -183,7 +180,7 @@ void wxTopLevelWindowMac::ShowWithoutActivating()
         return;
 
     m_nowpeer->ShowWithoutActivating();
-    
+
     // TODO: Should we call EVT_SIZE here?
 }
 

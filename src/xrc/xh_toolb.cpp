@@ -3,7 +3,7 @@
 // Purpose:     XRC resource for wxToolBar
 // Author:      Vaclav Slavik
 // Created:     2000/08/11
-// RCS-ID:      $Id: xh_toolb.cpp 63172 2010-01-18 00:29:00Z VZ $
+// RCS-ID:      $Id: xh_toolb.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -141,7 +141,7 @@ wxObject *wxToolBarXmlHandler::DoCreateResource()
         if ( menu )
             tool->SetDropdownMenu(menu);
 #endif
-        
+
         return m_toolbar; // must return non-NULL
     }
 

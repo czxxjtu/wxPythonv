@@ -1,8 +1,8 @@
 /* ///////////////////////////////////////////////////////////////////////////
-// Name:        win_gtk.h
+// Name:        wx/gtk/private/win_gtk.h
 // Purpose:     native GTK+ widget for wxWindow
 // Author:      Robert Roebling
-// Id:          $Id: win_gtk.h 64431 2010-05-30 06:38:28Z PC $
+// Id:          $Id: win_gtk.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////// */
@@ -10,7 +10,7 @@
 #ifndef _WX_GTK_PIZZA_H_
 #define _WX_GTK_PIZZA_H_
 
-#include <gtk/gtkfixed.h>
+#include <gtk/gtk.h>
 
 #define WX_PIZZA(obj) G_TYPE_CHECK_INSTANCE_CAST(obj, wxPizza::type(), wxPizza)
 #define WX_IS_PIZZA(obj) G_TYPE_CHECK_INSTANCE_TYPE(obj, wxPizza::type())

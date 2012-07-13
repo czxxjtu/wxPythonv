@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        msw/regconf.h
+// Name:        wx/msw/regconf.h
 // Purpose:     Registry based implementation of wxConfigBase
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     27.04.98
-// RCS-ID:      $Id: regconf.h 59418 2009-03-07 15:49:32Z VZ $
+// RCS-ID:      $Id: regconf.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

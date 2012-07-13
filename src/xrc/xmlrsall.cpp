@@ -3,7 +3,7 @@
 // Purpose:     wxXmlResource::InitAllHandlers
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xmlrsall.cpp 61027 2009-06-12 17:40:11Z VZ $
+// RCS-ID:      $Id: xmlrsall.cpp 65885 2010-10-23 18:56:28Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -77,6 +77,9 @@ void wxXmlResource::InitAllHandlers()
 #endif
 #if wxUSE_COMBOCTRL
     AddHandler(new wxComboCtrlXmlHandler);
+#endif
+#if wxUSE_COMMANDLINKBUTTON
+    AddHandler(new wxCommandLinkButtonXmlHandler);
 #endif
 #if wxUSE_DATEPICKCTRL
     AddHandler(new wxDateCtrlXmlHandler);
@@ -184,6 +187,9 @@ void wxXmlResource::InitAllHandlers()
 #endif
 #if wxUSE_TOOLBAR
     AddHandler(new wxToolBarXmlHandler);
+#endif
+#if wxUSE_TOOLBOOK
+    AddHandler(new wxToolbookXmlHandler);
 #endif
 #if wxUSE_TREEBOOK
     AddHandler(new wxTreebookXmlHandler);

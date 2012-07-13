@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/msw/tbar95.h
+// Name:        wx/msw/toolbar.h
 // Purpose:     wxToolBar (Windows 95 toolbar) class
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: toolbar.h 62971 2009-12-22 15:37:43Z VZ $
+// RCS-ID:      $Id: toolbar.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

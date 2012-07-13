@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     3-July-1997
-// RCS-ID:      $Id: _settings.i 59464 2009-03-10 04:27:59Z KO $
+// RCS-ID:      $Id: _settings.i 67450 2011-04-13 17:54:00Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -70,6 +70,7 @@ enum wxSystemColour
     wxSYS_COLOUR_MENUHILIGHT,
     wxSYS_COLOUR_MENUBAR,
     wxSYS_COLOUR_LISTBOXTEXT,
+    wxSYS_COLOUR_LISTBOXHIGHLIGHTTEXT,
     
     wxSYS_COLOUR_MAX,
 

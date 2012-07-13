@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        sound.h
+// Name:        wx/cocoa/sound.h
 // Purpose:     wxSound class (loads and plays short Windows .wav files).
 //              Optional on non-Windows platforms.
 // Authors:     David Elliott, Ryan Norton
 // Modified by:
 // Created:     2004-10-02
-// RCS-ID:      $Id: sound.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: sound.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 David Elliott, Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

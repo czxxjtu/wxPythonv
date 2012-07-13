@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        src/common/epolldispatcher.cpp
+// Name:        src/unix/epolldispatcher.cpp
 // Purpose:     implements dispatcher for epoll_wait() call
 // Author:      Lukasz Michalski
 // Created:     April 2007
-// RCS-ID:      $Id: epolldispatcher.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: epolldispatcher.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2007 Lukasz Michalski
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

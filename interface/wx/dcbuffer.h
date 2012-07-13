@@ -2,7 +2,7 @@
 // Name:        dcbuffer.h
 // Purpose:     interface of wxBufferedDC
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dcbuffer.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dcbuffer.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
     @class wxBufferedDC
 
     This class provides a simple way to avoid flicker: when drawing on it,
-    everything is infact first drawn on an in-memory buffer (a wxBitmap) and
+    everything is in fact first drawn on an in-memory buffer (a wxBitmap) and
     then copied to the screen, using the associated wxDC, only once, when this
     object is destroyed. wxBufferedDC itself is typically associated with
     wxClientDC, if you want to use it in your @c EVT_PAINT handler, you should
@@ -120,7 +120,7 @@ public:
 
     The difference between wxBufferedPaintDC and this class is that this class
     won't double-buffer on platforms which have native double-buffering
-    already, avoiding any unneccessary buffering to avoid flicker.
+    already, avoiding any unnecessary buffering to avoid flicker.
 
     wxAutoBufferedPaintDC is simply a typedef of wxPaintDC on platforms that
     have native double-buffering, otherwise, it is a typedef of

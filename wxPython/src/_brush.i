@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _brush.i 58790 2009-02-09 02:06:11Z KO $
+// RCS-ID:      $Id: _brush.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,10 @@ uninitialised bitmap (`wx.Bitmap.Ok` returns False).", "");
     DocDeclStr(
         bool , IsHatch() const,
         "Is the current style a hatch type?", "");
-    
+
+    bool IsTransparent() const;
+    bool IsNonTransparent() const;
+
 
     DocDeclStr(
         bool , IsOk(),

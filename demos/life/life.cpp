@@ -4,7 +4,7 @@
 // Author:      Guillermo Rodriguez Garcia, <guille@iies.es>
 // Modified by:
 // Created:     Jan/2000
-// RCS-ID:      $Id: life.cpp 55276 2008-08-26 06:34:14Z PC $
+// RCS-ID:      $Id: life.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) 2000, Guillermo Rodriguez Garcia
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -163,9 +163,8 @@ bool LifeApp::OnInit()
     // create the main application window
     LifeFrame *frame = new LifeFrame();
 
-    // show it and tell the application that it's our main window
+    // show it
     frame->Show(true);
-    SetTopWindow(frame);
 
     // just for Motif
 #ifdef __WXMOTIF__
@@ -354,10 +353,10 @@ void LifeFrame::UpdateInfoText()
 {
     wxString msg;
 
-    msg.Printf(_(" Generation: %u (T: %u ms),  Population: %u "),
+    msg.Printf(_(" Generation: %lu (T: %lu ms),  Population: %lu "),
                m_tics,
                m_topspeed? 0 : m_interval,
-               m_life->GetNumCells());
+               static_cast<unsigned long>(m_life->GetNumCells()));
     m_text->SetLabel(msg);
 }
 

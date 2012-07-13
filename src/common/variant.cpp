@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     10/09/98
-// RCS-ID:      $Id: variant.cpp 64821 2010-07-05 14:23:21Z VS $
+// RCS-ID:      $Id: variant.cpp 66608 2011-01-06 11:06:12Z SC $
 // Copyright:   (c)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1977,8 +1977,6 @@ protected:
 // Convert to/from list of wxAnys
 //
 
-WX_DEFINE_LIST(wxAnyList)
-
 bool wxVariantDataList::GetAsAny(wxAny* any) const
 {
     wxAnyList dst;
@@ -2360,6 +2358,15 @@ bool wxVariant::Convert(wxUniChar* value) const
         *value = (char) (((wxVariantDataLong*)GetData())->GetValue());
     else if (type == wxT("bool"))
         *value = (char) (((wxVariantDataBool*)GetData())->GetValue());
+    else if (type == wxS("string"))
+    {
+        // Also accept strings of length 1
+        const wxString& str = (((wxVariantDataString*)GetData())->GetValue());
+        if ( str.length() == 1 )
+            *value = str[0];
+        else
+            return false;
+    }
     else
         return false;
 

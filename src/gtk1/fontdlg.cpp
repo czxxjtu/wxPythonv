@@ -2,7 +2,7 @@
 // Name:        src/gtk1/fontdlg.cpp
 // Purpose:     wxFontDialog
 // Author:      Robert Roebling
-// Id:          $Id: fontdlg.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: fontdlg.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -148,7 +148,7 @@ bool wxFontDialog::DoCreate(wxWindow *parent)
         GTK_SIGNAL_FUNC(gtk_fontdialog_delete_callback), (gpointer)this );
 
     wxFont font = m_fontData.GetInitialFont();
-    if( font.Ok() )
+    if( font.IsOk() )
     {
         const wxNativeFontInfo *info = font.GetNativeFontInfo();
 

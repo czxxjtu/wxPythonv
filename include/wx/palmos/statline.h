@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: statline.h 52834 2008-03-26 15:06:00Z FM $
+// RCS-ID:      $Id: statline.h 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ public:
                  long style = wxLI_HORIZONTAL,
                  const wxString &name = wxStaticLineNameStr );
 
-    // overriden base class virtuals
+    // overridden base class virtuals
     virtual bool AcceptsFocus() const { return FALSE; }
 
 protected:

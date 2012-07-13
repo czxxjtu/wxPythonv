@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////
-// Name:        generic/gridctrl.h
+// Name:        wx/generic/gridctrl.h
 // Purpose:     wxGrid controls
 // Author:      Paul Gammans, Roger Gammans
 // Modified by:
 // Created:     11/04/2001
-// RCS-ID:      $Id: gridctrl.h 64100 2010-04-22 11:20:50Z VZ $
+// RCS-ID:      $Id: gridctrl.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) The Computer Surgery (paul@compsurg.co.uk)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

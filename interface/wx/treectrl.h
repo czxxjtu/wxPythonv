@@ -2,7 +2,7 @@
 // Name:        treectrl.h
 // Purpose:     interface of wxTreeItemData
 // Author:      wxWidgets team
-// RCS-ID:      $Id: treectrl.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: treectrl.h 67584 2011-04-23 11:17:43Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@
     wxTreeItemId handles, which may be tested for validity by calling
     wxTreeItemId::IsOk().
 
-    A similar control with a fully native implemtation for GTK+ and OS X
+    A similar control with a fully native implementation for GTK+ and OS X
     as well is wxDataViewTreeCtrl.
 
     To intercept events from a tree control, use the event table macros
@@ -29,6 +29,14 @@
         For convenience to document that no buttons are to be drawn.
     @style{wxTR_HAS_BUTTONS}
         Use this style to show + and - buttons to the left of parent items.
+    @style{wxTR_TWIST_BUTTONS}
+        Selects alternative style of @c +/@c - buttons and shows rotating
+        ("twisting") arrows instead. Currently this style is only implemented
+        under Microsoft Windows Vista and later Windows versions and is ignored
+        under the other platforms. Notice that under Vista this style results
+        in the same appearance as used by the tree control in Explorer and
+        other built-in programs and so using it may be preferable to the
+        default style.
     @style{wxTR_NO_LINES}
         Use this style to hide vertical level connectors.
     @style{wxTR_FULL_ROW_HIGHLIGHT}
@@ -64,52 +72,74 @@
     @event{EVT_TREE_BEGIN_DRAG(id, func)}
           Begin dragging with the left mouse button.
           If you want to enable left-dragging you need to intercept this event
-          and explicitely call wxTreeEvent::Allow(), as it's vetoed by default.
+          and explicitly call wxTreeEvent::Allow(), as it's vetoed by default.
+          Processes a @c wxEVT_COMMAND_TREE_BEGIN_DRAG event type.
     @event{EVT_TREE_BEGIN_RDRAG(id, func)}
           Begin dragging with the right mouse button.
           If you want to enable right-dragging you need to intercept this event
-          and explicitely call wxTreeEvent::Allow(), as it's vetoed by default.
+          and explicitly call wxTreeEvent::Allow(), as it's vetoed by default.
+          Processes a @c wxEVT_COMMAND_TREE_BEGIN_RDRAG event type.
     @event{EVT_TREE_END_DRAG(id, func)}
           End dragging with the left or right mouse button.
+          Processes a @c wxEVT_COMMAND_TREE_END_DRAG event type.
     @event{EVT_TREE_BEGIN_LABEL_EDIT(id, func)}
           Begin editing a label. This can be prevented by calling Veto().
+          Processes a @c wxEVT_COMMAND_TREE_BEGIN_LABEL_EDIT event type.
     @event{EVT_TREE_END_LABEL_EDIT(id, func)}
           Finish editing a label. This can be prevented by calling Veto().
+          Processes a @c wxEVT_COMMAND_TREE_BEGIN_LABEL_EDIT event type.
     @event{EVT_TREE_DELETE_ITEM(id, func)}
           An item was deleted.
+          Processes a @c wxEVT_COMMAND_TREE_DELETE_ITEM event type.
     @event{EVT_TREE_GET_INFO(id, func)}
           Request information from the application.
+          Processes a @c wxEVT_COMMAND_TREE_GET_INFO event type.
     @event{EVT_TREE_SET_INFO(id, func)}
           Information is being supplied.
+          Processes a @c wxEVT_COMMAND_TREE_SET_INFO event type.
     @event{EVT_TREE_ITEM_ACTIVATED(id, func)}
           The item has been activated, i.e. chosen by double clicking it with
           mouse or from keyboard.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_ACTIVATED event type.
     @event{EVT_TREE_ITEM_COLLAPSED(id, func)}
           The item has been collapsed.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_COLLAPSED event type.
     @event{EVT_TREE_ITEM_COLLAPSING(id, func)}
           The item is being collapsed. This can be prevented by calling Veto().
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_COLLAPSING event type.
     @event{EVT_TREE_ITEM_EXPANDED(id, func)}
           The item has been expanded.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_EXPANDED event type.
     @event{EVT_TREE_ITEM_EXPANDING(id, func)}
           The item is being expanded. This can be prevented by calling Veto().
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_EXPANDING event type.
     @event{EVT_TREE_ITEM_RIGHT_CLICK(id, func)}
           The user has clicked the item with the right mouse button.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK event type.
     @event{EVT_TREE_ITEM_MIDDLE_CLICK(id, func)}
-          The user has clicked the item with the middle mouse button.
+          The user has clicked the item with the middle mouse button. This is
+          only supported by the generic control.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_MIDDLE_CLICK event type.
     @event{EVT_TREE_SEL_CHANGED(id, func)}
           Selection has changed.
+          Processes a @c wxEVT_COMMAND_TREE_SEL_CHANGED event type.
     @event{EVT_TREE_SEL_CHANGING(id, func)}
           Selection is changing. This can be prevented by calling Veto().
+          Processes a @c wxEVT_COMMAND_TREE_SEL_CHANGING event type.
     @event{EVT_TREE_KEY_DOWN(id, func)}
           A key has been pressed.
+          Processes a @c wxEVT_COMMAND_TREE_KEY_DOWN event type.
     @event{EVT_TREE_ITEM_GETTOOLTIP(id, func)}
           The opportunity to set the item tooltip is being given to the application
           (call wxTreeEvent::SetToolTip). Windows only.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_GETTOOLTIP event type.
     @event{EVT_TREE_ITEM_MENU(id, func)}
           The context menu for the selected item has been requested, either by a
           right click or by using the menu key.
+          Processes a @c wxEVT_COMMAND_TREE_ITEM_MENU event type.
     @event{EVT_TREE_STATE_IMAGE_CLICK(id, func)}
           The state image has been clicked. Windows only.
+          Processes a @c wxEVT_COMMAND_TREE_STATE_IMAGE_CLICK event type.
     @endEventTable
 
 
@@ -782,9 +812,14 @@ public:
     virtual void ScrollTo(const wxTreeItemId& item);
 
     /**
-        Selects the given item. In multiple selection controls, can be also used
-        to deselect a currently selected item if the value of @a select is
-        @false.
+        Selects the given item.
+
+        In multiple selection controls, can be also used to deselect a
+        currently selected item if the value of @a select is @false.
+
+        Notice that calling this method will generate
+        @c wxEVT_COMMAND_TREE_SEL_CHANGING and @c wxEVT_COMMAND_TREE_SEL_CHANGED
+        events and that the change could be vetoed by the former event handler.
     */
     virtual void SelectItem(const wxTreeItemId& item, bool select = true);
 
@@ -997,13 +1032,13 @@ public:
     @beginEventTable{wxTreeEvent}
     @event{EVT_TREE_BEGIN_DRAG(id, func)}
         Begin dragging with the left mouse button. If you want to enable
-        left-dragging you need to intercept this event and explicitely call
+        left-dragging you need to intercept this event and explicitly call
         wxTreeEvent::Allow(), as it's vetoed by default. Also notice that the
         control must have an associated image list (see SetImageList()) to
         drag its items under MSW.
     @event{EVT_TREE_BEGIN_RDRAG(id, func)}
         Begin dragging with the right mouse button. If you want to enable
-        right-dragging you need to intercept this event and explicitely call
+        right-dragging you need to intercept this event and explicitly call
         wxTreeEvent::Allow(), as it's vetoed by default.
     @event{EVT_TREE_END_DRAG(id, func)}
         End dragging with the left or right mouse button.

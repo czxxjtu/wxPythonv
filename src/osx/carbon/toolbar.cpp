@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: toolbar.cpp 63830 2010-04-02 19:30:29Z VZ $
+// RCS-ID:      $Id: toolbar.cpp 67230 2011-03-18 14:20:12Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1118,9 +1118,9 @@ bool wxToolBar::MacInstallNativeToolbar(bool usesNative)
 
             SetAutomaticControlDragTrackingEnabledForWindow( tlw, true );
 
-            m_peer->Move(0,0,0,0 );
+            GetPeer()->Move(0,0,0,0 );
             SetSize( wxSIZE_AUTO_WIDTH, 0 );
-            m_peer->SetVisibility( false );
+            GetPeer()->SetVisibility( false );
             wxToolBarBase::Show( false );
         }
     }
@@ -1135,7 +1135,7 @@ bool wxToolBar::MacInstallNativeToolbar(bool usesNative)
             ChangeWindowAttributes( tlw, 0, kWindowToolbarButtonAttribute );
             MacUninstallNativeToolbar();
 
-            m_peer->SetVisibility( true );
+            GetPeer()->SetVisibility( true );
         }
     }
 
@@ -1150,7 +1150,7 @@ void wxToolBar::MacUninstallNativeToolbar()
 {
     if (!m_macToolbar)
         return;
-        
+
     WindowRef tlw = MAC_WXHWND(MacGetTopLevelWindowRef());
     if (tlw)
         SetWindowToolbar( tlw, NULL );
@@ -1423,6 +1423,18 @@ bool wxToolBar::Realize()
 
     return true;
 }
+
+void wxToolBar::DoLayout()
+{
+    // TODO port back osx_cocoa layout solution
+}
+
+void wxToolBar::DoSetSize(int x, int y, int width, int height, int sizeFlags)
+{
+    wxToolBarBase::DoSetSize(x, y, width, height, sizeFlags);
+    
+    DoLayout();
+}    
 
 void wxToolBar::SetToolBitmapSize(const wxSize& size)
 {

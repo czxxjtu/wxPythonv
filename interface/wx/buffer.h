@@ -2,7 +2,7 @@
 // Name:        buffer.h
 // Purpose:     interface of wxMemoryBuffer
 // Author:      wxWidgets team
-// RCS-ID:      $Id: buffer.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: buffer.h 65205 2010-08-06 20:14:39Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -298,6 +298,16 @@ public:
             New byte to append to the buffer.
     */
     void AppendByte(char data);
+
+    /**
+        Single call to append a data block to the buffer.
+
+        @param data
+            Pointer to block to append to the buffer.
+        @param len
+            Length of data to append.
+    */
+    void AppendData(const void *data, size_t len);
 
     /**
         Ensure that the buffer is big enough and return a pointer to the start

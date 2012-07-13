@@ -4,7 +4,7 @@
 // Author:      Benjamin I. Williams
 // Modified by:
 // Created:     2005-05-17
-// RCS-ID:      $Id: floatpane.cpp 64454 2010-05-31 14:59:18Z VZ $
+// RCS-ID:      $Id: floatpane.cpp 67745 2011-05-14 14:18:20Z VZ $
 // Copyright:   (C) Copyright 2005-2006, Kirix Corporation, All Rights Reserved
 // Licence:     wxWindows Library Licence, Version 3.1
 ///////////////////////////////////////////////////////////////////////////////
@@ -123,7 +123,22 @@ void wxAuiFloatingFrame::SetPaneWindow(const wxAuiPaneInfo& pane)
 
     SetTitle(pane.caption);
 
-    if (pane.floating_size != wxDefaultSize)
+    // This code is slightly awkward because we need to reset wxRESIZE_BORDER
+    // before calling SetClientSize() below as doing it after setting the
+    // client size would actually change it, at least under MSW, where the
+    // total window size doesn't change and hence, as the borders size changes,
+    // the client size does change.
+    //
+    // So we must call it first but doing it generates a size event and updates
+    // pane.floating_size from inside it so we must also record its original
+    // value before doing it.
+    const bool hasFloatingSize = pane.floating_size != wxDefaultSize;
+    if (pane.IsFixed())
+    {
+        SetWindowStyleFlag(GetWindowStyleFlag() & ~wxRESIZE_BORDER);
+    }
+
+    if ( hasFloatingSize )
     {
         SetSize(pane.floating_size);
     }
@@ -143,11 +158,6 @@ void wxAuiFloatingFrame::SetPaneWindow(const wxAuiPaneInfo& pane)
         }
 
         SetClientSize(size);
-    }
-
-    if (pane.IsFixed())
-    {
-        SetWindowStyleFlag(GetWindowStyleFlag() & ~wxRESIZE_BORDER);
     }
 }
 
@@ -214,6 +224,15 @@ void wxAuiFloatingFrame::OnMoveEvent(wxMoveEvent& event)
         m_last3_rect = m_last2_rect;
         m_last2_rect = m_last_rect;
         m_last_rect = win_rect;
+
+        // However still update the internally stored position to avoid
+        // snapping back to the old one later.
+        if (m_owner_mgr)
+        {
+            m_owner_mgr->GetPane(m_pane_window).
+                floating_pos = win_rect.GetPosition();
+        }
+
         return;
     }
 

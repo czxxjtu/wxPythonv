@@ -2,7 +2,7 @@
 // Name:        src/html/m_image.cpp
 // Purpose:     wxHtml module for displaying images
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: m_image.cpp 64960 2010-07-14 11:20:36Z VZ $
+// RCS-ID:      $Id: m_image.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1999 Vaclav Slavik, Joel Lucsy
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -417,7 +417,7 @@ wxHtmlImageCell::wxHtmlImageCell(wxHtmlWindowInterface *windowIface,
 #endif // wxUSE_GIF && wxUSE_TIMER
                 {
                     wxImage image(*s, wxBITMAP_TYPE_ANY);
-                    if ( image.Ok() )
+                    if ( image.IsOk() )
                         SetImage(image);
                 }
             }
@@ -446,7 +446,7 @@ wxHtmlImageCell::wxHtmlImageCell(wxHtmlWindowInterface *windowIface,
 void wxHtmlImageCell::SetImage(const wxImage& img)
 {
 #if !defined(__WXMSW__) || wxUSE_WXDIB
-    if ( img.Ok() )
+    if ( img.IsOk() )
     {
         delete m_bitmap;
 

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     11-April-2006
-// RCS-ID:      $Id: richtext.i 55854 2008-09-25 07:31:30Z RD $
+// RCS-ID:      $Id: richtext.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
 %{
 #include "wx/wxPython/wxPython.h"
 #include "wx/wxPython/pyclasses.h"
+#include "wx/wxPython/pytree.h"
 #include "wx/wxPython/printfw.h"
 #include "wx/wxPython/twoitem.h"
 
@@ -31,11 +32,13 @@ class wxBufferedPaintDC;
 class wxMetaFile;
 class wxMetaFileDC;
 class wxPrinterDC;
+class wxPyTreeCtrl;
 %}
 
 //----------------------------------------------------------------------
 
 %import windows.i
+%import controls.i
 
 %pythoncode { wx = _core }
 %pythoncode { __docfilter__ = wx.__DocFilter(globals()) }

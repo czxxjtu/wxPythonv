@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/carbon/tooltip.cpp
+// Name:        src/osx/cocoa/tooltip.mm
 // Purpose:     wxToolTip implementation
 // Author:      Stefan Csomor
-// Id:          $Id: tooltip.cpp 55419 2008-09-02 16:53:23Z SC $
+// Id:          $Id: tooltip.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

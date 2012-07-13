@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: clipbrd.cpp 61475 2009-07-20 16:47:54Z VZ $
+// RCS-ID:      $Id: clipbrd.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ bool wxOpenClipboard()
     }
     else
     {
-        wxLogDebug(wxT("Can not open clipboard without a main window."));
+        wxLogDebug(wxT("Cannot open clipboard without a main window."));
 
         return false;
     }
@@ -214,7 +214,7 @@ bool wxSetClipboardData(wxDataFormat dataFormat,
             {
                 wxBitmap *bitmap = (wxBitmap *)data;
 
-                if ( bitmap && bitmap->Ok() )
+                if ( bitmap && bitmap->IsOk() )
                 {
                     wxDIB dib(*bitmap);
                     if ( dib.IsOk() )

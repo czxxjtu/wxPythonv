@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     01.03.03
-// RCS-ID:      $Id: dpycmn.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dpycmn.cpp 65231 2010-08-10 18:57:42Z VZ $
 // Copyright:   (c) 2003-2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -234,7 +234,7 @@ bool wxDisplay::ChangeMode(const wxVideoMode& mode)
 int wxDisplayFactory::GetFromWindow(const wxWindow *window)
 {
     // consider that the window belongs to the display containing its centre
-    const wxRect r(window->GetRect());
+    const wxRect r(window->GetScreenRect());
     return GetFromPoint(wxPoint(r.x + r.width/2, r.y + r.height/2));
 }
 

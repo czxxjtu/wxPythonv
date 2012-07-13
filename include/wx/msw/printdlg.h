@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        printdlg.h
+// Name:        wx/msw/printdlg.h
 // Purpose:     wxPrintDialog, wxPageSetupDialog classes
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: printdlg.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: printdlg.h 68417 2011-07-25 19:06:23Z RD $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,6 +20,7 @@
 #include "wx/printdlg.h"
 
 class WXDLLIMPEXP_FWD_CORE wxDC;
+class WinPrinter;
 
 //----------------------------------------------------------------------------
 // wxWindowsPrintNativeData
@@ -37,6 +38,7 @@ public:
     virtual bool Ok() const { return IsOk(); }
     virtual bool IsOk() const;
 
+    void InitializeDevMode(const wxString &printerName = wxEmptyString, WinPrinter* printer = NULL);
     void* GetDevMode() const { return m_devMode; }
     void SetDevMode(void* data) { m_devMode = data; }
     void* GetDevNames() const { return m_devNames; }

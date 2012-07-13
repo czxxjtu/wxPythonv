@@ -14,8 +14,8 @@ for managing keybindings and profiles is also provided by this module.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_menu.py 63532 2010-02-21 21:45:16Z CJP $"
-__revision__ = "$Revision: 63532 $"
+__svnid__ = "$Id: ed_menu.py 68817 2011-08-21 20:16:52Z CJP $"
+__revision__ = "$Revision: 68817 $"
 
 #--------------------------------------------------------------------------#
 # Dependancies
@@ -46,7 +46,7 @@ class EdMenu(wx.Menu):
         @param style: type of menu to create
 
         """
-        wx.Menu.__init__(self, title, style)
+        super(EdMenu, self).__init__(title, style)
 
     def Append(self, id_, text=u'', helpstr=u'', \
                kind=wx.ITEM_NORMAL, use_bmp=True):
@@ -214,7 +214,7 @@ class KeyBinder(object):
 
     def __init__(self):
         """Create the KeyBinder object"""
-        object.__init__(self)
+        super(KeyBinder, self).__init__()
 
         # Attributes
         self.cache = ed_glob.CONFIG['CACHE_DIR'] # Resource Directory
@@ -235,7 +235,7 @@ class KeyBinder(object):
 
     @classmethod
     def GetCurrentProfile(cls):
-        """Get the name of the currenly set key profile if one exists
+        """Get the name of the currently set key profile if one exists
         @return: string or None
 
         """
@@ -311,13 +311,29 @@ class KeyBinder(object):
         return cls.keyprofile.get(item_id, None)
 
     @classmethod
+    def FindMenuId(cls, keyb):
+        """Find the menu item ID that the
+        keybinding is currently associated with.
+        @param keyb: tuple of unicode (u'Ctrl', u'C')
+        @return: int (-1 if not found)
+
+        """
+        menu_id = -1
+        for key, val in cls.keyprofile.iteritems():
+            if val == keyb:
+                menu_id = key
+                break
+        return menu_id
+
+    @classmethod
     def LoadDefaults(cls):
         """Load the default key profile"""
         cls.keyprofile = dict(_DEFAULT_BINDING)
         cls.cprofile = None
 
     def LoadKeyProfile(self, pname):
-        """Load a key profile into the binder
+        """Load a key profile from profile directory into the binder
+        by name.
         @param pname: name of key profile to load
 
         """
@@ -325,12 +341,23 @@ class KeyBinder(object):
             ppath = None
         else:
             ppath = self.GetProfilePath(pname)
+        self.LoadKeyProfileFile(ppath)
 
+    def LoadKeyProfileFile(self, path):
+        """Load a key profile from the given path
+        @param path: full path to file
+
+        """
         keydict = dict()
-        if ppath is not None and os.path.exists(ppath):
-            reader = util.GetFileReader(ppath)
+        pname = None
+        if path:
+            pname = os.path.basename(path)
+            pname = pname.rsplit('.', 1)[0]
+
+        if pname is not None and os.path.exists(path):
+            reader = util.GetFileReader(path)
             if reader != -1:
-                util.Log("[keybinder][info] Loading KeyProfile: %s" % ppath)
+                util.Log("[keybinder][info] Loading KeyProfile: %s" % path)
                 for line in reader:
                     parts = line.split(u'=', 1)
                     # Check that the line was formatted properly
@@ -346,9 +373,15 @@ class KeyBinder(object):
                             nctrl = len([key for key in tmp
                                          if key not in (u'Ctrl', u'Alt', u'Shift')])
                             if nctrl:
-                                keydict[item_id] = tmp
                                 if parts[1].strip().endswith(u'++'):
-                                    keydict[item_id].append(u'+')
+                                    tmp.append(u'+')
+                                kb = tuple(tmp)
+                                if kb in keydict.values():
+                                    for mid, b in keydict.iteritems():
+                                        if kb == b:
+                                            del keydict[mid]
+                                            break
+                                keydict[item_id] = tuple(tmp)
                             else:
                                 # Invalid key binding
                                 continue
@@ -358,7 +391,7 @@ class KeyBinder(object):
                 KeyBinder.cprofile = pname
                 return
             else:
-                util.Log("[keybinder][err] Couldn't read %s" % ppath)
+                util.Log("[keybinder][err] Couldn't read %s" % path)
         elif pname is not None:
             # Fallback to default keybindings
             util.Log("[keybinder][err] Failed to load bindings from %s" % pname)
@@ -392,9 +425,15 @@ class KeyBinder(object):
 
         """
         if isinstance(keys, basestring):
-            keys = [ key.strip() for key in keys.split('+') ]
+            keys = [ key.strip() for key in keys.split(u'+')
+                     if len(key.strip())]
+            keys = tuple(keys)
 
         if len(keys):
+            # Check for an existing binding
+            menu_id = cls.FindMenuId(keys)
+            if menu_id != -1:
+                del cls.keyprofile[menu_id]
             # Set the binding
             cls.keyprofile[item_id] = keys
         elif item_id in cls.keyprofile:
@@ -414,7 +453,7 @@ class KeyBinder(object):
     @classmethod
     def SetProfileDict(cls, keyprofile):
         """Set the keyprofile using a dictionary of id => bindings
-        @param keyprofile: { menu_id : 'binding' }
+        @param keyprofile: { menu_id : (u'Ctrl', u'C'), }
 
         """
         cls.keyprofile = keyprofile
@@ -434,7 +473,7 @@ class EdMenuBar(wx.MenuBar):
         @keyword style: style to set for menu bar
 
         """
-        wx.MenuBar.__init__(self, style)
+        super(EdMenuBar, self).__init__(style)
 
         # Setup
         if EdMenuBar.keybinder.GetCurrentProfile() is None:
@@ -456,29 +495,35 @@ class EdMenuBar(wx.MenuBar):
         ed_msg.Subscribe(self.OnLoadProfile, ed_msg.EDMSG_MENU_LOADPROFILE)
         ed_msg.Subscribe(self.OnCreateLexerMenu, ed_msg.EDMSG_CREATE_LEXER_MENU)
 
-    def CreateLexerMenu(self):
+    def GenLexerMenu(self):
         """Create the Lexer menu"""
         settingsmenu = self._menus['settings']
         item = settingsmenu.FindItemById(ed_glob.ID_LEXER)
         if item:
             settingsmenu.Remove(ed_glob.ID_LEXER)
-        mconfig = profiler.Profile_Get('LEXERMENU', default=list())
-        mconfig.sort()
 
         # Create the menu
         langmenu = wx.Menu()
         langmenu.Append(ed_glob.ID_LEXER_CUSTOM, _("Customize..."),
                         _("Customize the items shown in this menu."))
         langmenu.AppendSeparator()
+        EdMenuBar.PopulateLexerMenu(langmenu)
+        settingsmenu.AppendMenu(ed_glob.ID_LEXER, _("Lexers"),
+                                langmenu,
+                                _("Manually Set a Lexer/Syntax"))
 
+    @staticmethod
+    def PopulateLexerMenu(langmenu):
+        """Create a menu with all the lexer options
+        @return: wx.Menu
+
+        """
+        mconfig = profiler.Profile_Get('LEXERMENU', default=list())
+        mconfig.sort()
         for label in mconfig:
             lid = synglob.GetIdFromDescription(label)
             langmenu.Append(lid, label,
                             _("Switch Lexer to %s") % label, wx.ITEM_CHECK)
-
-        settingsmenu.AppendMenu(ed_glob.ID_LEXER, _("Lexers"),
-                                langmenu,
-                                _("Manually Set a Lexer/Syntax"))
 
     @classmethod
     def DeleteKeyProfile(cls, pname):
@@ -589,7 +634,7 @@ class EdMenuBar(wx.MenuBar):
         editmenu.AppendSeparator()
         editmenu.AppendEx(ed_glob.ID_SELECTALL, _("Select &All"),
                         _("Select All Text in Document"))
-        editmenu.AppendEx(ed_glob.ID_COLUMN_MODE, _("Column Mode"),
+        editmenu.AppendEx(ed_glob.ID_COLUMN_MODE, _("Column Edit"),
                         _("Enable column edit mode."), wx.ITEM_CHECK)
         editmenu.AppendSeparator()
         linemenu = EdMenu()
@@ -625,6 +670,12 @@ class EdMenuBar(wx.MenuBar):
                         _("Remove all bookmarks from the current document"))
         editmenu.AppendMenu(ed_glob.ID_BOOKMARK, _("Bookmarks"),  bookmenu,
                             _("Add and remove bookmarks"))
+        editmenu.AppendSeparator()
+        # Autocompletion shortcuts
+        editmenu.AppendEx(ed_glob.ID_SHOW_AUTOCOMP, _("Word Completion"),
+                          _("Show autocompletion hints."))
+        editmenu.AppendEx(ed_glob.ID_SHOW_CALLTIP, _("Show Calltip"),
+                          _("Show a calltip for the current word."))
         editmenu.AppendSeparator()
         editmenu.AppendEx(ed_glob.ID_FIND, _("&Find"), _("Find Text"))
         editmenu.AppendEx(ed_glob.ID_FIND_REPLACE, _("Find/R&eplace"),
@@ -793,7 +844,7 @@ class EdMenuBar(wx.MenuBar):
         self.Append(settingsmenu, _("&Settings"))
         self._menus['settings'] = settingsmenu
 
-        self.CreateLexerMenu()
+        self.GenLexerMenu()
 
     def GenToolsMenu(self):
         """Makes and attaches the tools menu
@@ -880,7 +931,7 @@ class EdMenuBar(wx.MenuBar):
 
     def OnCreateLexerMenu(self, msg):
         """Recreate the lexer menu"""
-        self.CreateLexerMenu()
+        self.GenLexerMenu()
 
     def OnLoadProfile(self, msg):
         """Load and set the current key profile
@@ -907,26 +958,25 @@ class EdMenuBar(wx.MenuBar):
             for item in IterateMenuItems(menu[0]):
                 item_id = item.GetId()
                 binding = EdMenuBar.keybinder.GetBinding(item_id)
-                if not len(binding):
-                    continue
+                empty_binding = not len(binding)
+                if not empty_binding:
+                    # Verify binding and clear invalid ones from binder
+                    tmp = [key.title() for key in binding.strip().split(u'+')]
+                    nctrl = len([key for key in tmp
+                                if key not in (u'Ctrl', u'Alt', u'Shift')])
+                    if len(tmp) > 3 or not nctrl:
+                        EdMenuBar.keybinder.SetBinding(item_id, u'')
+                        continue
 
-                # Verify binding and clear invalid ones from binder
-                tmp = [key.title() for key in binding.strip().split(u'+')]
-                nctrl = len([key for key in tmp
-                            if key not in ('Ctrl', 'Alt', 'Shift')])
-                if len(tmp) > 3 or not nctrl:
-                    EdMenuBar.keybinder.SetBinding(item_id, '')
-                    continue
-
-                # Reset the binding in the binder to ensure it is
-                # correctly formatted.
-                binding = u"\t" + u"+".join(tmp)
-                EdMenuBar.keybinder.SetBinding(item_id, binding)
+                    # Reset the binding in the binder to ensure it is
+                    # correctly formatted.
+                    binding = u"\t" + u"+".join(tmp)
+                    EdMenuBar.keybinder.SetBinding(item_id, binding)
 
                 clbl = item.GetText()
                 # Update the item if the shortcut has changed
-                if ('\t' in clbl and not clbl.endswith(binding)) or \
-                   ('\t' not in clbl and len(binding)):
+                if ('\t' in clbl and (not clbl.endswith(binding) or empty_binding)) or \
+                   ('\t' not in clbl and not empty_binding):
                     # wxBug? Getting the text of a menuitem is supposed to
                     # return it with the accelerators but under gtk the string
                     # has underscores '_' where it was supposed to have '&'
@@ -994,6 +1044,8 @@ _DEFAULT_BINDING = { # File Menu
                      ed_glob.ID_LINE_MOVE_UP : (u"Ctrl", u"Shift", u"Up"),
                      ed_glob.ID_LINE_MOVE_DOWN : (u"Ctrl", u"Shift", u"Down"),
                      ed_glob.ID_ADD_BM : (u"Ctrl", u"B"),
+                     ed_glob.ID_SHOW_AUTOCOMP : (u"Ctrl", u"Space"),
+                     ed_glob.ID_SHOW_CALLTIP : (u"Ctrl", u"9"),
                      ed_glob.ID_FIND : (u"Ctrl", u"Shift", u"F"),
                      ed_glob.ID_FIND_PREVIOUS : (u"Shift", u"F3"),
                      ed_glob.ID_FIND_NEXT : (u"F3",),

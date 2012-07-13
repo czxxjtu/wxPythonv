@@ -2,7 +2,7 @@
 // Name:        src/gtk1/dialog.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: dialog.cpp 64019 2010-04-18 00:05:37Z VZ $
+// Id:          $Id: dialog.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -42,8 +42,6 @@ BEGIN_EVENT_TABLE(wxDialog,wxDialogBase)
     EVT_BUTTON  (wxID_APPLY,    wxDialog::OnApply)
     EVT_CLOSE   (wxDialog::OnCloseWindow)
 END_EVENT_TABLE()
-
-IMPLEMENT_DYNAMIC_CLASS(wxDialog,wxTopLevelWindow)
 
 void wxDialog::Init()
 {

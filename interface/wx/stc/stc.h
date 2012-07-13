@@ -2,7 +2,7 @@
 // Name:        stc/stc.h
 // Purpose:     interface of wxStyledTextEvent
 // Author:      wxWidgets team
-// RCS-ID:      $Id: stc.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: stc.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -360,7 +360,7 @@ public:
     void AddText(const wxString& text);
 
     /**
-        The following methods are nearly equivallent to their similarly named
+        The following methods are nearly equivalent to their similarly named
         cousins above.  The difference is that these methods bypass wxString
         and always use a char* even if used in a unicode build of wxWidgets.
         In that case the character data will be utf-8 encoded since that is
@@ -1383,17 +1383,17 @@ public:
     int GetWrapMode() const;
 
     /**
-        Retrive the start indent for wrapped lines.
+        Retrieve the start indent for wrapped lines.
     */
     int GetWrapStartIndent() const;
 
     /**
-        Retrive the display mode of visual flags for wrapped lines.
+        Retrieve the display mode of visual flags for wrapped lines.
     */
     int GetWrapVisualFlags() const;
 
     /**
-        Retrive the location of visual flags for wrapped lines.
+        Retrieve the location of visual flags for wrapped lines.
     */
     int GetWrapVisualFlagsLocation() const;
 
@@ -2449,7 +2449,7 @@ public:
     void SetXCaretPolicy(int caretPolicy, int caretSlop);
 
     /**
-        Get and Set the xOffset (ie, horizonal scroll position).
+        Get and Set the xOffset (ie, horizontal scroll position).
     */
     void SetXOffset(int newOffset);
 
@@ -3153,5 +3153,12 @@ public:
     */
     void SwapMainAnchorCaret();
     
+    /**
+       Get Scintilla library version information.
+
+       @since 2.9.2
+       @see wxVersionInfo
+    */
+    static wxVersionInfo GetLibraryVersionInfo();
 };
 

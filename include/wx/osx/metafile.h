@@ -1,12 +1,12 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        metafile.h
+// Name:        wx/osx/metafile.h
 // Purpose:     wxMetaFile, wxMetaFileDC classes.
 //              This probably should be restricted to Windows platforms,
 //              but if there is an equivalent on your platform, great.
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: metafile.h 64357 2010-05-20 16:36:16Z SC $
+// RCS-ID:      $Id: metafile.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

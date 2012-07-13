@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     07/05/2009
-// RCS-ID:      $Id: any.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: any.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -152,7 +152,7 @@ bool wxConvertAnyToVariant(const wxAny& any, wxVariant* variant)
         if ( any.GetAs(&ll) )
         {
             // NB: Do not use LONG_MAX here. Explicitly using 32-bit
-            //     integer constraint yields more consistent behavior across
+            //     integer constraint yields more consistent behaviour across
             //     builds.
             if ( ll > wxINT32_MAX || ll < wxINT32_MIN )
                 *variant = wxLongLong(ll);
@@ -471,7 +471,10 @@ WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImplwxString)
 WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImplConstCharPtr)
 WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImplConstWchar_tPtr)
 
+#if wxUSE_DATETIME
 WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImpl<wxDateTime>)
+#endif // wxUSE_DATETIME
+
 //WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImpl<wxObject*>)
 //WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImpl<wxArrayString>)
 
@@ -513,6 +516,14 @@ public:
         return false;
     }
 
+#if wxUSE_EXTENDED_RTTI
+    virtual const wxTypeInfo* GetTypeInfo() const
+    {
+        wxFAIL_MSG("Null Type Info not available");
+        return NULL;
+    }
+#endif
+
 private:
 };
 
@@ -520,5 +531,8 @@ WX_IMPLEMENT_ANY_VALUE_TYPE(wxAnyValueTypeImpl<wxAnyNullValue>)
 
 wxAnyValueType* wxAnyNullValueType =
     wxAnyValueTypeImpl<wxAnyNullValue>::GetInstance();
+
+#include "wx/listimpl.cpp"
+WX_DEFINE_LIST(wxAnyList)
 
 #endif // wxUSE_ANY

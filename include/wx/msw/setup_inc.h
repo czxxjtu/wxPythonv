@@ -3,7 +3,7 @@
 // Purpose:     MSW-specific setup.h options
 // Author:      Vadim Zeitlin
 // Created:     2007-07-21 (extracted from wx/msw/setup0.h)
-// RCS-ID:      $Id: setup_inc.h 50586 2007-12-08 20:51:21Z VZ $
+// RCS-ID:      $Id: setup_inc.h 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) 2007 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@
 // Recommended setting: 1, required by wxMediaCtrl
 #define wxUSE_ACTIVEX 1
 
-// wxDC cacheing implementation
+// wxDC caching implementation
 #define wxUSE_DC_CACHEING 1
 
 // Set this to 1 to enable wxDIB class used internally for manipulating

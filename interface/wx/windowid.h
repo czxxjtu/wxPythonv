@@ -2,7 +2,7 @@
 // Name:        windowid.h
 // Purpose:     interface of wxIdManager
 // Author:      wxWidgets team
-// RCS-ID:      $Id: windowid.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: windowid.h 66210 2010-11-19 07:57:19Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -39,7 +39,7 @@ public:
 
         @return The value of the first ID in the sequence, or wxID_NONE.
     */
-    static wxWindowID ReserveControlId(int count = 1);
+    static wxWindowID ReserveId(int count = 1);
 
     /**
         Called directly by wxWindow::UnreserveControlId(), this function will
@@ -54,6 +54,6 @@ public:
 
         @return The value of the first ID in the sequence, or wxID_NONE.
     */
-    static wxWindowID UnreserveControlId(wxWindowID id, int count = 1);
+    static void UnreserveId(wxWindowID id, int count = 1);
 };
 

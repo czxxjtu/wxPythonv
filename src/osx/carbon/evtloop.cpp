@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2006-01-12
-// RCS-ID:      $Id: evtloop.cpp 64339 2010-05-19 07:23:33Z SC $
+// RCS-ID:      $Id: evtloop.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ static void DispatchAndReleaseEvent(EventRef theEvent)
 int wxGUIEventLoop::DoDispatchTimeout(unsigned long timeout)
 {
     wxMacAutoreleasePool autoreleasepool;
-    
+
     EventRef event;
     OSStatus status = ReceiveNextEvent(0, NULL, timeout/1000, true, &event);
     switch ( status )
@@ -126,7 +126,7 @@ void wxModalEventLoop::DoRun()
 
     WindowGroupRef windowGroup = NULL;
     WindowGroupRef formerParentGroup = NULL;
-    
+
     // make sure modal dialogs are in the right layer so that they are not covered
     if ( m_modalWindow != NULL )
     {
@@ -143,7 +143,7 @@ void wxModalEventLoop::DoRun()
     }
 
     m_modalWindow->SetFocus();
-    
+
     RunAppModalLoopForWindow(m_modalNativeWindow);
 
     if ( resetGroupParent )

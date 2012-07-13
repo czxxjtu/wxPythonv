@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     17-March-2000
-// RCS-ID:      $Id: grid.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: grid.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2000 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -2005,6 +2005,12 @@ public:
     void     SetRowAttr(int row, wxGridCellAttr *attr);
     void     SetColAttr(int col, wxGridCellAttr *attr);
 
+    // the grid can cache attributes for the recently used cells (currently it
+    // only caches one attribute for the most recently used one) and might
+    // notice that its value in the attribute provider has changed -- if this
+    // happens, call this function to force it
+    void RefreshAttr(int row, int col);
+    
     // returns the attribute we may modify in place: a new one if this cell
     // doesn't have any yet or the existing one if it does
     //

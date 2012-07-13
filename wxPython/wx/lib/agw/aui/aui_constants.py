@@ -218,6 +218,8 @@ AUI_NB_DRAW_DND_TAB        = 1 << 20
 """ Draws an image representation of a tab while dragging. """
 AUI_NB_ORDER_BY_ACCESS     = 1 << 21
 """ Tab navigation order by last access time. """
+AUI_NB_NO_TAB_FOCUS        = 1 << 22
+""" Don't draw tab focus rectangle. """
 
 AUI_NB_DEFAULT_STYLE = AUI_NB_TOP | AUI_NB_TAB_SPLIT | AUI_NB_TAB_MOVE | \
                        AUI_NB_SCROLL_BUTTONS | AUI_NB_CLOSE_ON_ACTIVE_TAB | \
@@ -374,7 +376,9 @@ AUI_MINIMIZE_POS_RIGHT    = 0x04
 """ Minimizes the pane on its right tool bar. """
 AUI_MINIMIZE_POS_BOTTOM   = 0x05
 """ Minimizes the pane on its bottom tool bar. """
-AUI_MINIMIZE_POS_MASK     = 0x07
+AUI_MINIMIZE_POS_TOOLBAR  = 0x06
+""" Minimizes the pane on its bottom tool bar. """
+AUI_MINIMIZE_POS_MASK     = 0x17
 """ Mask to filter the position flags. """
 AUI_MINIMIZE_CAPT_HIDE    = 0
 """ Hides the caption of the minimized pane. """

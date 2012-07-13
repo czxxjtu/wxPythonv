@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////
-// Name:        generic/gridctrl.cpp
+// Name:        src/generic/gridctrl.cpp
 // Purpose:     wxGrid controls
 // Author:      Paul Gammans, Roger Gammans
 // Modified by:
 // Created:     11/04/2001
-// RCS-ID:      $Id: gridctrl.cpp 64100 2010-04-22 11:20:50Z VZ $
+// RCS-ID:      $Id: gridctrl.cpp 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) The Computer Surgery (paul@compsurg.co.uk)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -311,7 +311,7 @@ wxGridCellAutoWrapStringRenderer::GetTextLines(wxGrid& grid,
     while ( tk.HasMoreTokens() )
     {
         wxString tok = tk.GetNextToken();
-        //FIXME: this causes us to print an extra unnecesary
+        //FIXME: this causes us to print an extra unnecessary
         //       space at the end of the line. But it
         //       is invisible , simplifies the size calculation
         //       and ensures tokens are separated in the display

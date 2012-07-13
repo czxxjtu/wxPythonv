@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        unix/dlunix.cpp
+// Name:        src/unix/dlunix.cpp
 // Purpose:     Unix-specific part of wxDynamicLibrary and related classes
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-16 (extracted from common/dynlib.cpp)
-// RCS-ID:      $Id: dlunix.cpp 62764 2009-12-02 17:28:45Z PC $
+// RCS-ID:      $Id: dlunix.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2000-2005 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -3,7 +3,7 @@
 // Purpose:     implementation of platform-independent wxAcceleratorEntry parts
 // Author:      Vadim Zeitlin
 // Created:     2007-05-05
-// RCS-ID:      $Id: accelcmn.cpp 64157 2010-04-27 09:38:17Z VS $
+// RCS-ID:      $Id: accelcmn.cpp 68548 2011-08-04 23:12:26Z RD $
 // Copyright:   (c) 2007 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,12 +26,14 @@
 #if wxUSE_ACCEL
 
 #ifndef WX_PRECOMP
+    #include "wx/accel.h"
     #include "wx/string.h"
     #include "wx/intl.h"
     #include "wx/log.h"
-    #include "wx/accel.h"
     #include "wx/crt.h"
 #endif //WX_PRECOMP
+
+wxAcceleratorTable wxNullAcceleratorTable;
 
 // ============================================================================
 // wxAcceleratorEntry implementation
@@ -158,19 +160,23 @@ wxAcceleratorEntry::ParseAccel(const wxString& text, int *flagsOut, int *keyOut)
 {
     // the parser won't like trailing spaces
     wxString label = text;
-    label.Trim(true);  // the initial \t must be preserved so don't strip leading whitespaces
+    label.Trim(true);
 
-    // check for accelerators: they are given after '\t'
+    // For compatibility with the old wx versions which accepted (and actually
+    // even required) a TAB character in the string passed to this function we
+    // ignore anything up to the first TAB. Notice however that the correct
+    // input consists of just the accelerator itself and nothing else, this is
+    // done for compatibility and compatibility only.
     int posTab = label.Find(wxT('\t'));
     if ( posTab == wxNOT_FOUND )
-    {
-        return false;
-    }
+        posTab = 0;
+    else
+        posTab++;
 
     // parse the accelerator string
     int accelFlags = wxACCEL_NORMAL;
     wxString current;
-    for ( size_t n = (size_t)posTab + 1; n < label.length(); n++ )
+    for ( size_t n = (size_t)posTab; n < label.length(); n++ )
     {
         if ( (label[n] == '+') || (label[n] == '-') )
         {
@@ -272,9 +278,18 @@ wxAcceleratorEntry::ParseAccel(const wxString& text, int *flagsOut, int *keyOut)
 /* static */
 wxAcceleratorEntry *wxAcceleratorEntry::Create(const wxString& str)
 {
+    const wxString accelStr = str.AfterFirst('\t');
+    if ( accelStr.empty() )
+    {
+        // It's ok to pass strings not containing any accelerators at all to
+        // this function, wxMenuItem code does it and we should just return
+        // NULL in this case.
+        return NULL;
+    }
+
     int flags,
         keyCode;
-    if ( !ParseAccel(str, &flags, &keyCode) )
+    if ( !ParseAccel(accelStr, &flags, &keyCode) )
         return NULL;
 
     return new wxAcceleratorEntry(flags, keyCode);
@@ -292,7 +307,7 @@ wxString wxAcceleratorEntry::ToString() const
     int flags = GetFlags();
     if ( flags & wxACCEL_ALT )
         text += _("Alt+");
-    if ( flags & wxACCEL_CTRL )
+    if ( flags & (wxACCEL_CTRL | wxACCEL_CMD) )
         text += _("Ctrl+");
     if ( flags & wxACCEL_SHIFT )
         text += _("Shift+");

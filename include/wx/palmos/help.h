@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/palmos/helpwin.h
+// Name:        wx/palmos/help.h
 // Purpose:     Help system: WinHelp implementation
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: help.h 52834 2008-03-26 15:06:00Z FM $
+// RCS-ID:      $Id: help.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

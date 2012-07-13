@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-Feb-2010
-// RCS-ID:      $Id: _mousestate.i 63447 2010-02-09 21:38:04Z RD $
+// RCS-ID:      $Id: _mousestate.i 67447 2011-04-13 17:51:40Z RD $
 // Copyright:   (c) 2010 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -81,6 +81,8 @@ public:
     %pythoncode {
         x = property(GetX, SetX)
         y = property(GetY, SetY)
+        X = property(GetX, SetX)  # uppercase versions for 2.8 compatibility
+        Y = property(GetY, SetY)
         leftIsDown = property(LeftIsDown, SetLeftDown)
         middleIsDown = property(MiddleIsDown, SetMiddleDown)
         rightIsDown = property(RightIsDown, SetRightDown)

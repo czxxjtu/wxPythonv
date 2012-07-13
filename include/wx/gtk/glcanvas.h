@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        glcanvas.h
+// Name:        wx/gtk/glcanvas.h
 // Purpose:     wxGLCanvas, for using OpenGL/Mesa with wxWidgets and GTK
 // Author:      Robert Roebling
 // Modified by:
 // Created:     17/8/98
-// RCS-ID:      $Id: glcanvas.h 51482 2008-02-01 04:51:34Z PC $
+// RCS-ID:      $Id: glcanvas.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

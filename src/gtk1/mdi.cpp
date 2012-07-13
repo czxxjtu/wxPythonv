@@ -2,7 +2,7 @@
 // Name:        src/gtk1/mdi.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: mdi.cpp 64145 2010-04-26 14:19:26Z VZ $
+// Id:          $Id: mdi.cpp 66728 2011-01-22 14:38:36Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -429,7 +429,7 @@ static void gtk_page_size_callback( GtkWidget *WXUNUSED(widget), GtkAllocation* 
 static void wxInsertChildInMDI( wxMDIClientWindow* parent, wxMDIChildFrame* child )
 {
     wxString s = child->GetTitle();
-    if (s.IsNull()) s = _("MDI child");
+    if ( s.empty() ) s = _("MDI child");
 
     GtkWidget *label_widget = gtk_label_new( s.mbc_str() );
     gtk_misc_set_alignment( GTK_MISC(label_widget), 0.0, 0.5 );

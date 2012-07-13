@@ -4,7 +4,7 @@
 // Author:      ?
 // Modified by:
 // Created:     ?
-// RCS-ID:      $Id: helpview.cpp 58745 2009-02-08 01:20:35Z FM $
+// RCS-ID:      $Id: helpview.cpp 67228 2011-03-18 09:16:14Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -85,6 +85,8 @@ bool MyApp::OnInit()
 #ifdef __WXMOTIF__
     delete wxLog::SetActiveTarget(new wxLogGui);
 #endif
+
+    help->SetShouldPreventAppExit(true);
 
     help -> DisplayContents();
 

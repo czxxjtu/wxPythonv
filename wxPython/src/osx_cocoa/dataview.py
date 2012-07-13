@@ -256,6 +256,14 @@ class DataViewModelNotifier(object):
         """
         return _dataview.DataViewModelNotifier_Cleared(*args, **kwargs)
 
+    def BeforeReset(*args, **kwargs):
+        """BeforeReset(self) -> bool"""
+        return _dataview.DataViewModelNotifier_BeforeReset(*args, **kwargs)
+
+    def AfterReset(*args, **kwargs):
+        """AfterReset(self) -> bool"""
+        return _dataview.DataViewModelNotifier_AfterReset(*args, **kwargs)
+
     def Resort(*args, **kwargs):
         """
         Resort(self)
@@ -357,6 +365,10 @@ class DataViewItemAttr(object):
     def IsDefault(*args, **kwargs):
         """IsDefault(self) -> bool"""
         return _dataview.DataViewItemAttr_IsDefault(*args, **kwargs)
+
+    def GetEffectiveFont(*args, **kwargs):
+        """GetEffectiveFont(self, Font font) -> Font"""
+        return _dataview.DataViewItemAttr_GetEffectiveFont(*args, **kwargs)
 
     Colour = property(GetColour,SetColour) 
     Bold = property(GetBold,SetBold) 
@@ -486,10 +498,18 @@ class DataViewModel(_core.RefCounter):
         GetAttr(self, DataViewItem item, unsigned int col, DataViewItemAttr attr) -> bool
 
         Override this to indicate that the item has special font
-        attributes. This only affects the `DataViewTextRendererText` renderer.
+        attributes. This only affects the `DataViewTextRenderer` renderer.
         Return ``False`` if the default attributes should be used.
         """
         return _dataview.DataViewModel_GetAttr(*args, **kwargs)
+
+    def IsEnabled(*args, **kwargs):
+        """
+        IsEnabled(self, DataViewItem item, unsigned int col) -> bool
+
+        Override this if you want to disable specific items
+        """
+        return _dataview.DataViewModel_IsEnabled(*args, **kwargs)
 
     def GetParent(*args, **kwargs):
         """
@@ -605,6 +625,14 @@ class DataViewModel(_core.RefCounter):
         """
         return _dataview.DataViewModel_Cleared(*args, **kwargs)
 
+    def BeforeReset(*args, **kwargs):
+        """BeforeReset(self) -> bool"""
+        return _dataview.DataViewModel_BeforeReset(*args, **kwargs)
+
+    def AfterReset(*args, **kwargs):
+        """AfterReset(self) -> bool"""
+        return _dataview.DataViewModel_AfterReset(*args, **kwargs)
+
     def Resort(*args, **kwargs):
         """
         Resort(self)
@@ -646,6 +674,10 @@ class DataViewModel(_core.RefCounter):
         """
         return _dataview.DataViewModel_HasDefaultCompare(*args, **kwargs)
 
+    def IsListModel(*args, **kwargs):
+        """IsListModel(self) -> bool"""
+        return _dataview.DataViewModel_IsListModel(*args, **kwargs)
+
     def IsVirtualListModel(*args, **kwargs):
         """IsVirtualListModel(self) -> bool"""
         return _dataview.DataViewModel_IsVirtualListModel(*args, **kwargs)
@@ -655,10 +687,10 @@ _dataview.DataViewModel_swigregister(DataViewModel)
 class DataViewItemObjectMapper(object):
     """
     This class provides a mechanism for mapping between Python objects and the
-    DataViewItem objects used by the DataViewModel for tacking the items in
+    DataViewItem objects used by the DataViewModel for tracking the items in
     the view. The ID used for the item is the id() of the Python object. Use
     `ObjectToItem` to create a DataViewItem using a Python object as its ID,
-    and use `ItemToObject` to fetch that Python object again later for a give
+    and use `ItemToObject` to fetch that Python object again later for a given
     DataViewItem.
     
     By default a regular dictionary is used to implement the ID to object
@@ -785,10 +817,14 @@ class DataViewIndexListModel(DataViewModel):
         GetAttrByRow(self, unsigned int row, unsigned int col, DataViewItemAttr attr) -> bool
 
         Override this to indicate that the item has special font
-        attributes. This only affects the `DataViewTextRendererText` renderer.
+        attributes. This only affects the `DataViewTextRenderer` renderer.
         Return ``False`` if the default attributes should be used.
         """
         return _dataview.DataViewIndexListModel_GetAttrByRow(*args, **kwargs)
+
+    def IsEnabledByRow(*args, **kwargs):
+        """IsEnabledByRow(self, unsigned int row, unsigned int col) -> bool"""
+        return _dataview.DataViewIndexListModel_IsEnabledByRow(*args, **kwargs)
 
     def RowPrepended(*args, **kwargs):
         """
@@ -866,6 +902,14 @@ class DataViewIndexListModel(DataViewModel):
         """
         return _dataview.DataViewIndexListModel_GetRow(*args, **kwargs)
 
+    def GetCount(*args, **kwargs):
+        """
+        GetCount(self) -> unsigned int
+
+        returns the number of rows
+        """
+        return _dataview.DataViewIndexListModel_GetCount(*args, **kwargs)
+
     def GetItem(*args, **kwargs):
         """
         GetItem(self, unsigned int row) -> DataViewItem
@@ -877,23 +921,11 @@ class DataViewIndexListModel(DataViewModel):
 _dataview.DataViewIndexListModel_swigregister(DataViewIndexListModel)
 
 class PyDataViewIndexListModel(DataViewIndexListModel):
-    """
-    This class is a version of `DataViewIndexListModel` that has been
-    engineered to know how to reflect the C++ virtual method calls to
-    Python methods in the derived class.  Use this class as your base
-    class instead of `DataViewIndexListModel`.
-    """
+    """Proxy of C++ PyDataViewIndexListModel class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
     def __init__(self, *args, **kwargs): 
-        """
-        __init__(self, unsigned int initial_size=0) -> PyDataViewIndexListModel
-
-        This class is a version of `DataViewIndexListModel` that has been
-        engineered to know how to reflect the C++ virtual method calls to
-        Python methods in the derived class.  Use this class as your base
-        class instead of `DataViewIndexListModel`.
-        """
+        """__init__(self, unsigned int initial_size=0) -> PyDataViewIndexListModel"""
         _dataview.PyDataViewIndexListModel_swiginit(self,_dataview.new_PyDataViewIndexListModel(*args, **kwargs))
         PyDataViewIndexListModel._setCallbackInfo(self, self, PyDataViewIndexListModel)
 
@@ -944,10 +976,14 @@ class DataViewVirtualListModel(DataViewModel):
         GetAttrByRow(self, unsigned int row, unsigned int col, DataViewItemAttr attr) -> bool
 
         Override this to indicate that the item has special font
-        attributes. This only affects the `DataViewTextRendererText` renderer.
+        attributes. This only affects the `DataViewTextRenderer` renderer.
         Return ``False`` if the default attributes should be used.
         """
         return _dataview.DataViewVirtualListModel_GetAttrByRow(*args, **kwargs)
+
+    def IsEnabledByRow(*args, **kwargs):
+        """IsEnabledByRow(self, unsigned int row, unsigned int col) -> bool"""
+        return _dataview.DataViewVirtualListModel_IsEnabledByRow(*args, **kwargs)
 
     def RowPrepended(*args, **kwargs):
         """
@@ -1025,6 +1061,14 @@ class DataViewVirtualListModel(DataViewModel):
         """
         return _dataview.DataViewVirtualListModel_GetRow(*args, **kwargs)
 
+    def GetCount(*args, **kwargs):
+        """
+        GetCount(self) -> unsigned int
+
+        returns the number of rows
+        """
+        return _dataview.DataViewVirtualListModel_GetCount(*args, **kwargs)
+
     def GetItem(*args, **kwargs):
         """
         GetItem(self, unsigned int row) -> DataViewItem
@@ -1042,7 +1086,7 @@ class PyDataViewVirtualListModel(DataViewVirtualListModel):
     def __init__(self, *args, **kwargs): 
         """__init__(self, unsigned int initial_size=0) -> PyDataViewVirtualListModel"""
         _dataview.PyDataViewVirtualListModel_swiginit(self,_dataview.new_PyDataViewVirtualListModel(*args, **kwargs))
-        PyDataViewIndexListModel._setCallbackInfo(self, self, PyDataViewIndexListModel)
+        PyDataViewVirtualListModel._setCallbackInfo(self, self, PyDataViewVirtualListModel)
 
     def _setCallbackInfo(*args, **kwargs):
         """_setCallbackInfo(self, PyObject self, PyObject _class)"""
@@ -1105,9 +1149,21 @@ class DataViewRenderer(_core.Object):
         """GetValue(self) -> wxVariant"""
         return _dataview.DataViewRenderer_GetValue(*args, **kwargs)
 
+    def SetAttr(*args, **kwargs):
+        """SetAttr(self, DataViewItemAttr attr)"""
+        return _dataview.DataViewRenderer_SetAttr(*args, **kwargs)
+
+    def SetEnabled(*args, **kwargs):
+        """SetEnabled(self, bool enabled)"""
+        return _dataview.DataViewRenderer_SetEnabled(*args, **kwargs)
+
     def GetVariantType(*args, **kwargs):
         """GetVariantType(self) -> String"""
         return _dataview.DataViewRenderer_GetVariantType(*args, **kwargs)
+
+    def PrepareForItem(*args, **kwargs):
+        """PrepareForItem(self, DataViewModel model, DataViewItem item, unsigned int column)"""
+        return _dataview.DataViewRenderer_PrepareForItem(*args, **kwargs)
 
     def SetMode(*args, **kwargs):
         """SetMode(self, int mode)"""
@@ -1142,11 +1198,11 @@ class DataViewRenderer(_core.Object):
         return _dataview.DataViewRenderer_HasEditorCtrl(*args, **kwargs)
 
     def CreateEditorCtrl(*args, **kwargs):
-        """CreateEditorCtrl(self, Window parent, Rect labelRect, wxVariant value) -> Control"""
+        """CreateEditorCtrl(self, Window parent, Rect labelRect, wxVariant value) -> Window"""
         return _dataview.DataViewRenderer_CreateEditorCtrl(*args, **kwargs)
 
     def GetValueFromEditorCtrl(*args, **kwargs):
-        """GetValueFromEditorCtrl(self, Control editor) -> wxVariant"""
+        """GetValueFromEditorCtrl(self, Window editor) -> wxVariant"""
         return _dataview.DataViewRenderer_GetValueFromEditorCtrl(*args, **kwargs)
 
     def StartEditing(*args, **kwargs):
@@ -1162,7 +1218,7 @@ class DataViewRenderer(_core.Object):
         return _dataview.DataViewRenderer_FinishEditing(*args, **kwargs)
 
     def GetEditorCtrl(*args, **kwargs):
-        """GetEditorCtrl(self) -> Control"""
+        """GetEditorCtrl(self) -> Window"""
         return _dataview.DataViewRenderer_GetEditorCtrl(*args, **kwargs)
 
     Owner = property(GetOwner,SetOwner) 
@@ -1313,6 +1369,14 @@ class DataViewCustomRenderer(DataViewRenderer):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     def __init__(self): raise AttributeError, "No constructor defined"
     __repr__ = _swig_repr
+    def GetAttr(*args, **kwargs):
+        """GetAttr(self) -> DataViewItemAttr"""
+        return _dataview.DataViewCustomRenderer_GetAttr(*args, **kwargs)
+
+    def GetEnabled(*args, **kwargs):
+        """GetEnabled(self) -> bool"""
+        return _dataview.DataViewCustomRenderer_GetEnabled(*args, **kwargs)
+
 _dataview.DataViewCustomRenderer_swigregister(DataViewCustomRenderer)
 
 class DataViewChoiceRenderer(DataViewCustomRenderer):
@@ -1357,6 +1421,12 @@ class PyDataViewCustomRenderer(DataViewCustomRenderer):
             int align=DVR_DEFAULT_ALIGNMENT) -> PyDataViewCustomRenderer
         """
         _dataview.PyDataViewCustomRenderer_swiginit(self,_dataview.new_PyDataViewCustomRenderer(*args, **kwargs))
+        PyDataViewCustomRenderer._setCallbackInfo(self, self, PyDataViewCustomRenderer)
+
+    def _setCallbackInfo(*args, **kwargs):
+        """_setCallbackInfo(self, PyObject self, PyObject _class)"""
+        return _dataview.PyDataViewCustomRenderer__setCallbackInfo(*args, **kwargs)
+
     def RenderText(*args, **kwargs):
         """
         RenderText(self, String text, int xoffset, Rect cell, DC dc, int state)
@@ -1418,6 +1488,14 @@ class PyDataViewCustomRenderer(DataViewCustomRenderer):
         """GetDC(self) -> DC"""
         return _dataview.PyDataViewCustomRenderer_GetDC(*args, **kwargs)
 
+    def GetTextExtent(*args, **kwargs):
+        """GetTextExtent(self, String str) -> Size"""
+        return _dataview.PyDataViewCustomRenderer_GetTextExtent(*args, **kwargs)
+
+    def GetView(*args, **kwargs):
+        """GetView(self) -> DataViewCtrl"""
+        return _dataview.PyDataViewCustomRenderer_GetView(*args, **kwargs)
+
 _dataview.PyDataViewCustomRenderer_swigregister(PyDataViewCustomRenderer)
 
 DATAVIEW_COL_RESIZABLE = _dataview.DATAVIEW_COL_RESIZABLE
@@ -1470,10 +1548,21 @@ class DataViewCtrl(_core.Control):
     def __init__(self, *args, **kwargs): 
         """
         __init__(self, Window parent, int id=ID_ANY, Point pos=DefaultPosition, 
-            Size size=DefaultSize, long style=0, Validator validator=DefaultValidator) -> DataViewCtrl
+            Size size=DefaultSize, long style=0, Validator validator=DefaultValidator, 
+            String name=wxDataViewCtrlNameStr) -> DataViewCtrl
         """
         _dataview.DataViewCtrl_swiginit(self,_dataview.new_DataViewCtrl(*args, **kwargs))
         self._setOORInfo(self)
+
+    def Create(*args, **kwargs):
+        """
+        Create(self, Window parent, int id=-1, Point pos=DefaultPosition, 
+            Size size=DefaultSize, long style=0, Validator validator=DefaultValidator, 
+            String name=wxDataViewCtrlNameStr) -> bool
+
+        Do the 2nd phase and create the GUI control.
+        """
+        return _dataview.DataViewCtrl_Create(*args, **kwargs)
 
     def AssociateModel(*args, **kwargs):
         """AssociateModel(self, DataViewModel model) -> bool"""
@@ -1637,6 +1726,14 @@ class DataViewCtrl(_core.Control):
         """GetIndent(self) -> int"""
         return _dataview.DataViewCtrl_GetIndent(*args, **kwargs)
 
+    def GetCurrentItem(*args, **kwargs):
+        """GetCurrentItem(self) -> DataViewItem"""
+        return _dataview.DataViewCtrl_GetCurrentItem(*args, **kwargs)
+
+    def SetCurrentItem(*args, **kwargs):
+        """SetCurrentItem(self, DataViewItem item)"""
+        return _dataview.DataViewCtrl_SetCurrentItem(*args, **kwargs)
+
     def GetSelection(*args, **kwargs):
         """GetSelection(self) -> DataViewItem"""
         return _dataview.DataViewCtrl_GetSelection(*args, **kwargs)
@@ -1696,6 +1793,14 @@ class DataViewCtrl(_core.Control):
     def GetItemRect(*args, **kwargs):
         """GetItemRect(self, DataViewItem item, DataViewColumn column=None) -> Rect"""
         return _dataview.DataViewCtrl_GetItemRect(*args, **kwargs)
+
+    def SetRowHeight(*args, **kwargs):
+        """SetRowHeight(self, int rowHeight) -> bool"""
+        return _dataview.DataViewCtrl_SetRowHeight(*args, **kwargs)
+
+    def StartEditor(*args, **kwargs):
+        """StartEditor(self, DataViewItem item, unsigned int column)"""
+        return _dataview.DataViewCtrl_StartEditor(*args, **kwargs)
 
     def EnableDragSource(*args, **kwargs):
         """EnableDragSource(self, wxDataFormat format) -> bool"""
@@ -1937,6 +2042,30 @@ class DataViewListCtrl(DataViewCtrl):
     def GetStore(*args, **kwargs):
         """GetStore(self) -> DataViewListStore"""
         return _dataview.DataViewListCtrl_GetStore(*args, **kwargs)
+
+    def ItemToRow(*args, **kwargs):
+        """ItemToRow(self, DataViewItem item) -> int"""
+        return _dataview.DataViewListCtrl_ItemToRow(*args, **kwargs)
+
+    def RowToItem(*args, **kwargs):
+        """RowToItem(self, int row) -> DataViewItem"""
+        return _dataview.DataViewListCtrl_RowToItem(*args, **kwargs)
+
+    def GetSelectedRow(*args, **kwargs):
+        """GetSelectedRow(self) -> int"""
+        return _dataview.DataViewListCtrl_GetSelectedRow(*args, **kwargs)
+
+    def SelectRow(*args, **kwargs):
+        """SelectRow(self, unsigned int row)"""
+        return _dataview.DataViewListCtrl_SelectRow(*args, **kwargs)
+
+    def UnselectRow(*args, **kwargs):
+        """UnselectRow(self, unsigned int row)"""
+        return _dataview.DataViewListCtrl_UnselectRow(*args, **kwargs)
+
+    def IsRowSelected(*args, **kwargs):
+        """IsRowSelected(self, unsigned int row) -> bool"""
+        return _dataview.DataViewListCtrl_IsRowSelected(*args, **kwargs)
 
     def AppendColumn(*args, **kwargs):
         """AppendColumn(self, DataViewColumn column, String varianttype="string") -> bool"""

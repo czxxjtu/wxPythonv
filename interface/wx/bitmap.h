@@ -2,7 +2,7 @@
 // Name:        bitmap.h
 // Purpose:     interface of wxBitmap* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: bitmap.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: bitmap.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -265,7 +265,7 @@ public:
         In wxPerl use Wx::Bitmap->newFromBits(bits, width, height, depth).
         @endWxPerlOnly
     */
-    wxBitmap(const char bits[], int width, int height, int depth = 1);
+    wxBitmap(const char* bits[], int width, int height, int depth = 1);
 
     /**
         Creates a new bitmap. A depth of ::wxBITMAP_SCREEN_DEPTH indicates the
@@ -508,6 +508,9 @@ public:
 
     /**
         Returns disabled (dimmed) version of the bitmap.
+
+        This method is not available when <code>wxUSE_IMAGE == 0</code>.
+
         @since 2.9.0
     */
     wxBitmap ConvertToDisabled(unsigned char brightness = 255) const;

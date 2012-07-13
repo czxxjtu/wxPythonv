@@ -2,7 +2,7 @@
 // Name:        display.h
 // Purpose:     interface of wxDisplay
 // Author:      wxWidgets team
-// RCS-ID:      $Id: display.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: display.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -40,15 +40,10 @@ public:
 
         If wxDefaultVideoMode is passed in as the mode parameter, the defined
         behaviour is that wxDisplay will reset the video mode to the default
-        mode used by the display. On Windows, the behavior is normal. However,
+        mode used by the display. On Windows, the behaviour is normal. However,
         there are differences on other platforms. On Unix variations using X11
         extensions it should behave as defined, but some irregularities may
         occur.
-
-        On wxMac passing in wxDefaultVideoMode as the mode parameter does
-        nothing. This happens because carbon no longer has access to
-        @c DMUseScreenPrefs(), an undocumented function that changed the video
-        mode to the system default by using the system's "scrn" resource.
     */
     bool ChangeMode(const wxVideoMode& mode = wxDefaultVideoMode);
 

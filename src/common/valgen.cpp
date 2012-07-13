@@ -4,7 +4,7 @@
 // Author:      Kevin Smith
 // Modified by:
 // Created:     Jan 22 1999
-// RCS-ID:      $Id: valgen.cpp 59597 2009-03-18 00:40:09Z FM $
+// RCS-ID:      $Id: valgen.cpp 66533 2011-01-03 11:23:49Z VZ $
 // Copyright:   (c) 1999 Kevin Smith
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@
 #endif
 
 #include "wx/spinctrl.h"
-#include "wx/datectrl.h"
+// #include "wx/datectrl.h" -- can't use it in this (core) file for now
 
 #if wxUSE_SPINBTN
     #include "wx/spinbutt.h"

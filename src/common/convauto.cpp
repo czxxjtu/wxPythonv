@@ -3,7 +3,7 @@
 // Purpose:     implementation of wxConvAuto
 // Author:      Vadim Zeitlin
 // Created:     2006-04-04
-// RCS-ID:      $Id: convauto.cpp 63991 2010-04-16 10:43:18Z VS $
+// RCS-ID:      $Id: convauto.cpp 66657 2011-01-08 18:05:33Z PC $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,10 +22,6 @@
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
-
-#ifndef WX_PRECOMP
-    #include "wx/wx.h"
-#endif //WX_PRECOMP
 
 #include "wx/convauto.h"
 
@@ -229,7 +225,7 @@ void wxConvAuto::SkipBOM(const char **src, size_t *len) const
 
 bool wxConvAuto::InitFromInput(const char *src, size_t len)
 {
-    m_bomType = DetectBOM(src, len);
+    m_bomType = DetectBOM(src, len == wxNO_LEN ? strlen(src) : len);
     if ( m_bomType == BOM_Unknown )
         return false;
 

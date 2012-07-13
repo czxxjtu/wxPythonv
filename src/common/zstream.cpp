@@ -4,7 +4,7 @@
 // Author:      Guilhem Lavaux
 // Modified by: Mike Wetherell
 // Created:     11/07/98
-// RCS-ID:      $Id: zstream.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: zstream.cpp 66259 2010-11-25 00:53:44Z VZ $
 // Copyright:   (c) Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
 #if wxUSE_ZLIB && wxUSE_STREAMS
 
 #include "wx/zstream.h"
+#include "wx/versioninfo.h"
 
 #ifndef WX_PRECOMP
     #include "wx/intl.h"
@@ -43,6 +44,14 @@ enum {
     ZSTREAM_AUTO        = 0x20      // auto detect between gzip and zlib
 };
 
+
+wxVersionInfo wxGetZlibVersionInfo()
+{
+    return wxVersionInfo("zlib",
+                         ZLIB_VERNUM >> 12,
+                         (ZLIB_VERNUM >> 8) & 0x0F,
+                         (ZLIB_VERNUM & 0xFF) / 0x10);
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // Zlib Class factory

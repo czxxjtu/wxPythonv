@@ -4,9 +4,9 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     04.10.99
-// RCS-ID:      $Id: console.cpp 64679 2010-06-21 21:03:47Z FM $
+// RCS-ID:      $Id: console.cpp 67387 2011-04-04 09:21:52Z DS $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
-// Licence:     wxWindows license
+// Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 // ============================================================================
@@ -16,10 +16,10 @@
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
- 
+
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
- 
+
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 
                     // kill the last '\n'
                     input[wxStrlen(input) - 1] = 0;
-                    
+
                     if (wxStrcmp(input, "quit") == 0)
                         break;
 

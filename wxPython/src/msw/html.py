@@ -1356,19 +1356,19 @@ class HtmlEasyPrinting(_core.Object):
     __swig_destroy__ = _html.delete_HtmlEasyPrinting
     __del__ = lambda self : None;
     def PreviewFile(*args, **kwargs):
-        """PreviewFile(self, String htmlfile)"""
+        """PreviewFile(self, String htmlfile) -> bool"""
         return _html.HtmlEasyPrinting_PreviewFile(*args, **kwargs)
 
     def PreviewText(*args, **kwargs):
-        """PreviewText(self, String htmltext, String basepath=EmptyString)"""
+        """PreviewText(self, String htmltext, String basepath=EmptyString) -> bool"""
         return _html.HtmlEasyPrinting_PreviewText(*args, **kwargs)
 
     def PrintFile(*args, **kwargs):
-        """PrintFile(self, String htmlfile)"""
+        """PrintFile(self, String htmlfile) -> bool"""
         return _html.HtmlEasyPrinting_PrintFile(*args, **kwargs)
 
     def PrintText(*args, **kwargs):
-        """PrintText(self, String htmltext, String basepath=EmptyString)"""
+        """PrintText(self, String htmltext, String basepath=EmptyString) -> bool"""
         return _html.HtmlEasyPrinting_PrintText(*args, **kwargs)
 
     def PageSetup(*args, **kwargs):
@@ -1781,6 +1781,10 @@ class HtmlHelpFrame(_windows.Frame):
         """AddGrabIfNeeded(self)"""
         return _html.HtmlHelpFrame_AddGrabIfNeeded(*args, **kwargs)
 
+    def SetShouldPreventAppExit(*args, **kwargs):
+        """SetShouldPreventAppExit(self, bool enable)"""
+        return _html.HtmlHelpFrame_SetShouldPreventAppExit(*args, **kwargs)
+
     def GetController(*args, **kwargs):
         """GetController(self) -> HtmlHelpController"""
         return _html.HtmlHelpFrame_GetController(*args, **kwargs)
@@ -1953,6 +1957,10 @@ class HtmlHelpController(HelpControllerBase):
         _html.HtmlHelpController_swiginit(self,_html.new_HtmlHelpController(*args, **kwargs))
     __swig_destroy__ = _html.delete_HtmlHelpController
     __del__ = lambda self : None;
+    def SetShouldPreventAppExit(*args, **kwargs):
+        """SetShouldPreventAppExit(self, bool enable)"""
+        return _html.HtmlHelpController_SetShouldPreventAppExit(*args, **kwargs)
+
     def GetHelpWindow(*args, **kwargs):
         """GetHelpWindow(self) -> HtmlHelpWindow"""
         return _html.HtmlHelpController_GetHelpWindow(*args, **kwargs)

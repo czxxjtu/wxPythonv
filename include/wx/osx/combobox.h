@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: combobox.h 64668 2010-06-21 14:00:59Z SC $
+// RCS-ID:      $Id: combobox.h 66993 2011-02-22 13:25:38Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -15,8 +15,6 @@
 #include "wx/containr.h"
 #include "wx/choice.h"
 #include "wx/textctrl.h"
-
-WXDLLIMPEXP_DATA_CORE(extern const char) wxComboBoxNameStr[];
 
 WX_DEFINE_ARRAY( char * , wxComboBoxDataArray ) ;
 
@@ -100,7 +98,7 @@ class WXDLLIMPEXP_CORE wxComboBox : public wxControl, public wxComboBoxBase
     virtual void SetString(unsigned int n, const wxString& s);
 
     virtual unsigned int GetCount() const;
-    
+
 // these methods are provided by wxTextEntry for the native impl.
 #if wxOSX_USE_CARBON
     // Text field functions

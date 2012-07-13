@@ -7,6 +7,8 @@ aS'--build_dir=../bld'
 p4
 aS'--prefix=/opt/wx/2.9'
 p5
-aS'--debug'
+aS'--cairo'
 p6
+aS'--debug'
+p7
 a.

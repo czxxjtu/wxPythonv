@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        mactext.h
+// Name:        wx/osx/carbon/private/mactext.h
 // Purpose:     private wxMacTextControl base class
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     03/02/99
-// RCS-ID:      $Id: mactext.h 58022 2009-01-11 12:00:51Z FM $
+// RCS-ID:      $Id: mactext.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

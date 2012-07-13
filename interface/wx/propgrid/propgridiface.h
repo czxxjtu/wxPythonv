@@ -2,7 +2,7 @@
 // Name:        property.h
 // Purpose:     interface of wxPGProperty
 // Author:      wxWidgets team
-// RCS-ID:      $Id: propgridiface.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: propgridiface.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -153,6 +153,8 @@ public:
 
     /**
         Disables a property.
+
+        @see EnableProperty(), wxPGProperty::Enable()
     */
     bool DisableProperty( wxPGPropArg id );
 
@@ -164,12 +166,15 @@ public:
     bool EditorValidate();
 
     /**
-        Enables or disables property.
+        Enables or disables property. Disabled property usually appears as
+        having grey text.
 
         @param id
             Name or pointer to a property.
         @param enable
             If @false, property is disabled instead.
+
+        @see wxPGProperty::Enable()
     */
     bool EnableProperty( wxPGPropArg id, bool enable = true );
 
@@ -278,7 +283,7 @@ public:
         If there is no property with such name, @NULL pointer is returned.
 
         @remarks Properties which have non-category, non-root parent
-                 can not be accessed globally by their name. Instead, use
+                 cannot be accessed globally by their name. Instead, use
                  "<property>.<subproperty>" instead of "<subproperty>".
     */
     wxPGProperty* GetProperty( const wxString& name ) const;
@@ -334,7 +339,7 @@ public:
         If there is no property with such name, @NULL pointer is returned.
 
         @remarks Properties which have non-category, non-root parent
-                 can not be accessed globally by their name. Instead, use
+                 cannot be accessed globally by their name. Instead, use
                  "<property>.<subproperty>" instead of "<subproperty>".
     */
     wxPGProperty* GetPropertyByName( const wxString& name ) const;
@@ -715,7 +720,7 @@ public:
     /**
         Set proportion of a auto-stretchable column. wxPG_SPLITTER_AUTO_CENTER
         window style needs to be used to indicate that columns are auto-
-        resizeable.
+        resizable.
 
         @returns Returns @false on failure.
 

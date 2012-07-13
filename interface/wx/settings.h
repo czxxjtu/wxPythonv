@@ -2,7 +2,7 @@
 // Name:        settings.h
 // Purpose:     interface of wxSystemSettings
 // Author:      wxWidgets team
-// RCS-ID:      $Id: settings.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: settings.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +75,7 @@ enum wxSystemColour
     wxSYS_COLOUR_3DLIGHT,             //!< Light colour for three-dimensional display elements.
     wxSYS_COLOUR_INFOTEXT,            //!< Text colour for tooltip controls.
     wxSYS_COLOUR_INFOBK,              //!< Background colour for tooltip controls.
-    wxSYS_COLOUR_LISTBOX,             //!< Background colour for list-like contols.
+    wxSYS_COLOUR_LISTBOX,             //!< Background colour for list-like controls.
     wxSYS_COLOUR_HOTLIGHT,            //!< Colour for a hyperlink or hot-tracked item.
 
     /**
@@ -109,6 +109,13 @@ enum wxSystemColour
      */
     wxSYS_COLOUR_LISTBOXTEXT,
 
+    /**
+        Text colour for the unfocused selection of list-like controls.
+
+        @since 2.9.1
+     */
+    wxSYS_COLOUR_LISTBOXHIGHLIGHTTEXT,
+
     wxSYS_COLOUR_MAX
 
 
@@ -129,7 +136,7 @@ enum wxSystemColour
         //!< Synonym for @c wxSYS_COLOUR_BTNHIGHLIGHT.
 
     /**
-        Synonim for @c wxSYS_COLOUR_BTNFACE.
+        Synonym for @c wxSYS_COLOUR_BTNFACE.
 
         On wxMSW this colour should be used as the background colour of
         wxFrames which are used as containers of controls; this is in fact the
@@ -266,7 +273,7 @@ public:
         The value of @a win determines if the metric returned is a global value or
         a wxWindow based value, in which case it might determine the widget, the
         display the window is on, or something similar. The window given should be as
-        close to the metric as possible (e.g a wxTopLevelWindow in case of the
+        close to the metric as possible (e.g. a wxTopLevelWindow in case of the
         wxSYS_CAPTION_Y metric).
 
         @a index can be one of the ::wxSystemMetric enum values.

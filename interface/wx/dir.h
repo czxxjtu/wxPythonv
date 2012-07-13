@@ -2,7 +2,7 @@
 // Name:        dir.h
 // Purpose:     interface of wxDir and wxDirTraverser
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dir.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dir.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -233,7 +233,7 @@ public:
         Returns the size (in bytes) of all files recursively found in @c dir or
         @c wxInvalidSize in case of error.
 
-        In case it happens that while traversing folders a file's size can not
+        In case it happens that while traversing folders a file's size cannot
         be read, that file is added to the @a filesSkipped array, if not @NULL,
         and then skipped. This usually happens with some special folders which
         are locked by the operating system or by another process. Remember that

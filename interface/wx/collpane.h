@@ -2,9 +2,12 @@
 // Name:        collpane.h
 // Purpose:     interface of wxCollapsiblePane
 // Author:      wxWidgets team
-// RCS-ID:      $Id: collpane.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: collpane.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+#define wxCP_DEFAULT_STYLE          (wxTAB_TRAVERSAL | wxNO_BORDER)
+#define wxCP_NO_TLW_RESIZE          (0x0002)
 
 /**
     @class wxCollapsiblePaneEvent
@@ -41,7 +44,7 @@ public:
     void SetCollapsed(bool collapsed);
 };
 
-
+wxEventType wxEVT_COMMAND_COLLPANE_CHANGED;
 
 /**
     @class wxCollapsiblePane
@@ -179,4 +182,3 @@ public:
     */
     bool IsExpanded() const;
 };
-

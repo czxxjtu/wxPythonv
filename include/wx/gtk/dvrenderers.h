@@ -3,7 +3,7 @@
 // Purpose:     All GTK wxDataViewCtrl renderer classes
 // Author:      Robert Roebling, Vadim Zeitlin
 // Created:     2009-11-07 (extracted from wx/gtk/dataview.h)
-// RCS-ID:      $Id: dvrenderers.h 64378 2010-05-21 20:13:49Z RR $
+// RCS-ID:      $Id: dvrenderers.h 68541 2011-08-04 22:58:18Z RD $
 // Copyright:   (c) 2006 Robert Roebling
 //              (c) 2009 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
@@ -147,6 +147,10 @@ protected:
     bool Init(wxDataViewCellMode mode, int align);
 
 private:
+    // Called from GtkGetTextRenderer() to really create the renderer if
+    // necessary.
+    void GtkInitTextRenderer();
+
     wxDC        *m_dc;
 
     GtkCellRendererText      *m_text_renderer;
@@ -185,8 +189,16 @@ public:
     virtual wxSize GetSize() const;
 
 private:
+    void GTKSetLabel();
+
     wxString    m_label;
     int         m_value;
+
+#if !wxUSE_UNICODE
+    // Flag used to indicate that we need to set the label because we were
+    // unable to do it in the ctor (see comments there).
+    bool m_needsToSetLabel;
+#endif // !wxUSE_UNICODE
 
 protected:
     DECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewProgressRenderer)
@@ -239,7 +251,7 @@ public:
 
     virtual bool Render( wxRect cell, wxDC *dc, int state );
     virtual wxSize GetSize() const;
-    virtual bool Activate( wxRect cell,
+    virtual bool Activate( const wxRect& cell,
                            wxDataViewModel *model,
                            const wxDataViewItem &item,
                            unsigned int col );
@@ -286,10 +298,10 @@ public:
     wxDataViewChoiceByIndexRenderer( const wxArrayString &choices,
                               wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE,
                               int alignment = wxDVR_DEFAULT_ALIGNMENT );
-                            
+
     virtual bool SetValue( const wxVariant &value );
     virtual bool GetValue( wxVariant &value ) const;
-    
+
 private:
     virtual void GtkOnTextEdited(const gchar *itempath, const wxString& str);
 };

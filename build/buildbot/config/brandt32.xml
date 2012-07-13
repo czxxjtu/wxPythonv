@@ -2,7 +2,7 @@
 
 <!--
     Name:       brandt32.xml
-    RCS-ID:     $Id: brandt32.xml 63975 2010-04-14 07:21:44Z MW $
+    RCS-ID:     $Id: brandt32.xml 65868 2010-10-22 22:12:00Z MW $
 -->
 
 <bot xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -15,7 +15,7 @@
     <scheduler>trunk_quick</scheduler>
     <steps>
         <checkout/>
-        <configure options="--enable-compat28"/>
+        <configure options="--enable-compat28 --enable-debug"/>
         <compile-all/>
         <run-tests/>
     </steps>
@@ -27,7 +27,7 @@
     <scheduler>daily_0600</scheduler>
     <steps>
         <checkout/>
-        <configure options="--disable-shared"/>
+        <configure options="--disable-shared --enable-debug"/>
         <compile-all/>
         <run-tests/>
     </steps>
@@ -51,7 +51,7 @@
     <scheduler>daily_0600</scheduler>
     <steps>
         <checkout/>
-        <configure options="--with-directfb"/>
+        <configure options="--with-directfb --enable-debug"/>
         <compile-all/>
         <run-tests/>
     </steps>

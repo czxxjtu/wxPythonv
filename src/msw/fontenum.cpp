@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin to add support for font encodings
 // Created:     04/01/98
-// RCS-ID:      $Id: fontenum.cpp 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: fontenum.cpp 66615 2011-01-07 05:26:57Z PC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,17 +26,17 @@
 
 #if wxUSE_FONTENUM
 
+#include "wx/fontenum.h"
+
 #ifndef WX_PRECOMP
     #include "wx/gdicmn.h"
     #include "wx/font.h"
-    #include "wx/encinfo.h"
     #include "wx/dynarray.h"
+    #include "wx/msw/private.h"
 #endif
 
-#include "wx/msw/private.h"
-
+#include "wx/encinfo.h"
 #include "wx/fontutil.h"
-#include "wx/fontenum.h"
 #include "wx/fontmap.h"
 
 // ----------------------------------------------------------------------------

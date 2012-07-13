@@ -3,7 +3,7 @@
 // Purpose:     wxPen class implementation
 // Author:      Vaclav Slavik
 // Created:     2006-08-04
-// RCS-ID:      $Id: pen.cpp 53156 2008-04-13 12:06:17Z VS $
+// RCS-ID:      $Id: pen.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2006 REA Elektronik GmbH
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ wxDash* wxPen::GetDash() const
 
 wxPenCap wxPen::GetCap() const
 {
-    wxCHECK_MSG( Ok(), wxCAP_INVALID, wxT("invalid pen") );
+    wxCHECK_MSG( IsOk(), wxCAP_INVALID, wxT("invalid pen") );
 
     wxFAIL_MSG( "GetCap not implemented" );
     return wxCAP_INVALID;
@@ -163,7 +163,7 @@ wxPenCap wxPen::GetCap() const
 
 wxPenJoin wxPen::GetJoin() const
 {
-    wxCHECK_MSG( Ok(), wxJOIN_INVALID, wxT("invalid pen") );
+    wxCHECK_MSG( IsOk(), wxJOIN_INVALID, wxT("invalid pen") );
 
     wxFAIL_MSG( "GetJoin not implemented" );
     return wxJOIN_INVALID;
@@ -171,28 +171,28 @@ wxPenJoin wxPen::GetJoin() const
 
 wxPenStyle wxPen::GetStyle() const
 {
-    wxCHECK_MSG( Ok(), wxPENSTYLE_INVALID, wxT("invalid pen") );
+    wxCHECK_MSG( IsOk(), wxPENSTYLE_INVALID, wxT("invalid pen") );
 
     return M_PENDATA->m_style;
 }
 
 int wxPen::GetWidth() const
 {
-    wxCHECK_MSG( Ok(), -1, wxT("invalid pen") );
+    wxCHECK_MSG( IsOk(), -1, wxT("invalid pen") );
 
     return 1;
 }
 
 wxColour wxPen::GetColour() const
 {
-    wxCHECK_MSG( Ok(), wxNullColour, wxT("invalid pen") );
+    wxCHECK_MSG( IsOk(), wxNullColour, wxT("invalid pen") );
 
     return M_PENDATA->m_colour;
 }
 
 wxBitmap *wxPen::GetStipple() const
 {
-    wxCHECK_MSG( Ok(), NULL, wxT("invalid pen") );
+    wxCHECK_MSG( IsOk(), NULL, wxT("invalid pen") );
 
     wxFAIL_MSG( "GetStipple not implemented" );
     return NULL;

@@ -2,7 +2,7 @@
 // Name:        ctrlsub.h
 // Purpose:     interface of wxControlWithItems
 // Author:      wxWidgets team
-// RCS-ID:      $Id: ctrlsub.h 64992 2010-07-17 08:40:05Z RR $
+// RCS-ID:      $Id: ctrlsub.h 66442 2010-12-25 13:19:00Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -123,12 +123,17 @@ public:
     virtual int GetSelection() const = 0;
 
     /**
-        Selects the item with the specified string in the control. This doesn't
-        cause any command events to be emitted.
+        Selects the item with the specified string in the control.
+
+        This method doesn't cause any command events to be emitted.
+
+        Notice that this method is case-insensitive, i.e. the string is
+        compared with all the elements of the control case-insensitively and
+        the first matching entry is selected, even if it doesn't have exactly
+        the same case as this string and there is an exact match afterwards.
 
         @param string
             The string to select.
-
         @return @true if the specified string has been selected, @false if it
                 wasn't found in the control.
     */
@@ -349,19 +354,44 @@ public:
 
 
     /**
+        Returns the client object associated with the given item and transfers
+        its ownership to the caller.
+
+        This method, unlike GetClientObject(), expects the caller to delete the
+        returned pointer. It also replaces the internally stored pointer with
+        @NULL, i.e. completely detaches the client object pointer from the
+        control.
+
+        It's an error to call this method unless HasClientObjectData() returns
+        @true.
+
+        @param n
+            The zero-based item index.
+        @return The associated client object pointer to be deleted by caller or
+            @NULL.
+
+        @since 2.9.2
+     */
+    wxClientData *DetachClientObject(unsigned int n);
+
+    /**
        Returns true, if either untyped data (@c void*) or object data (wxClientData*)
        is associated with the items of the control.
     */
     bool HasClientData() const;
-    
+
     /**
-       Returns true, if object data (wxClientData*)
-       is associated with the items of the control.
+       Returns true, if object data is associated with the items of the
+       control.
+
+       Object data pointers have the type @c wxClientData* instead of @c void*
+       and, importantly, are owned by the control, i.e. will be deleted by it,
+       unlike their untyped counterparts.
     */
     bool HasClientObjectData() const;
 
     /**
-       Returns true, if untyped data (@c void*) 
+       Returns true, if untyped data (@c void*)
        is associated with the items of the control.
     */
     bool HasClientUntypedData() const;
@@ -389,6 +419,10 @@ public:
         have typed client data at all although it is OK to call it even if the
         given item doesn't have any client data associated with it (but other
         items do).
+
+        Notice that the returned pointer is still owned by the control and will
+        be deleted by it, use DetachClientObject() if you want to remove the
+        pointer from the control.
 
         @param n
             The zero-based position of the item.
@@ -482,6 +516,8 @@ public:
             Array of strings to insert.
         @param pos
             Position to insert the items before, zero based.
+        @return The return value is the index of the last inserted item.
+                If the insertion failed for some reason, -1 is returned.
     */
     int Insert(const wxArrayString& items, unsigned int pos);
 
@@ -498,6 +534,8 @@ public:
         @param clientData
             Array of client data pointers of the same size as @a items to
             associate with the new items.
+        @return The return value is the index of the last inserted item.
+                If the insertion failed for some reason, -1 is returned.
     */
     int Insert(const wxArrayString& items, unsigned int pos,
                 void **clientData);
@@ -515,6 +553,8 @@ public:
         @param clientData
             Array of client data pointers of the same size as @a items to
             associate with the new items.
+        @return The return value is the index of the last inserted item.
+                If the insertion failed for some reason, -1 is returned.
     */
     int Insert(const wxArrayString& items, unsigned int pos,
                 wxClientData **clientData);
@@ -531,6 +571,8 @@ public:
             Array of strings of size @a n.
         @param pos
             Position to insert the items before, zero based.
+        @return The return value is the index of the last inserted item.
+                If the insertion failed for some reason, -1 is returned.
     */
     int Insert(unsigned int n, const wxString* items,
                 unsigned int pos);
@@ -550,6 +592,8 @@ public:
         @param clientData
             Array of client data pointers of size @a n to associate with the
             new items.
+        @return The return value is the index of the last inserted item.
+                If the insertion failed for some reason, -1 is returned.
     */
     int Insert(unsigned int n, const wxString* items,
                 unsigned int pos,
@@ -570,6 +614,8 @@ public:
         @param clientData
             Array of client data pointers of size @a n to associate with the
             new items.
+        @return The return value is the index of the last inserted item.
+                If the insertion failed for some reason, -1 is returned.
     */
     int Insert(unsigned int n, const wxString* items,
                 unsigned int pos,

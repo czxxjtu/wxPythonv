@@ -6,6 +6,49 @@
 #
 
 #-----------------------------------------------------------------------------#
+Version 1.12
+Released:
+
++Fix bug with handling initialization of color preferences on new installs.
++Fix issue in class factory causing incorrect data display for handler classes
+that are generated dynamically on the fly.
+
+#-----------------------------------------------------------------------------#
+Version 1.11
+Released: 05/14/2011
+
++Fix bug in handling launch xml file for handlers that have empty command lists.
++Fix bug in configuration settings management.
+
+#-----------------------------------------------------------------------------#
+Version 1.10
+
+Due to a change in the underlying datamodel this update will force any existing
+Launch configuration to be reset.
+
++Major framework redesign - Adds support for all file types in Editra.
++Fix issue in detecting files that are already open from hotspot links.
++Fix output display truncating on NULL bytes.
++When an XML configuration is present the handlers defined in it can only be
+edited in the XML file, since XML handlers are now transient.
++Fix crash that could occur from holding F5 down for a long time
+
+#-----------------------------------------------------------------------------#
+Version 1.9
+
++Add Auto Save buffer before running option.
++Add default handlers for C/C++ files.
++Ensure that process exit status is output to a new line in the output buffer
++Trap and log XML parsing assertions instead of crashing when invalid Launch
+XML is encountered.
+
+#-----------------------------------------------------------------------------#
+Version 1.8
+
++Fix compatibility issue with Python 2.6.4 and later
++Fix some issues with the Lock File feature not always locking the selected file.
+
+#-----------------------------------------------------------------------------#
 Version 1.7:
 
 +Fix crash that could occur when clicking on some hotspots where the pattern

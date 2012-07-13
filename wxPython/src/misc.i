@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     3-July-1997
-// RCS-ID:      $Id: misc.i 65602 2010-09-23 18:23:49Z RD $
+// RCS-ID:      $Id: misc.i 65982 2010-11-02 03:02:11Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -50,6 +50,6 @@ MAKE_CONST_WXSTRING_NOSWIG(EmptyString);
 %include _stdpaths.i
 %include _power.i
 %include _about.i
- //%include _uiaction.i
+%include _uiaction.i
 
 //---------------------------------------------------------------------------

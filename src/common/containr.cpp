@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     06.08.01
-// RCS-ID:      $Id: containr.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: containr.cpp 68536 2011-08-04 22:53:22Z RD $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -650,14 +650,26 @@ bool wxSetFocusToChild(wxWindow *win, wxWindow **childLastFocused)
         // It might happen that the window got reparented
         if ( (*childLastFocused)->GetParent() == win )
         {
-            wxLogTrace(TRACE_FOCUS,
-                       wxT("SetFocusToChild() => last child (0x%p)."),
-                       (*childLastFocused)->GetHandle());
+            // And it also could have become hidden in the meanwhile, in this
+            // case focus its parent instead.
+            while ( !(*childLastFocused)->IsShown() )
+            {
+                *childLastFocused = (*childLastFocused)->GetParent();
+                if ( !*childLastFocused )
+                    break;
+            }
 
-            // not SetFocusFromKbd(): we're restoring focus back to the old
-            // window and not setting it as the result of a kbd action
-            (*childLastFocused)->SetFocus();
-            return true;
+            if ( *childLastFocused )
+            {
+                wxLogTrace(TRACE_FOCUS,
+                           wxT("SetFocusToChild() => last child (0x%p)."),
+                           (*childLastFocused)->GetHandle());
+
+                // not SetFocusFromKbd(): we're restoring focus back to the old
+                // window and not setting it as the result of a kbd action
+                (*childLastFocused)->SetFocus();
+                return true;
+            }
         }
         else
         {

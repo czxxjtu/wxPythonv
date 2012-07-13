@@ -2,14 +2,14 @@
 // Name:        config.h
 // Purpose:     interface of wxConfigBase
 // Author:      wxWidgets team
-// RCS-ID:      $Id: config.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: config.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 /**
     @class wxConfigBase
 
-    wxConfigBase defines the basic interface of all config classes. It can not
+    wxConfigBase defines the basic interface of all config classes. It cannot
     be used by itself (it is an abstract base class) and you will always use
     one of its derivations: wxFileConfig, wxRegConfig or any other.
 
@@ -312,7 +312,7 @@ public:
             @n The @c wxCONFIG_USE_NO_ESCAPE_CHARACTERS style can be helpful if your
             config file must be read or written to by a non-wxWidgets program
             (which might not understand the escape characters). Note, however,
-            that if @c wxCONFIG_USE_NO_ESCAPE_CHARACTERS style is used, it is is
+            that if @c wxCONFIG_USE_NO_ESCAPE_CHARACTERS style is used, it is
             now your application's responsibility to ensure that there is no
             newline or other illegal characters in a value, before writing that
             value to the file.
@@ -763,7 +763,7 @@ public:
 
     /**
         Delete the whole underlying object (disk file, registry key, ...).
-        Primarly for use by uninstallation routine.
+        Primarily for use by uninstallation routine.
     */
     virtual bool DeleteAll() = 0;
 
@@ -845,10 +845,26 @@ public:
 
 
     /**
-        Create a new config object: this function will create the "best"
-        implementation of wxConfig available for the current platform, see
-        comments near the definition of wxCONFIG_WIN32_NATIVE for details. It
-        returns the created object and also sets it as the current one.
+        Create a new config object and sets it as the current one.
+
+        This function will create the most appropriate implementation of
+        wxConfig available for the current platform. By default this means that
+        the system registry will be used for storing the configuration
+        information under MSW and a file under the user home directory (see
+        wxStandardPaths::GetUserConfigDir()) elsewhere.
+
+        If you prefer to use the configuration files everywhere, you can define
+        @c wxUSE_CONFIG_NATIVE to 0 when compiling wxWidgets. Or you can simply
+        always create wxFileConfig explicitly.
+
+        Finally, if you want to create a custom wxConfig subclass you may
+        change this function behaviour by overriding wxAppTraits::CreateConfig()
+        to create it. An example when this could be useful could be an
+        application which could be installed either normally (in which case the
+        default behaviour of using wxRegConfig is appropriate) or in a
+        "portable" way in which case a wxFileConfig with a file in the program
+        directory would be used and the choice would be done in CreateConfig()
+        at run-time.
     */
     static wxConfigBase* Create();
 

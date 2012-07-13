@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     31.05.03
-// RCS-ID:      $Id: htlbox.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: htlbox.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -449,7 +449,7 @@ void MyFrame::OnGetItemRect(wxCommandEvent& WXUNUSED(event))
 void MyFrame::OnSetBgCol(wxCommandEvent& WXUNUSED(event))
 {
     wxColour col = wxGetColourFromUser(this, m_hlbox->GetBackgroundColour());
-    if ( col.Ok() )
+    if ( col.IsOk() )
     {
         m_hlbox->SetBackgroundColour(col);
         m_hlbox->Refresh();
@@ -463,7 +463,7 @@ void MyFrame::OnSetBgCol(wxCommandEvent& WXUNUSED(event))
 void MyFrame::OnSetSelBgCol(wxCommandEvent& WXUNUSED(event))
 {
     wxColour col = wxGetColourFromUser(this, m_hlbox->GetSelectionBackground());
-    if ( col.Ok() )
+    if ( col.IsOk() )
     {
         m_hlbox->SetSelectionBackground(col);
         m_hlbox->Refresh();

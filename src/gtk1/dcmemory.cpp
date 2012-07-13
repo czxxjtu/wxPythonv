@@ -2,7 +2,7 @@
 // Name:        src/gtk1/dcmemory.cpp
 // Purpose:
 // Author:      Robert Roebling
-// RCS-ID:      $Id: dcmemory.cpp 58227 2009-01-19 13:55:27Z VZ $
+// RCS-ID:      $Id: dcmemory.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ void wxMemoryDCImpl::DoSelect( const wxBitmap& bitmap )
     Destroy();
 
     m_selected = bitmap;
-    if (m_selected.Ok())
+    if (m_selected.IsOk())
     {
         if (m_selected.GetPixmap())
         {
@@ -68,7 +68,7 @@ void wxMemoryDCImpl::DoSelect( const wxBitmap& bitmap )
 void wxMemoryDCImpl::SetPen( const wxPen& penOrig )
 {
     wxPen pen( penOrig );
-    if ( m_selected.Ok() &&
+    if ( m_selected.IsOk() &&
             m_selected.GetBitmap() &&
                 (pen != *wxTRANSPARENT_PEN) )
     {
@@ -81,7 +81,7 @@ void wxMemoryDCImpl::SetPen( const wxPen& penOrig )
 void wxMemoryDCImpl::SetBrush( const wxBrush& brushOrig )
 {
     wxBrush brush( brushOrig );
-    if ( m_selected.Ok() &&
+    if ( m_selected.IsOk() &&
             m_selected.GetBitmap() &&
                 (brush != *wxTRANSPARENT_BRUSH) )
     {
@@ -95,7 +95,7 @@ void wxMemoryDCImpl::SetBackground( const wxBrush& brushOrig )
 {
     wxBrush brush(brushOrig);
 
-    if ( m_selected.Ok() &&
+    if ( m_selected.IsOk() &&
             m_selected.GetBitmap() &&
                 (brush != *wxTRANSPARENT_BRUSH) )
     {
@@ -107,7 +107,7 @@ void wxMemoryDCImpl::SetBackground( const wxBrush& brushOrig )
 
 void wxMemoryDCImpl::SetTextForeground( const wxColour& col )
 {
-    if ( m_selected.Ok() && m_selected.GetBitmap() )
+    if ( m_selected.IsOk() && m_selected.GetBitmap() )
     {
         wxWindowDCImpl::SetTextForeground( col == *wxWHITE ? *wxBLACK : *wxWHITE);
     }
@@ -119,7 +119,7 @@ void wxMemoryDCImpl::SetTextForeground( const wxColour& col )
 
 void wxMemoryDCImpl::SetTextBackground( const wxColour &col )
 {
-    if (m_selected.Ok() && m_selected.GetBitmap())
+    if (m_selected.IsOk() && m_selected.GetBitmap())
     {
         wxWindowDCImpl::SetTextBackground( col == *wxWHITE ? *wxBLACK : *wxWHITE );
     }
@@ -131,7 +131,7 @@ void wxMemoryDCImpl::SetTextBackground( const wxColour &col )
 
 void wxMemoryDCImpl::DoGetSize( int *width, int *height ) const
 {
-    if (m_selected.Ok())
+    if (m_selected.IsOk())
     {
         if (width) (*width) = m_selected.GetWidth();
         if (height) (*height) = m_selected.GetHeight();

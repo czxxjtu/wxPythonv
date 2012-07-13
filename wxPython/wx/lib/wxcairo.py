@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     3-Sept-2008
-# RCS-ID:      $Id: wxcairo.py 63525 2010-02-19 22:16:18Z RD $
+# RCS-ID:      $Id: wxcairo.py 68894 2011-08-25 18:50:02Z RD $
 # Copyright:   (c) 2008 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -36,7 +36,7 @@ normal 'python setup.py install' dance.
 
 On Windows you can get a Cairo DLL from here:
 
-    http://www.gtk.org/download-windows.html
+    http://www.gtk.org/download/win32.php
 
 You'll also want to get the zlib and libpng binaries from the same
 page.  Once you get those files extract the DLLs from each of the zip
@@ -360,7 +360,10 @@ class Pycairo_CAPI(ctypes.Structure):
                                                       ctypes.py_object)),
             ('Check_Status', ctypes.PYFUNCTYPE(ctypes.c_int, ctypes.c_int))]
 
-    elif cairo.version_info < (1,9):  # This structure is known good with pycairo 1.8.4
+    # This structure is known good with pycairo 1.8.4.
+    # We have to also test for (1,10,8) because pycairo 1.8.10 has an
+    # incorrect version_info value
+    elif cairo.version_info < (1,9) or cairo.version_info == (1,10,8):  
         _fields_ = [
             ('Context_Type', ctypes.py_object),
             ('Context_FromContext', ctypes.PYFUNCTYPE(ctypes.py_object,

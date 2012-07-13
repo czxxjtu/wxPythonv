@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-05-25
-// RCS-ID:      $Id: panel.h 62771 2009-12-03 17:20:15Z PC $
+// RCS-ID:      $Id: panel.h 65852 2010-10-20 17:49:42Z PJC $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ enum wxRibbonPanelOption
     wxRIBBON_PANEL_NO_AUTO_MINIMISE    = 1 << 0,
     wxRIBBON_PANEL_EXT_BUTTON        = 1 << 3,
     wxRIBBON_PANEL_MINIMISE_BUTTON    = 1 << 4,
-    
+
     wxRIBBON_PANEL_DEFAULT_STYLE = 0,
 };
 
@@ -76,6 +76,8 @@ public:
 
 protected:
     virtual wxSize DoGetBestSize() const;
+    virtual wxSize GetPanelSizerBestSize() const;
+    wxSize  GetPanelSizerMinSize() const;
     wxBorder GetDefaultBorder() const { return wxBORDER_NONE; }
     wxSize GetMinNotMinimisedSize() const;
 

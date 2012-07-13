@@ -13,19 +13,19 @@ This class implements Editra's main notebook control.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_pages.py 65719 2010-10-01 20:45:31Z CJP $"
-__revision__ = "$Revision: 65719 $"
+__svnid__ = "$Id: ed_pages.py 68906 2011-08-26 01:55:43Z CJP $"
+__revision__ = "$Revision: 68906 $"
 
 #--------------------------------------------------------------------------#
 # Dependencies
 import os
+import sys
 import glob
-import cPickle
 import wx
 
 # Editra Libraries
 import ed_glob
-from profiler import Profile_Get
+from profiler import Profile_Get, Profile_Set
 import ed_editv
 import syntax.synglob as synglob
 import syntax.syntax as syntax
@@ -34,23 +34,26 @@ import util
 import ed_msg
 import ed_txt
 import ed_mdlg
+import ed_session
 import ebmlib
 import eclib
 from extern import aui
+import ed_book
 
 #--------------------------------------------------------------------------#
 # Globals
 ID_IDLE_TIMER = wx.NewId()
 SIMULATED_EVT_ID = -1
 _ = wx.GetTranslation
+
 #--------------------------------------------------------------------------#
 
-class EdPages(aui.AuiNotebook):
+class EdPages(ed_book.EdBaseBook):
     """Editra's editor buffer notebook
     @todo: allow for tab styles to be configurable (maybe)
 
     """
-    def __init__(self, parent, id_num):
+    def __init__(self, parent):
         """Initialize a notebook with a blank text control in it
         @param parent: parent window of the notebook
         @param id_num: this notebooks id
@@ -61,10 +64,9 @@ class EdPages(aui.AuiNotebook):
                 aui.AUI_NB_SMART_TABS | \
                 aui.AUI_NB_USE_IMAGES_DROPDOWN | \
                 aui.AUI_NB_TAB_EXTERNAL_MOVE | \
-                aui.AUI_NB_TAB_FIXED_WIDTH
-        if wx.Platform == '__WXMAC__':
-            style |= aui.AUI_NB_CLOSE_ON_TAB_LEFT
-        aui.AuiNotebook.__init__(self, parent, id_num, agwStyle=style)
+                aui.AUI_NB_TAB_FIXED_WIDTH | \
+                aui.AUI_NB_ORDER_BY_ACCESS
+        super(EdPages, self).__init__(parent, style=style)
 
         # Notebook attributes
         self.LOG = wx.GetApp().GetLog()
@@ -79,27 +81,23 @@ class EdPages(aui.AuiNotebook):
         self.mdown = -1
         self.control = None
         self.frame = self.GetTopLevelParent() # MainWindow
-        self._index = dict()          # image list index
         self._ses_load = False
         self._menu = ebmlib.ContextMenuManager()
 
         # Setup Tab Navigator
         ed_icon = ed_glob.CONFIG['SYSPIX_DIR'] + u"editra.png"
-        self.SetNavigatorIcon(wx.Bitmap(ed_icon, wx.BITMAP_TYPE_PNG))
-
-        # Setup the ImageList and the default image
-        imgl = wx.ImageList(16, 16)
-        txtbmp = wx.ArtProvider.GetBitmap(str(synglob.ID_LANG_TXT), wx.ART_MENU)
-        self._index[synglob.ID_LANG_TXT] = imgl.Add(txtbmp)
-        robmp = wx.ArtProvider.GetBitmap(str(ed_glob.ID_READONLY), wx.ART_MENU)
-        self._index[ed_glob.ID_READONLY] = imgl.Add(robmp)
-        self.SetImageList(imgl)
+        bmp = wx.Bitmap(ed_icon, wx.BITMAP_TYPE_PNG)
+        if bmp.IsOk():
+            self.SetNavigatorIcon(bmp)
+        else:
+            util.Log("[ed_pages][warn] Bad bitmap: %s" % ed_icon)
 
         # Set custom options
         self.SetSashDClickUnsplit(True)
         self.SetMinMaxTabWidth(125, 135)
 
         # Notebook Events
+        self.Bind(wx.EVT_WINDOW_DESTROY, self.OnDestroy, self)
         self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CHANGING, self.OnPageChanging)
         self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CHANGED, self.OnPageChanged)
         self.Bind(aui.EVT_AUINOTEBOOK_PAGE_CLOSE, self.OnPageClosing)
@@ -110,6 +108,8 @@ class EdPages(aui.AuiNotebook):
         self.Bind(aui.EVT_AUINOTEBOOK_TAB_MIDDLE_UP, self.OnMClickUp)
         self.Bind(aui.EVT_AUINOTEBOOK_TAB_RIGHT_UP, self.OnTabMenu)
         self.Bind(aui.EVT_AUINOTEBOOK_ALLOW_DND, self.OnAllowDnD)
+        self.Bind(aui.EVT_AUINOTEBOOK_END_DRAG, self.OnDragFinished)
+        self.Bind(aui.EVT_AUINOTEBOOK_DRAG_DONE, self.OnDragFinished)
 
         self.Bind(wx.stc.EVT_STC_CHANGE, self.OnUpdatePageText)
         self.Bind(wx.EVT_MENU, self.OnMenu)
@@ -124,20 +124,21 @@ class EdPages(aui.AuiNotebook):
 
         # Add a blank page
         self.NewPage()
-        self._idletimer.Start(333) # Do idle checks 3 times a second
+        self._idletimer.Start(400)
 
     #---- End Init ----#
 
-    def __del__(self):
-        ed_msg.Unsubscribe(self.OnThemeChanged)
-        ed_msg.Unsubscribe(self.OnUpdatePosCache)
-        ed_msg.UnRegisterCallback(self.OnDocPointerRequest)
+    def OnDestroy(self, evt):
+        if evt.GetId() == self.GetId():
+            ed_msg.Unsubscribe(self.OnThemeChanged)
+            ed_msg.Unsubscribe(self.OnUpdatePosCache)
+            ed_msg.UnRegisterCallback(self.OnDocPointerRequest)
 
     #---- Function Definitions ----#
-    
+
     def _HandleEncodingError(self, control):
         """Handle trying to reload the file the file with a different encoding
-        Until it suceeds or gives up.
+        Until it succeeds or gives up.
         @param control: stc
         @return: bool
 
@@ -223,16 +224,25 @@ class EdPages(aui.AuiNotebook):
 
     def AddPage(self, page, text=u'', select=True, imgId=-1):
         """Add a page to the notebook"""
+        bNewPage = False
         if not len(text):
             self.pg_num += 1
             if self.pg_num != 0:
                 text = _("untitled %d") % self.pg_num
             else:
                 text = _("untitled")
+            bNewPage = True
         page.SetTabLabel(text)
-        super(EdPages, self).AddPage(page, text, select)
-        self.SetPageImage(self.GetPageCount()-1, str(page.GetLangId()))
+        bmp = wx.NullBitmap
+        if Profile_Get('TABICONS'):
+            bmp = page.GetTabImage()
+        super(EdPages, self).AddPage(page, text, select, bitmap=bmp)
         self.UpdateIndexes()
+        if not self._ses_load and not bNewPage:
+            # Only auto save session when using default session
+            mgr = ed_session.EdSessionMgr(ed_glob.CONFIG['SESSION_DIR'])
+            if Profile_Get('LAST_SESSION') == mgr.DefaultSession:
+                self.SaveCurrentSession()
 
     def DocDuplicated(self, path):
         """Check for if the given path is open elsewhere and duplicate the
@@ -300,7 +310,7 @@ class EdPages(aui.AuiNotebook):
                 (ed_glob.ID_NEXT_POS, self.OnUpdateNaviUI),
                 (ed_glob.ID_PRE_POS, self.OnUpdateNaviUI)]
 
-    def InsertPage(self, index, page, text, select=False, 
+    def InsertPage(self, index, page, text, select=False,
                    bitmap=wx.NullBitmap, disabled_bitmap=wx.NullBitmap,
                    control=None):
         """Insert a page into the notebook"""
@@ -308,24 +318,34 @@ class EdPages(aui.AuiNotebook):
                                         bitmap, disabled_bitmap, control)
         self.UpdateIndexes()
 
+    def SaveCurrentSession(self):
+        """Save the current session"""
+        if self._ses_load:
+            return
+
+        session = Profile_Get('LAST_SESSION')
+        # Compatibility with older session data
+        if not isinstance(session, basestring) or not len(session):
+            mgr = ed_session.EdSessionMgr(ed_glob.CONFIG['SESSION_DIR'])
+            session = mgr.DefaultSession
+            Profile_Set('LAST_SESSION', session)
+        self.SaveSessionFile(session)
+
     def SaveSessionFile(self, session):
         """Save the current open files to the given session file
         @param session: path to session file
         @return: tuple (error desc, error msg) or None
 
         """
-        try:
-            f_handle = open(session, 'wb')
-        except (IOError, OSError), msg:
-            smsg = str(msg)
-            return (_("Error Saving Session File"),  ed_txt.DecodeString(smsg))
+        if self._ses_load:
+            return
 
         try:
-            sdata = dict(win1=self.GetFileNames())
-            cPickle.dump(sdata, f_handle)
-        finally:
-            f_handle.close()
-
+            mgr = ed_session.EdSessionMgr(ed_glob.CONFIG['SESSION_DIR'])
+            flist = self.GetFileNames()
+            bSaved = mgr.SaveSession(session, flist)
+        except Exception, msg:
+            self.LOG("[ed_pages][err] SaveSession error %s" % msg)
         return None
 
     def LoadSessionFile(self, session):
@@ -336,35 +356,14 @@ class EdPages(aui.AuiNotebook):
         """
         self._ses_load = True
 
-        if os.path.exists(session):
-            try:
-                f_handle = open(session)
-            except IOError:
-                f_handle = None
-        else:
-            f_handle = None
-
-        # Invalid file
-        if f_handle is None:
-            self._ses_load = False
-            return (_("Invalid File"), _("Session file doesn't exist."))
-
-        # Load and validate file
+        mgr = ed_session.EdSessionMgr(ed_glob.CONFIG['SESSION_DIR'])
+        flist = list()
         try:
-            try:
-                flist = cPickle.load(f_handle)
-                # TODO: Extend in future to support loading sessions
-                #       for mutiple windows.
-                flist = flist.get('win1', list()) 
-                for item in flist:
-                    if type(item) not in (unicode, str):
-                        raise TypeError("Invalid item in unpickled sequence")
-            except (cPickle.UnpicklingError, TypeError, EOFError), e:
-                self._ses_load = False
-                return (_("Invalid file"),
-                        _("Selected file is not a valid session file"))
-        finally:
-            f_handle.close()
+            flist = mgr.LoadSession(session)
+        except Exception, msg:
+            self._ses_load = False
+            return (_("Session Load Error"),
+                    _("Failed to load the session: %s\n\nError: %s") % (session, msg))
 
         if not len(flist):
             self._ses_load = False
@@ -376,11 +375,16 @@ class EdPages(aui.AuiNotebook):
         missingfns = []
         for loadfn in flist:
             if os.path.exists(loadfn) and os.access(loadfn, os.R_OK):
+                if not ebmlib.IsUnicode(loadfn):
+                    try:
+                        loadfn = loadfn.decode(sys.getfilesystemencoding())
+                    except UnicodeDecodeError:
+                        self.LOG("[ed_pages][err] LoadSessionFile: Failed to decode file name")
                 self.OpenPage(os.path.dirname(loadfn),
                               os.path.basename(loadfn))
             else:
                 missingfns.append(loadfn)
-                
+
         if missingfns:
             rmsg = (_("Missing session files"),
                     _("Some files in saved session could not be found on disk:\n")+
@@ -404,20 +408,18 @@ class EdPages(aui.AuiNotebook):
         frame = self.GetTopLevelParent()
         frame.Freeze()
         try:
-            self.control = ed_editv.EdEditorView(self, wx.ID_ANY)
-            self.LOG("[ed_pages][evt] New Page Created ID: %d" % self.control.GetId())
-            self.control.Hide()
+            self.control = ed_editv.EdEditorView(self)
+            self.LOG("[ed_pages][evt] New Page Created")
             self.AddPage(self.control)
-            self.control.Show()
         finally:
             frame.Thaw()
 
         # Set the control up the the preferred default lexer
-        dlexer = Profile_Get('DEFAULT_LEX', 'str', 'Plain Text')
+        dlexer = Profile_Get('DEFAULT_LEX', 'str', synglob.LANG_TXT)
         ext_reg = syntax.ExtensionRegister()
         ext_lst = ext_reg.get(dlexer, ['txt', ])
         self.control.FindLexer(ext_lst[0])
-        self.SetPageImage(self.GetSelection(), str(self.control.GetLangId()))
+        self.SetPageBitmap(self.GetSelection(), self.control.GetTabImage())
 
         # Set the modified callback notifier
         doc = self.control.GetDocument()
@@ -428,6 +430,11 @@ class EdPages(aui.AuiNotebook):
         dsource = evt.GetDragSource()
         if isinstance(dsource, EdPages):
             evt.Allow()
+            wx.CallAfter(self.UpdateIndexes)
+
+    def OnDragFinished(self, evt):
+        self.UpdateIndexes()
+        evt.Skip()
 
     def OnMenu(self, evt):
         """Handle context menu events
@@ -487,6 +494,7 @@ class EdPages(aui.AuiNotebook):
 
         """
         sel = evt.GetSelection()
+        self.LOG("[ed_pages][evt] OnMClickUp: %d" % sel)
         if sel == self.mdown:
             self.ClosePage()
         self.mdown = -1
@@ -526,7 +534,7 @@ class EdPages(aui.AuiNotebook):
                 self.control.SetCaretPos(pos)
         else:
             # Raise page to top and goto position
-            pages = [self.GetPage(page) for page in xrange(self.GetPageCount())]
+            pages = [self.GetPage(page) for page in range(self.GetPageCount())]
             idx = pages.index(ctrl)
             self.ChangePage(idx)
             ctrl.SetCaretPos(pos)
@@ -621,12 +629,10 @@ class EdPages(aui.AuiNotebook):
         else:
             self.SetPageText(self.GetSelection(), filename)
 
-        self.frame.SetTitle(nbuff.GetTitleString())
         self.LOG("[ed_pages][evt] Opened Page: %s" % filename)
 
         # Set tab image
-        # TODO: Handle read only images
-        self.SetPageImage(self.GetSelection(), str(nbuff.GetLangId()))
+        self.SetPageBitmap(self.GetSelection(), nbuff.GetTabImage())
 
         # Refocus on selected page
         self.control = nbuff
@@ -663,18 +669,13 @@ class EdPages(aui.AuiNotebook):
         self.control.Show()
         self.AddPage(self.control, filename)
 
-        self.frame.SetTitle(self.control.GetTitleString())
         self.frame.AddFileToHistory(path)
         self.SetPageText(self.GetSelection(), filename)
         self.LOG("[ed_pages][evt] Opened Page: %s" % filename)
 
         # Set tab image
         cpage = self.GetSelection()
-        if fileobj.ReadOnly:
-            super(EdPages, self).SetPageImage(cpage,
-                                              self._index[ed_glob.ID_READONLY])
-        else:
-            self.SetPageImage(cpage, str(self.control.GetLangId()))
+        self.SetPageBitmap(cpage, self.control.GetTabImage())
 
         self.GetTopLevelParent().Thaw()
 
@@ -709,7 +710,7 @@ class EdPages(aui.AuiNotebook):
         # Check if file needs to be opened
         # TODO: these steps could be combined together with some
         #       refactoring of the _NeedOpen method. Requires extra
-        #       testing though to check for dependancies on current
+        #       testing though to check for dependencies on current
         #       behavior.
         if quiet and self.HasFileOpen(path2file):
             self.GotoPage(path2file)
@@ -791,18 +792,15 @@ class EdPages(aui.AuiNotebook):
         # Add the buffer to the notebook
         if new_pg:
             self.AddPage(self.control, filename)
+        else:
+            self.frame.SetTitle(self.control.GetTitleString())
 
-        self.frame.SetTitle(self.control.GetTitleString())
         self.frame.AddFileToHistory(path2file)
         self.SetPageText(self.GetSelection(), filename)
 
         # Set tab image
         cpage = self.GetSelection()
-        if doc.ReadOnly:
-            super(EdPages, self).SetPageImage(cpage,
-                                              self._index[ed_glob.ID_READONLY])
-        else:
-            self.SetPageImage(cpage, str(self.control.GetLangId()))
+        self.SetPageBitmap(cpage, self.control.GetTabImage())
 
         if Profile_Get('WARN_EOL', default=True) and not doc.IsRawBytes():
             self.control.CheckEOL()
@@ -817,6 +815,12 @@ class EdPages(aui.AuiNotebook):
 
     def DoPostLoad(self):
         """Perform post file open actions"""
+        # Ensure that document buffer is writable after an editable
+        # document is opened in the buffer.
+        doc = self.control.GetDocument()
+        if not doc.IsReadOnly() and not doc.IsRawBytes():
+            self.control.SetReadOnly(False)
+
         # Set last known caret position if the user setting is enabled
         # and the caret position has not been changed during a threaded
         # file loading operation.
@@ -835,12 +839,9 @@ class EdPages(aui.AuiNotebook):
 
         """
         current_page = self.GetSelection()
-        if current_page < 0:
-            return current_page
-
-        control = self.GetPage(current_page)
-#        control.SetFocus()
-        self.control = control
+        if current_page >= 0:
+            control = self.GetPage(current_page)
+            self.control = control
         return current_page
 
     def GotoPage(self, fname):
@@ -891,10 +892,14 @@ class EdPages(aui.AuiNotebook):
 
         """
         bReadOnly = False
-        if index < self.GetPageCount():
-            bReadOnly = self.GetPageImage(index) == self._index[ed_glob.ID_READONLY]
-        else:
-            self.LOG("[ed_pages][warn] ImageIsReadOnly: Bad index: %d" % index)
+        try:
+            if index < self.GetPageCount():
+                bReadOnly = self.GetPageImage(index) == self._index[ed_glob.ID_READONLY]
+            else:
+                self.LOG("[ed_pages][warn] ImageIsReadOnly: Bad index: %d" % index)
+        except Exception, msg:
+            # TODO: investigate possible upstream issue
+            self.LOG("[ed_pages][err] ImageIsReadOnly: %s" % msg)
         return bReadOnly
 
     def SetPageText(self, pg_num, txt):
@@ -1005,9 +1010,10 @@ class EdPages(aui.AuiNotebook):
 
         """
         if wx.GetApp().IsActive():
-            page = self.GetCurrentPage()
-            if page is not None:
-                page.DoOnIdle()
+            for idx in range(self.GetPageCount()):
+                page = self.GetPage(idx)
+                if page is not None and page.IsShown():
+                    page.DoOnIdle()
 
     def OnPageChanging(self, evt):
         """Page changing event handler.
@@ -1040,7 +1046,6 @@ class EdPages(aui.AuiNotebook):
 
         # Get the window that is the current page
         window = self.GetPage(pg_num)
-#        window.SetFocus()
         self.control = window
 
         # Update Frame Title
@@ -1066,7 +1071,7 @@ class EdPages(aui.AuiNotebook):
         cpage = evt.GetSelection()
         self.ChangePage(cpage, old=evt.GetOldSelection())
         self.LOG("[ed_pages][evt] Page Changed to %d" % cpage)
-        
+
         # Call the tab specific selection handler
         page = self.GetCurrentPage()
         if page:
@@ -1103,7 +1108,7 @@ class EdPages(aui.AuiNotebook):
         frame = self.GetTopLevelParent()
         frame.Freeze()
         try:
-            cpage = evt.GetSelection() #self.GetSelection()
+            cpage = evt.GetSelection()
             evt.Skip()
             self.LOG("[ed_pages][evt] Closed Page: #%d" % cpage)
             self.UpdateIndexes()
@@ -1114,6 +1119,8 @@ class EdPages(aui.AuiNotebook):
             if not self.GetPageCount() and \
                hasattr(frame, 'IsExiting') and not frame.IsExiting():
                 self.NewPage()
+            elif not self.frame.IsExiting():
+                self.SaveCurrentSession()
         finally:
             frame.Thaw()
 
@@ -1126,9 +1133,7 @@ class EdPages(aui.AuiNotebook):
         @return bool: was page deleted?
 
         """
-        frame = self.GetTopLevelParent()
-
-        frame.Freeze()
+        result = True
         try:
             page = self.GetPage(idx)
             result = page.CanCloseTab()
@@ -1141,19 +1146,22 @@ class EdPages(aui.AuiNotebook):
                                            SIMULATED_EVT_ID)
                 evt.SetSelection(idx)
                 self.OnPageClosing(evt)
+                self.TopLevelParent.Freeze() # prevent flashing on OSX
                 self.DeletePage(idx)
+                self.TopLevelParent.Thaw()
                 evt = aui.AuiNotebookEvent(aui.wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSED,
                                            SIMULATED_EVT_ID)
                 evt.SetSelection(idx)
                 self.OnPageClosed(evt)
-        finally:
-            frame.Thaw()
+        except Exception:
+            # TODO: workaround for crash in base on destruction
+            pass
 
         return result
 
     def CloseAllPages(self):
         """Closes all open pages"""
-        for page in xrange(self.GetPageCount()):
+        for page in range(self.GetPageCount()):
             if not self.ClosePage():
                 break
 
@@ -1196,59 +1204,24 @@ class EdPages(aui.AuiNotebook):
             return page.CanCloseTab()
         return False
 
-    def SetPageImage(self, pg_num, lang_id):
-        """Sets the page image by querying the ArtProvider based
-        on the language id associated with the type of open document.
-        Any unknown filetypes are associated with the plaintext page
-        image.
-        @param pg_num: page index to set image for
-        @param lang_id: language id of file type to get mime image for
-
-        """
-        # Only set icons when enabled in preferences
-        if not Profile_Get('TABICONS'):
-            return
-
-        imglst = self.GetImageList()
-        if lang_id not in self._index:
-            bmp = wx.ArtProvider.GetBitmap(lang_id, wx.ART_MENU)
-            if bmp.IsNull():
-                self._index.setdefault(lang_id, \
-                                       self._index[synglob.ID_LANG_TXT])
-            else:
-                self._index[lang_id] = imglst.Add(wx.ArtProvider.\
-                                              GetBitmap(lang_id, wx.ART_MENU))
-        super(EdPages, self).SetPageImage(pg_num, self._index[lang_id])
-
     def UpdateAllImages(self):
         """Reload and Reset all images in the notebook pages and
         the corresponding imagelist to match those of the current theme
         @postcondition: all images in control are updated
 
         """
-        # If icons preference has been disabled then clear all icons
-        if not Profile_Get('TABICONS'):
-            for page in xrange(self.GetPageCount()):
-                super(EdPages, self).SetPageImage(page, -1)
-        else:
-            # Reload the image list with new icons from the ArtProvider
-            imglst = self.GetImageList()
-            for lang, index in self._index.iteritems():
-                bmp = wx.ArtProvider.GetBitmap(str(lang), wx.ART_MENU)
-                if bmp.IsNull():
-                    self._index.setdefault(lang, \
-                                           self._index[synglob.ID_LANG_TXT])
-                else:
-                    imglst.Replace(index, bmp)
-
-            for page in xrange(self.GetPageCount()):
-                self.SetPageImage(page, str(self.GetPage(page).GetLangId()))
-
+        bUseIcons = Profile_Get('TABICONS')
+        for page in range(self.GetPageCount()):
+            if bUseIcons:
+                tab = self.GetPage(page)
+                self.SetPageBitmap(page, tab.GetTabImage())
+            else:
+                self.SetPageBitmap(page, wx.NullBitmap)
         self.Refresh()
 
     def UpdateIndexes(self):
         """Update all page indexes"""
-        pages = [self.GetPage(page) for page in xrange(self.GetPageCount())]
+        pages = [self.GetPage(page) for page in range(self.GetPageCount())]
         for idx, page in enumerate(pages):
             page.SetTabIndex(idx)
 
@@ -1257,7 +1230,8 @@ class EdPages(aui.AuiNotebook):
         @postcondition: page image is updated to reflect any changes in ctrl
 
         """
-        self.SetPageImage(self.GetSelection(), str(self.control.GetLangId()))
+        tab = self.GetCurrentPage()
+        self.SetPageBitmap(self.GetSelection(), tab.GetTabImage())
 
     def OnUpdatePageText(self, evt):
         """Update the title text of the current page

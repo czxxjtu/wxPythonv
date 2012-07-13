@@ -9,13 +9,13 @@
 """
 FILE: cpp.py                                                                
 @author: Cody Precord                                                       
-@summary: Lexer configuration file for C/C++/C#/Objective C/Vala source files.
+@summary: Lexer configuration file for C/C++/C#/Objective C/Vala/Cilk source files.
                                                                          
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: _cpp.py 64561 2010-06-12 01:49:05Z CJP $"
-__revision__ = "$Revision: 64561 $"
+__svnid__ = "$Id: _cpp.py 68798 2011-08-20 17:17:05Z CJP $"
+__revision__ = "$Revision: 68798 $"
 
 #-----------------------------------------------------------------------------#
 # Imports
@@ -96,6 +96,11 @@ VALA_TYPES = ("bool byte char class const decimal double enum explicit extern "
               "short static string struct uint ulong unichar unsafe ushort var "
               "volatile void virtual")
 
+# Cilk Keywords
+CILK_KEYWORDS = ("abort private shared spawn sync SYNCHED")
+
+CILK_TYPES = ("cilk inlet")
+
 #---- Syntax Style Specs ----#
 SYNTAX_ITEMS = [ (stc.STC_C_DEFAULT, 'default_style'),
                  (stc.STC_C_COMMENT, 'comment_style'),
@@ -132,7 +137,7 @@ ALLOW_DOLLARS = ("lexer.cpp.allow.dollars", "1")
 class SyntaxData(syndata.SyntaxDataBase):
     """SyntaxData object for many C like languages""" 
     def __init__(self, langid):
-        syndata.SyntaxDataBase.__init__(self, langid)
+        super(SyntaxData, self).__init__(langid)
 
         # Setup
         self.SetLexer(stc.STC_LEX_CPP)
@@ -155,6 +160,9 @@ class SyntaxData(syndata.SyntaxDataBase):
         elif self.LangId == synglob.ID_LANG_VALA:
             kw1_str = [VALA_KEYWORDS]
             kw2_str = [VALA_TYPES]
+        elif self.LangId == synglob.ID_LANG_CILK:
+            kw1_str.append(CILK_KEYWORDS)
+            kw2_str.append(CILK_TYPES)
         else:
             pass
 

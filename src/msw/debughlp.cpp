@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        msw/debughlp.cpp
+// Name:        src/msw/debughlp.cpp
 // Purpose:     various Win32 debug helpers
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-08 (extracted from crashrpt.cpp)
-// RCS-ID:      $Id: debughlp.cpp 62562 2009-11-05 14:59:55Z VZ $
+// RCS-ID:      $Id: debughlp.cpp 67986 2011-06-19 22:46:32Z VZ $
 // Copyright:   (c) 2003-2005 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -359,6 +359,10 @@ wxDbgHelpDLL::DumpField(PSYMBOL_INFO pSym, void *pVariable, unsigned level)
                     case SYMBOL_TAG_BASE_CLASS:
                         s = DumpUDT(&sym, pVariable, level);
                         break;
+
+                    default:
+                        // Suppress gcc warnings about unhandled enum values.
+                        break;
                 }
             }
 
@@ -366,6 +370,11 @@ wxDbgHelpDLL::DumpField(PSYMBOL_INFO pSym, void *pVariable, unsigned level)
             {
                 s = GetSymbolName(pSym) + wxT(" = ") + s;
             }
+            break;
+
+        default:
+            // Suppress gcc warnings about unhandled enum values, don't assert
+            // to avoid problems during fatal crash generation.
             break;
     }
 
@@ -520,6 +529,11 @@ wxDbgHelpDLL::DumpSymbol(PSYMBOL_INFO pSym, void *pVariable)
     SYMBOL_INFO symDeref = *pSym;
     switch ( DereferenceSymbol(&symDeref, &pVariable) )
     {
+        default:
+            // Suppress gcc warnings about unhandled enum values, don't assert
+            // to avoid problems during fatal crash generation.
+            break;
+
         case SYMBOL_TAG_UDT:
             // show UDT recursively
             s = DumpUDT(&symDeref, pVariable);

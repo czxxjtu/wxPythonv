@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        main.cpp
+// Name:        src/osx/carbon/main.cpp
 // Purpose:     Entry point
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: main.cpp 27408 2004-05-23 20:53:33Z JS $
+// RCS-ID:      $Id: main.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:       wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

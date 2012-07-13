@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        msw/wrapwin.h
+// Name:        wx/msw/wrapwin.h
 // Purpose:     Wrapper around <windows.h>, to be included instead of it
 // Author:      Vaclav Slavik
 // Created:     2003/07/22
-// RCS-ID:      $Id: wrapwin.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: wrapwin.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2003 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

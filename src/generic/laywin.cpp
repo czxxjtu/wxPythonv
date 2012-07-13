@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        laywin.cpp
+// Name:        src/generic/laywin.cpp
 // Purpose:     Implements a simple layout algorithm, plus
 //              wxSashLayoutWindow which is an example of a window with
 //              layout-awareness (via event handlers). This is suited to
@@ -7,7 +7,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: laywin.cpp 58718 2009-02-07 18:59:25Z VZ $
+// RCS-ID:      $Id: laywin.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

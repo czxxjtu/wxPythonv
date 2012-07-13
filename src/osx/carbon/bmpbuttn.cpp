@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: bmpbuttn.cpp 62347 2009-10-09 12:24:35Z SC $
+// RCS-ID:      $Id: bmpbuttn.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -73,8 +73,8 @@ public:
     void SetPressedBitmap( const wxBitmap& WXUNUSED(bitmap) )
     {
         // not implemented under Carbon
-    }    
-    
+    }
+
 private:
     // helper function: returns true if the given bitmap is of one of standard
     // sizes supported by OS X icons

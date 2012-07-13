@@ -33,7 +33,6 @@ if RELEASE_VERSION != _core_.RELEASE_VERSION:
 
 def version():
     """Returns a string containing version and port info"""
-    ctype = wx.USE_UNICODE and 'unicode' or 'ansi'
     if wx.Platform == '__WXMSW__':
         port = 'msw'
     elif wx.Platform == '__WXMAC__':
@@ -48,8 +47,8 @@ def version():
     else:
         port = '?'
 
-    return "%s (%s-%s)" % (wx.VERSION_STRING, port, ctype)
-                       
+    return "%s %s (classic)" % (wx.VERSION_STRING, port)
+                      
     
 #----------------------------------------------------------------------------
 
@@ -144,7 +143,7 @@ class _wxPyUnbornObject(object):
 
 #----------------------------------------------------------------------------
 
-def CallAfter(callable, *args, **kw):
+def CallAfter(callableObj, *args, **kw):
     """
     Call the specified function after the current and pending event
     handlers have been completed.  This is also good for making GUI
@@ -153,6 +152,7 @@ def CallAfter(callable, *args, **kw):
 
     :see: `wx.CallLater`
     """
+    assert callable(callableObj), "callableObj is not callable"
     app = wx.GetApp()
     assert app is not None, 'No wx.App created yet'
 
@@ -162,7 +162,7 @@ def CallAfter(callable, *args, **kw):
                     lambda event: event.callable(*event.args, **event.kw) )
     evt = wx.PyEvent()
     evt.SetEventType(app._CallAfterId)
-    evt.callable = callable
+    evt.callable = callableObj
     evt.args = args
     evt.kw = kw
     wx.PostEvent(app, evt)
@@ -186,9 +186,10 @@ class CallLater:
 
     :see: `wx.CallAfter`
     """
-    def __init__(self, millis, callable, *args, **kwargs):
+    def __init__(self, millis, callableObj, *args, **kwargs):
+        assert callable(callableObj), "callableObj is not callable"
         self.millis = millis
-        self.callable = callable
+        self.callable = callableObj
         self.SetArgs(*args, **kwargs)
         self.runCount = 0
         self.running = False

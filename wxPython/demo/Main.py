@@ -6,7 +6,7 @@
 # Author:       Robin Dunn
 #
 # Created:      A long time ago, in a galaxy far, far away...
-# RCS-ID:       $Id: Main.py 65546 2010-09-14 18:00:27Z RD $
+# RCS-ID:       $Id: Main.py 68885 2011-08-25 18:43:59Z RD $
 # Copyright:    (c) 1999 by Total Control Software
 # Licence:      wxWindows license
 #----------------------------------------------------------------------------
@@ -61,6 +61,8 @@ import wx.aui
 import wx.html
 from wx.lib.msgpanel import MessagePanel
 
+import wx.lib.mixins.inspection
+
 import version
 
 # We won't import the images module yet, but we'll assign it to this
@@ -87,23 +89,12 @@ _demoPngs = ["overview", "recent", "frame", "dialog", "moredialog", "core",
 _treeList = [
     # new stuff
     ('Recent Additions/Updates', [
-        'RendererNative',
-        'PlateButton',
-        'SpinCtrlDouble',
-        'DVC_DataViewModel',
-        'DVC_IndexListModel',
-        'DVC_ListCtrl',
-        'DVC_TreeCtrl',
-        'Cairo',
-        'Cairo_Snippets',
-        'PropertyGrid',
-        'SystemSettings',
-        'GridLabelRenderer',
-        'InfoBar',
-        'WrapSizer',
-        ##'UIActionSimulator',
-        'GraphicsGradient',
+        'UIActionSimulator',
         'PDFViewer',
+        'ItemsPicker',
+        'CommandLinkButton',
+        'DVC_CustomRenderer',
+        'PenAndBrushStyles',
         ]),
 
     # managed windows == things with a (optional) caption you can close
@@ -148,8 +139,9 @@ _treeList = [
         'CheckListBox',
         'Choice',
         'ComboBox',
-        'DVC_ListCtrl',
-        'DVC_DataViewModel.py',
+        'CommandLinkButton',
+        'DVC_CustomRenderer',
+        'DVC_DataViewModel',
         'DVC_IndexListModel',
         'DVC_ListCtrl',
         'DVC_TreeCtrl',
@@ -203,6 +195,7 @@ _treeList = [
         'Editor',
         'GenericButtons',
         'GenericDirCtrl',
+        'ItemsPicker',
         'LEDNumberCtrl',
         'MultiSash',
         'PlateButton',
@@ -331,6 +324,7 @@ _treeList = [
         'MouseGestures',
         'OGL',
         'PDFViewer',
+        'PenAndBrushStyles',
         'PrintFramework',
         'PseudoDC',
         'RendererNative',
@@ -338,7 +332,7 @@ _treeList = [
         'Sound',
         'StandardPaths',
         'SystemSettings',
-        ##'UIActionSimulator',
+        'UIActionSimulator',
         'Unicode',
         ]),
 
@@ -1552,7 +1546,7 @@ class DemoTaskBarIcon(wx.TaskBarIcon):
     TBMENU_REMOVE  = wx.NewId()
     
     def __init__(self, frame):
-        wx.TaskBarIcon.__init__(self)
+        wx.TaskBarIcon.__init__(self, wx.TBI_DOCK) # wx.TBI_CUSTOM_STATUSITEM
         self.frame = frame
 
         # Set the image
@@ -1893,11 +1887,11 @@ class wxPythonDemo(wx.Frame):
                            wx.ITEM_CHECK)
         self.Bind(wx.EVT_MENU, self.OnToggleRedirect, item)
  
-        exitItem = wx.MenuItem(menu, -1, 'E&xit\tCtrl-Q', 'Get the heck outta here!')
+        wx.App.SetMacExitMenuItemId(9123)
+        exitItem = wx.MenuItem(menu, 9123, 'E&xit\tCtrl-Q', 'Get the heck outta here!')
         exitItem.SetBitmap(images.catalog['exit'].GetBitmap())
         menu.AppendItem(exitItem)
         self.Bind(wx.EVT_MENU, self.OnFileExit, exitItem)
-        wx.App.SetMacExitMenuItemId(exitItem.GetId())
         self.mainmenu.Append(menu, '&File')
 
         # Make a Demo menu
@@ -2891,7 +2885,7 @@ class wxPythonDemoTree(ExpansionState, TreeBaseClass):
 
 #---------------------------------------------------------------------------
 
-class MyApp(wx.App):
+class MyApp(wx.App, wx.lib.mixins.inspection.InspectionMixin):
     def OnInit(self):
 
         # Check runtime version
@@ -2900,6 +2894,8 @@ class MyApp(wx.App):
                           message="You're using version %s of wxPython, but this copy of the demo was written for version %s.\n"
                           "There may be some version incompatibilities..."
                           % (wx.VERSION_STRING, version.VERSION_STRING))
+
+        self.InitInspection()  # for the InspectionMixin base class
 
         # Now that we've warned the user about possibile problems,
         # lets import images

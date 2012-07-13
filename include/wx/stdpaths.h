@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2004-10-17
-// RCS-ID:      $Id: stdpaths.h 60935 2009-06-06 23:34:05Z VZ $
+// RCS-ID:      $Id: stdpaths.h 65652 2010-09-27 11:51:50Z VZ $
 // Copyright:   (c) 2004 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ class WXDLLIMPEXP_FWD_BASE wxStandardPaths;
 class WXDLLIMPEXP_BASE wxStandardPathsBase
 {
 public:
-    // possible resources categorires
+    // possible resources categories
     enum ResourceCat
     {
         // no special category

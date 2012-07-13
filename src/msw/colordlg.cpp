@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: colordlg.cpp 61475 2009-07-20 16:47:54Z VZ $
+// RCS-ID:      $Id: colordlg.cpp 66615 2011-01-07 05:26:57Z PC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -34,8 +34,6 @@
     #include "wx/colour.h"
     #include "wx/gdicmn.h"
     #include "wx/utils.h"
-    #include "wx/dialog.h"
-    #include "wx/cmndata.h"
     #include "wx/math.h"
 #endif
 

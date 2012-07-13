@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     06.01.01
-// RCS-ID:      $Id: popupcmn.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: popupcmn.cpp 67394 2011-04-05 15:50:54Z PC $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,6 +44,11 @@
 
 #ifdef __WXGTK__
     #include <gtk/gtk.h>
+    #if GTK_CHECK_VERSION(2,0,0)
+        #include "wx/gtk/private/gtk2-compat.h"
+    #else
+        #define gtk_widget_get_window(x) x->window
+    #endif
 #elif defined(__WXMSW__)
     #include "wx/msw/private.h"
 #elif defined(__WXX11__)
@@ -343,7 +348,7 @@ bool wxPopupTransientWindow::Show( bool show )
     {
         gtk_grab_add( m_widget );
 
-        gdk_pointer_grab( m_widget->window, TRUE,
+        gdk_pointer_grab( gtk_widget_get_window(m_widget), true,
                           (GdkEventMask)
                             (GDK_BUTTON_PRESS_MASK |
                              GDK_BUTTON_RELEASE_MASK |

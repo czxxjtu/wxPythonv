@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        mac/corefoundation/utilsexc_base.cpp
+// Name:        src/osx/core/utilsexc_base.cpp
 // Purpose:     wxMacLaunch
 // Author:      Ryan Norton
 // Modified by:
 // Created:     2005-06-21
-// RCS-ID:      $Id: utilsexc_base.cpp 62789 2009-12-05 19:57:58Z PC $
+// RCS-ID:      $Id: utilsexc_base.cpp 67419 2011-04-09 09:22:51Z SC $
 // Copyright:   (c) Ryan Norton
 // Licence:     wxWindows licence
 // Notes:       Source was originally in utilsexc_cf.cpp,1.6 then moved
@@ -60,7 +60,7 @@ extern bool WXDLLEXPORT wxIsDebuggerRunning()
     return false;
 }
 
-#if wxOSX_USE_COCOA_OR_CARBON
+#if ( !wxUSE_GUI && !wxOSX_USE_IPHONE ) || wxOSX_USE_COCOA_OR_CARBON
 
 // have a fast version for mac code that returns the version as a return value
 

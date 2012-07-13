@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: palette.cpp 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: palette.cpp 67216 2011-03-16 10:56:41Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ wxPaletteRefData::wxPaletteRefData()
     m_count = 0;
 }
 
-wxPaletteRefData::wxPaletteRefData(const wxPaletteRefData& data)
+wxPaletteRefData::wxPaletteRefData(const wxPaletteRefData& data) : wxGDIRefData()
 {
     m_count = data.m_count;
     m_palette = new wxColour[m_count];

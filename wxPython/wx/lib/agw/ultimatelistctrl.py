@@ -3,7 +3,7 @@
 # Inspired by and heavily based on the wxWidgets C++ generic version of wxListCtrl.
 #
 # Andrea Gavana, @ 08 May 2009
-# Latest Revision: 01 Oct 2010, 23.00 GMT
+# Latest Revision: 17 Aug 2011, 15.00 GMT
 #
 #
 # TODO List
@@ -24,7 +24,7 @@
 # write to me at:
 #
 # andrea.gavana@gmail.com
-# gavana@kpo.kz
+# andrea.gavana@maerskoil.com
 #
 # Or, obviously, to the wxPython mailing list!!!
 #
@@ -78,6 +78,55 @@ Appearance
 And a lot more. Check the demo for an almost complete review of the functionalities.
 
 
+Usage
+=====
+
+Usage example::
+
+    import sys
+    
+    import wx 
+    import wx.lib.agw.ultimatelistctrl as ULC
+
+    class MyFrame(wx.Frame): 
+
+        def __init__(self):
+        
+            wx.Frame.__init__(self, parent, -1, "UltimateListCtrl Demo")
+
+            list = ULC.UltimateListCtrl(self, wx.ID_ANY, agwStyle=wx.LC_REPORT|wx.LC_VRULES|wx.LC_HRULES|wx.LC_SINGLE_SEL) 
+
+            list.InsertColumn(0, "Column 1") 
+            list.InsertColumn(1, "Column 2") 
+
+            index = list.InsertStringItem(sys.maxint, "Item 1") 
+            list.SetStringItem(index, 1, "Sub-item 1") 
+
+            index = list.InsertStringItem(sys.maxint, "Item 2") 
+            list.SetStringItem(index, 1, "Sub-item 2") 
+
+            choice = wx.Choice(list, -1, choices=["one", "two"]) 
+            index = list.InsertStringItem(sys.maxint, "A widget") 
+
+            list.SetItemWindow(index, 1, choice, expand=True) 
+
+            sizer = wx.BoxSizer(wx.VERTICAL) 
+            sizer.Add(list, 1, wx.EXPAND) 
+            self.SetSizer(sizer) 
+
+
+    # our normal wxApp-derived class, as usual
+
+    app = wx.PySimpleApp()
+
+    frame = MyFrame(None)
+    app.SetTopWindow(frame)
+    frame.Show()
+
+    app.MainLoop()
+
+
+
 Window Styles
 =============
 
@@ -118,6 +167,7 @@ Window Styles                    Hex Value   Description
 ``ULC_HEADER_IN_ALL_VIEWS``       0x20000000 Show column headers in all view modes.
 ``ULC_NO_FULL_ROW_SELECT``        0x40000000 When an item is selected, the only the item in the first column is highlighted.
 ``ULC_FOOTER``                    0x80000000 Show a footer too (only when header is present).
+``ULC_USER_ROW_HEIGHT``          0x100000000 Allows to set a custom row height (one value for all the items, only in report mode).
 ===============================  =========== ====================================================================================================
 
 
@@ -175,9 +225,9 @@ License And Version
 
 UltimateListCtrl is distributed under the wxPython license.
 
-Latest Revision: Andrea Gavana @ 12 Sep 2010, 10.00 GMT
+Latest Revision: Andrea Gavana @ 17 Aug 2011, 15.00 GMT
 
-Version 0.7
+Version 0.8
 
 """
 
@@ -191,7 +241,7 @@ import cStringIO
 from wx.lib.expando import ExpandoTextCtrl
 
 # Version Info
-__version__ = "0.7"
+__version__ = "0.8"
 
 # wxPython version string
 _VERSION_STRING = wx.VERSION_STRING
@@ -241,6 +291,7 @@ ULC_TRACK_SELECT        = 0x10000000   # Enables hot-track selection in a list c
 ULC_HEADER_IN_ALL_VIEWS = 0x20000000   # Show column headers in all view modes
 ULC_NO_FULL_ROW_SELECT  = 0x40000000   # When an item is selected, the only the item in the first column is highlighted
 ULC_FOOTER              = 0x80000000   # Show a footer too (only when header is present)
+ULC_USER_ROW_HEIGHT     = 0x100000000  # Allows to set a custom row height (one value for all the items, only in report mode).
 
 ULC_MASK_TYPE  = ULC_ICON | ULC_SMALL_ICON | ULC_LIST | ULC_REPORT | ULC_TILE
 ULC_MASK_ALIGN = ULC_ALIGN_TOP | ULC_ALIGN_LEFT
@@ -285,6 +336,7 @@ ULC_MASK_FOOTER_FORMAT =      0x200000
 ULC_MASK_FOOTER_FONT   =      0x400000
 ULC_MASK_FOOTER_CHECK  =      0x800000
 ULC_MASK_FOOTER_KIND   =      0x1000000
+ULC_MASK_TOOLTIP       =      0x2000000
 
 # State flags for indicating the state of an item
 ULC_STATE_DONTCARE    =   wx.LIST_STATE_DONTCARE
@@ -1301,6 +1353,7 @@ class UltimateListItem(wx.Object):
             self._state = item._state            # The state of the item
             self._stateMask = item._stateMask    # Which flags of self._state are valid (uses same flags)
             self._text = item._text              # The label/header text
+            self._tooltip = item._tooltip        # The label/header tooltip text
             self._image = item._image[:]         # The zero-based indexes into an image list
             self._data = item._data              # App-defined data
             self._pyData = item._pyData          # Python-specific data
@@ -1463,6 +1516,16 @@ class UltimateListItem(wx.Object):
         
         self._mask |= ULC_MASK_TEXT
         self._text = text
+        
+        
+    def SetToolTip(self, text):
+        """
+        Sets the tooltip text for the item.
+
+        :param `text`: the tooltip text for the item.
+        """
+        self._mask |= ULC_MASK_TOOLTIP
+        self._tooltip = text
 
 
     def SetImage(self, image):
@@ -1659,6 +1722,12 @@ class UltimateListItem(wx.Object):
         """ Returns the label/header text. """
 
         return self._text
+
+    
+    def GetToolTip(self):
+        """ Returns the label/header tooltip. """
+
+        return self._tooltip
 
 
     def GetImage(self):
@@ -2006,6 +2075,7 @@ class UltimateListItem(wx.Object):
         self._data = 0
         self._pyData = None
         self._text = ""
+        self._tooltip = ""
 
         self._format = ULC_FORMAT_CENTRE
         self._width = 0
@@ -2510,6 +2580,12 @@ class UltimateListItemData(object):
         """ Returns the item text. """
 
         return self._text
+    
+    
+    def GetToolTip(self):
+        """ Returns the item tooltip. """
+
+        return self._tooltip
 
 
     def GetBackgroundColour(self):
@@ -2538,6 +2614,16 @@ class UltimateListItemData(object):
         """
 
         self._text = text
+
+
+    def SetToolTip(self, tooltip):
+        """
+        Sets the tooltip for the item
+
+        :param `tooltip`: the tooltip text
+        """
+
+        self._tooltip = tooltip
 
 
     def SetColour(self, colour):
@@ -2862,7 +2948,8 @@ class UltimateListItemData(object):
         self._hasFont = False
         self._hasBackColour = False
         self._text = ""
-
+        self._tooltip = ""
+        
         # kind = 0: normal item
         # kind = 1: checkbox-type item
         self._kind = 0
@@ -2895,6 +2982,9 @@ class UltimateListItemData(object):
         if info._mask & ULC_MASK_TEXT:
             CheckVariableRowHeight(self._owner, info._text)
             self.SetText(info._text)
+            
+        if info._mask & ULC_MASK_TOOLTIP:
+            self.SetToolTip(info._tooltip)
 
         if info._mask & ULC_MASK_KIND:
             self._kind = info._kind
@@ -3034,6 +3124,8 @@ class UltimateListItemData(object):
 
         if mask & ULC_MASK_TEXT:
             info._text = self._text
+        if mask & ULC_MASK_TOOLTIP:
+            info._tooltip = self._tooltip
         if mask & ULC_MASK_IMAGE:
             info._image = self._image[:]
         if mask & ULC_MASK_DATA:
@@ -3125,6 +3217,12 @@ class UltimateListHeaderData(object):
         """ Returns the header/footer item text. """
 
         return self._text
+   
+    
+    def GetToolTip(self):
+        """ Returns the header/footer item tooltip. """
+
+        return self._tooltip
 
 
     def SetText(self, text):
@@ -3135,6 +3233,16 @@ class UltimateListHeaderData(object):
         """
 
         self._text = text
+        
+        
+    def SetToolTip(self, tip):
+        """
+        Sets the header/footer item tooltip.
+
+        :param `tip`: the new header/footer tooltip.
+        """
+
+        self._tip = tip
 
         
     def GetFont(self):
@@ -3154,6 +3262,7 @@ class UltimateListHeaderData(object):
         self._ypos = 0
         self._height = 0
         self._text = ""
+        self._tooltip = ""
         self._kind = 0
         self._checked = False
         self._font = wx.NullFont
@@ -3180,6 +3289,9 @@ class UltimateListHeaderData(object):
 
         if self._mask & ULC_MASK_TEXT:
             self._text = item._text
+            
+        if self._mask & ULC_MASK_TOOLTIP:
+            self._tooltip = item._tooltip
 
         if self._mask & ULC_MASK_FOOTER_TEXT:
             self._footerText = item._footerText
@@ -3352,6 +3464,7 @@ class UltimateListHeaderData(object):
 
         item._mask = self._mask
         item._text = self._text
+        item._tooltip = self._tooltip
         item._image = self._image[:]
         item._format = self._format
         item._width = self._width
@@ -3721,13 +3834,13 @@ class UltimateListLineData(object):
         self._height = self._width = self._x = self._y = -1        
 
     
-    def HasImage(self):
+    def HasImage(self, col=0):
         """
         Returns ``True`` if the first item in the line has at least one image
         associated with it.
         """
 
-        return self.GetImage() != []
+        return self.GetImage(col) != []
 
 
     def HasText(self):
@@ -4011,6 +4124,29 @@ class UltimateListLineData(object):
 
         item = self._items[index]
         item.SetText(s)
+
+
+    def GetToolTip(self, index):
+        """
+        Returns the item tooltip at the position `index`.
+
+        :param `index`: the index of the item.
+        """
+        
+        item = self._items[index]
+        return item.GetToolTip()
+
+
+    def SetToolTip(self, index, s):
+        """
+        Sets the item tooltip at the position `index`.
+
+        :param `index`: the index of the item;
+        :param `s`: the new item tooltip.
+        """
+
+        item = self._items[index]
+        item.SetToolTip(s)
 
 
     def SetImage(self, index, image):
@@ -4429,7 +4565,7 @@ class UltimateListLineData(object):
                 wndx = xOld - HEADER_OFFSET_X + width - xSize - 3
                 xa, ya = self._owner.CalcScrolledPosition((0, rect.y))
                 wndx += xa
-                if rect.height > ySize:
+                if rect.height > ySize and not item._expandWin:
                     ya += (rect.height - ySize)/2
 
             itemRect = wx.Rect(xOld-2*HEADER_OFFSET_X, rect.y, width-xSize-HEADER_OFFSET_X, rect.height)
@@ -4493,9 +4629,9 @@ class UltimateListLineData(object):
                     if wnd.GetRect() != itemRect:
                         wRect = wx.Rect(*itemRect)
                         wRect.x += 2
-                        wRect.width = width - 8
-                        wRect.y += 2
-                        wRect.height -= 4
+                        wRect.width = width - 4
+                        wRect.y = ya + 2
+                        wRect.height -= 6
                         wnd.SetRect(wRect)
                 else:
                     if wnd.GetPosition() != (wndx, ya):
@@ -4820,6 +4956,8 @@ class UltimateListHeaderWindow(wx.PyControl):
         self._currentCursor = wx.NullCursor
         self._resizeCursor = wx.StockCursor(wx.CURSOR_SIZEWE)
         self._isDragging = False
+        self._headerHeight = None
+        self._footerHeight = None
        
         # Custom renderer for every column
         self._headerCustomRenderer = None
@@ -4867,6 +5005,7 @@ class UltimateListHeaderWindow(wx.PyControl):
             if not self._hasFont:
                 self.SetOwnFont(wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT))
 
+
     def SetCustomRenderer(self, renderer=None):
         """
         Associate a custom renderer with the header - all columns will use it
@@ -4890,6 +5029,15 @@ class UltimateListHeaderWindow(wx.PyControl):
         as it would have after a call to `Fit()`.
         """
 
+        if not self._isFooter:
+            if self._headerHeight is not None:
+                self.GetParent()._headerHeight = self._headerHeight
+                return wx.Size(200, self._headerHeight)
+        else:
+            if self._footerHeight is not None:
+                self.GetParent()._footerHeight = self._footerHeight
+                return wx.Size(200, self._footerHeight)
+        
         w, h, d, dummy = self.GetFullTextExtent("Hg")
         maxH = self.GetTextHeight()
         nativeH = wx.RendererNative.Get().GetHeaderButtonHeight(self.GetParent())
@@ -4905,6 +5053,12 @@ class UltimateListHeaderWindow(wx.PyControl):
             
         return wx.Size(200, maxH)
 
+
+    def GetWindowHeight(self):
+        """ Returns the L{UltimateListHeaderWindow} height, in pixels. """
+
+        return self.DoGetBestSize()
+    
 
     def IsColumnShown(self, column):
         """
@@ -4974,7 +5128,6 @@ class UltimateListHeaderWindow(wx.PyControl):
         dc.SetPen(wx.TRANSPARENT_PEN)
         dc.DrawRectangle(0, -1, w, h+2)
         
-        self.PrepareDC(dc)
         self.AdjustDC(dc)
 
         dc.SetBackgroundMode(wx.TRANSPARENT)
@@ -5303,7 +5456,14 @@ class UltimateListHeaderWindow(wx.PyControl):
 
             if not broken:
                 self._column = -1
-
+            
+            # First check to see if we have a tooltip to display    
+            colItem = self._owner.GetColumn(col)
+            if colItem.GetToolTip() != "":
+                self.SetToolTipString(colItem.GetToolTip())
+            else:
+                self.SetToolTipString("")
+                
             if event.LeftUp():
                 self._leftDown = False
                 self.Refresh()
@@ -5822,6 +5982,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
          ``ULC_HEADER_IN_ALL_VIEWS``       0x20000000 Show column headers in all view modes.
          ``ULC_NO_FULL_ROW_SELECT``        0x40000000 When an item is selected, the only the item in the first column is highlighted.
          ``ULC_FOOTER``                    0x80000000 Show a footer too (only when header is present).
+         ``ULC_USER_ROW_HEIGHT``          0x100000000 Allows to set a custom row height (one value for all the items, only in report mode).
          ===============================  =========== ====================================================================================================
 
         :param `name`: the window name.
@@ -5898,7 +6059,8 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
 
         self._headerWidth = 0
         self._lineHeight = 0
-
+        self._userLineHeight = None
+        
         self._small_image_list = None
         self._normal_image_list = None
 
@@ -6089,6 +6251,36 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
         self.RefreshLine(line)
 
 
+    def SetUserLineHeight(self, height):
+        """
+        Sets a custom value for the L{UltimateListMainWindow} item height.
+
+        :param `height`: the custom height for all the items, in pixels.
+
+        :note: This method can be used only with ``ULC_REPORT`` and ``ULC_USER_ROW_HEIGHT`` styles set.
+        """
+
+        if self.HasAGWFlag(ULC_REPORT) and self.HasAGWFlag(ULC_USER_ROW_HEIGHT):
+            self._userLineHeight = height
+            return
+
+        raise Exception("SetUserLineHeight can only be used with styles ULC_REPORT and ULC_USER_ROW_HEIGHT set.")        
+        
+
+    def GetUserLineHeight(self):
+        """
+        Returns the custom value for the L{UltimateListMainWindow} item height, if previously set with
+        L{SetUserLineHeight}.
+
+        :note: This method can be used only with ``ULC_REPORT`` and ``ULC_USER_ROW_HEIGHT`` styles set.
+        """
+
+        if self.HasAGWFlag(ULC_REPORT) and self.HasAGWFlag(ULC_USER_ROW_HEIGHT):
+            return self._userLineHeight
+
+        raise Exception("GetUserLineHeight can only be used with styles ULC_REPORT and ULC_USER_ROW_HEIGHT set.")        
+
+
     # get the size of the total line rect
     def GetLineSize(self, line):
         """
@@ -6251,9 +6443,13 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
         Called by L{UltimateListCtrl.OnSize} when the window is resized.
         """
 
-        if self._resizeColumn == -1:
+        if not self: # Avoid PyDeadObjectError's on Mac
             return
         
+        if self._resizeColumn == -1:
+            return
+            
+            
         numCols = self.GetColumnCount()
         if numCols == 0: return # Nothing to resize.
         
@@ -6324,6 +6520,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
         countCol = self.GetColumnCount()
         for col in xrange(countCol):
             ld.SetText(col, listctrl.OnGetItemText(line, col))
+            ld.SetToolTip(col, listctrl.OnGetItemToolTip(line, col))
             ld.SetColour(col, listctrl.OnGetItemTextColour(line, col))
             ld.SetImage(col, listctrl.OnGetItemColumnImage(line, col))
             kind = listctrl.OnGetItemColumnKind(line, col)
@@ -6374,6 +6571,10 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
 
         # we cache the line height as calling GetTextExtent() is slow
 
+        if self.HasAGWFlag(ULC_REPORT) and self.HasAGWFlag(ULC_USER_ROW_HEIGHT):
+            if self._userLineHeight is not None:
+                return self._userLineHeight
+            
         if item is None or not self.HasAGWFlag(ULC_HAS_VARIABLE_ROW_HEIGHT):
             
             if not self._lineHeight:
@@ -6467,9 +6668,11 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
         return rect
 
 
-    def GetLineLabelRect(self, line):
+    def GetLineLabelRect(self, line, col=0):
         """
         Returns the line client rectangle for the item text only.
+        Note this is the full column width unless an image or 
+        checkbox exists. It is not the width of the text itself
 
         :param `line`: an instance of L{UltimateListLineData}.
         """
@@ -6478,15 +6681,22 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
             return self.GetLine(line)._gi._rectLabel
 
         image_x = 0
+        image_width = 0
+       
+        for c in range(col):
+            image_x += self.GetColumnWidth(c)
+        
         item = self.GetLine(line)
-        if item.HasImage():
-            ix, iy = self.GetImageSize(item.GetImage())
-            image_x = ix
+        if item.HasImage(col):
+            ix, iy = self.GetImageSize(item.GetImage(col))
+            image_x     += ix
+            image_width  = ix
 
-        if item.GetKind() in [1, 2]:
-            image_x += self.GetCheckboxImageSize()[0]
+        if item.GetKind(col) in [1, 2]:
+            image_x     += self.GetCheckboxImageSize()[0]
+            image_width += self.GetCheckboxImageSize()[0]
             
-        rect = wx.Rect(image_x + HEADER_OFFSET_X, self.GetLineY(line), self.GetColumnWidth(0) - image_x, self.GetLineHeight(line))
+        rect = wx.Rect(image_x + HEADER_OFFSET_X, self.GetLineY(line), self.GetColumnWidth(col) - image_width, self.GetLineHeight(line))
         return rect
     
 
@@ -6568,24 +6778,28 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
 
         ld = self.GetLine(line)
 
-        if self.InReportView() and not self.IsVirtual():
+        if self.InReportView():# and not self.IsVirtual():
 
             lineY = self.GetLineY(line)
             xstart = HEADER_OFFSET_X
             
             for col, item in enumerate(ld._items):
 
+                if not self.IsColumnShown(col):
+                    continue
+                
                 width = self.GetColumnWidth(col)
                 xOld = xstart
                 xstart += width
                 ix = 0
 
-                if (line, col) in self._shortItems:
-                    rect = wx.Rect(xOld, lineY, width, self.GetLineHeight(line))
-                    if rect.Contains((x, y)):
-                        newItem = self.GetParent().GetItem(line, col)
-                        return newItem, ULC_HITTEST_ONITEM
-                
+                #if (line, col) in self._shortItems:
+                    #rect = wx.Rect(xOld, lineY, width, self.GetLineHeight(line))
+                rect = self.GetLineLabelRect(line,col)
+                if rect.Contains((x, y)):
+                    newItem = self.GetParent().GetItem(line, col)
+                    return newItem, ULC_HITTEST_ONITEMLABEL
+               
                 if item.GetKind() in [1, 2]:
                     # We got a checkbox-type item
                     ix, iy = self.GetCheckboxImageSize()
@@ -7311,13 +7525,19 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
                     self.ReverseHighlight(self._current)
 
             if self.HasAGWFlag(ULC_SHOW_TOOLTIPS):
-                if newItem and hitResult & ULC_HITTEST_ONITEM:                
-                    if (newItem._itemId, newItem._col) in self._shortItems:
+                if newItem and hitResult & ULC_HITTEST_ONITEMLABEL:
+                    r,c = (newItem._itemId, newItem._col)
+                    line = self.GetLine(r)
+                    tt = line.GetToolTip(c)
+                    if tt and not tt == "":
+                        if self.GetToolTip() and self.GetToolTip().GetTip() != tt:  
+                            self.SetToolTipString(tt)
+                    elif (r,c) in self._shortItems: # if the text didn't fit in the column
                         text = newItem.GetText()
                         if self.GetToolTip() and self.GetToolTip().GetTip() != text:                            
                             self.SetToolTipString(text)
                     else:
-                        self.SetToolTipString("")    
+                        self.SetToolTipString("")
                 else:
                     self.SetToolTipString("")
 
@@ -7798,6 +8018,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
 
         ke.SetEventObject(parent)
         if parent.GetEventHandler().ProcessEvent(ke):
+            event.Skip()
             return
 
         event.Skip()
@@ -10566,6 +10787,7 @@ class UltimateListCtrl(wx.PyControl):
          ``ULC_HEADER_IN_ALL_VIEWS``       0x20000000 Show column headers in all view modes.
          ``ULC_NO_FULL_ROW_SELECT``        0x40000000 When an item is selected, the only the item in the first column is highlighted.
          ``ULC_FOOTER``                    0x80000000 Show a footer too (only when header is present).
+         ``ULC_USER_ROW_HEIGHT``          0x100000000 Allows to set a custom row height (one value for all the items, only in report mode).
          ===============================  =========== ====================================================================================================
 
         :param `validator`: the window validator;         
@@ -10588,6 +10810,9 @@ class UltimateListCtrl(wx.PyControl):
         if agwStyle & ULC_NO_HEADER and agwStyle & ULC_HEADER_IN_ALL_VIEWS:
             raise Exception("Styles ULC_NO_HEADER and ULC_HEADER_IN_ALL_VIEWS can not be combined")
 
+        if agwStyle & ULC_USER_ROW_HEIGHT and (agwStyle & ULC_REPORT) == 0:
+            raise Exception("Style ULC_USER_ROW_HEIGHT can be used only with ULC_REPORT")
+        
         wx.PyControl.__init__(self, parent, id, pos, size, style|wx.CLIP_CHILDREN, validator, name)
 
         self._mainWin = None
@@ -10608,7 +10833,7 @@ class UltimateListCtrl(wx.PyControl):
         if style & wx.SUNKEN_BORDER:
             style -= wx.SUNKEN_BORDER
             
-        self._mainWin = UltimateListMainWindow(self, wx.ID_ANY, wx.Point(0, 0), size, style, agwStyle)
+        self._mainWin = UltimateListMainWindow(self, wx.ID_ANY, wx.Point(0, 0), wx.DefaultSize, style, agwStyle)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self._mainWin, 1, wx.GROW)
@@ -10846,6 +11071,7 @@ class UltimateListCtrl(wx.PyControl):
          ``ULC_HEADER_IN_ALL_VIEWS``       0x20000000 Show column headers in all view modes.
          ``ULC_NO_FULL_ROW_SELECT``        0x40000000 When an item is selected, the only the item in the first column is highlighted.
          ``ULC_FOOTER``                    0x80000000 Show a footer too (only when header is present).
+         ``ULC_USER_ROW_HEIGHT``          0x100000000 Allows to set a custom row height (one value for all the items, only in report mode).
          ===============================  =========== ====================================================================================================
          """        
 
@@ -10886,6 +11112,31 @@ class UltimateListCtrl(wx.PyControl):
         
         return self._agwStyle & flag
             
+
+    def SetUserLineHeight(self, height):
+        """
+        Sets a custom value for the L{UltimateListCtrl} item height.
+
+        :param `height`: the custom height for all the items, in pixels.
+
+        :note: This method can be used only with ``ULC_REPORT`` and ``ULC_USER_ROW_HEIGHT`` styles set.
+        """
+
+        if self._mainWin:
+            self._mainWin.SetUserLineHeight(height)
+        
+
+    def GetUserLineHeight(self):
+        """
+        Returns the custom value for the L{UltimateListCtrl} item height, if previously set with
+        L{SetUserLineHeight}.
+
+        :note: This method can be used only with ``ULC_REPORT`` and ``ULC_USER_ROW_HEIGHT`` styles set.
+        """
+
+        if self._mainWin:
+            return self._mainWin.GetUserLineHeight()
+
 
     def GetColumn(self, col):
         """
@@ -11914,7 +12165,7 @@ class UltimateListCtrl(wx.PyControl):
         """
 
         self._mainWin.SortItems(func)
-        wx.CallAfter(self.Update)
+        wx.CallAfter(self.Refresh)
         
         return True
         
@@ -11946,19 +12197,8 @@ class UltimateListCtrl(wx.PyControl):
         # the scrollable area as set that ourselves by
         # calling SetScrollbar() further down.
 
-        self.Layout()
+        self.DoLayout()
         
-        self._mainWin.ResizeColumns()
-        self._mainWin.ResetVisibleLinesRange(True)
-        self._mainWin.RecalculatePositions()
-        self._mainWin.AdjustScrollbars()
-
-        if self._headerWin:
-            self._headerWin.Refresh()
-            
-        if self._footerWin:
-            self._footerWin.Refresh()
-
 
     def OnSetFocus(self, event):
         """
@@ -12267,6 +12507,21 @@ class UltimateListCtrl(wx.PyControl):
         # because the controls which are not virtual don't need to implement it
         raise Exception("UltimateListCtrl.OnGetItemTextColour not supposed to be called")
 
+
+    def OnGetItemToolTip(self, item, col):
+        """
+        This function **must** be overloaded in the derived class for a control with
+        ``ULC_VIRTUAL`` style. It should return the string containing the text of
+        the tooltip for the specified item.
+
+        :param `item`: an integer specifying the item index;
+        :param `col`: the column index to which the item belongs to.
+        """
+
+        # this is a pure virtual function, in fact - which is not really pure
+        # because the controls which are not virtual don't need to implement it
+        raise Exception("UltimateListCtrl.OnGetItemToolTip not supposed to be called")
+    
 
     def OnGetItemImage(self, item):
         """
@@ -12687,6 +12942,18 @@ class UltimateListCtrl(wx.PyControl):
         item = CreateListItem(itemOrId, col)
         return self._mainWin.SetItemHyperText(item, hyper)
 
+    def SetColumnToolTip(self, col, tip):
+        """
+        Sets the tooltip for the column header
+
+        :param `col`: the column index;
+        :param `tip`: the tooltip text
+        """
+       
+        item = self.GetColumn(col)
+        item.SetToolTip(tip)
+        self.SetColumn(col, item)
+        
 
     def SetColumnImage(self, col, image):
         """
@@ -13208,4 +13475,82 @@ class UltimateListCtrl(wx.PyControl):
             return self._mainWin.GetScrollRange()
 
         return 0
+
+
+    def SetHeaderHeight(self, height):
+        """
+        Sets the L{UltimateListHeaderWindow} height, in pixels. This overrides the default
+        header window size derived from `wx.RendererNative`. If `height` is ``None``, the
+        default behaviour is restored.
+
+        :param `height`: the header window height, in pixels (if it is ``None``, the default
+         height obtained using `wx.RendererNative` is used).
+        """
+
+        if not self._headerWin:
+            return
+
+        if height is not None and height < 1:
+            raise Exception("Invalid height passed to SetHeaderHeight: %s"%repr(height))
+        
+        self._headerWin._headerHeight = height
+        self.DoLayout()
+
+
+    def GetHeaderHeight(self):
+        """ Returns the L{UltimateListHeaderWindow} height, in pixels. """
+
+        if not self._headerWin:
+            return -1
+
+        return self._headerWin.GetWindowHeight()
+    
+
+    def SetFooterHeight(self, height):
+        """
+        Sets the L{UltimateListHeaderWindow} height, in pixels. This overrides the default
+        footer window size derived from `wx.RendererNative`. If `height` is ``None``, the
+        default behaviour is restored.
+
+        :param `height`: the footer window height, in pixels (if it is ``None``, the default
+         height obtained using `wx.RendererNative` is used).
+        """
+
+        if not self._footerWin:
+            return
+
+        if height is not None and height < 1:
+            raise Exception("Invalid height passed to SetFooterHeight: %s"%repr(height))
+        
+        self._footerWin._footerHeight = height
+        self.DoLayout()
+
+
+    def GetFooterHeight(self):
+        """ Returns the L{UltimateListHeaderWindow} height, in pixels. """
+
+        if not self._footerWin:
+            return -1
+
+        return self._headerWin.GetWindowHeight()
+
+
+    def DoLayout(self):
+        """
+        Layouts the header, main and footer windows. This is an auxiliary method to avoid code
+        duplication.
+        """
+
+        self.Layout()
+        
+        self._mainWin.ResizeColumns()
+        self._mainWin.ResetVisibleLinesRange(True)
+        self._mainWin.RecalculatePositions()
+        self._mainWin.AdjustScrollbars()
+
+        if self._headerWin:
+            self._headerWin.Refresh()
+            
+        if self._footerWin:
+            self._footerWin.Refresh()
 

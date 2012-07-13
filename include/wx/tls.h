@@ -3,7 +3,7 @@
 // Purpose:     Implementation of thread local storage
 // Author:      Vadim Zeitlin
 // Created:     2008-08-08
-// RCS-ID:      $Id: tls.h 63653 2010-03-08 12:21:58Z VS $
+// RCS-ID:      $Id: tls.h 65747 2010-10-03 17:16:15Z VZ $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,10 +22,10 @@
 #if !wxUSE_THREADS
     #define wxHAS_COMPILER_TLS
     #define wxTHREAD_SPECIFIC_DECL
-// __thread keyword is supported if configure detected it or when using mingw32
-// >= 4.3 which is known to have it too
-#elif defined(HAVE___THREAD_KEYWORD) || \
-        (defined(__MINGW32__) && wxCHECK_GCC_VERSION(4, 3))
+// __thread keyword is not supported correctly by MinGW, at least in some
+// configurations, see http://sourceforge.net/support/tracker.php?aid=2837047
+// and when in doubt we prefer to not use it at all.
+#elif defined(HAVE___THREAD_KEYWORD) && !defined(__MINGW32__)
     #define wxHAS_COMPILER_TLS
     #define wxTHREAD_SPECIFIC_DECL __thread
 // MSVC has its own version which might be supported by some other Windows

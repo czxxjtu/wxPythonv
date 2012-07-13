@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        osx/carbon/aboutdlg.cpp
+// Name:        src/osx/carbon/aboutdlg.cpp
 // Purpose:     native wxAboutBox() implementation for wxMac
 // Author:      Vadim Zeitlin
 // Created:     2006-10-08
-// RCS-ID:      $Id: aboutdlg.cpp 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: aboutdlg.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

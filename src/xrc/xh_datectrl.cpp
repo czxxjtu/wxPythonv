@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        xh_datectrl.cpp
+// Name:        src/xrc/xh_datectrl.cpp
 // Purpose:     XML resource handler for wxDatePickerCtrl
 // Author:      Vaclav Slavik
 // Created:     2005-02-07
-// RCS-ID:      $Id: xh_datectrl.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: xh_datectrl.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2005 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

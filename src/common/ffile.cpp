@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        ffile.cpp
+// Name:        src/common/ffile.cpp
 // Purpose:     wxFFile encapsulates "FILE *" IO stream
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     14.07.99
-// RCS-ID:      $Id: ffile.cpp 62974 2009-12-22 21:22:59Z MW $
+// RCS-ID:      $Id: ffile.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ wxFileOffset wxFFile::Length() const
     wxCHECK_MSG( IsOpened(), wxInvalidOffset,
                  wxT("wxFFile::Length(): file is closed!") );
 
-    wxFFile& self = *(wxFFile *)this;   // const_cast
+    wxFFile& self = *const_cast<wxFFile *>(this);
 
     wxFileOffset posOld = Tell();
     if ( posOld != wxInvalidOffset )

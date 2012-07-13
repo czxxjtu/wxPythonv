@@ -4,7 +4,7 @@
 // Author:      Ryan Norton
 // Modified by:
 // Created:     04/04/2003
-// RCS-ID:      $Id: taskbarosx.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: taskbarosx.h 67084 2011-02-28 10:12:06Z SC $
 // Copyright:   (c) Ryan Norton, 2003
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////
@@ -26,14 +26,22 @@ public:
 #if wxOSX_USE_COCOA
         ,   CUSTOM_STATUSITEM
 #endif
-//    ,   STATUSITEM
-//    ,   MENUEXTRA
+#if wxOSX_USE_COCOA
+        ,   DEFAULT_TYPE = CUSTOM_STATUSITEM
+#else
         ,   DEFAULT_TYPE = DOCK
+#endif
         };
 
     wxTaskBarIcon(wxTaskBarIconType iconType = DEFAULT_TYPE);
     virtual ~wxTaskBarIcon();
 
+    // returns true if the taskbaricon is in the global menubar
+#if wxOSX_USE_COCOA
+    bool OSXIsStatusItem();
+#else
+    bool OSXIsStatusItem() { return false; }
+#endif
     bool IsOk() const { return true; }
 
     bool IsIconInstalled() const;
@@ -42,6 +50,7 @@ public:
     bool PopupMenu(wxMenu *menu);
 
 protected:
+    wxTaskBarIconType m_type;
     class wxTaskBarIconImpl* m_impl;
     friend class wxTaskBarIconImpl;
 };

@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        generic/statline.h
+// Name:        wx/generic/statline.h
 // Purpose:     a generic wxStaticLine class
 // Author:      Vadim Zeitlin
 // Created:     28.06.99
-// Version:     $Id: statline.h 52834 2008-03-26 15:06:00Z FM $
+// Version:     $Id: statline.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

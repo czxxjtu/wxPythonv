@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing date picker
 // Author:      Dimitri Schoolwerth, Vadim Zeitlin
 // Created:     27 Sep 2003
-// Id:          $Id: datepick.cpp 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: datepick.cpp 67292 2011-03-23 10:37:35Z VZ $
 // Copyright:   (c) 2003 wxWindows team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -186,7 +186,7 @@ void DatePickerWidgetsPage::Reset()
 
     m_datePicker->SetValue(today);
     m_day->SetValue(wxString::Format(wxT("%d"), today.GetDay()));
-    m_month->SetValue(wxString::Format(wxT("%d"), today.GetMonth()));
+    m_month->SetValue(wxString::Format(wxT("%d"), today.GetMonth() + 1));
     m_year->SetValue(wxString::Format(wxT("%d"), today.GetYear()));
 }
 

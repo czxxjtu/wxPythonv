@@ -32,8 +32,8 @@ a user defined sub item.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: panelbox.py 65202 2010-08-06 15:49:23Z CJP $"
-__revision__ = "$Revision: 65202 $"
+__svnid__ = "$Id: panelbox.py 67123 2011-03-04 00:02:35Z CJP $"
+__revision__ = "$Revision: 67123 $"
 
 #--------------------------------------------------------------------------#
 # Imports
@@ -52,6 +52,7 @@ class PanelBoxEventEvent(wx.PyCommandEvent):
 #--------------------------------------------------------------------------#
 
 class PanelBox(scrolled.ScrolledPanel):
+    """Scrolled container window for managing and displaying PanelBox items"""
     def __init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition,
                  size=wx.DefaultSize, style=wx.HSCROLL|wx.VSCROLL,
                  name=u"PanelBox"):
@@ -74,39 +75,6 @@ class PanelBox(scrolled.ScrolledPanel):
         # Event Handlers
 #        self.Bind(wx.EVT_KEY_UP, self.OnNavigate)
         self.GetParent().Bind(wx.EVT_KEY_UP, self.OnNavigate)
-
-#    def SetupScrolling(self, scroll_x=True, scroll_y=True, rate_x=20, rate_y=20, 
-#                       scrollToTop=True):
-#        """
-#        This function sets up the event handling necessary to handle
-#        scrolling properly. It should be called within the __init__
-#        function of any class that is derived from ScrolledPanel,
-#        once the controls on the panel have been constructed and
-#        thus the size of the scrolling area can be determined.
-
-#        """
-#        # The following is all that is needed to integrate the sizer and the
-#        # scrolled window.
-#        if not scroll_x: rate_x = 0
-#        if not scroll_y: rate_y = 0
-
-#        # Round up the virtual size to be a multiple of the scroll rate
-#        sizer = self.GetSizer()
-#        if sizer:
-#            w, h = sizer.GetMinSize()
-#            if rate_x:
-#                w += rate_x - (w % rate_x)
-#            if rate_y:
-#                h += rate_y - (h % rate_y)
-#            self.SetVirtualSize( (w, h) )
-#        self.SetScrollRate(rate_x, rate_y)        
-#        wx.CallAfter(self._SetupAfter, scrollToTop) # scroll back to top after initial events
-
-
-#    def _SetupAfter(self, scrollToTop):
-#        self.SetVirtualSize(self.GetBestVirtualSize())
-#        if scrollToTop:
-#            self.Scroll(0,0)
 
     #---- Event Handlers ----#
 
@@ -214,7 +182,7 @@ class PanelBox(scrolled.ScrolledPanel):
             return -1
 
     def GetItemCount(self):
-        """Get the number of items in teh control
+        """Get the number of items in the control
         @return: int
 
         """
@@ -313,7 +281,7 @@ class PanelBoxItemBase(wx.PyPanel):
         """Update foreground colors when selection changes
         @param color: selection color
         @todo: should cache text's original color to restore
-               on deselection.
+               on de-selection.
 
         """
         if sum(color.Get()[:3]) < (127 * 3):

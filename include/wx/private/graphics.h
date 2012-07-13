@@ -5,7 +5,7 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Stefan Csomor
-// RCS-ID:      $Id: graphics.h 50348 2007-11-30 13:48:22Z RR $
+// RCS-ID:      $Id: graphics.h 67232 2011-03-18 15:10:15Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

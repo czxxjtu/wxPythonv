@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     9-Aug-2003
-// RCS-ID:      $Id: _app.i 63444 2010-02-09 21:34:08Z RD $
+// RCS-ID:      $Id: _app.i 66755 2011-01-25 05:51:31Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -285,12 +285,6 @@ parties.  Returns True if more idle events are needed, False if not.", "");
 
     
     DocDeclStr(
-        virtual bool, SendIdleEvents(wxWindow* win, wxIdleEvent& event),
-        "Send idle event to window and all subwindows.  Returns True if more
-idle time is requested.", "");
-
-
-    DocDeclStr(
         virtual bool, IsActive() const,
         "Return True if our app has focus.", "");
 
@@ -458,7 +452,7 @@ it wasn't found at all.  Raises an exception on non-Windows platforms.", "");
 This will mean different things on the different platforms.
 
    * On X Windows systems this function will return ``False`` if it is
-     not able to open a connection to the X display, which can happen
+     not able to open a connection to the X server, which can happen
      if $DISPLAY is not set, or is not set correctly.
 
    * On Mac OS X a ``False`` return value will mean that wx is not

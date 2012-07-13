@@ -3,7 +3,7 @@
 # Inspired By And Heavily Based On wx.gizmos.TreeListCtrl.
 #
 # Andrea Gavana, @ 08 May 2006
-# Latest Revision: 21 Sep 2010, 23.00 GMT
+# Latest Revision: 17 Aug 2011, 15.00 GMT
 #
 #
 # TODO List
@@ -31,7 +31,7 @@
 # Write To Me At:
 #
 # andrea.gavana@gmail.com
-# gavana@kpo.kz
+# andrea.gavana@maerskoil.com
 #
 # Or, Obviously, To The wxPython Mailing List!!!
 #
@@ -41,25 +41,25 @@
 
 
 """
-HyperTreeList is a class that mimics the behaviour of `wx.gizmos.TreeListCtrl`, with
+L{HyperTreeList} is a class that mimics the behaviour of `wx.gizmos.TreeListCtrl`, with
 some more functionalities.
 
 
 Description
 ===========
 
-HyperTreeList is a class that mimics the behaviour of `wx.gizmos.TreeListCtrl`, with
+L{HyperTreeList} is a class that mimics the behaviour of `wx.gizmos.TreeListCtrl`, with
 almost the same base functionalities plus some more enhancements. This class does
 not rely on the native control, as it is a full owner-drawn tree-list control.
 
-HyperTreeList is somewhat an hybrid between L{CustomTreeCtrl} and `wx.gizmos.TreeListCtrl`.
+L{HyperTreeList} is somewhat an hybrid between L{CustomTreeCtrl} and `wx.gizmos.TreeListCtrl`.
 
 In addition to the standard `wx.gizmos.TreeListCtrl` behaviour this class supports:
 
 * CheckBox-type items: checkboxes are easy to handle, just selected or unselected
   state with no particular issues in handling the item's children;
 * Added support for 3-state value checkbox items;
-* RadioButton-type items: since I elected to put radiobuttons in CustomTreeCtrl, I
+* RadioButton-type items: since I elected to put radiobuttons in L{CustomTreeCtrl}, I
   needed some way to handle them, that made sense. So, I used the following approach:
   
   - All peer-nodes that are radiobuttons will be mutually exclusive. In other words,
@@ -79,10 +79,10 @@ In addition to the standard `wx.gizmos.TreeListCtrl` behaviour this class suppor
 * Default selection style, gradient (horizontal/vertical) selection style and Windows
   Vista selection style;
 * Customized drag and drop images built on the fly;
-* Setting the HyperTreeList item buttons to a personalized imagelist;
-* Setting the HyperTreeList check/radio item icons to a personalized imagelist;
+* Setting the L{HyperTreeList} item buttons to a personalized imagelist;
+* Setting the L{HyperTreeList} check/radio item icons to a personalized imagelist;
 * Changing the style of the lines that connect the items (in terms of `wx.Pen` styles);
-* Using an image as a HyperTreeList background (currently only in "tile" mode);
+* Using an image as a L{HyperTreeList} background (currently only in "tile" mode);
 
 And a lot more. Check the demo for an almost complete review of the functionalities.
 
@@ -90,7 +90,7 @@ And a lot more. Check the demo for an almost complete review of the functionalit
 Base Functionalities
 ====================
 
-HyperTreeList supports all the `wx.gizmos.TreeListCtrl` styles, except:
+L{HyperTreeList} supports all the `wx.gizmos.TreeListCtrl` styles, except:
 
 - ``TR_EXTENDED``: supports for this style is on the todo list (Am I sure of this?).
 
@@ -102,16 +102,54 @@ Plus it has 3 more styles to handle checkbox-type items:
 
 And a style useful to hide the TreeListCtrl header:
 
-- ``TR_NO_HEADER``: hides the HyperTreeList header.
+- ``TR_NO_HEADER``: hides the L{HyperTreeList} header.
 
 
-All the methods available in `wx.gizmos.TreeListCtrl` are also available in HyperTreeList.
+All the methods available in `wx.gizmos.TreeListCtrl` are also available in L{HyperTreeList}.
+
+
+Usage
+=====
+
+Usage example::
+
+    import wx
+    import wx.lib.agw.hypertreelist as HTL
+
+    class MyFrame(wx.Frame):
+
+        def __init__(self, parent):
+        
+            wx.Frame.__init__(self, parent, -1, "HyperTreeList Demo")
+
+            tree_list = HTL.HyperTreeList(self)
+            
+            tree_list.AddColumn("First column")
+
+            root = tree_list.AddRoot("Root", ct_type=1)
+
+            parent = tree_list.AppendItem(root, "First child", ct_type=1)
+            child = tree_list.AppendItem(parent, "First Grandchild", ct_type=1)
+            
+            tree_list.AppendItem(root, "Second child", ct_type=1)
+
+
+    # our normal wxApp-derived class, as usual
+
+    app = wx.PySimpleApp()
+
+    frame = MyFrame(None)
+    app.SetTopWindow(frame)
+    frame.Show()
+
+    app.MainLoop()
+    
 
 
 Events
 ======
 
-All the events supported by `wx.gizmos.TreeListCtrl` are also available in HyperTreeList,
+All the events supported by `wx.gizmos.TreeListCtrl` are also available in L{HyperTreeList},
 with a few exceptions:
 
 - ``EVT_TREE_GET_INFO`` (don't know what this means);
@@ -119,7 +157,7 @@ with a few exceptions:
 - ``EVT_TREE_ITEM_MIDDLE_CLICK`` (not implemented, but easy to add);
 - ``EVT_TREE_STATE_IMAGE_CLICK`` (no need for that, look at the checking events below).
 
-Plus, HyperTreeList supports the events related to the checkbutton-type items:
+Plus, L{HyperTreeList} supports the events related to the checkbutton-type items:
 
 - ``EVT_TREE_ITEM_CHECKING``: an item is being checked;
 - ``EVT_TREE_ITEM_CHECKED``: an item has been checked.
@@ -133,7 +171,7 @@ And to hyperlink-type items:
 Supported Platforms
 ===================
 
-HyperTreeList has been tested on the following platforms:
+L{HyperTreeList} has been tested on the following platforms:
   * Windows (Windows XP);
 
 
@@ -165,7 +203,7 @@ Window Styles                  Hex Value   Description
 ``TR_AUTO_CHECK_PARENT``           0x10000 Only meaningful foe checkbox-type items: when a child item is checked/unchecked its parent item is checked/unchecked as well.
 ``TR_ALIGN_WINDOWS``               0x20000 Flag used to align windows (in items with windows) at the same horizontal position.
 ``TR_NO_HEADER``                   0x40000 Use this style to hide the columns header.
-``TR_VIRTUAL``                     0x80000 `HyperTreeList` will have virtual behaviour.
+``TR_VIRTUAL``                     0x80000 L{HyperTreeList} will have virtual behaviour.
 ============================== =========== ==================================================
 
 
@@ -183,38 +221,38 @@ Event Name                     Description
 ``EVT_LIST_COL_END_DRAG``      A column has been resized by the user.
 ``EVT_LIST_COL_RIGHT_CLICK``   A column has been right-clicked.
 ``EVT_TREE_BEGIN_DRAG``        Begin dragging with the left mouse button.
-``EVT_TREE_BEGIN_LABEL_EDIT``  Begin editing a label. This can be prevented by calling `Veto()`.
+``EVT_TREE_BEGIN_LABEL_EDIT``  Begin editing a label. This can be prevented by calling L{TreeEvent.Veto}.
 ``EVT_TREE_BEGIN_RDRAG``       Begin dragging with the right mouse button.
 ``EVT_TREE_DELETE_ITEM``       Delete an item.
 ``EVT_TREE_END_DRAG``          End dragging with the left or right mouse button.
-``EVT_TREE_END_LABEL_EDIT``    End editing a label. This can be prevented by calling `Veto()`.
-``EVT_TREE_GET_INFO``          Request information from the application (not implemented in `CustomTreeCtrl`).
+``EVT_TREE_END_LABEL_EDIT``    End editing a label. This can be prevented by calling L{TreeEvent.Veto}.
+``EVT_TREE_GET_INFO``          Request information from the application (not implemented in L{HyperTreeList}).
 ``EVT_TREE_ITEM_ACTIVATED``    The item has been activated, i.e. chosen by double clicking it with mouse or from keyboard.
 ``EVT_TREE_ITEM_CHECKED``      A checkbox or radiobox type item has been checked.
 ``EVT_TREE_ITEM_CHECKING``     A checkbox or radiobox type item is being checked.
 ``EVT_TREE_ITEM_COLLAPSED``    The item has been collapsed.
-``EVT_TREE_ITEM_COLLAPSING``   The item is being collapsed. This can be prevented by calling `Veto()`.
-``EVT_TREE_ITEM_EXPANDED``     The item has been expanded.
-``EVT_TREE_ITEM_EXPANDING``    The item is being expanded. This can be prevented by calling `Veto()`.
-``EVT_TREE_ITEM_GETTOOLTIP``   The opportunity to set the item tooltip is being given to the application (call `TreeEvent.SetToolTip`).
+``EVT_TREE_ITEM_COLLAPSING``   The item is being collapsed. This can be prevented by calling L{TreeEvent.Veto}.
+``EVT_TREE_ITEM_EXPANDED``     The item has been expanded.s
+``EVT_TREE_ITEM_EXPANDING``    The item is being expanded. This can be prevented by calling L{TreeEvent.Veto}.
+``EVT_TREE_ITEM_GETTOOLTIP``   The opportunity to set the item tooltip is being given to the application (call L{TreeEvent.SetToolTip}).
 ``EVT_TREE_ITEM_HYPERLINK``    An hyperlink type item has been clicked.
 ``EVT_TREE_ITEM_MENU``         The context menu for the selected item has been requested, either by a right click or by using the menu key.
-``EVT_TREE_ITEM_MIDDLE_CLICK`` The user has clicked the item with the middle mouse button (not implemented in `CustomTreeCtrl`).
+``EVT_TREE_ITEM_MIDDLE_CLICK`` The user has clicked the item with the middle mouse button (not implemented in L{HyperTreeList}).
 ``EVT_TREE_ITEM_RIGHT_CLICK``  The user has clicked the item with the right mouse button.
 ``EVT_TREE_KEY_DOWN``          A key has been pressed.
 ``EVT_TREE_SEL_CHANGED``       Selection has changed.
-``EVT_TREE_SEL_CHANGING``      Selection is changing. This can be prevented by calling `Veto()`.
-``EVT_TREE_SET_INFO``          Information is being supplied to the application (not implemented in `CustomTreeCtrl`).
-``EVT_TREE_STATE_IMAGE_CLICK`` The state image has been clicked (not implemented in `CustomTreeCtrl`).
+``EVT_TREE_SEL_CHANGING``      Selection is changing. This can be prevented by calling L{TreeEvent.Veto}.
+``EVT_TREE_SET_INFO``          Information is being supplied to the application (not implemented in L{HyperTreeList}).
+``EVT_TREE_STATE_IMAGE_CLICK`` The state image has been clicked (not implemented in L{HyperTreeList}).
 ============================== ==================================================
 
 
 License And Version
 ===================
 
-HyperTreeList is distributed under the wxPython license.
+L{HyperTreeList} is distributed under the wxPython license.
 
-Latest Revision: Andrea Gavana @ 21 Sep 2010, 23.00 GMT
+Latest Revision: Andrea Gavana @ 17 Aug 2011, 15.00 GMT
 
 Version 1.2
 
@@ -225,7 +263,7 @@ import wx.gizmos
 
 from customtreectrl import CustomTreeCtrl
 from customtreectrl import DragImage, TreeEvent, GenericTreeItem
-from customtreectrl import TreeRenameTimer as TreeListRenameTimer
+from customtreectrl import TreeEditTimer as TreeListEditTimer
 from customtreectrl import EVT_TREE_ITEM_CHECKING, EVT_TREE_ITEM_CHECKED, EVT_TREE_ITEM_HYPERLINK
 
 # Version Info
@@ -251,7 +289,8 @@ _MAX_WIDTH = 30000  # pixels; used by OnPaint to redraw only exposed items
 
 _DRAG_TIMER_TICKS = 250   # minimum drag wait time in ms
 _FIND_TIMER_TICKS = 500   # minimum find wait time in ms
-_RENAME_TIMER_TICKS = 250 # minimum rename wait time in ms
+_EDIT_TIMER_TICKS = 250 # minimum edit wait time in ms
+
 
 # --------------------------------------------------------------------------
 # Additional HitTest style
@@ -305,7 +344,7 @@ TR_AUTO_CHECK_PARENT = 0x10000                                 # only meaningful
 TR_ALIGN_WINDOWS = 0x20000                                     # to align windows horizontally for items at the same level
 """ Flag used to align windows (in items with windows) at the same horizontal position. """
 TR_VIRTUAL = 0x80000
-""" `HyperTreeList` will have virtual behaviour. """
+""" L{HyperTreeList} will have virtual behaviour. """
 
 # --------------------------------------------------------------------------
 # Additional HyperTreeList style to hide the header
@@ -780,7 +819,6 @@ class TreeListHeaderWindow(wx.Window):
         else:
             dc = wx.PaintDC(self)
             
-        self.PrepareDC(dc)
         self.AdjustDC(dc)
 
         x = 0
@@ -914,6 +952,7 @@ class TreeListHeaderWindow(wx.Window):
         while idx <= col:
             
             if not self.IsColumnShown(idx):
+                idx += 1
                 continue 
 
             column = self.GetColumn(idx)
@@ -1711,17 +1750,17 @@ class TreeListItem(GenericTreeItem):
 # EditTextCtrl (internal)
 #-----------------------------------------------------------------------------
 
-class EditTextCtrl(wx.TextCtrl):
+
+class EditCtrl(object):
     """
-    Control used for in-place edit.
+    Base class for controls used for in-place edit.
     """
-    
+
     def __init__(self, parent, id=wx.ID_ANY, item=None, column=None, owner=None,
                  value="", pos=wx.DefaultPosition, size=wx.DefaultSize, style=0,
-                 validator=wx.DefaultValidator, name="edittextctrl"):
+                 validator=wx.DefaultValidator, name="editctrl", **kwargs):
         """
         Default class constructor.
-        For internal use: do not call it in your code!
 
         :param `parent`: the window parent. Must not be ``None``;
         :param `id`: window identifier. A value of -1 indicates a default value;
@@ -1729,7 +1768,7 @@ class EditTextCtrl(wx.TextCtrl):
         :param `column`: if not ``None``, an integer specifying the column index.
          If it is ``None``, the main column index is used;
         :param `owner`: the window owner, in this case an instance of L{TreeListMainWindow};
-        :param `value`: the initial value in the text control;
+        :param `value`: the initial value in the control;
         :param `pos`: the control position. A value of (-1, -1) indicates a default position,
          chosen by either the windowing system or wxPython, depending on platform;
         :param `size`: the control size. A value of (-1, -1) indicates a default size,
@@ -1738,12 +1777,11 @@ class EditTextCtrl(wx.TextCtrl):
         :param `validator`: the window validator;
         :param `name`: the window name.
         """
-        
         self._owner = owner
         self._startValue = value
-        self._finished = False
         self._itemEdited = item
-
+        self._finished = False
+        
         column = (column is not None and [column] or [self._owner.GetMainColumn()])[0]
         
         self._column = column
@@ -1800,17 +1838,46 @@ class EditTextCtrl(wx.TextCtrl):
         x += image_w + wcheck
         w -= image_w + 2*_MARGIN + wcheck
 
-        wx.TextCtrl.__init__(self, parent, id, value, wx.Point(x, y),
-                             wx.Size(w + 15, h), style|wx.SIMPLE_BORDER, validator, name)
+        super(EditCtrl, self).__init__(parent, id, value, wx.Point(x,y),
+                                       wx.Size(w+15, h), 
+                                       style=style|wx.SIMPLE_BORDER, 
+                                       name=name, **kwargs)
         
         if wx.Platform == "__WXMAC__":
             self.SetFont(owner.GetFont())
             bs = self.GetBestSize()
             self.SetSize((-1, bs.height))
-                    
-        self.Bind(wx.EVT_CHAR, self.OnChar)
-        self.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
+
         self.Bind(wx.EVT_KILL_FOCUS, self.OnKillFocus)
+
+
+    def item(self):
+        """Returns the item currently edited."""
+
+        return self._itemEdited
+
+
+    def column(self): 
+        """Returns the column currently edited.""" 
+
+        return self._column
+
+
+    def StopEditing(self):
+        """Suddenly stops the editing."""
+
+        self._owner.OnCancelEdit()
+        self.Finish()
+
+
+    def Finish(self):
+        """Finish editing."""
+
+        if not self._finished:
+        
+            self._finished = True
+            self._owner.SetFocusIgnoringChildren()
+            self._owner.ResetEditControl()
 
 
     def AcceptChanges(self):
@@ -1824,25 +1891,61 @@ class EditTextCtrl(wx.TextCtrl):
             # needs to be notified that the user decided
             # not to change the tree item label, and that
             # the edit has been cancelled
-            self._owner.OnRenameCancelled()
+            self._owner.OnCancelEdit()
             return True
-
-        if not self._owner.OnRenameAccept(value):
-            # vetoed by the user
-            return False
-        
-        return True
+        else:
+            return self._owner.OnAcceptEdit(value)
 
 
-    def Finish(self):
-        """Finish editing."""
+    def OnKillFocus(self, event):
+        """
+        Handles the ``wx.EVT_KILL_FOCUS`` event for L{EditCtrl}
 
-        if not self._finished:
-        
-            self._finished = True
-            self._owner.SetFocusIgnoringChildren()
-            self._owner.ResetTextControl()
-        
+        :param `event`: a `wx.FocusEvent` event to be processed.
+        """
+
+        # We must let the native control handle focus, too, otherwise
+        # it could have problems with the cursor (e.g., in wxGTK).
+        event.Skip()
+
+
+
+class EditTextCtrl(EditCtrl, wx.TextCtrl):
+    """
+    Text control used for in-place edit.
+    """
+    
+    def __init__(self, parent, id=wx.ID_ANY, item=None, column=None, owner=None,
+                 value="", pos=wx.DefaultPosition, size=wx.DefaultSize, style=0,
+                 validator=wx.DefaultValidator, name="edittextctrl", **kwargs):
+        """
+        Default class constructor.
+        For internal use: do not call it in your code!
+
+        :param `parent`: the window parent. Must not be ``None``;
+        :param `id`: window identifier. A value of -1 indicates a default value;
+        :param `item`: an instance of L{TreeListItem};
+        :param `column`: if not ``None``, an integer specifying the column index.
+         If it is ``None``, the main column index is used;
+        :param `owner`: the window owner, in this case an instance of L{TreeListMainWindow};
+        :param `value`: the initial value in the text control;
+        :param `pos`: the control position. A value of (-1, -1) indicates a default position,
+         chosen by either the windowing system or wxPython, depending on platform;
+        :param `size`: the control size. A value of (-1, -1) indicates a default size,
+         chosen by either the windowing system or wxPython, depending on platform;
+        :param `style`: the window style;
+        :param `validator`: the window validator;
+        :param `name`: the window name.
+        """
+
+        super(EditTextCtrl, self).__init__(parent, id, item, column, owner, 
+                                           value, pos, size, style, validator, 
+                                           name, **kwargs)       
+        self.SelectAll()
+
+        self.Bind(wx.EVT_CHAR, self.OnChar)
+        self.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
+
 
     def OnChar(self, event):
         """
@@ -1853,8 +1956,7 @@ class EditTextCtrl(wx.TextCtrl):
 
         keycode = event.GetKeyCode()
 
-        if keycode == wx.WXK_RETURN:
-            self._aboutToFinish = True
+        if keycode in [wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER] and not event.ShiftDown():
             # Notify the owner about the changes
             self.AcceptChanges()
             # Even if vetoed, close the control (consistent with MSW)
@@ -1890,39 +1992,9 @@ class EditTextCtrl(wx.TextCtrl):
             self.SetSize((sx, -1))
 
         event.Skip()
-
-
-    def OnKillFocus(self, event):
-        """
-        Handles the ``wx.EVT_KILL_FOCUS`` event for L{EditTextCtrl}
-
-        :param `event`: a `wx.FocusEvent` event to be processed.
-        """
-
-        # We must let the native text control handle focus, too, otherwise
-        # it could have problems with the cursor (e.g., in wxGTK).
-        event.Skip()
-
-
-    def StopEditing(self):
-        """Suddenly stops the editing."""
-
-        self._owner.OnRenameCancelled()
-        self.Finish()
         
-
-    def item(self):
-        """Returns the item currently edited."""
-
-        return self._itemEdited
-
-
-    def column(self): 
-        """Returns the column currently edited.""" 
-
-        return self._column
-
-
+        
+        
 # ---------------------------------------------------------------------------
 # TreeListMainWindow implementation
 # ---------------------------------------------------------------------------
@@ -1979,6 +2051,8 @@ class TreeListMainWindow(CustomTreeCtrl):
         :param `name`: window name.
         """
 
+        self._buffered = False
+        
         CustomTreeCtrl.__init__(self, parent, id, pos, size, style, agwStyle, validator, name)
         
         self._shiftItem = None
@@ -2000,7 +2074,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         self._current = None
 
         # TextCtrl initial settings for editable items
-        self._renameTimer = TreeListRenameTimer(self)
+        self._editTimer = TreeListEditTimer(self)
         self._left_down_selection = False
 
         self._dragTimer = wx.Timer(self)
@@ -2008,15 +2082,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         
         self.Bind(wx.EVT_PAINT, self.OnPaint)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.OnMouse)
-
-        # Listen for EVT_SCROLLWIN in a separate event handler so that the
-        # default handler can be called without entering an infinite loop.
-        # See OnScroll for why calling the default handler manually is needed.
-        # Store the default handler in _default_evt_handler.
-        scroll_evt_handler = wx.EvtHandler()
-        self.PushEventHandler(scroll_evt_handler)
-        scroll_evt_handler.Bind(wx.EVT_SCROLLWIN, self.OnScroll)
-        self._default_evt_handler = scroll_evt_handler.GetNextHandler()
+        self.Bind(wx.EVT_SCROLLWIN, self.OnScroll)
 
         # Sets the focus to ourselves: this is useful if you have items
         # with associated widgets.
@@ -2233,7 +2299,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         :param `item`: an instance of L{TreeListItem}.
         """                
 
-        return self.GetNext(item, False)
+        return CustomTreeCtrl.GetNextExpanded(self, item)
 
 
     def GetPrevExpanded(self, item):
@@ -2243,7 +2309,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         :param `item`: an instance of L{TreeListItem}.
         """                
 
-        return self.GetPrev(item, False)
+        return CustomTreeCtrl.GetPrevExpanded(self, item)
 
 
     def GetFirstVisibleItem(self):
@@ -2259,7 +2325,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         :param `item`: an instance of L{TreeListItem}.
         """                
 
-        i = self.GetNext(item, False)
+        i = self.GetPrev(item)
         while i:
             if self.IsItemVisible(i):
                 return i
@@ -2377,9 +2443,9 @@ class TreeListMainWindow(CustomTreeCtrl):
         
         self._dirty = True     # do this first so stuff below doesn't cause flicker
 
-        if self._textCtrl != None and self.IsDescendantOf(item, self._textCtrl.item()):
+        if self._editCtrl != None and self.IsDescendantOf(item, self._editCtrl.item()):
             # can't delete the item being edited, cancel editing it first
-            self._textCtrl.StopEditing()
+            self._editCtrl.StopEditing()
 
         # don't stay with invalid self._shiftItem or we will crash in the next call to OnChar()
         changeKeyCurrent = False
@@ -2425,8 +2491,8 @@ class TreeListMainWindow(CustomTreeCtrl):
         :param `item`: an instance of L{TreeListItem}.
         """
 
-        if self._textCtrl != None and item != self._textCtrl.item() and self.IsDescendantOf(item, self._textCtrl.item()):
-            self._textCtrl.StopEditing()
+        if self._editCtrl != None and item != self._editCtrl.item() and self.IsDescendantOf(item, self._editCtrl.item()):
+            self._editCtrl.StopEditing()
 
         if self.IsDescendantOf(item, self._selectItem):
             self._selectItem = item
@@ -2807,8 +2873,8 @@ class TreeListMainWindow(CustomTreeCtrl):
                 w = (col_w - (image_w + wcheck + text_w + off_w + _MARGIN))/2
                 x += (w > 0 and [w] or [0])[0]
             else:
-                if not item.HasPlus() and image_w == 0 and wcheck:
-                    x += 3*_MARGIN
+                if image_w == 0 and wcheck:
+                    x += 2*_MARGIN
             
             text_x = x + image_w + wcheck + 1
             
@@ -3066,7 +3132,9 @@ class TreeListMainWindow(CustomTreeCtrl):
                         button[2].x = button[0].x + (self._btnWidth2+1)
                         button[2].y = y_mid
                     
+                    dc.SetClippingRegion(x_maincol + _MARGIN, y_top, clip_width, h)
                     dc.DrawPolygon(button)
+                    dc.DestroyClippingRegion()
 
                 else: # if (HasAGWFlag(wxTR_HAS_BUTTONS))
 
@@ -3260,10 +3328,11 @@ class TreeListMainWindow(CustomTreeCtrl):
             return
 
         column = (column is not None and [column] or [self._main_column])[0]
-
+        
         if column < 0 or column >= self.GetColumnCount():
             return
 
+        self._curColumn = column
         self._editItem = item
 
         te = TreeEvent(wx.wxEVT_COMMAND_TREE_BEGIN_LABEL_EDIT, self._owner.GetId())
@@ -3278,32 +3347,21 @@ class TreeListMainWindow(CustomTreeCtrl):
         # ensure that the position of the item it calculated in any case
         if self._dirty:
             self.CalculatePositions()
-
-        header_win = self._owner.GetHeaderWindow()
-        alignment = header_win.GetColumnAlignment(column)
-        if alignment == wx.ALIGN_LEFT:
-            style = wx.TE_LEFT
-        elif alignment == wx.ALIGN_RIGHT:
-            style = wx.TE_RIGHT
-        elif alignment == wx.ALIGN_CENTER:
-            style = wx.TE_CENTER
             
-        if self._textCtrl != None and (item != self._textCtrl.item() or column != self._textCtrl.column()):
-            self._textCtrl.StopEditing()
+        if self._editCtrl != None and (item != self._editCtrl.item() or column != self._editCtrl.column()):
+            self._editCtrl.StopEditing()
             
-        self._textCtrl = EditTextCtrl(self, -1, self._editItem, column,
-                                      self, self._editItem.GetText(column),
-                                      style=style|wx.TE_PROCESS_ENTER)
-        self._textCtrl.SetFocus()
+        self._editCtrl = self._owner.CreateEditCtrl(item, column) 
+        self._editCtrl.SetFocus()
+        
 
-
-    def OnRenameTimer(self):
-        """ The timer for renaming has expired. Start editing. """
+    def OnEditTimer(self):
+        """ The timer for editing has expired. Start editing. """
 
         self.EditLabel(self._current, self._curColumn)
 
 
-    def OnRenameAccept(self, value):
+    def OnAcceptEdit(self, value):
         """
         Called by L{EditTextCtrl}, to accept the changes and to send the
         ``EVT_TREE_END_LABEL_EDIT`` event.
@@ -3316,6 +3374,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         le.SetItem(self._editItem)
         le.SetEventObject(self._owner)
         le.SetLabel(value)
+        le.SetInt(self._curColumn if self._curColumn >= 0 else 0)
         le._editCancelled = False
         self._owner.GetEventHandler().ProcessEvent(le)
 
@@ -3325,12 +3384,12 @@ class TreeListMainWindow(CustomTreeCtrl):
         if self._curColumn == -1:
             self._curColumn = 0
            
-        self.SetItemText(self._editItem, value, self._curColumn)
+        self.SetItemText(self._editItem, unicode(value), self._curColumn)
 
 
-    def OnRenameCancelled(self):
+    def OnCancelEdit(self):
         """
-        Called by L{EditTextCtrl}, to cancel the changes and to send the
+        Called by L{EditCtrl}, to cancel the changes and to send the
         ``EVT_TREE_END_LABEL_EDIT`` event.
         """
 
@@ -3378,7 +3437,7 @@ class TreeListMainWindow(CustomTreeCtrl):
         underMouseChanged = underMouse != self._underMouse
 
         if underMouse and (flags & wx.TREE_HITTEST_ONITEM) and not event.LeftIsDown() and \
-           not self._isDragging and (not self._renameTimer or not self._renameTimer.IsRunning()):
+           not self._isDragging and (not self._editTimer or not self._editTimer.IsRunning()):
             underMouse = underMouse
         else:
             underMouse = None
@@ -3395,11 +3454,11 @@ class TreeListMainWindow(CustomTreeCtrl):
 
         if (event.LeftDown() or event.LeftUp() or event.RightDown() or \
             event.RightUp() or event.LeftDClick() or event.Dragging()):
-            if self._textCtrl != None and item != self._textCtrl.item():
-                self._textCtrl.StopEditing()
+            if self._editCtrl != None and (item != self._editCtrl.item() or column != self._editCtrl.column()):
+                self._editCtrl.StopEditing()
 
-        # We do not want a tooltip if we are dragging, or if the rename timer is running
-        if underMouseChanged and not self._isDragging and (not self._renameTimer or not self._renameTimer.IsRunning()):
+        # We do not want a tooltip if we are dragging, or if the edit timer is running
+        if underMouseChanged and not self._isDragging and (not self._editTimer or not self._editTimer.IsRunning()):
             
             if hoverItem is not None:
                 # Ask the tree control what tooltip (if any) should be shown
@@ -3540,7 +3599,7 @@ class TreeListMainWindow(CustomTreeCtrl):
             self._dragCount = 0
 
         # we process only the messages which happen on tree items
-        if item == None or not self.IsItemEnabled(item):
+        if (item == None or not self.IsItemEnabled(item)) and not event.GetWheelRotation():
             self._owner.GetEventHandler().ProcessEvent(event)
             return
         
@@ -3567,7 +3626,7 @@ class TreeListMainWindow(CustomTreeCtrl):
                 if item == self._current and self._curColumn != -1 and \
                    self._owner.GetHeaderWindow().IsColumnEditable(self._curColumn) and \
                    flags & (wx.TREE_HITTEST_ONITEMLABEL | wx.TREE_HITTEST_ONITEMCOLUMN):
-                    self._renameTimer.Start(_RENAME_TIMER_TICKS, wx.TIMER_ONE_SHOT)
+                    self._editTimer.Start(_EDIT_TIMER_TICKS, wx.TIMER_ONE_SHOT)
                 
                 self._lastOnSame = False
             
@@ -3584,7 +3643,7 @@ class TreeListMainWindow(CustomTreeCtrl):
             
             # determine the selection if not done by left down
             if not self._left_down_selection:
-                unselect_others = not ((event.ShiftDown() or event.ControlDown()) and self.HasAGWFlag(wx.TR_MULTIPLE))
+                unselect_others = not ((event.ShiftDown() or event.CmdDown()) and self.HasAGWFlag(wx.TR_MULTIPLE))
                 self.DoSelectItem(item, unselect_others, event.ShiftDown())
                 self.EnsureVisible (item)
                 self._current = self._key_current = item # make the new item the current item
@@ -3624,7 +3683,7 @@ class TreeListMainWindow(CustomTreeCtrl):
                 
             # determine the selection if the current item is not selected
             if not item.IsSelected():
-                unselect_others = not ((event.ShiftDown() or event.ControlDown()) and self.HasAGWFlag(wx.TR_MULTIPLE))
+                unselect_others = not ((event.ShiftDown() or event.CmdDown()) and self.HasAGWFlag(wx.TR_MULTIPLE))
                 self.DoSelectItem(item, unselect_others, event.ShiftDown())
                 self.EnsureVisible(item)
                 self._current = self._key_current = item # make the new item the current item
@@ -3635,7 +3694,7 @@ class TreeListMainWindow(CustomTreeCtrl):
             if event.LeftDClick():
 
                 # double clicking should not start editing the item label
-                self._renameTimer.Stop()
+                self._editTimer.Stop()
                 self._lastOnSame = False
 
                 # send activate event first
@@ -3664,21 +3723,16 @@ class TreeListMainWindow(CustomTreeCtrl):
         :param `event`: a `wx.ScrollEvent` event to be processed.
         """
 
-        # Let wx.PyScrolledWindow compute the new scroll position so that
-        # TreeListHeaderWindow is repainted with the same scroll position as
-        # TreeListMainWindow.
-        #
-        # event.Skip() would not work, Update() would call
-        # TreeListHeaderWindow.OnPaint() synchronously, before
-        # wx.PyScrolledWindow.OnScroll() is called by the event handler. OnPaint()
-        # would not use the latest scroll position so the header and the tree
-        # scrolling positions would be unsynchronized.
-        self._default_evt_handler.ProcessEvent(event)
-        
+        def _updateHeaderWindow(header):
+            header.Refresh()
+            header.Update()
+            
+        # Update the header window after this scroll event has fully finished
+        # processing, and the scoll action is complete.
         if event.GetOrientation() == wx.HORIZONTAL:
-            self._owner.GetHeaderWindow().Refresh()
-            self._owner.GetHeaderWindow().Update()
-        
+            wx.CallAfter(_updateHeaderWindow, self._owner.GetHeaderWindow())
+        event.Skip()
+            
 
     def CalculateSize(self, item, dc):
         """
@@ -3953,7 +4007,7 @@ class TreeListMainWindow(CustomTreeCtrl):
             # next sibling
             item, cookie = self.GetNextChild(parent, cookie)
         
-        return width
+        return max(10, width) # Prevent zero column width
 
 
     def HideItem(self, item, hide=True):
@@ -4003,7 +4057,7 @@ _methods = ["GetIndent", "SetIndent", "GetSpacing", "SetSpacing", "GetImageList"
 
 class HyperTreeList(wx.PyControl):
     """
-    HyperTreeList is a class that mimics the behaviour of `wx.gizmos.TreeListCtrl`, with
+    L{HyperTreeList} is a class that mimics the behaviour of `wx.gizmos.TreeListCtrl`, with
     almost the same base functionalities plus some more enhancements. This class does
     not rely on the native control, as it is a full owner-drawn tree-list control.
     """
@@ -4266,7 +4320,7 @@ class HyperTreeList(wx.PyControl):
          you may wish to call `wx.Window.ClearBackground` or `wx.Window.Refresh` after
          calling this function.
 
-        :note: Overridden from `wx.PyControl`.         
+        :note: Overridden from `wx.PyControl`.
         """
 
         if not self._main_win:
@@ -4628,6 +4682,8 @@ class HyperTreeList(wx.PyControl):
         Gets the size which best suits the window: for a control, it would be the
         minimal size which doesn't truncate the control, for a panel - the same size
         as it would have after a call to `Fit()`.
+
+        :note: Overridden from `wx.PyControl`.        
         """
 
         # something is better than nothing...
@@ -4681,6 +4737,53 @@ class HyperTreeList(wx.PyControl):
         # to let the user override it
 
         return self.GetItemText(item1) == self.GetItemText(item2)
+
+
+    def CreateEditCtrl(self, item, column):
+        """
+        Create an edit control for editing a label of an item. By default, this
+        returns a text control.
+        
+        Override this function in the derived class to return a different type
+        of control.
+        
+        :param `item`: an instance of L{TreeListItem};
+        :param `column`: an integer specifying the column index.
+        """
+
+        return EditTextCtrl(self.GetMainWindow(), -1, item, column,
+                            self.GetMainWindow(), item.GetText(column),
+                            style=self.GetTextCtrlStyle(column))
+
+        
+    def GetTextCtrlStyle(self, column):
+        """
+        Return the style to use for the text control that is used to edit
+        labels of items. 
+        
+        Override this function in the derived class to support a different
+        style, e.g. ``wx.TE_MULTILINE``.
+        
+        :param `column`: an integer specifying the column index.
+        """
+        
+        return self.GetTextCtrlAlignmentStyle(column) | wx.TE_PROCESS_ENTER
+
+        
+    def GetTextCtrlAlignmentStyle(self, column):
+        """
+        Return the alignment style to use for the text control that is used
+        to edit labels of items. The alignment style is derived from the 
+        column alignment.
+        
+        :param `column`: an integer specifying the column index.
+        """
+
+        header_win = self.GetHeaderWindow()
+        alignment = header_win.GetColumnAlignment(column)
+        return {wx.ALIGN_LEFT: wx.TE_LEFT, 
+                wx.ALIGN_RIGHT: wx.TE_RIGHT, 
+                wx.ALIGN_CENTER: wx.TE_CENTER}[alignment]
 
     
     def GetClassDefaultAttributes(self):

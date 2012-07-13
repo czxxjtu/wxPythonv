@@ -3,7 +3,7 @@
 // Purpose:     interface of wxEvtHandler, wxEventBlocker and many
 //              wxEvent-derived classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: event.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: event.h 68076 2011-06-28 17:24:37Z VS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -110,8 +110,8 @@ public:
             The identifier of the object (window, timer, ...) which generated
             this event.
         @param eventType
-            The unique type of event, e.g. wxEVT_PAINT, wxEVT_SIZE or
-            wxEVT_COMMAND_BUTTON_CLICKED.
+            The unique type of event, e.g. @c wxEVT_PAINT, @c wxEVT_SIZE or
+            @c wxEVT_COMMAND_BUTTON_CLICKED.
     */
     wxEvent(int id = 0, wxEventType eventType = wxEVT_NULL);
 
@@ -473,7 +473,7 @@ public:
            that it didn't handle the event in which case the search continues.
         -# Static events table of the handlers bound using event table
            macros is searched for this event handler. If this fails, the base
-           class event table table is tried, and so on until no more tables
+           class event table is tried, and so on until no more tables
            exist or an appropriate function was found. If a handler is found,
            the same logic as in the previous step applies.
         -# The search is applied down the entire chain of event handlers (usually the
@@ -779,7 +779,7 @@ public:
         more flexible as it also allows you to use ordinary functions and
         arbitrary functors as event handlers. It is also less restrictive then
         Connect() because you can use an arbitrary method as an event handler,
-        where as Connect() requires a wxEvtHandler derived handler.
+        whereas Connect() requires a wxEvtHandler derived handler.
 
         See @ref overview_events_bind for more detailed explanation
         of this function and the @ref page_samples_event sample for usage
@@ -1179,60 +1179,123 @@ enum wxKeyCategoryFlags
 /**
     @class wxKeyEvent
 
-    This event class contains information about keypress (character) events.
+    This event class contains information about key press and release events.
 
-    Notice that there are three different kinds of keyboard events in wxWidgets:
-    key down and up events and char events. The difference between the first two
-    is clear - the first corresponds to a key press and the second to a key
-    release - otherwise they are identical. Just note that if the key is
-    maintained in a pressed state you will typically get a lot of (automatically
-    generated) down events but only one up so it is wrong to assume that there is
-    one up event corresponding to each down one.
+    The main information carried by this event is the key being pressed or
+    released. It can be accessed using either GetKeyCode() function or
+    GetUnicodeKey(). For the printable characters, the latter should be used as
+    it works for any keys, including non-Latin-1 characters that can be entered
+    when using national keyboard layouts. GetKeyCode() should be used to handle
+    special characters (such as cursor arrows keys or @c HOME or @c INS and so
+    on) which correspond to ::wxKeyCode enum elements above the @c WXK_START
+    constant. While GetKeyCode() also returns the character code for Latin-1
+    keys for compatibility, it doesn't work for Unicode characters in general
+    and will return @c WXK_NONE for any non-Latin-1 ones. For this reason, it's
+    recommended to always use GetUnicodeKey() and only fall back to GetKeyCode()
+    if GetUnicodeKey() returned @c WXK_NONE meaning that the event corresponds
+    to a non-printable special keys.
 
-    Both key events provide untranslated key codes while the char event carries
-    the translated one. The untranslated code for alphanumeric keys is always
-    an upper case value. For the other keys it is one of @c WXK_XXX values
-    from the ::wxKeyCode enumeration.
-    The translated key is, in general, the character the user expects to appear
-    as the result of the key combination when typing the text into a text entry
-    zone, for example.
+    While both of these functions can be used with the events of @c
+    wxEVT_KEY_DOWN, @c wxEVT_KEY_UP and @c wxEVT_CHAR types, the values
+    returned by them are different for the first two events and the last one.
+    For the latter, the key returned corresponds to the character that would
+    appear in e.g. a text zone if the user pressed the key in it. As such, its
+    value depends on the current state of the Shift key and, for the letters,
+    on the state of Caps Lock modifier. For example, if @c A key is pressed
+    without Shift being held down, wxKeyEvent of type @c wxEVT_CHAR generated
+    for this key press will return (from either GetKeyCode() or GetUnicodeKey()
+    as their meanings coincide for ASCII characters) key code of 97
+    corresponding the ASCII value of @c a. And if the same key is pressed but
+    with Shift being held (or Caps Lock being active), then the key could would
+    be 65, i.e. ASCII value of capital @c A.
 
-    A few examples to clarify this (all assume that CAPS LOCK is unpressed
-    and the standard US keyboard): when the @c 'A' key is pressed, the key down
-    event key code is equal to @c ASCII A == 65. But the char event key code
-    is @c ASCII a == 97. On the other hand, if you press both SHIFT and
-    @c 'A' keys simultaneously , the key code in key down event will still be
-    just @c 'A' while the char event key code parameter will now be @c 'A'
-    as well.
+    However for the key down and up events the returned key code will instead
+    be @c A independently of the state of the modifier keys i.e. it depends
+    only on physical key being pressed and is not translated to its logical
+    representation using the current keyboard state. Such untranslated key
+    codes are defined as follows:
+        - For the letters they correspond to the @e upper case value of the
+        letter.
+        - For the other alphanumeric keys (e.g. @c 7 or @c +), the untranslated
+        key code corresponds to the character produced by the key when it is
+        pressed without Shift. E.g. in standard US keyboard layout the
+        untranslated key code for the key @c =/+ in the upper right corner of
+        the keyboard is 61 which is the ASCII value of @c =.
+        - For the rest of the keys (i.e. special non-printable keys) it is the
+        same as the normal key code as no translation is used anyhow.
 
-    Although in this simple case it is clear that the correct key code could be
-    found in the key down event handler by checking the value returned by
-    wxKeyEvent::ShiftDown(), in general you should use @c EVT_CHAR for this as
-    for non-alphanumeric keys the translation is keyboard-layout dependent and
-    can only be done properly by the system itself.
+    Notice that the first rule applies to all Unicode letters, not just the
+    usual Latin-1 ones. However for non-Latin-1 letters only GetUnicodeKey()
+    can be used to retrieve the key code as GetKeyCode() just returns @c
+    WXK_NONE in this case.
 
-    Another kind of translation is done when the control key is pressed: for
-    example, for CTRL-A key press the key down event still carries the
-    same key code @c 'a' as usual but the char event will have key code of 1,
-    the ASCII value of this key combination.
+    To summarize: you should handle @c wxEVT_CHAR if you need the translated
+    key and @c wxEVT_KEY_DOWN if you only need the value of the key itself,
+    independent of the current keyboard state.
 
-    You may discover how the other keys on your system behave interactively by
-    running the @ref page_samples_text wxWidgets sample and pressing some keys
-    in any of the text controls shown in it.
+    @note Not all key down events may be generated by the user. As an example,
+        @c wxEVT_KEY_DOWN with @c = key code can be generated using the
+        standard US keyboard layout but not using the German one because the @c
+        = key corresponds to Shift-0 key combination in this layout and the key
+        code for it is @c 0, not @c =. Because of this you should avoid
+        requiring your users to type key events that might be impossible to
+        enter on their keyboard.
 
-    @b Tip: be sure to call @c event.Skip() for events that you don't process in
-    key event function, otherwise menu shortcuts may cease to work under Windows.
+
+    Another difference between key and char events is that another kind of
+    translation is done for the latter ones when the Control key is pressed:
+    char events for ASCII letters in this case carry codes corresponding to the
+    ASCII value of Ctrl-Latter, i.e. 1 for Ctrl-A, 2 for Ctrl-B and so on until
+    26 for Ctrl-Z. This is convenient for terminal-like applications and can be
+    completely ignored by all the other ones (if you need to handle Ctrl-A it
+    is probably a better idea to use the key event rather than the char one).
+    Notice that currently no translation is done for the presses of @c [, @c
+    \\, @c ], @c ^ and @c _ keys which might be mapped to ASCII values from 27
+    to 31.
+    Since version 2.9.2, the enum values @c WXK_CONTROL_A - @c WXK_CONTROL_Z
+    can be used instead of the non-descriptive constant values 1-26.
+
+    Finally, modifier keys only generate key events but no char events at all.
+    The modifiers keys are @c WXK_SHIFT, @c WXK_CONTROL, @c WXK_ALT and various
+    @c WXK_WINDOWS_XXX from ::wxKeyCode enum.
+
+    Modifier keys events are special in one additional aspect: usually the
+    keyboard state associated with a key press is well defined, e.g.
+    wxKeyboardState::ShiftDown() returns @c true only if the Shift key was held
+    pressed when the key that generated this event itself was pressed. There is
+    an ambiguity for the key press events for Shift key itself however. By
+    convention, it is considered to be already pressed when it is pressed and
+    already released when it is released. In other words, @c wxEVT_KEY_DOWN
+    event for the Shift key itself will have @c wxMOD_SHIFT in GetModifiers()
+    and ShiftDown() will return true while the @c wxEVT_KEY_UP event for Shift
+    itself will not have @c wxMOD_SHIFT in its modifiers and ShiftDown() will
+    return false.
+
+
+    @b Tip: You may discover the key codes and modifiers generated by all the
+        keys on your system interactively by running the @ref
+        page_samples_keyboard wxWidgets sample and pressing some keys in it.
 
     @note If a key down (@c EVT_KEY_DOWN) event is caught and the event handler
           does not call @c event.Skip() then the corresponding char event
-          (@c EVT_CHAR) will not happen.
-          This is by design and enables the programs that handle both types of
-          events to be a bit simpler.
+          (@c EVT_CHAR) will not happen. This is by design and enables the
+          programs that handle both types of events to avoid processing the
+          same key twice. As a consequence, if you do not want to suppress the
+          @c wxEVT_CHAR events for the keys you handle, always call @c
+          event.Skip() in your @c wxEVT_KEY_DOWN handler. Not doing may also
+          prevent accelerators defined using this key from working.
+
+    @note If a key is maintained in a pressed state, you will typically get a
+          lot of (automatically generated) key down events but only one key up
+          one at the end when the key is released so it is wrong to assume that
+          there is one up event corresponding to each down one.
 
     @note For Windows programmers: The key and char events in wxWidgets are
           similar to but slightly different from Windows @c WM_KEYDOWN and
           @c WM_CHAR events. In particular, Alt-x combination will generate a
-          char event in wxWidgets (unless it is used as an accelerator).
+          char event in wxWidgets (unless it is used as an accelerator) and
+          almost all keys, including ones without ASCII equivalents, generate
+          char events too.
 
 
     @beginEventTable{wxKeyEvent}
@@ -1242,6 +1305,18 @@ enum wxKeyCategoryFlags
         Process a @c wxEVT_KEY_UP event (any key has been released).
     @event{EVT_CHAR(func)}
         Process a @c wxEVT_CHAR event.
+    @event{EVT_CHAR_HOOK(func)}
+        Process a @c wxEVT_CHAR_HOOK event which is sent to the active
+        wxTopLevelWindow (i.e. the one containing the currently focused window)
+        or wxApp global object if there is no active window before any other
+        keyboard events are generated giving the parent window the opportunity
+        to intercept all the keyboard entry. If the event is handled, i.e. the
+        handler doesn't call wxEvent::Skip(), no further keyboard events are
+        generated. Notice that this event is not generated when the mouse is
+        captured as it is considered that the window which has the capture
+        should receive all the keyboard events too without allowing its parent
+        wxTopLevelWindow to interfere with their processing. Also please note
+        that currently this event is not generated by wxOSX/Cocoa port.
     @endEventTable
 
     @see wxKeyboardState
@@ -1260,13 +1335,49 @@ public:
     wxKeyEvent(wxEventType keyEventType = wxEVT_NULL);
 
     /**
-        Returns the virtual key code. ASCII events return normal ASCII values,
-        while non-ASCII events return values such as @b WXK_LEFT for the left cursor
-        key. See ::wxKeyCode for a full list of the virtual key codes.
+        Returns the key code of the key that generated this event.
 
-        Note that in Unicode build, the returned value is meaningful only if the
-        user entered a character that can be represented in current locale's default
-        charset. You can obtain the corresponding Unicode character using GetUnicodeKey().
+        ASCII symbols return normal ASCII values, while events from special
+        keys such as "left cursor arrow" (@c WXK_LEFT) return values outside of
+        the ASCII range. See ::wxKeyCode for a full list of the virtual key
+        codes.
+
+        Note that this method returns a meaningful value only for special
+        non-alphanumeric keys or if the user entered a character that can be
+        represented in current locale's default charset. Otherwise, e.g. if the
+        user enters a Japanese character in a program not using Japanese
+        locale, this method returns @c WXK_NONE and GetUnicodeKey() should be
+        used to obtain the corresponding Unicode character.
+
+        Using GetUnicodeKey() is in general the right thing to do if you are
+        interested in the characters typed by the user, GetKeyCode() should be
+        only used for special keys (for which GetUnicodeKey() returns @c
+        WXK_NONE). To handle both kinds of keys you might write:
+        @code
+            void MyHandler::OnChar(wxKeyEvent& event)
+            {
+                if ( event.GetUnicodeKey() != WXK_NONE )
+                {
+                    // It's a printable character
+                    wxLogMessage("You pressed '%c'", event.GetUnicodeKey());
+                }
+                else
+                {
+                    // It's a special key, deal with all the known ones:
+                    switch ( keycode )
+                    {
+                        case WXK_LEFT:
+                        case WXK_RIGHT:
+                            ... move cursor ...
+                            break;
+
+                        case WXK_F1:
+                            ... give help ...
+                            break;
+                    }
+                }
+            }
+        @endcode
     */
     int GetKeyCode() const;
 
@@ -1289,8 +1400,19 @@ public:
     //@}
 
     /**
-        Returns the raw key code for this event. This is a platform-dependent scan code
-        which should only be used in advanced applications.
+        Returns the raw key code for this event.
+
+        The flags are platform-dependent and should only be used if the
+        functionality provided by other wxKeyEvent methods is insufficient.
+
+        Under MSW, the raw key code is the value of @c wParam parameter of the
+        corresponding message.
+
+        Under GTK, the raw key code is the @c keyval field of the corresponding
+        GDK event.
+
+        Under OS X, the raw key code is the @c keyCode field of the
+        corresponding NSEvent.
 
         @note Currently the raw key codes are not supported by all ports, use
               @ifdef_ wxHAS_RAW_KEY_CODES to determine if this feature is available.
@@ -1298,8 +1420,18 @@ public:
     wxUint32 GetRawKeyCode() const;
 
     /**
-        Returns the low level key flags for this event. The flags are
-        platform-dependent and should only be used in advanced applications.
+        Returns the low level key flags for this event.
+
+        The flags are platform-dependent and should only be used if the
+        functionality provided by other wxKeyEvent methods is insufficient.
+
+        Under MSW, the raw flags are just the value of @c lParam parameter of
+        the corresponding message.
+
+        Under GTK, the raw flags contain the @c hardware_keycode field of the
+        corresponding GDK event.
+
+        Under OS X, the raw flags contain the modifiers state.
 
         @note Currently the raw key flags are not supported by all ports, use
               @ifdef_ wxHAS_RAW_KEY_CODES to determine if this feature is available.
@@ -1308,6 +1440,10 @@ public:
 
     /**
         Returns the Unicode character corresponding to this key event.
+
+        If the key pressed doesn't have any character value (e.g. a cursor key)
+        this method will return @c WXK_NONE. In this case you should use
+        GetKeyCode() to retrieve the value of the key.
 
         This function is only available in Unicode build, i.e. when
         @c wxUSE_UNICODE is 1.
@@ -1451,22 +1587,22 @@ public:
     @event{EVT_SCROLLWIN(func)}
         Process all scroll events.
     @event{EVT_SCROLLWIN_TOP(func)}
-        Process wxEVT_SCROLLWIN_TOP scroll-to-top events.
+        Process @c wxEVT_SCROLLWIN_TOP scroll-to-top events.
     @event{EVT_SCROLLWIN_BOTTOM(func)}
-        Process wxEVT_SCROLLWIN_BOTTOM scroll-to-bottom events.
+        Process @c wxEVT_SCROLLWIN_BOTTOM scroll-to-bottom events.
     @event{EVT_SCROLLWIN_LINEUP(func)}
-        Process wxEVT_SCROLLWIN_LINEUP line up events.
+        Process @c wxEVT_SCROLLWIN_LINEUP line up events.
     @event{EVT_SCROLLWIN_LINEDOWN(func)}
-        Process wxEVT_SCROLLWIN_LINEDOWN line down events.
+        Process @c wxEVT_SCROLLWIN_LINEDOWN line down events.
     @event{EVT_SCROLLWIN_PAGEUP(func)}
-        Process wxEVT_SCROLLWIN_PAGEUP page up events.
+        Process @c wxEVT_SCROLLWIN_PAGEUP page up events.
     @event{EVT_SCROLLWIN_PAGEDOWN(func)}
-        Process wxEVT_SCROLLWIN_PAGEDOWN page down events.
+        Process @c wxEVT_SCROLLWIN_PAGEDOWN page down events.
     @event{EVT_SCROLLWIN_THUMBTRACK(func)}
-        Process wxEVT_SCROLLWIN_THUMBTRACK thumbtrack events
+        Process @c wxEVT_SCROLLWIN_THUMBTRACK thumbtrack events
         (frequent events sent as the user drags the thumbtrack).
     @event{EVT_SCROLLWIN_THUMBRELEASE(func)}
-        Process wxEVT_SCROLLWIN_THUMBRELEASE thumb release events.
+        Process @c wxEVT_SCROLLWIN_THUMBRELEASE thumb release events.
     @endEventTable
 
 
@@ -1499,6 +1635,9 @@ public:
         the window itself for the current position in that case.
     */
     int GetPosition() const;
+
+    void SetOrientation(int orient);
+    void SetPosition(int pos);    
 };
 
 
@@ -1564,7 +1703,7 @@ public:
     */
     wxWindowCreateEvent(wxWindow* win = NULL);
 
-    /// Retutn the window being created.
+    /// Return the window being created.
     wxWindow *GetWindow() const;
 };
 
@@ -1661,6 +1800,10 @@ public:
     An event being sent when a top level window is maximized. Notice that it is
     not sent when the window is restored to its original size after it had been
     maximized, only a normal wxSizeEvent is generated in this case.
+
+    Currently this event is only generated in wxMSW, wxGTK, wxOSX/Cocoa and wxOS2
+    ports so portable programs should only rely on receiving @c wxEVT_SIZE and
+    not necessarily this event when the window is maximized.
 
     @beginEventTable{wxMaximizeEvent}
     @event{EVT_MAXIMIZE(func)}
@@ -1902,8 +2045,8 @@ public:
     wxTextCtrl but other windows can generate these events as well) when its
     content gets copied or cut to, or pasted from the clipboard.
 
-    There are three types of corresponding events wxEVT_COMMAND_TEXT_COPY,
-    wxEVT_COMMAND_TEXT_CUT and wxEVT_COMMAND_TEXT_PASTE.
+    There are three types of corresponding events @c wxEVT_COMMAND_TEXT_COPY,
+    @c wxEVT_COMMAND_TEXT_CUT and @c wxEVT_COMMAND_TEXT_PASTE.
 
     If any of these events is processed (without being skipped) by an event
     handler, the corresponding operation doesn't take place which allows to
@@ -2049,25 +2192,25 @@ public:
     /**
         Constructor. Valid event types are:
 
-         @li wxEVT_ENTER_WINDOW
-         @li wxEVT_LEAVE_WINDOW
-         @li wxEVT_LEFT_DOWN
-         @li wxEVT_LEFT_UP
-         @li wxEVT_LEFT_DCLICK
-         @li wxEVT_MIDDLE_DOWN
-         @li wxEVT_MIDDLE_UP
-         @li wxEVT_MIDDLE_DCLICK
-         @li wxEVT_RIGHT_DOWN
-         @li wxEVT_RIGHT_UP
-         @li wxEVT_RIGHT_DCLICK
-         @li wxEVT_MOUSE_AUX1_DOWN
-         @li wxEVT_MOUSE_AUX1_UP
-         @li wxEVT_MOUSE_AUX1_DCLICK
-         @li wxEVT_MOUSE_AUX2_DOWN
-         @li wxEVT_MOUSE_AUX2_UP
-         @li wxEVT_MOUSE_AUX2_DCLICK
-         @li wxEVT_MOTION
-         @li wxEVT_MOUSEWHEEL
+         @li @c wxEVT_ENTER_WINDOW
+         @li @c wxEVT_LEAVE_WINDOW
+         @li @c wxEVT_LEFT_DOWN
+         @li @c wxEVT_LEFT_UP
+         @li @c wxEVT_LEFT_DCLICK
+         @li @c wxEVT_MIDDLE_DOWN
+         @li @c wxEVT_MIDDLE_UP
+         @li @c wxEVT_MIDDLE_DCLICK
+         @li @c wxEVT_RIGHT_DOWN
+         @li @c wxEVT_RIGHT_UP
+         @li @c wxEVT_RIGHT_DCLICK
+         @li @c wxEVT_AUX1_DOWN
+         @li @c wxEVT_AUX1_UP
+         @li @c wxEVT_AUX1_DCLICK
+         @li @c wxEVT_AUX2_DOWN
+         @li @c wxEVT_AUX2_UP
+         @li @c wxEVT_AUX2_DCLICK
+         @li @c wxEVT_MOTION
+         @li @c wxEVT_MOUSEWHEEL
     */
     wxMouseEvent(wxEventType mouseEventType = wxEVT_NULL);
 
@@ -2488,7 +2631,7 @@ public:
         For the menu events, this method indicates if the menu item just has become
         checked or unchecked (and thus only makes sense for checkable menu items).
 
-        Notice that this method can not be used with wxCheckListBox currently.
+        Notice that this method cannot be used with wxCheckListBox currently.
     */
     bool IsChecked() const;
 
@@ -2548,7 +2691,7 @@ public:
         to wxApp only, and only on Windows SmartPhone and PocketPC.
         It is generated when the system is low on memory; the application should free
         up as much memory as possible, and restore full working state when it receives
-        a wxEVT_ACTIVATE or wxEVT_ACTIVATE_APP event.
+        a @c wxEVT_ACTIVATE or @c wxEVT_ACTIVATE_APP event.
     @endEventTable
 
     @library{wxcore}
@@ -2606,7 +2749,7 @@ public:
     /**
         Constructor.
     */
-    wxContextMenuEvent(wxEventType id = wxEVT_NULL, int id = 0,
+    wxContextMenuEvent(wxEventType type = wxEVT_NULL, int id = 0,
                        const wxPoint& pos = wxDefaultPosition);
 
     /**
@@ -2713,6 +2856,8 @@ public:
         Warning: the window pointer may be @NULL!
     */
     wxWindow *GetWindow() const;
+
+    void SetWindow(wxWindow *win);
 };
 
 
@@ -2725,7 +2870,7 @@ public:
     child if it loses it now and regains later.
 
     Notice that child window is the direct child of the window receiving event.
-    Use wxWindow::FindFocus() to retreive the window which is actually getting focus.
+    Use wxWindow::FindFocus() to retrieve the window which is actually getting focus.
 
     @beginEventTable{wxChildFocusEvent}
     @event{EVT_CHILD_FOCUS(func)}
@@ -2763,11 +2908,11 @@ public:
 /**
     @class wxMouseCaptureLostEvent
 
-    An mouse capture lost event is sent to a window that obtained mouse capture,
-    which was subsequently loss due to "external" event, for example when a dialog
-    box is shown or if another application captures the mouse.
+    A mouse capture lost event is sent to a window that had obtained mouse capture,
+    which was subsequently lost due to an "external" event (for example, when a dialog
+    box is shown or if another application captures the mouse).
 
-    If this happens, this event is sent to all windows that are on capture stack
+    If this happens, this event is sent to all windows that are on the capture stack
     (i.e. called CaptureMouse, but didn't call ReleaseMouse yet). The event is
     not sent if the capture changes because of a call to CaptureMouse or
     ReleaseMouse.
@@ -2795,6 +2940,35 @@ public:
     */
     wxMouseCaptureLostEvent(wxWindowID windowId = 0);
 };
+
+
+
+class wxDisplayChangedEvent : public wxEvent
+{
+public:
+    wxDisplayChangedEvent();
+};
+
+
+class wxPaletteChangedEvent : public wxEvent
+{
+public:
+    wxPaletteChangedEvent(wxWindowID winid = 0);
+
+    void SetChangedWindow(wxWindow* win);
+    wxWindow* GetChangedWindow() const;
+};
+
+
+class wxQueryNewPaletteEvent : public wxEvent
+{
+public:
+    wxQueryNewPaletteEvent(wxWindowID winid = 0);
+    
+    void SetPaletteRealized(bool realized);
+    bool GetPaletteRealized();
+};
+
 
 
 
@@ -2849,7 +3023,7 @@ public:
 /**
     @class wxThreadEvent
 
-    This class adds some simple functionalities to wxCommandEvent coinceived
+    This class adds some simple functionalities to wxCommandEvent conceived
     for inter-threads communications.
 
     This event is not natively emitted by any control/class: this is just
@@ -2862,14 +3036,16 @@ public:
     @category{events,threading}
 
     @see @ref overview_thread, wxEventLoopBase::YieldFor
+
+    @since 2.9.0
 */
-class wxThreadEvent : public wxCommandEvent
+class wxThreadEvent : public wxEvent
 {
 public:
     /**
         Constructor.
     */
-    wxThreadEvent(wxEventType eventType = wxEVT_COMMAND_THREAD, int id = wxID_ANY);
+    wxThreadEvent(wxEventType eventType = wxEVT_THREAD, int id = wxID_ANY);
 
     /**
         Clones this event making sure that all internal members which use
@@ -2916,6 +3092,37 @@ public:
      */
     template<typename T>
     T GetPayload() const;
+
+    /**
+        Returns extra information integer value.
+    */
+    long GetExtraLong() const;
+
+    /**
+        Returns stored integer value.
+    */
+    int GetInt() const;
+
+    /**
+        Returns stored string value.
+    */
+    wxString GetString() const;
+
+
+    /**
+        Sets the extra information value.
+    */
+    void SetExtraLong(long extraLong);
+
+    /**
+        Sets the integer value.
+    */
+    void SetInt(int intCommand);
+
+    /**
+        Sets the string value.
+    */
+    void SetString(const wxString& string);
 };
 
 
@@ -3046,45 +3253,45 @@ public:
     @event{EVT_SCROLL(func)}
         Process all scroll events.
     @event{EVT_SCROLL_TOP(func)}
-        Process wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
+        Process @c wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
     @event{EVT_SCROLL_BOTTOM(func)}
-        Process wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
+        Process @c wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
     @event{EVT_SCROLL_LINEUP(func)}
-        Process wxEVT_SCROLL_LINEUP line up events.
+        Process @c wxEVT_SCROLL_LINEUP line up events.
     @event{EVT_SCROLL_LINEDOWN(func)}
-        Process wxEVT_SCROLL_LINEDOWN line down events.
+        Process @c wxEVT_SCROLL_LINEDOWN line down events.
     @event{EVT_SCROLL_PAGEUP(func)}
-        Process wxEVT_SCROLL_PAGEUP page up events.
+        Process @c wxEVT_SCROLL_PAGEUP page up events.
     @event{EVT_SCROLL_PAGEDOWN(func)}
-        Process wxEVT_SCROLL_PAGEDOWN page down events.
+        Process @c wxEVT_SCROLL_PAGEDOWN page down events.
     @event{EVT_SCROLL_THUMBTRACK(func)}
-        Process wxEVT_SCROLL_THUMBTRACK thumbtrack events (frequent events sent as the
+        Process @c wxEVT_SCROLL_THUMBTRACK thumbtrack events (frequent events sent as the
         user drags the thumbtrack).
     @event{EVT_SCROLL_THUMBRELEASE(func)}
-        Process wxEVT_SCROLL_THUMBRELEASE thumb release events.
+        Process @c wxEVT_SCROLL_THUMBRELEASE thumb release events.
     @event{EVT_SCROLL_CHANGED(func)}
-        Process wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
+        Process @c wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
     @event{EVT_COMMAND_SCROLL(id, func)}
         Process all scroll events.
     @event{EVT_COMMAND_SCROLL_TOP(id, func)}
-        Process wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
+        Process @c wxEVT_SCROLL_TOP scroll-to-top events (minimum position).
     @event{EVT_COMMAND_SCROLL_BOTTOM(id, func)}
-        Process wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
+        Process @c wxEVT_SCROLL_BOTTOM scroll-to-bottom events (maximum position).
     @event{EVT_COMMAND_SCROLL_LINEUP(id, func)}
-        Process wxEVT_SCROLL_LINEUP line up events.
+        Process @c wxEVT_SCROLL_LINEUP line up events.
     @event{EVT_COMMAND_SCROLL_LINEDOWN(id, func)}
-        Process wxEVT_SCROLL_LINEDOWN line down events.
+        Process @c wxEVT_SCROLL_LINEDOWN line down events.
     @event{EVT_COMMAND_SCROLL_PAGEUP(id, func)}
-        Process wxEVT_SCROLL_PAGEUP page up events.
+        Process @c wxEVT_SCROLL_PAGEUP page up events.
     @event{EVT_COMMAND_SCROLL_PAGEDOWN(id, func)}
-        Process wxEVT_SCROLL_PAGEDOWN page down events.
+        Process @c wxEVT_SCROLL_PAGEDOWN page down events.
     @event{EVT_COMMAND_SCROLL_THUMBTRACK(id, func)}
-        Process wxEVT_SCROLL_THUMBTRACK thumbtrack events (frequent events sent
+        Process @c wxEVT_SCROLL_THUMBTRACK thumbtrack events (frequent events sent
         as the user drags the thumbtrack).
     @event{EVT_COMMAND_SCROLL_THUMBRELEASE(func)}
-        Process wxEVT_SCROLL_THUMBRELEASE thumb release events.
+        Process @c wxEVT_SCROLL_THUMBRELEASE thumb release events.
     @event{EVT_COMMAND_SCROLL_CHANGED(func)}
-        Process wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
+        Process @c wxEVT_SCROLL_CHANGED end of scrolling events (MSW only).
     @endEventTable
 
     @library{wxcore}
@@ -3111,6 +3318,10 @@ public:
         Returns the position of the scrollbar.
     */
     int GetPosition() const;
+
+    
+    void SetOrientation(int orient);
+    void SetPosition(int pos);    
 };
 
 /**
@@ -3164,21 +3375,6 @@ public:
         Constructor.
     */
     wxIdleEvent();
-
-    /**
-        Returns @true if it is appropriate to send idle events to this window.
-
-        This function looks at the mode used (see wxIdleEvent::SetMode),
-        and the wxWS_EX_PROCESS_IDLE style in @a window to determine whether idle
-        events should be sent to this window now.
-
-        By default this will always return @true because the update mode is initially
-        wxIDLE_PROCESS_ALL. You can change the mode to only send idle events to
-        windows with the wxWS_EX_PROCESS_IDLE extra window style set.
-
-        @see SetMode()
-    */
-    static bool CanSend(wxWindow* window);
 
     /**
         Static function returning a value specifying how wxWidgets will send idle
@@ -3288,7 +3484,7 @@ public:
     */
     wxWindowDestroyEvent(wxWindow* win = NULL);
 
-    /// Retutn the window being destroyed.
+    /// Return the window being destroyed.
     wxWindow *GetWindow() const;
 };
 
@@ -3572,7 +3768,7 @@ public:
     /**
         Constructor.
     */
-    wxMenuEvent(wxEventType id = wxEVT_NULL, int id = 0, wxMenu* menu = NULL);
+    wxMenuEvent(wxEventType type = wxEVT_NULL, int id = 0, wxMenu* menu = NULL);
 
     /**
         Returns the menu which is being opened or closed. This method should only be
@@ -3600,8 +3796,11 @@ public:
     @class wxShowEvent
 
     An event being sent when the window is shown or hidden.
-
-    Currently only wxMSW, wxGTK and wxOS2 generate such events.
+    The event is triggered by calls to wxWindow::Show(), and any user
+    action showing a previously hidden window or vice versa (if allowed by
+    the current platform and/or window manager).
+    Notice that the event is not triggered when the application is iconized
+    (minimized) or restored under wxMSW.
 
     @onlyfor{wxmsw,wxgtk,wxos2}
 
@@ -3691,6 +3890,8 @@ public:
 
     A move event holds information about wxTopLevelWindow move change events.
 
+    These events are currently only generated by wxMSW port.
+
     @beginEventTable{wxMoveEvent}
     @event{EVT_MOVE(func)}
         Process a @c wxEVT_MOVE event, which is generated when a window is moved.
@@ -3719,6 +3920,10 @@ public:
         Returns the position of the window generating the move change event.
     */
     wxPoint GetPosition() const;
+
+    wxRect GetRect() const;
+    void SetRect(const wxRect& rect);
+    void SetPosition(const wxPoint& pos);    
 };
 
 
@@ -3766,6 +3971,10 @@ public:
         such as wxFrame to find the size available for the window contents.
     */
     wxSize GetSize() const;
+    void SetSize(wxSize size);
+
+    wxRect GetRect() const;
+    void SetRect(wxRect rect);
 };
 
 
@@ -3853,6 +4062,8 @@ typedef int wxEventType;
     no type assigned.
 */
 wxEventType wxEVT_NULL;
+
+wxEventType wxEVT_ANY;
 
 /**
     Generates a new unique event type.
@@ -4045,6 +4256,131 @@ void wxPostEvent(wxEvtHandler* dest, const wxEvent& event);
         ownership of it.
  */
 void wxQueueEvent(wxEvtHandler* dest, wxEvent *event);
+
+
+
+wxEventType wxEVT_COMMAND_BUTTON_CLICKED;
+wxEventType wxEVT_COMMAND_CHECKBOX_CLICKED;
+wxEventType wxEVT_COMMAND_CHOICE_SELECTED;
+wxEventType wxEVT_COMMAND_LISTBOX_SELECTED;
+wxEventType wxEVT_COMMAND_LISTBOX_DOUBLECLICKED;
+wxEventType wxEVT_COMMAND_CHECKLISTBOX_TOGGLED;
+wxEventType wxEVT_COMMAND_MENU_SELECTED;
+wxEventType wxEVT_COMMAND_SLIDER_UPDATED;
+wxEventType wxEVT_COMMAND_RADIOBOX_SELECTED;
+wxEventType wxEVT_COMMAND_RADIOBUTTON_SELECTED;
+wxEventType wxEVT_COMMAND_SCROLLBAR_UPDATED;
+wxEventType wxEVT_COMMAND_VLBOX_SELECTED;
+wxEventType wxEVT_COMMAND_COMBOBOX_SELECTED;
+wxEventType wxEVT_COMMAND_TOOL_RCLICKED;
+wxEventType wxEVT_COMMAND_TOOL_DROPDOWN_CLICKED;
+wxEventType wxEVT_COMMAND_TOOL_ENTER;
+wxEventType wxEVT_COMMAND_COMBOBOX_DROPDOWN;
+wxEventType wxEVT_COMMAND_COMBOBOX_CLOSEUP;
+wxEventType wxEVT_THREAD;
+wxEventType wxEVT_LEFT_DOWN;
+wxEventType wxEVT_LEFT_UP;
+wxEventType wxEVT_MIDDLE_DOWN;
+wxEventType wxEVT_MIDDLE_UP;
+wxEventType wxEVT_RIGHT_DOWN;
+wxEventType wxEVT_RIGHT_UP;
+wxEventType wxEVT_MOTION;
+wxEventType wxEVT_ENTER_WINDOW;
+wxEventType wxEVT_LEAVE_WINDOW;
+wxEventType wxEVT_LEFT_DCLICK;
+wxEventType wxEVT_MIDDLE_DCLICK;
+wxEventType wxEVT_RIGHT_DCLICK;
+wxEventType wxEVT_SET_FOCUS;
+wxEventType wxEVT_KILL_FOCUS;
+wxEventType wxEVT_CHILD_FOCUS;
+wxEventType wxEVT_MOUSEWHEEL;
+wxEventType wxEVT_AUX1_DOWN;
+wxEventType wxEVT_AUX1_UP;
+wxEventType wxEVT_AUX1_DCLICK;
+wxEventType wxEVT_AUX2_DOWN;
+wxEventType wxEVT_AUX2_UP;
+wxEventType wxEVT_AUX2_DCLICK;
+wxEventType wxEVT_CHAR;
+wxEventType wxEVT_CHAR_HOOK;
+wxEventType wxEVT_NAVIGATION_KEY;
+wxEventType wxEVT_KEY_DOWN;
+wxEventType wxEVT_KEY_UP;
+wxEventType wxEVT_HOTKEY;
+wxEventType wxEVT_SET_CURSOR;
+wxEventType wxEVT_SCROLL_TOP;
+wxEventType wxEVT_SCROLL_BOTTOM;
+wxEventType wxEVT_SCROLL_LINEUP;
+wxEventType wxEVT_SCROLL_LINEDOWN;
+wxEventType wxEVT_SCROLL_PAGEUP;
+wxEventType wxEVT_SCROLL_PAGEDOWN;
+wxEventType wxEVT_SCROLL_THUMBTRACK;
+wxEventType wxEVT_SCROLL_THUMBRELEASE;
+wxEventType wxEVT_SCROLL_CHANGED;
+wxEventType wxEVT_SPIN_UP;
+wxEventType wxEVT_SPIN_DOWN;
+wxEventType wxEVT_SPIN;
+wxEventType wxEVT_SCROLLWIN_TOP;
+wxEventType wxEVT_SCROLLWIN_BOTTOM;
+wxEventType wxEVT_SCROLLWIN_LINEUP;
+wxEventType wxEVT_SCROLLWIN_LINEDOWN;
+wxEventType wxEVT_SCROLLWIN_PAGEUP;
+wxEventType wxEVT_SCROLLWIN_PAGEDOWN;
+wxEventType wxEVT_SCROLLWIN_THUMBTRACK;
+wxEventType wxEVT_SCROLLWIN_THUMBRELEASE;
+wxEventType wxEVT_SIZE;
+wxEventType wxEVT_MOVE;
+wxEventType wxEVT_CLOSE_WINDOW;
+wxEventType wxEVT_END_SESSION;
+wxEventType wxEVT_QUERY_END_SESSION;
+wxEventType wxEVT_ACTIVATE_APP;
+wxEventType wxEVT_ACTIVATE;
+wxEventType wxEVT_CREATE;
+wxEventType wxEVT_DESTROY;
+wxEventType wxEVT_SHOW;
+wxEventType wxEVT_ICONIZE;
+wxEventType wxEVT_MAXIMIZE;
+wxEventType wxEVT_MOUSE_CAPTURE_CHANGED;
+wxEventType wxEVT_MOUSE_CAPTURE_LOST;
+wxEventType wxEVT_PAINT;
+wxEventType wxEVT_ERASE_BACKGROUND;
+wxEventType wxEVT_NC_PAINT;
+wxEventType wxEVT_MENU_OPEN;
+wxEventType wxEVT_MENU_CLOSE;
+wxEventType wxEVT_MENU_HIGHLIGHT;
+wxEventType wxEVT_CONTEXT_MENU;
+wxEventType wxEVT_SYS_COLOUR_CHANGED;
+wxEventType wxEVT_DISPLAY_CHANGED;
+wxEventType wxEVT_QUERY_NEW_PALETTE;
+wxEventType wxEVT_PALETTE_CHANGED;
+wxEventType wxEVT_JOY_BUTTON_DOWN;
+wxEventType wxEVT_JOY_BUTTON_UP;
+wxEventType wxEVT_JOY_MOVE;
+wxEventType wxEVT_JOY_ZMOVE;
+wxEventType wxEVT_DROP_FILES;
+wxEventType wxEVT_INIT_DIALOG;
+wxEventType wxEVT_IDLE;
+wxEventType wxEVT_UPDATE_UI;
+wxEventType wxEVT_SIZING;
+wxEventType wxEVT_MOVING;
+wxEventType wxEVT_MOVE_START;
+wxEventType wxEVT_MOVE_END;
+wxEventType wxEVT_HIBERNATE;
+wxEventType wxEVT_COMMAND_TEXT_COPY;
+wxEventType wxEVT_COMMAND_TEXT_CUT;
+wxEventType wxEVT_COMMAND_TEXT_PASTE;
+wxEventType wxEVT_COMMAND_LEFT_CLICK;
+wxEventType wxEVT_COMMAND_LEFT_DCLICK;
+wxEventType wxEVT_COMMAND_RIGHT_CLICK;
+wxEventType wxEVT_COMMAND_RIGHT_DCLICK;
+wxEventType wxEVT_COMMAND_SET_FOCUS;
+wxEventType wxEVT_COMMAND_KILL_FOCUS;
+wxEventType wxEVT_COMMAND_ENTER;
+wxEventType wxEVT_HELP;
+wxEventType wxEVT_DETAILED_HELP;
+wxEventType wxEVT_COMMAND_TEXT_UPDATED;
+wxEventType wxEVT_COMMAND_TOOL_CLICKED;
+
+
 
 //@}
 

@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/popupwin.cpp
+// Name:        src/osx/carbon/popupwin.cpp
 // Purpose:     implements wxPopupWindow for wxMac
 // Author:      Stefan Csomor
 // Modified by:
 // Created:
-// RCS-ID:      $Id: popupwin.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: popupwin.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2006 Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ bool wxPopupWindow::Show(bool show)
         event.SetEventObject(this);
         HandleWindowEvent(event);
     }
-        
+
     return true;
 }
 

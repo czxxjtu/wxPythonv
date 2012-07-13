@@ -3,7 +3,7 @@
 // Purpose:     wxMemoryDCImpl implementation
 // Author:      Vaclav Slavik
 // Created:     2006-08-16
-// RCS-ID:      $Id: dcmemory.cpp 51445 2008-01-29 14:09:56Z VS $
+// RCS-ID:      $Id: dcmemory.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2006 REA Elektronik GmbH
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void wxMemoryDCImpl::DoSelect(const wxBitmap& bitmap)
 {
     m_bmp = bitmap;
 
-    if ( !bitmap.Ok() )
+    if ( !bitmap.IsOk() )
     {
         // select the bitmap out of the DC
         m_surface = NULL;

@@ -2,7 +2,7 @@
 // Name:        scroll.cpp
 // Purpose:     wxScrolled sample
 // Author:      Robert Roebling
-// RCS-ID:      $Id: scroll.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: scroll.cpp 65059 2010-07-23 23:32:56Z VZ $
 // Copyright:   (C) 1998 Robert Roebling, 2002 Ron Lee, 2003 Matt Gregory
 //              (C) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -652,13 +652,13 @@ public:
 // MyCanvas
 // ----------------------------------------------------------------------------
 
-const wxWindowID ID_ADDBUTTON   = wxWindow::NewControlId();
-const wxWindowID ID_DELBUTTON   = wxWindow::NewControlId();
-const wxWindowID ID_MOVEBUTTON  = wxWindow::NewControlId();
-const wxWindowID ID_SCROLLWIN   = wxWindow::NewControlId();
-const wxWindowID ID_QUERYPOS    = wxWindow::NewControlId();
+const wxWindowIDRef ID_ADDBUTTON   = wxWindow::NewControlId();
+const wxWindowIDRef ID_DELBUTTON   = wxWindow::NewControlId();
+const wxWindowIDRef ID_MOVEBUTTON  = wxWindow::NewControlId();
+const wxWindowIDRef ID_SCROLLWIN   = wxWindow::NewControlId();
+const wxWindowIDRef ID_QUERYPOS    = wxWindow::NewControlId();
 
-const wxWindowID ID_NEWBUTTON   = wxWindow::NewControlId();
+const wxWindowIDRef ID_NEWBUTTON   = wxWindow::NewControlId();
 
 BEGIN_EVENT_TABLE(MyCanvas, wxScrolled<wxPanel>)
     EVT_PAINT(                  MyCanvas::OnPaint)

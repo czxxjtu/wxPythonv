@@ -2,7 +2,7 @@
 // Name:        wx/gtk/frame.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: frame.h 62071 2009-09-24 12:36:34Z JS $
+// Id:          $Id: frame.h 66648 2011-01-08 06:42:41Z PC $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -61,8 +61,7 @@ public:
     // implementation from now on
     // --------------------------
 
-    // GTK callbacks
-    virtual void OnInternalIdle();
+    virtual bool SendIdleEvents(wxIdleEvent& event);
 
 protected:
     // common part of all ctors

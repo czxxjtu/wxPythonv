@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     19.06.2003 (extracted from common/appcmn.cpp)
-// RCS-ID:      $Id: appbase.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: appbase.cpp 67619 2011-04-26 22:57:27Z VZ $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -345,8 +345,11 @@ bool wxAppConsoleBase::Dispatch()
 bool wxAppConsoleBase::Yield(bool onlyIfNeeded)
 {
     wxEventLoopBase * const loop = wxEventLoopBase::GetActive();
+    if ( loop )
+       return loop->Yield(onlyIfNeeded);
 
-    return loop && loop->Yield(onlyIfNeeded);
+    wxScopedPtr<wxEventLoopBase> tmpLoop(CreateMainLoop());
+    return tmpLoop->Yield(onlyIfNeeded);
 }
 
 void wxAppConsoleBase::WakeUpIdle()
@@ -369,6 +372,9 @@ bool wxAppConsoleBase::ProcessIdle()
     // which could have logged new messages)
     wxLog::FlushActive();
 #endif
+
+    // Garbage collect all objects previously scheduled for destruction.
+    DeletePendingObjects();
 
     return event.MoreRequested();
 }
@@ -509,9 +515,6 @@ void wxAppConsoleBase::ProcessPendingEvents()
 
         wxLEAVE_CRIT_SECT(m_handlersWithPendingEventsLocker);
     }
-
-    // Garbage collect all objects previously scheduled for destruction.
-    DeletePendingObjects();
 }
 
 void wxAppConsoleBase::DeletePendingEvents()

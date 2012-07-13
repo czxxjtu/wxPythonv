@@ -13,7 +13,7 @@
 # Python Code By:
 #
 # Andrea Gavana, @ 23 Dec 2005
-# Latest Revision: 21 Sep 2010, 23.00 GMT
+# Latest Revision: 10 Mar 2011, 15.00 GMT
 #
 # For All Kind Of Problems, Requests Of Enhancements And Bug Reports, Please
 # Write To Me At:
@@ -119,6 +119,9 @@ if wx.Platform == "__WXMSW__":
     except ImportError:
         pass
 
+# wxPython version string
+_VERSION_STRING = wx.VERSION_STRING
+
 # AUI Events
 wxEVT_AUI_PANE_BUTTON = wx.NewEventType()
 wxEVT_AUI_PANE_CLOSE = wx.NewEventType()
@@ -132,6 +135,7 @@ wxEVT_AUI_PANE_FLOATING = wx.NewEventType()
 wxEVT_AUI_PANE_FLOATED = wx.NewEventType()
 wxEVT_AUI_PANE_DOCKING = wx.NewEventType()
 wxEVT_AUI_PANE_DOCKED = wx.NewEventType()
+wxEVT_AUI_PANE_ACTIVATED = wx.NewEventType()
 wxEVT_AUI_PERSPECTIVE_CHANGED = wx.NewEventType()
 
 EVT_AUI_PANE_BUTTON = wx.PyEventBinder(wxEVT_AUI_PANE_BUTTON, 0)
@@ -158,6 +162,8 @@ EVT_AUI_PANE_DOCKING = wx.PyEventBinder(wxEVT_AUI_PANE_DOCKING, 0)
 """ A pane in `AuiManager` is about to be docked. """
 EVT_AUI_PANE_DOCKED = wx.PyEventBinder(wxEVT_AUI_PANE_DOCKED, 0)
 """ A pane in `AuiManager` has been docked. """
+EVT_AUI_PANE_ACTIVATED = wx.PyEventBinder(wxEVT_AUI_PANE_ACTIVATED, 0)
+""" A pane in `AuiManager` has been activated. """
 EVT_AUI_PERSPECTIVE_CHANGED = wx.PyEventBinder(wxEVT_AUI_PERSPECTIVE_CHANGED, 0)
 """ The layout in `AuiManager` has been changed. """
 
@@ -3096,7 +3102,12 @@ class AuiFloatingFrame(wx.MiniFrame):
         self._last2_rect = wx.Rect(*self._last_rect)
         self._last_rect = wx.Rect(*win_rect)
 
-        if not wx.GetMouseState().LeftDown():
+        if _VERSION_STRING < "2.9":
+            leftDown = wx.GetMouseState().LeftDown()
+        else:
+            leftDown = wx.GetMouseState().LeftIsDown()
+
+        if not leftDown:
             return
 
         if not self._moving:        
@@ -3120,7 +3131,12 @@ class AuiFloatingFrame(wx.MiniFrame):
         """
 
         if self._moving:        
-            if not wx.GetMouseState().LeftDown():            
+            if _VERSION_STRING < "2.9":
+                leftDown = wx.GetMouseState().LeftDown()
+            else:
+                leftDown = wx.GetMouseState().LeftIsDown()
+
+            if not leftDown:
                 self._moving = False
                 self.OnMoveFinished()
             else:            
@@ -3219,7 +3235,12 @@ class AuiFloatingFrame(wx.MiniFrame):
         if self._fly_timer.IsRunning():
             return
 
-        if wx.GetMouseState().LeftDown():
+        if _VERSION_STRING < "2.9":
+            leftDown = wx.GetMouseState().LeftDown()
+        else:
+            leftDown = wx.GetMouseState().LeftIsDown()
+
+        if leftDown:
             return
         
         rect = wx.Rect(*self.GetScreenRect())
@@ -4452,7 +4473,7 @@ class AuiManager(wx.EvtHandler):
 
     def FireEvent(self, evtType, pane, canVeto=False):
         """
-        Fires one of the ``EVT_AUI_PANE_FLOATED``/``FLOATING``/``DOCKING``/``DOCKED`` event. 
+        Fires one of the ``EVT_AUI_PANE_FLOATED``/``FLOATING``/``DOCKING``/``DOCKED``/``ACTIVATED`` event. 
 
         :param `evtType`: one of the aforementioned events;
         :param `pane`: the L{AuiPaneInfo} instance associated to this event;
@@ -4561,7 +4582,7 @@ class AuiManager(wx.EvtHandler):
         # bug in the library user's application
         already_exists = False
         if pane_info.name != "" and self.GetPane(pane_info.name).IsOk():
-            warnings.warn("A pane with that name already exists in the manager!")
+            warnings.warn("A pane with the name '%s' already exists in the manager!"%pane_info.name)
             already_exists = True
 
         # if the new pane is docked then we should undo maximize
@@ -4993,6 +5014,7 @@ class AuiManager(wx.EvtHandler):
                 window = window.GetParent()
 
             self.RefreshCaptions()
+            self.FireEvent(wxEVT_AUI_PANE_ACTIVATED, window, canVeto=False)
             
 
     def CreateNotebook(self):
@@ -6444,10 +6466,10 @@ class AuiManager(wx.EvtHandler):
                 # Correct page ordering. The original wxPython code
                 # for this did not work properly, and would misplace 
                 # windows causing errors.
+                notebook.Freeze()
                 self._notebooks[nb_idx] = notebook
                 pages = notebook.GetPageCount()
                 selected = notebook.GetPage(notebook.GetSelection())
-                reordered = False
 
                 # Take each page out of the notebook, group it with
                 # its current pane, and sort the list by pane.dock_pos
@@ -6471,12 +6493,9 @@ class AuiManager(wx.EvtHandler):
                     self.SetAttributes(pane, attrs)
                     notebook.AddPage(pane.window, pane.caption)
 
-                reordered = True
-                    
-                if reordered:
-                    notebook.SetSelection(notebook.GetPageIndex(selected), True)
-
+                notebook.SetSelection(notebook.GetPageIndex(selected), True)
                 notebook.DoSizing()
+                notebook.Thaw()
 
                 # It's a keeper.
                 remap_ids[nb] = nb_idx
@@ -7994,10 +8013,12 @@ class AuiManager(wx.EvtHandler):
         state = AUI_BUTTON_STATE_NORMAL
 
         if part.rect.Contains(pt):
-            if wx.VERSION < (2,9):
+
+            if _VERSION_STRING < "2.9":
                 leftDown = wx.GetMouseState().LeftDown()
             else:
                 leftDown = wx.GetMouseState().LeftIsDown()
+
             if leftDown:
                 state = AUI_BUTTON_STATE_PRESSED
             else:
@@ -8286,6 +8307,7 @@ class AuiManager(wx.EvtHandler):
         if self.GetAGWFlags() & AUI_MGR_ALLOW_ACTIVE_PANE:
             ret, self._panes = SetActivePane(self._panes, wnd)
             self.RefreshCaptions()
+            self.FireEvent(wxEVT_AUI_PANE_ACTIVATED, wnd, canVeto=False)
 
 
     def OnFloatingPaneMoved(self, wnd, eventOrPt):
@@ -8411,6 +8433,7 @@ class AuiManager(wx.EvtHandler):
             # set the caption as active
             ret, self._panes = SetActivePane(self._panes, pane_window)
             self.RefreshCaptions()
+            self.FireEvent(wxEVT_AUI_PANE_ACTIVATED, pane_window, canVeto=False)
         
         self._action_part = None
         self._action_pane = paneInfo
@@ -9078,9 +9101,10 @@ class AuiManager(wx.EvtHandler):
         :param `event`: a `wx.MoveEvent` to be processed.
         """
 
+        if event is not None:
+            event.Skip()
+
         if isinstance(self._frame, AuiFloatingFrame) and self._frame.IsShownOnScreen():
-            if event is not None:
-                event.Skip()
             return
 
         docked, hAlign, vAlign, monitor = self._is_docked
@@ -9563,7 +9587,13 @@ class AuiManager(wx.EvtHandler):
 
         # when release the button out of the window.
         # TODO: a better fix is needed.
-        if not wx.GetMouseState().LeftDown():
+
+        if _VERSION_STRING < "2.9":
+            leftDown = wx.GetMouseState().LeftDown()
+        else:
+            leftDown = wx.GetMouseState().LeftIsDown()
+        
+        if not leftDown:
             self._action = actionNone
             self.OnLeftUp_DragToolbarPane(eventOrPt)
 
@@ -10296,7 +10326,7 @@ class AuiManager_DCP(AuiManager):
     
     def __init__(self, *args, **keys):
 
-        aui.AuiManager.__init__(self, *args, **keys)
+        AuiManager.__init__(self, *args, **keys)
         self.hasDummyPane = False
         
 
@@ -10308,7 +10338,7 @@ class AuiManager_DCP(AuiManager):
 
         self.hasDummyPane = True
         dummy = wx.Panel(self.GetManagedWindow())
-        info = aui.AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
+        info = AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
         self.AddPane(dummy, info)
 
 
@@ -10334,11 +10364,11 @@ class AuiManager_DCP(AuiManager):
         the whole layout at one time.
         """
         
-        aui.AuiManager.Update(self)
+        AuiManager.Update(self)
 
         # check if there's already a center pane (except our dummy pane)
         dummyCenterPane = self.GetPane('dummyCenterPane')
-        haveCenterPane = any((pane != dummyCenterPane) and (pane.dock_direction == aui.AUI_DOCK_CENTER) and
+        haveCenterPane = any((pane != dummyCenterPane) and (pane.dock_direction == AUI_DOCK_CENTER) and
                              not pane.IsFloating() and pane.IsShown() for pane in self.GetAllPanes())
         if haveCenterPane:
             if self.hasDummyPane:

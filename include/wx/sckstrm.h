@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        sckstrm.h
+// Name:        wx/sckstrm.h
 // Purpose:     wxSocket*Stream
 // Author:      Guilhem Lavaux
 // Modified by:
 // Created:     17/07/97
-// RCS-ID:      $Id: sckstrm.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: sckstrm.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

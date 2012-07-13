@@ -3,7 +3,7 @@
 // Purpose:     common (for all platforms) wxTopLevelWindow functions
 // Author:      Julian Smart, Vadim Zeitlin
 // Created:     01/02/97
-// Id:          $Id: toplvcmn.cpp 63171 2010-01-18 00:28:53Z VZ $
+// Id:          $Id: toplvcmn.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling and Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -352,7 +352,7 @@ void wxTopLevelWindowBase::SetIcon(const wxIcon& icon)
     // passing wxNullIcon to SetIcon() is possible (it means that we shouldn't
     // have any icon), but adding an invalid icon to wxIconBundle is not
     wxIconBundle icons;
-    if ( icon.Ok() )
+    if ( icon.IsOk() )
         icons.AddIcon(icon);
 
     SetIcons(icons);

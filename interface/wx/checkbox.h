@@ -2,7 +2,7 @@
 // Name:        checkbox.h
 // Purpose:     interface of wxCheckBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: checkbox.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: checkbox.h 66611 2011-01-06 19:52:14Z SJL $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -41,7 +41,7 @@ enum wxCheckBoxState
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_CHECKBOX(id, func)}
-           Process a wxEVT_COMMAND_CHECKBOX_CLICKED event, when the checkbox
+           Process a @c wxEVT_COMMAND_CHECKBOX_CLICKED event, when the checkbox
            is clicked.
     @endEventTable
 
@@ -148,7 +148,7 @@ public:
 
     /**
         Sets the checkbox to the given state. This does not cause a
-        wxEVT_COMMAND_CHECKBOX_CLICKED event to get emitted.
+        @c wxEVT_COMMAND_CHECKBOX_CLICKED event to get emitted.
 
         @param state
             If @true, the check is on, otherwise it is off.
@@ -157,7 +157,7 @@ public:
 
     /**
         Sets the checkbox to the given state. This does not cause a
-        wxEVT_COMMAND_CHECKBOX_CLICKED event to get emitted.
+        @c wxEVT_COMMAND_CHECKBOX_CLICKED event to get emitted.
 
         Asserts when the checkbox is a 2-state checkbox and setting the state
         to wxCHK_UNDETERMINED.

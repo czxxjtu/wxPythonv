@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Dimitri Schoolwerth
 // Created:     25/10/98
-// RCS-ID:      $Id: notebook.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: notebook.h 67192 2011-03-14 11:55:05Z VZ $
 // Copyright:   (c) 1998-2002 wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ public:
     void OnType(wxCommandEvent& event);
     void OnOrient(wxCommandEvent& event);
     void OnShowImages(wxCommandEvent& event);
-    void OnMulti(wxCommandEvent& event);
+    void OnStyle(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
 
     void OnAddPage(wxCommandEvent& event);
@@ -49,7 +49,8 @@ public:
     void OnDeleteCurPage(wxCommandEvent& event);
     void OnDeleteLastPage(wxCommandEvent& event);
     void OnNextPage(wxCommandEvent& event);
-    void OnGoHome(wxCommandEvent &event);
+    void OnChangeSelection(wxCommandEvent &event);
+    void OnSetSelection(wxCommandEvent &event);
 
     void OnAddSubPage(wxCommandEvent& event);
     void OnAddPageBefore(wxCommandEvent& event);
@@ -105,7 +106,11 @@ private:
     } m_type;
     int m_orient;
     bool m_chkShowImages;
+    bool m_fixedWidth;
     bool m_multi;
+    bool m_noPageTheme;
+    bool m_buttonBar;
+    bool m_horzLayout;
 
     // Controls
 
@@ -141,7 +146,11 @@ enum ID_COMMANDS
     ID_ORIENT_RIGHT,
     ID_ORIENT_MAX,
     ID_SHOW_IMAGES,
+    ID_FIXEDWIDTH,
     ID_MULTI,
+    ID_NOPAGETHEME,
+    ID_BUTTONBAR,
+    ID_HORZ_LAYOUT,
     ID_ADD_PAGE,
     ID_ADD_PAGE_NO_SELECT,
     ID_INSERT_PAGE,
@@ -150,7 +159,8 @@ enum ID_COMMANDS
     ID_NEXT_PAGE,
     ID_ADD_PAGE_BEFORE,
     ID_ADD_SUB_PAGE,
-    ID_GO_HOME,
+    ID_CHANGE_SELECTION,
+    ID_SET_SELECTION,
 
 #if wxUSE_HELP
     ID_CONTEXT_HELP,

@@ -4,7 +4,7 @@
 // Author:      Karsten Ballueder
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: demo.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: demo.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) Karsten Ballueder, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -324,7 +324,6 @@ bool MyApp::OnInit()
 #endif // !USE_SIMPLE_HELP_PROVIDER
 
     frame->Show(true);
-    SetTopWindow(frame);
 
     // initialise the help system: this means that we'll use doc.hlp file under
     // Windows and that the HTML docs are in the subdirectory doc for platforms
@@ -461,10 +460,10 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     m_embeddedHelpWindow = new wxHtmlHelpWindow;
     // m_embeddedHtmlHelp.UseConfig(config, rootPath); // Can set your own config object here
     m_embeddedHtmlHelp.SetHelpWindow(m_embeddedHelpWindow);
-    
+
     m_embeddedHelpWindow->Create(this,
         wxID_ANY, wxDefaultPosition, GetClientSize(), wxTAB_TRAVERSAL|wxNO_BORDER, wxHF_DEFAULT_STYLE);
-        
+
     m_embeddedHtmlHelp.AddBook(wxFileName(wxT("doc.zip")));
     m_embeddedHtmlHelp.Display(wxT("Introduction"));
 #else

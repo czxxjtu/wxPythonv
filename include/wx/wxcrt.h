@@ -5,7 +5,7 @@
 // Author:      Joel Farley, Ove Kaaven
 // Modified by: Vadim Zeitlin, Robert Roebling, Ron Lee, Vaclav Slavik
 // Created:     1998/06/12
-// RCS-ID:      $Id: wxcrt.h 63991 2010-04-16 10:43:18Z VS $
+// RCS-ID:      $Id: wxcrt.h 66798 2011-01-28 06:18:33Z PC $
 // Copyright:   (c) 1998-2006 wxWidgets dev team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -467,7 +467,7 @@ WX_STRCMP_FUNC(wxStricmp, wxCRT_StricmpA, wxCRT_StricmpW, wxStricmp_String)
 // forward-declare the template and implement it below WX_STRCMP_FUNC. OTOH,
 // this fails to compile with VC6, so don't do it for VC. It also causes
 // problems with GCC visibility in newer GCC versions.
-#if !(defined(__VISUALC__) || wxCHECK_GCC_VERSION(3,5))
+#if !(defined(__VISUALC__) || wxCHECK_GCC_VERSION(3,5)) || defined(__clang__)
     #define wxNEEDS_DECL_BEFORE_TEMPLATE
 #endif
 
@@ -879,7 +879,7 @@ inline double wxStrtod(const wxCStrData& nptr, T endptr)
     inline rettype name(const wchar_t *nptr, wchar_t **endptr, int base)      \
         { return implW(nptr, endptr, base); }                                 \
     template<typename T>                                                      \
-    inline rettype name(const wxScopedCharTypeBuffer<T>& nptr, T **endptr, int base)\
+    inline rettype name(const wxScopedCharTypeBuffer<T>& nptr, T **endptr, int)\
         { return name(nptr.data(), endptr); }                                 \
     template<typename T>                                                      \
     inline rettype name(const wxString& nptr, T endptr, int base)             \

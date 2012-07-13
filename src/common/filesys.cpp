@@ -3,7 +3,7 @@
 // Purpose:     wxFileSystem class - interface for opening files
 // Author:      Vaclav Slavik
 // Copyright:   (c) 1999 Vaclav Slavik
-// CVS-ID:      $Id: filesys.cpp 63901 2010-04-07 18:59:51Z VS $
+// CVS-ID:      $Id: filesys.cpp 67681 2011-05-03 16:29:04Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -255,7 +255,7 @@ wxFSFile* wxLocalFSHandler::OpenFile(wxFileSystem& WXUNUSED(fs), const wxString&
 #else
 #error One of wxUSE_FILE or wxUSE_FFILE must be set to 1 for wxFSHandler to work
 #endif
-    if ( !is->Ok() )
+    if ( !is->IsOk() )
     {
         delete is;
         return NULL;
@@ -355,7 +355,7 @@ void wxFileSystem::ChangePathTo(const wxString& location, bool is_dir)
 
     if (is_dir)
     {
-        if (m_Path.length() > 0 && m_Path.Last() != wxT('/') && m_Path.Last() != wxT(':'))
+        if (!m_Path.empty() && m_Path.Last() != wxT('/') && m_Path.Last() != wxT(':'))
             m_Path << wxT('/');
     }
 

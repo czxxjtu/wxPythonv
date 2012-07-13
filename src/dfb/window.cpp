@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 //              (based on GTK, MSW, MGL implementations)
 // Created:     2006-80-10
-// RCS-ID:      $Id: window.cpp 63991 2010-04-16 10:43:18Z VS $
+// RCS-ID:      $Id: window.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2006 REA Elektronik GmbH
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -323,7 +323,7 @@ bool wxWindowDFB::SetCursor(const wxCursor& cursor)
 
 #warning "implement this"
 #if 0
-    if ( m_cursor.Ok() )
+    if ( m_cursor.IsOk() )
         DFB_wmSetWindowCursor(m_wnd, *m_cursor.GetDFBCursor());
     else
         DFB_wmSetWindowCursor(m_wnd, *wxSTANDARD_CURSOR->GetDFBCursor());
@@ -1053,17 +1053,6 @@ void wxWindowDFB::HandleKeyEvent(const wxDFBWindowEvent& event_)
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// idle events processing
-// ---------------------------------------------------------------------------
-
-void wxWindowDFB::OnInternalIdle()
-{
-    if (wxUpdateUIEvent::CanUpdate(this) && IsShown())
-        UpdateWindowUI(wxUPDATE_UI_FROMIDLE);
-}
-
 
 // Find the wxWindow at the current mouse position, returning the mouse
 // position.

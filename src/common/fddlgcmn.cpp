@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/common/fdrepdlg.cpp
+// Name:        src/common/fddlgcmn.cpp
 // Purpose:     common parts of wxFindReplaceDialog implementations
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     01.08.01
-// RCS-ID:      $Id: fddlgcmn.cpp 58718 2009-02-07 18:59:25Z VZ $
+// RCS-ID:      $Id: fddlgcmn.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2001 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

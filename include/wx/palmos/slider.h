@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by: Wlodzimierz ABX Skiba - native implementation
 // Created:     10/13/04
-// RCS-ID:      $Id: slider.h 52834 2008-03-26 15:06:00Z FM $
+// RCS-ID:      $Id: slider.h 66844 2011-02-05 16:36:30Z VZ $
 // Copyright:   (c) William Osborne, Wlodzimierz Skiba
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,6 @@ public:
     int GetMax() const;
 
     // For trackbars only
-    void SetTickFreq(int n, int pos);
     int GetTickFreq() const;
     void SetPageSize(int pageSize);
     int GetPageSize() const;
@@ -75,6 +74,8 @@ public:
     bool SendScrollEvent(WXEVENTPTR event);
 
 protected:
+    // Platform-specific implementation of SetTickFreq
+    virtual void DoSetTickFreq(int freq);
 
     virtual wxSize DoGetBestSize() const;
 

@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        msw/evtloop.cpp
+// Name:        src/msw/evtloop.cpp
 // Purpose:     implements wxEventLoop for MSW
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     01.06.01
-// RCS-ID:      $Id: evtloop.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: evtloop.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

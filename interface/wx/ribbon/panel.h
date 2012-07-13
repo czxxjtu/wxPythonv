@@ -2,7 +2,7 @@
 // Name:        ribbon/panel.h
 // Purpose:     interface of wxRibbonPage
 // Author:      Peter Cawley
-// RCS-ID:      $Id: panel.h 61944 2009-09-16 12:06:02Z PJC $
+// RCS-ID:      $Id: panel.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -15,6 +15,12 @@
     
     A panel adds a border and label to a group of controls, and can be
     minimised (either automatically to conserve space, or manually by the user).
+
+    Non ribbon controls can be placed on a panel using wxSizers to manage 
+    layout. Panel size is governed by the sizer's minimum calculated size and 
+    the parent wxRibbonPage's dimensions. For functional and aesthetic reasons 
+    it is recommended that ribbon and non ribbon controls are not mixed in one
+    panel.
     
     @sa wxRibbonPage
     
@@ -135,9 +141,9 @@ public:
         Show the panel externally expanded.
         
         When a panel is minimised, it can be shown full-size in a pop-out
-        window, which is refered to as being (externally) expanded. Note that
+        window, which is referred to as being (externally) expanded. Note that
         when a panel is expanded, there exist two panels - the original panel
-        (which is refered to as the dummy panel) and the expanded panel. The
+        (which is referred to as the dummy panel) and the expanded panel. The
         original is termed a dummy as it sits in the ribbon bar doing nothing,
         while the expanded panel holds the panel children.
         

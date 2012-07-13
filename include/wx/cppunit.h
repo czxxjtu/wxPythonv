@@ -3,7 +3,7 @@
 // Purpose:     wrapper header for CppUnit headers
 // Author:      Vadim Zeitlin
 // Created:     15.02.04
-// RCS-ID:      $Id: cppunit.h 62470 2009-10-22 11:17:56Z VZ $
+// RCS-ID:      $Id: cppunit.h 66711 2011-01-19 10:47:49Z VZ $
 // Copyright:   (c) 2004 Vadim Zeitlin
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////
@@ -200,10 +200,10 @@ WX_CPPUNIT_ALLOW_EQUALS_TO_INT(short)
 WX_CPPUNIT_ALLOW_EQUALS_TO_INT(unsigned)
 WX_CPPUNIT_ALLOW_EQUALS_TO_INT(unsigned long)
 
-#if defined(wxLongLong_t) && !defined(wxLongLongIsLong)
+#ifdef wxHAS_LONG_LONG_T_DIFFERENT_FROM_LONG
 WX_CPPUNIT_ALLOW_EQUALS_TO_INT(wxLongLong_t)
 WX_CPPUNIT_ALLOW_EQUALS_TO_INT(unsigned wxLongLong_t)
-#endif
+#endif // wxHAS_LONG_LONG_T_DIFFERENT_FROM_LONG
 
 // Use this macro to compare a wxArrayString with the pipe-separated elements
 // of the given string

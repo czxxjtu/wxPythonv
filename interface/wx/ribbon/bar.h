@@ -2,7 +2,7 @@
 // Name:        ribbon/bar.h
 // Purpose:     interface of wxRibbonBar
 // Author:      Peter Cawley
-// RCS-ID:      $Id: bar.h 64292 2010-05-11 21:12:10Z FM $
+// RCS-ID:      $Id: bar.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -101,6 +101,8 @@ public:
         Triggered when the right mouse button is pressed on a tab.
     @event{EVT_RIBBONBAR_TAB_RIGHT_UP(id, func)}
         Triggered when the right mouse button is released on a tab.
+    @event{EVT_RIBBONBAR_TAB_LEFT_DCLICK(id, func)}
+        Triggered when the left mouse button is double clicked on a tab.
     @endEventTable
 
     @library{wxribbon}
@@ -162,7 +164,7 @@ public:
         Note that unlike most other ribbon controls, the ribbon bar creates a
         default art provider when initialised, so an explicit call to
         SetArtProvider() is not required if the default art provider is
-        sufficient. Alos unlike other ribbon controls, the ribbon bar takes
+        sufficient. Also, unlike other ribbon controls, the ribbon bar takes
         ownership of the given pointer, and will delete it when the art
         provider is changed or the bar is destroyed. If this behaviour is not
         desired, then clone the art provider before setting it.
@@ -211,6 +213,35 @@ public:
         for the currently active page, or @false if there is no active page.
     */
     bool DismissExpandedPanel();
+
+    /**
+        Shows or hides the panel area of the ribbon bar.
+
+        If the panel area is hidden, then only the tab of the ribbon bar will
+        be shown. This is useful for giving the user more screen space to work
+        with when he/she doesn't need to see the ribbon's options.
+
+        @since 2.9.2
+    */
+    void ShowPanels(bool show = true);
+
+    /**
+        Hides the panel area of the ribbon bar.
+
+        This method simply calls ShowPanels() with @false argument.
+
+        @since 2.9.2
+    */
+    void HidePanels();
+
+    /**
+        Indicates whether the panel area of the ribbon bar is shown.
+
+        @see ShowPanels()
+
+        @since 2.9.2
+    */
+    bool ArePanelsShown() const;
     
     /**
         Perform initial layout and size calculations of the bar and its

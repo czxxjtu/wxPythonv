@@ -3,7 +3,7 @@
 # Ported And Enhanced From wxWidgets Contribution (Aj Bommarito) By:
 #
 # Andrea Gavana, @ 16 September 2005
-# Latest Revision: 26 Aug 2010, 10.00 GMT
+# Latest Revision: 17 Aug 2011, 15.00 GMT
 #
 #
 # TODO/Caveats List
@@ -15,7 +15,7 @@
 # Write To Me At:
 #
 # andrea.gavana@gmail.com
-# gavana@kpo.kz
+# andrea.gavana@maerskoil.com
 #
 # Or, Obviously, To The wxPython Mailing List!!!
 #
@@ -47,6 +47,48 @@ It has 2 main styles:
 Both styles support the setting of ToasterBox position (on screen coordinates),
 size, the time after which the ToasterBox is destroyed (linger), and the scroll
 speed of ToasterBox.
+
+
+Usage
+=====
+
+Usage example::
+
+    import wx
+    import wx.lib.agw.toasterbox as TB
+
+    class MyFrame(wx.Frame):
+
+        def __init__(self, parent):
+        
+            wx.Frame.__init__(self, parent, -1, "ToasterBox Demo")
+
+            toaster = TB.ToasterBox(self, tbstyle=TB.TB_COMPLEX)
+            toaster.SetPopupPauseTime(3000)
+
+            tbpanel = toaster.GetToasterBoxWindow()
+            panel = wx.Panel(tbpanel, -1)
+            sizer = wx.BoxSizer(wx.VERTICAL)
+
+            button = wx.Button(panel, wx.ID_ANY, "Simple button")
+            sizer.Add(button, 0, wx.EXPAND)
+
+            panel.SetSizer(sizer)
+            toaster.AddPanel(panel)
+
+            wx.CallLater(1000, toaster.Play)
+
+
+    # our normal wxApp-derived class, as usual
+
+    app = wx.PySimpleApp()
+
+    frame = MyFrame(None)
+    app.SetTopWindow(frame)
+    frame.Show()
+
+    app.MainLoop()
+
 
 
 Supported Platforms
@@ -87,7 +129,7 @@ License And Version
 
 ToasterBox is distributed under the wxPython license.
 
-Latest revision: Andrea Gavana @ 26 Aug 2010, 10.00 GMT
+Latest revision: Andrea Gavana @ 17 Aug 2011, 15.00 GMT
 
 Version 0.3
 
@@ -108,7 +150,7 @@ TB_COMPLEX = 2
 """ to it a dummy frame and a wx.Panel. See the demo for details. """
 TB_DEFAULT_STYLE = wx.SIMPLE_BORDER | wx.STAY_ON_TOP | wx.FRAME_NO_TASKBAR
 """ Default window style for `ToasterBox`, with no caption nor close box. """
-TB_CAPTION = TB_DEFAULT_STYLE | wx.CAPTION | wx.SYSTEM_MENU | wx.CLOSE_BOX | wx.FRAME_TOOL_WINDOW
+TB_CAPTION = TB_DEFAULT_STYLE | wx.CAPTION | wx.SYSTEM_MENU | wx.CLOSE_BOX | wx.FRAME_NO_TASKBAR
 """ `ToasterBox` will have a caption, with the possibility to set a title """ \
 """ for the `ToasterBox` frame, and a close box. """
 TB_ONTIME = 1
@@ -271,6 +313,70 @@ class ToasterBox(wx.Timer):
         self._popupposition = popupposition
 
 
+    def CenterOnParent(self, direction=wx.BOTH):
+        """
+        Centres the window on its parent (if any). If the L{ToasterBox} parent is ``None``,
+        it calls L{CenterOnScreen}.
+
+        :param `direction`: specifies the direction for the centering. May be ``wx.HORIZONTAL``,
+         ``wx.VERTICAL`` or ``wx.BOTH``.
+
+        :note: This methods provides for a way to center L{ToasterBox} over their parents instead of the
+         entire screen. If there is no parent, then behaviour is the same as L{CenterOnScreen}.
+
+        :see: L{CenterOnScreen}.
+        """
+
+        if not self._parent:
+            self.CenterOnScreen(direction)
+            return
+
+        parent = self._parent
+        screenrect = parent.GetScreenRect()
+        toast_width, toast_height = self._popupsize
+        x, y = screenrect.GetX(), screenrect.GetY()
+        width, height = screenrect.GetWidth(), screenrect.GetHeight()
+        
+        if direction == wx.VERTICAL:
+            pos = wx.Point(x, (y + (height/2) - (toast_height/2)))
+        elif direction == wx.HORIZONTAL:
+            pos = wx.Point((x + (width/2) - (toast_width/2)), y)
+        else:
+            pos = wx.Point((x + (width/2) - (toast_width/2)), (y + (height/2) - (toast_height/2)))
+
+        tb.SetPopupPosition(pos)        
+                
+
+    CentreOnParent = CenterOnParent
+
+
+    def CenterOnScreen(self, direction=wx.BOTH):
+        """
+        Centres the L{ToasterBox} on screen.
+
+        :param `direction`: specifies the direction for the centering. May be ``wx.HORIZONTAL``,
+         ``wx.VERTICAL`` or ``wx.BOTH``.
+
+        :see: L{CenterOnParent}.
+        """
+
+        screenSize = wx.GetDisplaySize()
+        toast_width, toast_height = self._popupsize
+        width, height = screenSize.GetWidth(), screenSize.GetHeight()
+        
+        if direction == wx.VERTICAL:
+            pos = wx.Point(0, (height/2) - (toast_height/2))
+        elif direction == wx.HORIZONTAL:
+            pos = wx.Point((width/2) - (toast_width/2), 0)
+        else:
+            pos = wx.Point((width/2) - (toast_width/2), (height/2) - (toast_height/2))
+
+        tb.SetPopupPosition(pos)
+
+
+    CentreOnScreen = CenterOnScreen        
+
+    
     def SetPopupBackgroundColour(self, colour=None):
         """
         Sets the L{ToasterBox} background colour.
@@ -893,8 +999,9 @@ class ToasterBoxWindow(wx.Frame):
     def NotifyTimer(self, event):
         """ Hides gradually the L{ToasterBoxWindow}. """
 
-        self.showtime.Stop()
-        del self.showtime
+        if self._scrollType != TB_SCR_TYPE_FADE:
+            self.showtime.Stop()
+            del self.showtime
 
         self._direction = wx.DOWN
         self.SetupPositions()

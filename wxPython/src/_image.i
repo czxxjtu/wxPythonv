@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     25-Sept-2000
-// RCS-ID:      $Id: _image.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _image.i 67448 2011-04-13 17:52:12Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -33,6 +33,7 @@ enum wxImageResizeQuality
     wxIMAGE_QUALITY_NEAREST,
     wxIMAGE_QUALITY_BILINEAR,
     wxIMAGE_QUALITY_BICUBIC,
+    wxIMAGE_QUALITY_BOX_AVERAGE,
 
     wxIMAGE_QUALITY_NORMAL,
     wxIMAGE_QUALITY_HIGH,
@@ -597,7 +598,7 @@ If the image image doesn't have alpha channel, ConvertAlphaToMask does
 nothing.", "");
 
     // TODO
-    //void ConvertAlphaToMask(unsigned char mr, unsigned char mg, unsigned char mb,
+    //bool ConvertAlphaToMask(unsigned char mr, unsigned char mg, unsigned char mb,
     //                        unsigned char threshold = wxIMAGE_ALPHA_THRESHOLD);
 
 
@@ -952,6 +953,8 @@ Returns the rotated image, leaving this image intact.", "");
         wxImage , Rotate90( bool clockwise = true ) ,
         "Returns a copy of the image rotated 90 degrees in the direction
 indicated by ``clockwise``.", "");
+
+    wxImage Rotate180() const;
     
     DocDeclStr(
         wxImage , Mirror( bool horizontally = true ) ,

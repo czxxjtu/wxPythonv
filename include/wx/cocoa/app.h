@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cocoa/app.h
+// Name:        wx/cocoa/app.h
 // Purpose:     wxApp class
 // Author:      David Elliott
 // Modified by:
 // Created:     2002/11/27
-// RCS-ID:      $Id: app.h 59711 2009-03-21 23:36:37Z VZ $
+// RCS-ID:      $Id: app.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2002 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/unix/appunix.cpp
+// Name:        src/unix/appunix.cpp
 // Purpose:     wxAppConsole with wxMainLoop implementation
 // Author:      Lukasz Michalski
 // Created:     28/01/2005
-// RCS-ID:      $Id: appunix.cpp 63754 2010-03-25 11:16:32Z JJ $
+// RCS-ID:      $Id: appunix.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Lukasz Michalski
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

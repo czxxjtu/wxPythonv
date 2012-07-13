@@ -2,7 +2,7 @@
 
 <!--
     Name:       StellarWerx32.xml
-    RCS-ID:     $Id: StellarWerx32.xml 63930 2010-04-09 23:18:57Z MW $
+    RCS-ID:     $Id: StellarWerx32.xml 65868 2010-10-22 22:12:00Z MW $
 -->
 
 <bot xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -15,7 +15,7 @@
     <scheduler>trunk_quick</scheduler>
     <steps>
         <checkout/>
-        <configure options="--enable-stl"/>
+        <configure options="--enable-stl --enable-debug"/>
         <compile-all/>
         <run-tests/>
     </steps>
@@ -39,7 +39,7 @@
     <scheduler>daily_0600</scheduler>
     <steps>
         <checkout/>
-        <configure options="--disable-unicode"/>
+        <configure options="--disable-unicode --enable-debug"/>
         <compile-all/>
         <run-tests/>
     </steps>

@@ -2,7 +2,7 @@
 // Name:        glcanvas.h
 // Purpose:     interface of wxGLContext and wxGLCanvas
 // Author:      wxWidgets team
-// RCS-ID:      $Id: glcanvas.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: glcanvas.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -137,7 +137,7 @@ enum
     /// 1 for multisampling support (antialiasing)
     WX_GL_SAMPLE_BUFFERS,
 
-    /// 4 for 2x2 antialising supersampling on most graphics cards
+    /// 4 for 2x2 antialiasing supersampling on most graphics cards
     WX_GL_SAMPLES
 
 };
@@ -215,7 +215,7 @@ public:
             constants. If a constant should be followed by a value, put it in
             the next array position. For example, WX_GL_DEPTH_SIZE should be
             followed by the value that indicates the number of bits for the
-            depth buffer, e.g:
+            depth buffer, e.g.:
             @code
             attribList[n++] = WX_GL_DEPTH_SIZE;
             attribList[n++] = 32;

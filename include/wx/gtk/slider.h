@@ -2,7 +2,7 @@
 // Name:        wx/gtk/slider.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: slider.h 62635 2009-11-14 10:58:31Z RR $
+// Id:          $Id: slider.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ public:
     void GTKDisableEvents();
     void GTKEnableEvents();
     bool GTKEventsDisabled() const;
-    
+
     double m_pos;
     int m_scrollEventType;
     bool m_needThumbRelease;

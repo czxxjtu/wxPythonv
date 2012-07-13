@@ -4,7 +4,7 @@
 // Author:      Wlodzimierz ABX Skiba
 // Modified by:
 // Created:     30.10.2005
-// RCS-ID:      $Id: checklst.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: checklst.cpp 66557 2011-01-04 09:13:49Z SC $
 // Copyright:   (c) Wlodzimierz Skiba
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,8 +35,6 @@
 // ============================================================================
 // implementation
 // ============================================================================
-
-IMPLEMENT_DYNAMIC_CLASS(wxCheckListBox, wxControl)
 
 // ----------------------------------------------------------------------------
 // implementation of wxCheckListBox class

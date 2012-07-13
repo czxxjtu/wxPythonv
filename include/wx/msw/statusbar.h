@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        wx/msw/statbr.h
+// Name:        wx/msw/statusbar.h
 // Purpose:     native implementation of wxStatusBar
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     04.04.98
-// RCS-ID:      $Id: statusbar.h 61992 2009-09-21 13:00:36Z VZ $
+// RCS-ID:      $Id: statusbar.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -62,6 +62,7 @@ protected:
     virtual void DoUpdateStatusText(int number);
 
     // override some base class virtuals
+    virtual WXDWORD MSWGetStyle(long flags, WXDWORD *exstyle = NULL) const;
     virtual wxSize DoGetBestSize() const;
     virtual void DoMoveWindow(int x, int y, int width, int height);
 #if wxUSE_TOOLTIPS

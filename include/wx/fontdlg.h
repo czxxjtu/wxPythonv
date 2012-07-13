@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     12.05.02
-// RCS-ID:      $Id: fontdlg.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: fontdlg.h 66615 2011-01-07 05:26:57Z PC $
 // Copyright:   (c) 1997-2002 wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@
 #if wxUSE_FONTDLG
 
 #include "wx/dialog.h"          // the base class
-#include "wx/cmndata.h"         // wxFontData
+#include "wx/fontdata.h"
 
 // ----------------------------------------------------------------------------
 // wxFontDialog interface

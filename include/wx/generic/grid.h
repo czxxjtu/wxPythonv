@@ -4,7 +4,7 @@
 // Author:      Michael Bedward (based on code by Julian Smart, Robin Dunn)
 // Modified by: Santiago Palacios
 // Created:     1/08/1999
-// RCS-ID:      $Id: grid.h 64918 2010-07-12 22:50:23Z VZ $
+// RCS-ID:      $Id: grid.h 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Michael Bedward
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -432,9 +432,9 @@ public:
     void SetKind(wxAttrKind kind) { m_attrkind = kind; }
 
     // accessors
-    bool HasTextColour() const { return m_colText.Ok(); }
-    bool HasBackgroundColour() const { return m_colBack.Ok(); }
-    bool HasFont() const { return m_font.Ok(); }
+    bool HasTextColour() const { return m_colText.IsOk(); }
+    bool HasBackgroundColour() const { return m_colBack.IsOk(); }
+    bool HasFont() const { return m_font.IsOk(); }
     bool HasAlignment() const
     {
         return m_hAlign != wxALIGN_INVALID || m_vAlign != wxALIGN_INVALID;
@@ -1267,6 +1267,12 @@ public:
     void     SetAttr(int row, int col, wxGridCellAttr *attr);
     void     SetRowAttr(int row, wxGridCellAttr *attr);
     void     SetColAttr(int col, wxGridCellAttr *attr);
+
+    // the grid can cache attributes for the recently used cells (currently it
+    // only caches one attribute for the most recently used one) and might
+    // notice that its value in the attribute provider has changed -- if this
+    // happens, call this function to force it
+    void RefreshAttr(int row, int col);
 
     // returns the attribute we may modify in place: a new one if this cell
     // doesn't have any yet or the existing one if it does

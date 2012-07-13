@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/corefoundation/cfstring.cpp
+// Name:        src/osx/core/cfstring.cpp
 // Purpose:     wxCFStringHolder and other string functions
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     2004-10-29 (from code in src/osx/carbon/utils.cpp)
-// RCS-ID:      $Id: cfstring.cpp 62789 2009-12-05 19:57:58Z PC $
+// RCS-ID:      $Id: cfstring.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 // Usage:       Darwin (base library)
@@ -696,10 +696,6 @@ wxString wxCFStringRef::AsString( NSString* ref, wxFontEncoding encoding )
 
 wxMacUniCharBuffer::wxMacUniCharBuffer( const wxString &str )
 {
-    m_chars = str.length() ;
-    m_ubuf = NULL ;
-
-#if SIZEOF_WCHAR_T == 4
     wxMBConvUTF16 converter ;
 #if wxUSE_UNICODE
     size_t unicharlen = converter.WC2MB( NULL , str.wc_str() , 0 ) ;
@@ -712,17 +708,6 @@ wxMacUniCharBuffer::wxMacUniCharBuffer( const wxString &str )
     converter.WC2MB( (char*) m_ubuf , wchar.data() , unicharlen + 2 ) ;
 #endif
     m_chars = unicharlen / 2 ;
-#else // SIZEOF_WCHAR_T is then 2
-#if wxUSE_UNICODE
-    m_ubuf = malloc( m_chars * 2 + 2 ) ;
-    memcpy( m_ubuf , (UniChar*) str.wc_str() , m_chars * 2 + 2 ) ;
-#else
-    wxWCharBuffer wchar = str.wc_str( wxConvLocal ) ;
-    m_chars = wxWcslen( wchar.data() ) ;
-    m_ubuf = malloc( m_chars * 2 + 2 ) ;
-    memcpy( m_ubuf , (UniChar*) wchar.data() , m_chars * 2 + 2 ) ;
-#endif
-#endif
 }
 
 wxMacUniCharBuffer::~wxMacUniCharBuffer()

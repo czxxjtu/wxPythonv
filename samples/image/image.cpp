@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Francesco Montorsi
 // Created:     1998
-// RCS-ID:      $Id: image.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: image.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998-2005 Robert Roebling
 //              (c) 2005-2009 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -28,6 +28,7 @@
 #include "wx/wfstream.h"
 #include "wx/quantize.h"
 #include "wx/stopwatch.h"
+#include "wx/versioninfo.h"
 
 #if wxUSE_CLIPBOARD
     #include "wx/dataobj.h"
@@ -406,7 +407,7 @@ private:
 
         wxImage img(m_bitmap.ConvertToImage());
         img = img.Rotate(angle, wxPoint(img.GetWidth() / 2, img.GetHeight() / 2));
-        if ( !img.Ok() )
+        if ( !img.IsOk() )
         {
             wxLogWarning(wxT("Rotation failed"));
             return;
@@ -654,7 +655,7 @@ MyFrame::MyFrame()
     menuImage->Append( ID_SHOWTHUMBNAIL, wxT("Test &thumbnail...\tCtrl-T"),
                         "Test scaling the image during load (try with JPEG)");
     menuImage->AppendSeparator();
-    menuImage->Append( ID_ABOUT, wxT("&About..."));
+    menuImage->Append( ID_ABOUT, wxT("&About...\tF1"));
     menuImage->AppendSeparator();
     menuImage->Append( ID_QUIT, wxT("E&xit\tCtrl-Q"));
     menu_bar->Append(menuImage, wxT("&Image"));
@@ -678,6 +679,7 @@ MyFrame::MyFrame()
 
     // 500 width * 2750 height
     m_canvas->SetScrollbars( 10, 10, 50, 275 );
+    m_canvas->SetCursor(wxImage("cursor.png"));
 }
 
 void MyFrame::OnQuit( wxCommandEvent &WXUNUSED(event) )
@@ -685,11 +687,35 @@ void MyFrame::OnQuit( wxCommandEvent &WXUNUSED(event) )
     Close( true );
 }
 
+#if wxUSE_ZLIB && wxUSE_STREAMS
+#include "wx/zstream.h"
+#endif
+
 void MyFrame::OnAbout( wxCommandEvent &WXUNUSED(event) )
 {
-    (void)wxMessageBox( "wxImage demo\n"
-                        "(c) Robert Roebling 1998-2005"
-                        "(c) Vadim Zeitlin 2005-2009",
+    wxArrayString array;
+
+    array.Add("wxImage demo");
+    array.Add("(c) Robert Roebling 1998-2005");
+    array.Add("(c) Vadim Zeitlin 2005-2009");
+
+    array.Add(wxEmptyString);
+    array.Add("Version of the libraries used:");
+
+#if wxUSE_LIBPNG
+    array.Add(wxPNGHandler::GetLibraryVersionInfo().ToString());
+#endif
+#if wxUSE_LIBJPEG
+    array.Add(wxJPEGHandler::GetLibraryVersionInfo().ToString());
+#endif
+#if wxUSE_LIBTIFF
+    array.Add(wxTIFFHandler::GetLibraryVersionInfo().ToString());
+#endif
+#if wxUSE_ZLIB && wxUSE_STREAMS
+    // zlib is used by libpng
+    array.Add(wxGetZlibVersionInfo().ToString());
+#endif
+    (void)wxMessageBox( wxJoin(array, '\n'),
                         "About wxImage Demo",
                         wxICON_INFORMATION | wxOK );
 }

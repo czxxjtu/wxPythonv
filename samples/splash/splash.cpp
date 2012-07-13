@@ -4,7 +4,7 @@
 // Author:      Wlodzimierz ABX Skiba
 // Modified by:
 // Created:     04/08/2004
-// RCS-ID:      $Id: splash.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: splash.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Wlodzimierz Skiba
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ bool MyApp::OnInit()
         bitmap = wxBitmap(mobile_xpm);
 
     bool ok = frame->m_isPda
-            ? bitmap.Ok()
+            ? bitmap.IsOk()
             : bitmap.LoadFile(wxT("splash.png"), wxBITMAP_TYPE_PNG);
 
     if (ok)
@@ -218,7 +218,7 @@ void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
     if (m_isPda) bitmap = wxBitmap(mobile_xpm);
 
     bool ok = m_isPda
-            ? bitmap.Ok()
+            ? bitmap.IsOk()
             : bitmap.LoadFile(wxT("splash.png"), wxBITMAP_TYPE_PNG);
 
     if (ok)

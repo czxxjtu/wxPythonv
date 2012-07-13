@@ -2,7 +2,7 @@
 // Name:        src/gtk/bmpbuttn.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: bmpbuttn.cpp 61240 2009-06-28 21:49:48Z VZ $
+// Id:          $Id: bmpbuttn.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -13,8 +13,6 @@
 #if wxUSE_BMPBUTTON
 
 #include "wx/bmpbuttn.h"
-
-IMPLEMENT_DYNAMIC_CLASS(wxBitmapButton,wxButton)
 
 bool wxBitmapButton::Create(wxWindow *parent,
                             wxWindowID id,

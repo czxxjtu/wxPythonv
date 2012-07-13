@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: apptbase.h 60734 2009-05-24 19:39:40Z VZ $
+// RCS-ID:      $Id: apptbase.h 67288 2011-03-22 17:15:56Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,12 +31,14 @@ public:
     virtual void AfterChildWaitLoop(void *data) = 0;
 
 
+#if wxUSE_THREADS
     // wxThread helpers
     // ----------------
 
     // process a message while waiting for a(nother) thread, should return
     // false if and only if we have to exit the application
     virtual bool DoMessageFromThreadWait() = 0;
+#endif // wxUSE_THREADS
 };
 
 #endif // _WX_PALMOS_APPTBASE_H_

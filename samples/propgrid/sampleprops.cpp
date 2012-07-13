@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     2006-03-05
-// RCS-ID:      $Id: sampleprops.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: sampleprops.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -21,6 +21,8 @@
 #ifndef WX_PRECOMP
     #include "wx/wx.h"
 #endif
+
+#include "wx/fontdlg.h"
 
 // -----------------------------------------------------------------------
 
@@ -46,8 +48,6 @@ bool operator == (const wxFontData&, const wxFontData&)
 // Custom version of wxFontProperty that also holds colour in the value.
 // Original version by Vladimir Vainer.
 
-#include <wx/fontdlg.h>
-
 IMPLEMENT_VARIANT_OBJECT_SHALLOWCMP(wxFontData)
 
 WX_PG_IMPLEMENT_PROPERTY_CLASS(wxFontDataProperty,wxFontProperty,
@@ -60,7 +60,7 @@ wxFontDataProperty::wxFontDataProperty( const wxString& label, const wxString& n
 
     // Fix value.
     fontData.SetChosenFont(value.GetInitialFont());
-    if ( !fontData.GetColour().Ok() )
+    if ( !fontData.GetColour().IsOk() )
         fontData.SetColour(*wxBLACK);
 
     // Set initial value - should be done in a simpler way like this
@@ -113,7 +113,7 @@ void wxFontDataProperty::OnSetValue()
         fontData << m_value_wxFontData;
 
         wxFont font = fontData.GetChosenFont();
-        if ( !font.Ok() )
+        if ( !font.IsOk() )
             font = wxFont(10,wxSWISS,wxNORMAL,wxNORMAL);
 
         m_value = WXVARIANT(font);
@@ -618,7 +618,7 @@ bool wxArrayDoubleProperty::StringToValue( wxVariant& variant, const wxString& t
 
     WX_PG_TOKENIZER1_BEGIN(text,delimiter)
 
-        if ( token.length() )
+        if ( !token.empty() )
         {
 
             // If token was invalid, exit the loop now

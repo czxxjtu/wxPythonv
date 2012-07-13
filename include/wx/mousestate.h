@@ -3,7 +3,7 @@
 // Purpose:     Declaration of wxMouseState class
 // Author:      Vadim Zeitlin
 // Created:     2008-09-19 (extracted from wx/utils.h)
-// RCS-ID:      $Id: mousestate.h 60472 2009-05-02 13:10:38Z VZ $
+// RCS-ID:      $Id: mousestate.h 65379 2010-08-22 22:15:07Z VZ $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -11,6 +11,7 @@
 #ifndef _WX_MOUSESTATE_H_
 #define _WX_MOUSESTATE_H_
 
+#include "wx/gdicmn.h"      // for wxPoint
 #include "wx/kbdstate.h"
 
 // the symbolic names for the mouse buttons

@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/03/18
-// RCS-ID:      $Id: checklst.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: checklst.mm 66557 2011-01-04 09:13:49Z SC $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,6 @@
     #include "wx/app.h"
 #endif //WX_PRECOMP
 
-IMPLEMENT_DYNAMIC_CLASS(wxCheckListBox, wxListBox)
 BEGIN_EVENT_TABLE(wxCheckListBox, wxCheckListBoxBase)
 END_EVENT_TABLE()
 // WX_IMPLEMENT_COCOA_OWNER(wxCheckListBox,NSButton,NSControl,NSView)

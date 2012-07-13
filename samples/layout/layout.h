@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: layout.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: layout.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -103,10 +103,10 @@ class MySimpleSizerFrame : public wxFrame
 {
 public:
     MySimpleSizerFrame(const wxString &title, int x, int y );
-    
+
     void OnSetSmallSize( wxCommandEvent &event);
     void OnSetBigSize( wxCommandEvent &event);
-    
+
 private:
     wxTextCtrl  *m_target;
 
@@ -121,8 +121,8 @@ class MyNestedSizerFrame : public wxFrame
 {
 public:
     MyNestedSizerFrame(const wxString &title, int x, int y );
-    
-    
+
+
 private:
     wxTextCtrl  *m_target;
 };

@@ -4,7 +4,7 @@
 // Author:      Robin Dunn
 // Modified by:
 // Created:     27-Mar-2003
-// RCS-ID:      $Id: rgncmn.cpp 64874 2010-07-11 10:43:18Z VZ $
+// RCS-ID:      $Id: rgncmn.cpp 65854 2010-10-20 23:11:04Z VZ $
 // Copyright:   (c) Robin Dunn
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ bool wxRegionBase::IsEqual(const wxRegion& region) const
 wxBitmap wxRegionBase::ConvertToBitmap() const
 {
     wxRect box = GetBox();
-    wxBitmap bmp(box.GetWidth(), box.GetHeight());
+    wxBitmap bmp(box.GetRight() + 1, box.GetBottom() + 1);
     wxMemoryDC dc;
     dc.SelectObject(bmp);
     dc.SetBackground(*wxBLACK_BRUSH);

@@ -4,7 +4,7 @@
 // Author:      Guillermo Rodriguez Garcia <guille@iies.es>
 // Modified by:
 // Created:     1999/09/19
-// RCS-ID:      $Id: client.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: client.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) 1999 Guillermo Rodriguez Garcia
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -190,9 +190,8 @@ bool MyApp::OnInit()
   // Create the main application window
   MyFrame *frame = new MyFrame();
 
-  // Show it and tell the application that it's our main window
+  // Show it
   frame->Show(true);
-  SetTopWindow(frame);
 
   // success
   return true;

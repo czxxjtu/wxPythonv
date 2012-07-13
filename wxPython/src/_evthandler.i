@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     9-Aug-2003
-// RCS-ID:      $Id: _evthandler.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _evthandler.i 68413 2011-07-25 18:51:32Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -178,6 +178,9 @@ public:
             :param id2: Used when it is desirable to bind a handler
                           to a range of IDs, such as with EVT_MENU_RANGE.
             """
+            assert isinstance(event, wx.PyEventBinder)
+            assert handler is None or callable(handler)
+            assert source is None or hasattr(source, 'GetId')
             if source is not None:
                 id  = source.GetId()
             event.Bind(self, id, id2, handler)              

@@ -2,7 +2,7 @@
 // Name:        socket.h
 // Purpose:     interface of wxIP*address, wxSocket* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: socket.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: socket.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -596,7 +596,7 @@ enum wxSocketEventFlags
 
     @b wxSOCKET_REUSEADDR can also be used with socket clients to (re)bind to a
     particular local port for an outgoing connection.
-    This option can have surprising platform dependent behavior, so check the
+    This option can have surprising platform dependent behaviour, so check the
     documentation for your platform's implementation of setsockopt().
 
     Note that on BSD-based systems(e.g. Mac OS X), use of
@@ -616,7 +616,7 @@ enum wxSocketEventFlags
       the data.
     - @b wxSOCKET_BLOCK has nothing to do with the previous flags and
       it controls whether the GUI blocks.
-    - @b wxSOCKET_REUSEADDR controls special platform-specific behavior for
+    - @b wxSOCKET_REUSEADDR controls special platform-specific behaviour for
       reusing local addresses/ports.
 */
 enum

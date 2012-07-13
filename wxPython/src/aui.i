@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     5-July-2006
-// RCS-ID:      $Id: aui.i 59225 2009-03-01 01:51:56Z RD $
+// RCS-ID:      $Id: aui.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -144,6 +144,7 @@ The following example shows a simple implementation that utilizes
 
 #define WXDLLIMPEXP_AUI
 #define WXDLLIMPEXP_FWD_AUI
+#define WXDLLIMPEXP_FWD_CORE
 #define unsigned
 #define wxDEPRECATED(decl)
 #define DECLARE_EVENT_TABLE()

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     11-April-2006
-// RCS-ID:      $Id: _richtextctrl.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _richtextctrl.i 67654 2011-04-30 00:15:08Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -31,11 +31,12 @@ enum {
     wxRICHTEXT_CTRL_DOWN,
     wxRICHTEXT_ALT_DOWN,
 
+#if 0
     wxRICHTEXT_SELECTED,
     wxRICHTEXT_TAGGED,
     wxRICHTEXT_FOCUSSED,
     wxRICHTEXT_IS_FOCUS,
-
+#endif
 };
 
 
@@ -157,6 +158,18 @@ during sizing.", "");
         "Get the threshold in character positions for doing layout optimization
 during sizing.", "");
 
+    bool GetFullLayoutRequired() const;
+    void SetFullLayoutRequired(bool b);
+
+    wxLongLong GetFullLayoutTime() const;
+    void SetFullLayoutTime(wxLongLong t);
+
+    long GetFullLayoutSavedPosition() const;
+    void SetFullLayoutSavedPosition(long p);
+
+    // Force any pending layout due to large buffer
+    void ForceDelayedLayout();
+
 
     DocDeclStr(
         void , SetTextCursor(const wxCursor& cursor ),
@@ -267,23 +280,23 @@ text control.", "");
 
 
     DocDeclStr(
-        virtual bool , SetStyle(const wxRichTextRange& range, const wxTextAttr& style),
+        virtual bool , SetStyle(const wxRichTextRange& range, const wxRichTextAttr& style),
         "Set the style for the text in ``range`` to ``style``", "");
 
     DocDeclStr(
-        virtual bool , GetStyle(long position, wxTextAttr& style),
+        virtual bool , GetStyle(long position, wxRichTextAttr& style),
         "Retrieve the style used at the given position.  Copies the style
 values at ``position`` into the ``style`` parameter and returns ``True``
 if successful.  Returns ``False`` otherwise.", "");
 
 
     DocDeclStr(
-        virtual bool , GetStyleForRange(const wxRichTextRange& range, wxTextAttr& style),
+        virtual bool , GetStyleForRange(const wxRichTextRange& range, wxRichTextAttr& style),
         "Get the common set of styles for the range", "");
     
 
     DocDeclStr(
-        virtual bool , SetStyleEx(const wxRichTextRange& range, const wxTextAttr& style,
+        virtual bool , SetStyleEx(const wxRichTextRange& range, const wxRichTextAttr& style,
                                   int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO),
         "Extended style setting operation with flags including:
 RICHTEXT_SETSTYLE_WITH_UNDO, RICHTEXT_SETSTYLE_OPTIMIZE,
@@ -292,19 +305,19 @@ RICHTEXT_SETSTYLE_PARAGRAPHS_ONLY, RICHTEXT_SETSTYLE_CHARACTERS_ONLY", "");
 
     
     DocDeclStr(
-        virtual bool , GetUncombinedStyle(long position, wxTextAttr& style),
+        virtual bool , GetUncombinedStyle(long position, wxRichTextAttr& style),
         "Get the content (uncombined) attributes for this position.  Copies the
 style values at ``position`` into the ``style`` parameter and returns
 ``True`` if successful.  Returns ``False`` otherwise.", "");
 
 
     DocDeclStr(
-        virtual bool , SetDefaultStyle(const wxTextAttr& style),
+        virtual bool , SetDefaultStyle(const wxRichTextAttr& style),
         "Set the style used by default for the rich text document.", "");
 
 
     DocDeclStrName(
-        virtual const wxTextAttr , GetDefaultStyleEx() const,
+        virtual const wxRichTextAttr , GetDefaultStyleEx() const,
         "Retrieves a copy of the default style object.", "",
         GetDefaultStyle);
 
@@ -540,17 +553,17 @@ use for internal and file storage of the raw data.", "",
 
     
     DocDeclStr(
-        virtual void , SetBasicStyle(const wxTextAttr& style),
+        virtual void , SetBasicStyle(const wxRichTextAttr& style),
         "", "");
 
 
     DocDeclStr(
-        virtual const wxTextAttr , GetBasicStyle() const,
+        virtual const wxRichTextAttr , GetBasicStyle() const,
         "Get basic (overall) style", "");
 
 
     DocDeclStr(
-        virtual bool , BeginStyle(const wxTextAttr& style),
+        virtual bool , BeginStyle(const wxRichTextAttr& style),
         "Begin using a style", "");
 
     
@@ -917,7 +930,7 @@ setting the caret position.", "");
 
     DocDeclStr(
         virtual bool , HasCharacterAttributes(const wxRichTextRange& range,
-                                              const wxTextAttr& style) const,
+                                              const wxRichTextAttr& style) const,
         "Test if this whole range has character attributes of the specified
 kind. If any of the attributes are different within the range, the
 test fails. You can use this to implement, for example, bold button
@@ -929,7 +942,7 @@ interest.
 
     DocDeclStr(
         virtual bool , HasParagraphAttributes(const wxRichTextRange& range,
-                                              const wxTextAttr& style) const,
+                                              const wxRichTextAttr& style) const,
         "Test if this whole range has paragraph attributes of the specified
 kind. If any of the attributes are different within the range, the
 test fails. You can use this to implement, for example, centering
@@ -1210,7 +1223,7 @@ changed.", "");
     
     // insert the character which would have resulted from this key event,
     // return True if anything has been inserted
-    virtual bool EmulateKeyPress(const wxKeyEvent& event);
+//    virtual bool EmulateKeyPress(const wxKeyEvent& event);
 
 };
 

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: colour.cpp 51477 2008-01-31 21:15:31Z VS $
+// RCS-ID:      $Id: colour.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -21,8 +21,6 @@
 #ifndef WX_PRECOMP
     #include "wx/gdicmn.h"
 #endif
-
-IMPLEMENT_DYNAMIC_CLASS(wxColour, wxObject)
 
 // Colour
 

@@ -3,7 +3,7 @@
 // Purpose:
 // Author:      Robert Roebling
 // Modified:    VZ at 05.10.00: use AllocExclusive(), comparison fixed
-// Id:          $Id: region.cpp 61724 2009-08-21 10:41:26Z VZ $
+// Id:          $Id: region.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ bool wxRegion::DoUnionWithRect(const wxRect& r)
 
 bool wxRegion::DoUnionWithRegion( const wxRegion& region )
 {
-    wxCHECK_MSG( region.Ok(), false, wxT("invalid region") );
+    wxCHECK_MSG( region.IsOk(), false, wxT("invalid region") );
 
     if (!m_refData)
     {
@@ -198,7 +198,7 @@ bool wxRegion::DoUnionWithRegion( const wxRegion& region )
 
 bool wxRegion::DoIntersect( const wxRegion& region )
 {
-    wxCHECK_MSG( region.Ok(), false, wxT("invalid region") );
+    wxCHECK_MSG( region.IsOk(), false, wxT("invalid region") );
 
     if (!m_refData)
     {
@@ -215,7 +215,7 @@ bool wxRegion::DoIntersect( const wxRegion& region )
 
 bool wxRegion::DoSubtract( const wxRegion& region )
 {
-    wxCHECK_MSG( region.Ok(), false, wxT("invalid region") );
+    wxCHECK_MSG( region.IsOk(), false, wxT("invalid region") );
 
     if (!m_refData)
     {
@@ -232,7 +232,7 @@ bool wxRegion::DoSubtract( const wxRegion& region )
 
 bool wxRegion::DoXor( const wxRegion& region )
 {
-    wxCHECK_MSG( region.Ok(), false, wxT("invalid region") );
+    wxCHECK_MSG( region.IsOk(), false, wxT("invalid region") );
 
     if (!m_refData)
     {

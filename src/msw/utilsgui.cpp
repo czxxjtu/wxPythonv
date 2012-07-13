@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        msw/utilsgui.cpp
+// Name:        src/msw/utilsgui.cpp
 // Purpose:     Various utility functions only available in GUI
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     21.06.2003 (extracted from msw/utils.cpp)
-// RCS-ID:      $Id: utilsgui.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: utilsgui.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -374,7 +374,6 @@ bool wxLaunchDefaultApplication(const wxString& document, int flags)
 
     WinStruct<SHELLEXECUTEINFO> sei;
     sei.lpFile = document.wx_str();
-    sei.lpVerb = wxT("open");
 #ifdef __WXWINCE__
     sei.nShow = SW_SHOWNORMAL; // SW_SHOWDEFAULT not defined under CE (#10216)
 #else

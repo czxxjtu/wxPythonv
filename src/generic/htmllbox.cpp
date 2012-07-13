@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        generic/htmllbox.cpp
+// Name:        src/generic/htmllbox.cpp
 // Purpose:     implementation of wxHtmlListBox
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     31.05.03
-// RCS-ID:      $Id: htmllbox.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: htmllbox.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -308,7 +308,7 @@ void wxHtmlListBox::CacheItem(size_t n) const
             m_htmlParser->SetDC(new wxClientDC(self));
             m_htmlParser->SetFS(&self->m_filesystem);
 #if !wxUSE_UNICODE
-            if (GetFont().Ok())
+            if (GetFont().IsOk())
                 m_htmlParser->SetInputEncoding(GetFont().GetEncoding());
 #endif
             // use system's default GUI font by default:
@@ -599,6 +599,9 @@ void wxHtmlListBox::OnLeftDown(wxMouseEvent& event)
 // wxSimpleHtmlListBox
 // ----------------------------------------------------------------------------
 
+IMPLEMENT_ABSTRACT_CLASS(wxSimpleHtmlListBox, wxHtmlListBox)
+
+
 bool wxSimpleHtmlListBox::Create(wxWindow *parent, wxWindowID id,
                                  const wxPoint& pos,
                                  const wxSize& size,
@@ -686,7 +689,7 @@ int wxSimpleHtmlListBox::DoInsertItems(const wxArrayStringsAdapter& items,
 
     UpdateCount();
 
-    return pos;
+    return pos - 1;
 }
 
 void wxSimpleHtmlListBox::SetString(unsigned int n, const wxString& s)

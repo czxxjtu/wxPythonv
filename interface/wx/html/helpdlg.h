@@ -2,7 +2,7 @@
 // Name:        html/helpdlg.h
 // Purpose:     interface of wxHtmlHelpDialog
 // Author:      wxWidgets team
-// RCS-ID:      $Id: helpdlg.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: helpdlg.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +56,7 @@ public:
     /**
         Sets the help controller associated with the dialog.
     */
-    void SetController(wxHtmlHelpController* contoller);
+    void SetController(wxHtmlHelpController* controller);
 
     /**
         Sets the dialog's title format.

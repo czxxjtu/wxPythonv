@@ -18,8 +18,8 @@ AUTHOR: Cody Precord
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: synglob.py 65461 2010-09-02 04:09:42Z CJP $"
-__revision__ = "$Revision: 65461 $"
+__svnid__ = "$Id: synglob.py 66605 2011-01-06 00:55:52Z CJP $"
+__revision__ = "$Revision: 66605 $"
 
 #-----------------------------------------------------------------------------#
 # Dependencies
@@ -50,6 +50,7 @@ LANG_MAP = {LANG_4GL    : (ID_LANG_4GL,       '_progress'),
             LANG_BOO    : (ID_LANG_BOO,       '_boo'),
             LANG_C      : (ID_LANG_C,         '_cpp'),
             LANG_CAML   : (ID_LANG_CAML,      '_caml'),
+            LANG_CILK   : (ID_LANG_CILK,      '_cpp'),
             LANG_COBRA  : (ID_LANG_COBRA,     '_cobra'),
             LANG_COLDFUSION : (ID_LANG_COLDFUSION, '_html'),
             LANG_CPP    : (ID_LANG_CPP,    '_cpp'),

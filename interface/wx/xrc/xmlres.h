@@ -2,7 +2,7 @@
 // Name:        xrc/xmlres.h
 // Purpose:     interface of wxXmlResource
 // Author:      wxWidgets team
-// RCS-ID:      $Id: xmlres.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: xmlres.h 66058 2010-11-07 14:00:43Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -388,7 +388,7 @@ protected:
 
         @see wxXmlResourceHandler::ReportError(), DoReportError()
      */
-    void ReportError(wxXmlNode *context, const wxString& message);
+    void ReportError(const wxXmlNode *context, const wxString& message);
 
     /**
         Implementation of XRC resources errors reporting.
@@ -416,7 +416,7 @@ protected:
 
         @see ReportError()
     */
-    virtual void DoReportError(const wxString& xrcFile, wxXmlNode *position,
+    virtual void DoReportError(const wxString& xrcFile, const wxXmlNode *position,
                                const wxString& message);
 };
 

@@ -3,7 +3,7 @@
 // Purpose:     Sample showing integration of Flash ActiveX control
 // Author:      Vadim Zeitlin
 // Created:     2009-01-13
-// RCS-ID:      $Id: flash.cpp 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: flash.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2009 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -21,9 +21,9 @@
 // ----------------------------------------------------------------------------
 // headers
 // ----------------------------------------------------------------------------
- 
+
 #include "wx/wxprec.h"
- 
+
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif

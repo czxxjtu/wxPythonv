@@ -2,7 +2,7 @@
 // Name:        gbsizer.h
 // Purpose:     interface of wxGBPosition
 // Author:      wxWidgets team
-// RCS-ID:      $Id: gbsizer.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: gbsizer.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -217,7 +217,7 @@ public:
 
     The wxGBSizerItem class is used by the wxGridBagSizer for tracking the
     items in the sizer. It adds grid position and spanning information to the
-    normal wxSizerItem by adding wxGBPosition and wxGBSpan attrbibutes. Most of
+    normal wxSizerItem by adding wxGBPosition and wxGBSpan attributes. Most of
     the time you will not need to use a wxGBSizerItem directly in your code,
     but there are a couple of cases where it is handy.
 
@@ -268,7 +268,7 @@ public:
     //@}
 
     /**
-        Returns @true if this item and the @a other item instersect.
+        Returns @true if this item and the @a other item intersect.
     */
     bool Intersects(const wxGBSizerItem& other);
     /**

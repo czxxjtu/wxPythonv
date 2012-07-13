@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/osx/carbon/colordlg.mm
+// Name:        src/osx/carbon/colordlgosx.mm
 // Purpose:     wxColourDialog class. NOTE: you can use the generic class
 //              if you wish, instead of implementing this.
 // Author:      Ryan Norton
 // Modified by:
 // Created:     2004-11-16
-// RCS-ID:      $Id: colordlgosx.mm 64068 2010-04-20 19:09:38Z SC $
+// RCS-ID:      $Id: colordlgosx.mm 67901 2011-06-09 01:07:39Z SC $
 // Copyright:   (c) Ryan Norton
 // Licence:       wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@
 
 #include "wx/wxprec.h"
 
-#include "wx/osx/colordlg.h"
+#include "wx/colordlg.h"
 #include "wx/fontdlg.h"
 
 // ============================================================================
@@ -56,7 +56,7 @@ IMPLEMENT_DYNAMIC_CLASS(wxColourDialog, wxDialog)
 
 - (id)init
 {
-    [super init];
+    self = [super init];
     m_bIsClosed = false;
 
     return self;

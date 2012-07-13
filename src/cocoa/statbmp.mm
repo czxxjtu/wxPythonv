@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/02/15
-// RCS-ID:      $Id: statbmp.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: statbmp.mm 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,8 +20,6 @@
 #include "wx/cocoa/autorelease.h"
 
 #import <AppKit/NSImageView.h>
-
-IMPLEMENT_DYNAMIC_CLASS(wxStaticBitmap, wxControl)
 
 BEGIN_EVENT_TABLE(wxStaticBitmap, wxControl)
 END_EVENT_TABLE()

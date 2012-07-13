@@ -2,7 +2,7 @@
 // Name:        dcgraph.h
 // Purpose:     interface of wxGCDC
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dcgraph.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dcgraph.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -36,8 +36,24 @@ public:
     wxGCDC( const wxPrinterDC& dc );
 
     /**
+       Construct a wxGCDC from an existing grtaphics context.
+    */
+    wxGCDC(wxGraphicsContext* context);
+
+    
+    wxGCDC();
+    virtual ~wxGCDC();
+
+
+    /**
        Retrieves associated wxGraphicsContext
     */
-    wxGraphicsContext* GetGraphicsContext();
+    wxGraphicsContext* GetGraphicsContext() const;
+
+    /**
+       Set the grpahics context to be used for this wxGCDC.
+    */
+    void SetGraphicsContext( wxGraphicsContext* ctx );
+
 };
 

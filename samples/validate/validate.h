@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: validate.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: validate.h 66714 2011-01-19 10:48:28Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -52,6 +52,9 @@ public:
     bool TransferDataToWindow();
     wxTextCtrl *m_text;
     wxComboBox *m_combobox;
+
+    wxTextCtrl *m_numericTextInt;
+    wxTextCtrl *m_numericTextDouble;
 };
 
 class MyData
@@ -71,6 +74,10 @@ public:
     // Comboboxes differ from listboxes--validators transfer
     // the string entered in the combobox's text-edit field.
     wxString m_combobox_choice;
+
+    // variables handled by wxNumericTextValidator
+    int m_intValue;
+    double m_doubleValue;
 
     bool m_checkbox_state;
     int m_radiobox_choice;

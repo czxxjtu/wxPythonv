@@ -2,7 +2,7 @@
 // Name:        cursor.h
 // Purpose:     interface of wxCursor
 // Author:      wxWidgets team
-// RCS-ID:      $Id: cursor.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: cursor.h 65924 2010-10-25 21:52:19Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -140,7 +140,9 @@ public:
             - under MacOS, it defaults to @c wxBITMAP_TYPE_MACCURSOR_RESOURCE;
               when specifying a string resource name, first the color cursors 'crsr' 
               and then the black/white cursors 'CURS' in the resource chain are scanned 
-              through.
+              through. Note that resource forks are deprecated on OS X so this
+              is only available for legacy reasons and should not be used in
+              new code.
             - under GTK, it defaults to @c wxBITMAP_TYPE_XPM. 
               See the wxCursor(const wxImage& image) ctor for more info.
             - under X11, it defaults to @c wxBITMAP_TYPE_XPM.

@@ -4,7 +4,7 @@
 // Author:      David Elliott <dfe@cox.net>
 // Modified by:
 // Created:     2003/07/03
-// RCS-ID:      $Id: brush.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: brush.mm 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -202,19 +202,19 @@ void wxBrush::SetStipple(const wxBitmap& stipple)
 
 wxColour wxBrush::GetColour() const
 {
-    wxCHECK_MSG( Ok(), wxNullColour, wxT("invalid brush") );
+    wxCHECK_MSG( IsOk(), wxNullColour, wxT("invalid brush") );
     return M_BRUSHDATA->GetColour();
 }
 
 wxBrushStyle wxBrush::GetStyle() const
 {
-    wxCHECK_MSG( Ok(), wxBRUSHSTYLE_INVALID, wxT("invalid brush") );
+    wxCHECK_MSG( IsOk(), wxBRUSHSTYLE_INVALID, wxT("invalid brush") );
     return M_BRUSHDATA->GetStyle();
 }
 
 wxBitmap *wxBrush::GetStipple() const
 {
-    wxCHECK_MSG( Ok(), 0, wxT("invalid brush") );
+    wxCHECK_MSG( IsOk(), 0, wxT("invalid brush") );
     return M_BRUSHDATA->GetStipple();
 }
 

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: VZ 07.01.00: implemented wxMetaFileDataObject
 // Created:     04/01/98
-// RCS-ID:      $Id: metafile.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: metafile.cpp 66728 2011-01-22 14:38:36Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -177,13 +177,13 @@ wxMetafileDCImpl::wxMetafileDCImpl(wxDC *owner, const wxString& file)
     m_maxY = -10000;
     //  m_title = NULL;
 
-    if (!file.IsNull() && wxFileExists(file))
+    if ( wxFileExists(file) )
         wxRemoveFile(file);
 
-    if (!file.IsNull() && (file != wxEmptyString))
-        m_hDC = (WXHDC) CreateMetaFile(file);
-    else
+    if ( file.empty() )
         m_hDC = (WXHDC) CreateMetaFile(NULL);
+    else
+        m_hDC = (WXHDC) CreateMetaFile(file);
 
     m_ok = (m_hDC != (WXHDC) 0) ;
 

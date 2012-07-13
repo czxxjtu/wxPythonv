@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/splitter.h
+// Name:        wx/generic/splitter.h
 // Purpose:     wxSplitterWindow class
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: splitter.h 61615 2009-08-05 17:25:27Z VZ $
+// RCS-ID:      $Id: splitter.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -133,9 +133,6 @@ public:
     // Is the window split?
     bool IsSplit() const { return (m_windowTwo != NULL); }
 
-    // Sets the sash size
-    void SetSashSize(int width) { m_sashSize = width; }
-
     // Sets the border size
     void SetBorderSize(int WXUNUSED(width)) { }
 
@@ -221,6 +218,10 @@ public:
     virtual bool MacClipGrandChildren() const { return true ; }
 #endif
 
+    // Sets the sash size: this doesn't do anything and shouldn't be used at
+    // all any more.
+    wxDEPRECATED_INLINE( void SetSashSize(int WXUNUSED(width)), return; )
+
 protected:
     // event handlers
 #if defined(__WXMSW__) || defined(__WXMAC__)
@@ -282,7 +283,6 @@ protected:
     int         m_oldY;         // current tracker position if not live mode
     int         m_sashPosition; // Number of pixels from left or top
     double      m_sashGravity;
-    int         m_sashSize;
     wxSize      m_lastSize;
     int         m_requestedSashPosition;
     int         m_sashPositionCurrent; // while dragging

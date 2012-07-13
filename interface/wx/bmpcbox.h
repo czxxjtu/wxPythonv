@@ -2,7 +2,7 @@
 // Name:        bmpcbox.h
 // Purpose:     interface of wxBitmapComboBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: bmpcbox.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: bmpcbox.h 66611 2011-01-06 19:52:14Z SJL $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -38,12 +38,12 @@
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_COMBOBOX(id, func)}
-           Process a wxEVT_COMMAND_COMBOBOX_SELECTED event, when an item on
+           Process a @c wxEVT_COMMAND_COMBOBOX_SELECTED event, when an item on
            the list is selected.
     @event{EVT_TEXT(id, func)}
-           Process a wxEVT_COMMAND_TEXT_UPDATED event, when the combobox text changes.
+           Process a @c wxEVT_COMMAND_TEXT_UPDATED event, when the combobox text changes.
     @event{EVT_TEXT_ENTER(id, func)}
-           Process a wxEVT_COMMAND_TEXT_ENTER event, when RETURN is pressed in
+           Process a @c wxEVT_COMMAND_TEXT_ENTER event, when RETURN is pressed in
            the combobox.
     @endEventTable
 

@@ -14,8 +14,8 @@ FileBrowser Plugin.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: browser.py 62766 2009-12-03 04:50:13Z CJP $"
-__revision__ = "$Revision: 62766 $"
+__svnid__ = "$Id: browser.py 67507 2011-04-16 14:38:39Z CJP $"
+__revision__ = "$Revision: 67507 $"
 
 #-----------------------------------------------------------------------------#
 # Imports
@@ -37,9 +37,6 @@ import syntax.syntax
 import util
 import eclib
 import ebmlib
-
-# Local Imports
-import Trash
 
 #-----------------------------------------------------------------------------#
 # Globals
@@ -600,7 +597,7 @@ class FileBrowser(wx.GenericDirCtrl):
         elif e_id == ID_ARCHIVE:
             ok = MakeArchive(path)
         elif e_id == ID_DELETE:
-            Trash.moveToTrash(paths)
+            ebmlib.MoveToTrash(paths)
             ok = (True, os.path.dirname(path))
         else:
             evt.Skip()

@@ -2,7 +2,7 @@
 // Name:        rawbmp.h
 // Purpose:     interface of wxPixelData
 // Author:      wxWidgets team
-// RCS-ID:      $Id: rawbmp.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: rawbmp.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -202,7 +202,7 @@ public:
 
         //@{
         /**
-            Data Access: Access to invidividual colour components.
+            Data Access: Access to individual colour components.
         */
         ChannelType& Red();
         ChannelType& Green();

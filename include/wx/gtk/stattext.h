@@ -2,7 +2,7 @@
 // Name:        wx/gtk/stattext.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: stattext.h 51507 2008-02-02 21:33:51Z PC $
+// Id:          $Id: stattext.h 67062 2011-02-27 12:48:07Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -56,6 +56,16 @@ protected:
 
     virtual wxString DoGetLabel() const;
     virtual void DoSetLabel(const wxString& str);
+#if wxUSE_MARKUP
+    virtual bool DoSetLabelMarkup(const wxString& markup);
+#endif // wxUSE_MARKUP
+
+private:
+    // Common part of SetLabel() and DoSetLabelMarkup().
+    typedef void (wxStaticText::*GTKLabelSetter)(GtkLabel *, const wxString&);
+
+    void GTKDoSetLabel(GTKLabelSetter setter, const wxString& label);
+
 
     DECLARE_DYNAMIC_CLASS(wxStaticText)
 };

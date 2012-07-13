@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////
-// Name:        ScintillaWX.h
+// Name:        src/stc/ScintillaWX.h
 // Purpose:     A wxWidgets implementation of Scintilla.  A class derived
 //              from ScintillaBase that uses the "wx platform" defined in
 //              PlatWX.cpp.  This class is one end of a bridge between
@@ -9,7 +9,7 @@
 // Author:      Robin Dunn
 //
 // Created:     13-Jan-2000
-// RCS-ID:      $Id: ScintillaWX.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: ScintillaWX.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2000 by Total Control Software
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

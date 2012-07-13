@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     04.08.03
-// RCS-ID:      $Id: render.cpp 64307 2010-05-15 10:47:33Z VZ $
+// RCS-ID:      $Id: render.cpp 65139 2010-07-29 16:57:09Z RR $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -124,6 +124,8 @@ private:
         { OnToggleDrawFlag(event, wxCONTROL_CHECKED); }
     void OnDrawHot(wxCommandEvent& event)
         { OnToggleDrawFlag(event, wxCONTROL_CURRENT); }
+    void OnDrawUndetermined(wxCommandEvent &event)
+        { OnToggleDrawFlag(event, wxCONTROL_UNDETERMINED); }
 
     void OnAlignLeft(wxCommandEvent& WXUNUSED(event))
         { OnChangeAlign(wxALIGN_LEFT); }
@@ -195,6 +197,8 @@ private:
             flagsString += "wxCONTROL_CURRENT ";
         if ( m_flags & wxCONTROL_CHECKED )
             flagsString += "wxCONTROL_CHECKED ";
+        if ( m_flags & wxCONTROL_UNDETERMINED )
+            flagsString += "wxCONTROL_UNDETERMINED ";
         if ( flagsString.empty() )
             flagsString = "(none)";
         dc.DrawText("Using flags: " + flagsString, x1, y);
@@ -291,6 +295,7 @@ enum
     Render_DrawPressed,
     Render_DrawChecked,
     Render_DrawHot,
+    Render_DrawUndetermined,
 
     Render_AlignLeft,
     Render_AlignCentre,
@@ -326,7 +331,7 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(Render_DrawPressed, MyFrame::OnDrawPressed)
     EVT_MENU(Render_DrawChecked, MyFrame::OnDrawChecked)
     EVT_MENU(Render_DrawHot, MyFrame::OnDrawHot)
-
+    EVT_MENU(Render_DrawUndetermined, MyFrame::OnDrawUndetermined)
     EVT_MENU(Render_AlignLeft, MyFrame::OnAlignLeft)
     EVT_MENU(Render_AlignCentre, MyFrame::OnAlignCentre)
     EVT_MENU(Render_AlignRight, MyFrame::OnAlignRight)
@@ -405,6 +410,8 @@ MyFrame::MyFrame()
                               "Draw in &checked state\tCtrl-C");
     menuFile->AppendCheckItem(Render_DrawHot,
                               "Draw in &hot state\tCtrl-H");
+    menuFile->AppendCheckItem(Render_DrawUndetermined,
+                              "Draw in unde&termined state\tCtrl-T");
     menuFile->AppendSeparator();
 
     menuFile->AppendRadioItem(Render_AlignLeft, "&Left align\tCtrl-1");

@@ -2,7 +2,7 @@
 // Name:        minifram.h
 // Purpose:     interface of wxMiniFrame
 // Author:      wxWidgets team
-// RCS-ID:      $Id: minifram.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: minifram.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +35,7 @@
     @style{wxSYSTEM_MENU}
         Displays a system menu (Windows and Motif only).
     @style{wxRESIZE_BORDER}
-        Displays a resizeable border around the window.
+        Displays a resizable border around the window.
     @endStyleTable
 
     @remarks

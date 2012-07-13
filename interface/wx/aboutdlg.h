@@ -2,7 +2,7 @@
 // Name:        aboutdlg.h
 // Purpose:     interface of wxAboutDialogInfo
 // Author:      wxWidgets team
-// RCS-ID:      $Id: aboutdlg.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: aboutdlg.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -83,7 +83,7 @@ public:
 
     /**
         Adds a translator name to be shown in the program credits. Notice that if no
-        translator names are specified explicitely, wxAboutBox() will try to use the
+        translator names are specified explicitly, wxAboutBox() will try to use the
         translation of the string @c translator-credits from the currently used message
         catalog -- this can be used to show just the name of the translator of the
         program in the current language.
@@ -93,7 +93,43 @@ public:
     void AddTranslator(const wxString& translator);
 
     /**
-        Sets the the list of artists to be shown in the program credits.
+        Get the name of the program.
+
+        @return Name of the program
+        @see SetName()
+    */
+    const wxString& GetName() const;
+
+    /**
+        Returns @true if a description string has been specified.
+
+        @see GetDescription()
+    */
+    bool HasDescription() const;
+
+    /**
+        Get the description string.
+
+        @return The description string, free-form.
+    */
+    const wxString& GetDescription();
+
+    /**
+        Returns @true if a copyright string has been specified.
+
+        @see GetCopyright()
+    */
+    bool HasCopyright() const;
+
+    /**
+        Get the copyright string.
+
+        @return The copyright string
+    */
+    const wxString& GetCopyright() const;
+
+    /**
+        Sets the list of artists to be shown in the program credits.
 
         @see AddArtist()
     */

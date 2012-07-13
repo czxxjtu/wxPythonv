@@ -5,7 +5,7 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Julian Smart
-// RCS-ID:      $Id: icon.h 55779 2008-09-21 21:09:36Z FM $
+// RCS-ID:      $Id: icon.h 66772 2011-01-26 15:53:31Z SC $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -52,7 +52,7 @@
   #define wxICON_DEFAULT_TYPE   wxBITMAP_TYPE_ICON_RESOURCE
   #include "wx/osx/icon.h"
 #else
-  #define wxICON_DEFAULT_TYPE   wxBITMAP_TYPE_XPM
+  #define wxICON_DEFAULT_TYPE   wxBITMAP_TYPE_PNG_RESOURCE
   #include "wx/generic/icon.h"
 #endif
 #elif defined(__WXCOCOA__)

@@ -3,7 +3,7 @@
 // Purpose:     macros for implementing type-safe vararg passing of strings
 // Author:      Vaclav Slavik
 // Created:     2007-02-19
-// RCS-ID:      $Id: strvararg.cpp 64712 2010-06-24 10:34:31Z VS $
+// RCS-ID:      $Id: strvararg.cpp 65057 2010-07-23 23:32:46Z VZ $
 // Copyright:   (c) 2007 REA Elektronik GmbH
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -375,7 +375,7 @@ private:
     size_t m_nCopied;
 };
 
-#ifdef __WINDOWS__
+#if defined(__WINDOWS__) && !defined(__CYGWIN__)
 
 // on Windows, we should use %s and %c regardless of the build:
 class wxPrintfFormatConverterWchar : public wxFormatConverterBase<wchar_t>

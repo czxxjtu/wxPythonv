@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        _????.i
-// Purpose:     SWIG interface for wx????
+// Name:        _printfw.i
+// Purpose:     SWIG interface for Print Framework classes
 //
 // Author:      Robin Dunn
 //
 // Created:     9-Aug-2003
-// RCS-ID:      $Id: _printfw.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _printfw.i 68059 2011-06-27 19:11:12Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -55,6 +55,19 @@ enum wxPrintBin
     wxPRINTBIN_FORMSOURCE,
 
     wxPRINTBIN_USER,
+};
+
+// Preview frame modality kind used with wxPreviewFrame::Initialize()
+enum wxPreviewFrameModalityKind
+{
+    // Disable all the other top level windows while the preview is shown.
+    wxPreviewFrame_AppModal,
+
+    // Disable only the parent window while the preview is shown.
+    wxPreviewFrame_WindowModal,
+
+    // Don't disable any windows.
+    wxPreviewFrame_NonModal
 };
 
 
@@ -609,6 +622,8 @@ public:
     %cleardisown(wxPrintPreview*);
 
     void Initialize();
+    void InitializeWithModality(wxPreviewFrameModalityKind kind);
+    
     void CreateControlBar();
     void CreateCanvas();
 
@@ -654,15 +669,10 @@ public:
                         long style = wxTAB_TRAVERSAL,
                         const wxString& name = wxPyPanelNameStr);
 
+    void SetPageInfo(int minPage, int maxPage);
     int GetZoomControl();
     void SetZoomControl(int zoom);
     wxPrintPreview* GetPrintPreview();
-
-    void OnNext();
-    void OnPrevious();
-    void OnFirst();
-    void OnLast();
-    void OnGoto();
 
     %property(PrintPreview, GetPrintPreview, doc="See `GetPrintPreview`");
     %property(ZoomControl, GetZoomControl, SetZoomControl, doc="See `GetZoomControl` and `SetZoomControl`");    
@@ -918,6 +928,7 @@ public:
     void SetControlBar(wxPreviewControlBar* bar);
 
     void Initialize();
+    void InitializeWithModality(wxPreviewFrameModalityKind kind);
     void CreateCanvas();
     void CreateControlBar();
 

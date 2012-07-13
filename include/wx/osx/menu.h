@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        menu.h
+// Name:        wx/osx/menu.h
 // Purpose:     wxMenu, wxMenuBar classes
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: menu.h 64136 2010-04-24 20:39:44Z VZ $
+// RCS-ID:      $Id: menu.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -126,10 +126,6 @@ public:
     virtual wxMenu *Replace(size_t pos, wxMenu *menu, const wxString& title);
     virtual wxMenu *Remove(size_t pos);
 
-    virtual int FindMenuItem(const wxString& menuString,
-                             const wxString& itemString) const;
-    virtual wxMenuItem* FindItem( int id, wxMenu **menu = NULL ) const;
-
     virtual void EnableTop( size_t pos, bool flag );
     virtual void SetMenuLabel( size_t pos, const wxString& label );
     virtual wxString GetMenuLabel( size_t pos ) const;
@@ -141,7 +137,6 @@ public:
     }
 
     // implementation from now on
-    int  FindMenu(const wxString& title);
     void Detach();
 
         // returns TRUE if we're attached to a frame
@@ -169,7 +164,6 @@ protected:
     // common part of all ctors
     void Init();
 
-    wxArrayString   m_titles;
     static bool     s_macAutoWindowMenu ;
     static WXHMENU  s_macWindowMenuHandle ;
 

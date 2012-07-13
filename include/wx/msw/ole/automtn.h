@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        automtn.h
+// Name:        wx/msw/ole/automtn.h
 // Purpose:     OLE automation utilities
 // Author:      Julian Smart
 // Modified by:
 // Created:     11/6/98
-// RCS-ID:      $Id: automtn.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: automtn.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -26,6 +26,20 @@ typedef unsigned short* WXBSTR;
 #undef GetObject
 #endif
 
+// Flags used with wxAutomationObject::GetInstance()
+enum wxAutomationInstanceFlags
+{
+    // Only use the existing instance, never create a new one.
+    wxAutomationInstance_UseExistingOnly = 0,
+
+    // Create a new instance if there are no existing ones.
+    wxAutomationInstance_CreateIfNeeded = 1,
+
+    // Do not log errors if we failed to get the existing instance because none
+    // is available.
+    wxAutomationInstance_SilentIfNone = 2
+};
+
 /*
  * wxAutomationObject
  * Wraps up an IDispatch pointer and invocation; does variant conversion.
@@ -43,11 +57,12 @@ public:
     bool IsOk() const { return m_dispatchPtr != NULL; }
 
     // Get a dispatch pointer from the current object associated
-    // with a class id, such as "Excel.Application"
-    bool GetInstance(const wxString& classId) const;
+    // with a ProgID, such as "Excel.Application"
+    bool GetInstance(const wxString& progId,
+                     int flags = wxAutomationInstance_CreateIfNeeded) const;
 
-    // Get a dispatch pointer from a new instance of the the class
-    bool CreateInstance(const wxString& classId) const;
+    // Get a dispatch pointer from a new instance of the class
+    bool CreateInstance(const wxString& progId) const;
 
     // Low-level invocation function. Pass either an array of variants,
     // or an array of pointers to variants.

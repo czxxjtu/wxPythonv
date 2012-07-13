@@ -2,7 +2,7 @@
 // Name:        toplevel.h
 // Purpose:     interface of wxTopLevelWindow
 // Author:      wxWidgets team
-// RCS-ID:      $Id: toplevel.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: toplevel.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -46,7 +46,7 @@ enum
     internal top level window list.
 
     @beginEventEmissionTable
-    @event{EVT_ACTIVATE(id, func)}
+    @event{EVT_MAXIMIZE(id, func)}
         Process a @c wxEVT_MAXIMIZE event. See wxMaximizeEvent.
     @event{EVT_MOVE(func)}
         Process a @c wxEVT_MOVE event, which is generated when a window is moved.
@@ -59,6 +59,8 @@ enum
         Process a @c wxEVT_MOVE_END event, which is generated when the user stops
         moving or sizing a window. wxMSW only.
         See wxMoveEvent.
+    @event{EVT_SHOW(func)}
+        Process a @c wxEVT_SHOW event. See wxShowEvent.
     @endEventTable
 
     @library{wxcore}
@@ -78,7 +80,7 @@ public:
         Constructor creating the top level window.
     */
     wxTopLevelWindow(wxWindow *parent,
-                    wxWindowID winid,
+                    wxWindowID id,
                     const wxString& title,
                     const wxPoint& pos = wxDefaultPosition,
                     const wxSize& size = wxDefaultSize,
@@ -147,6 +149,19 @@ public:
         key.
     */
     wxWindow* GetDefaultItem() const;
+
+    /**
+        Get the default size for a new top level window.
+
+        This is used internally by wxWidgets on some platforms to determine the
+        default size for a window created using ::wxDefaultSize so it is not
+        necessary to use it when creating a wxTopLevelWindow, however it may be
+        useful if a rough estimation of the window size is needed for some
+        other reason.
+
+        @since 2.9.2
+     */
+    static wxSize GetDefaultSize();
 
     /**
         Returns the standard icon of the window. The icon will be invalid if it
@@ -273,6 +288,11 @@ public:
     */
     wxWindow* SetDefaultItem(wxWindow* win);
 
+    
+    wxWindow*  SetTmpDefaultItem(wxWindow * win);
+    wxWindow* GetTmpDefaultItem() const;
+
+    
     /**
         Sets the icon for this window.
 
@@ -425,7 +445,7 @@ public:
 
         @param alpha
             Determines how opaque or transparent the window will be, if the
-            platform supports the opreration. A value of 0 sets the window to be
+            platform supports the operation. A value of 0 sets the window to be
             fully transparent, and a value of 255 sets the window to be fully
             opaque.
     */

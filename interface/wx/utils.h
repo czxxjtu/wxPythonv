@@ -2,7 +2,7 @@
 // Name:        utils.h
 // Purpose:     interface of various utility classes and functions
 // Author:      wxWidgets team
-// RCS-ID:      $Id: utils.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: utils.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -37,6 +37,14 @@ public:
     /**
         Disables all top level windows of the applications with the exception
         of @a winToSkip if it is not @NULL.
+
+        Notice that under MSW if @a winToSkip appears in the taskbar, the user
+        will be able to close the entire application (even though its main
+        window is disabled) by right clicking on the taskbar icon and selecting
+        the appropriate "Close" command from the context menu. To prevent this
+        from happening you may want to use wxFRAME_TOOL_WINDOW, if applicable,
+        or wxFRAME_NO_TASKBAR style when creating the window that will remain
+        enabled.
     */
     wxWindowDisabler(wxWindow* winToSkip);
 
@@ -106,7 +114,7 @@ public:
 
     @header{wx/utils.h}
 */
-void wxBeginBusyCursor(wxCursor* cursor = wxHOURGLASS_CURSOR);
+void wxBeginBusyCursor(const wxCursor* cursor = wxHOURGLASS_CURSOR);
 
 /**
     Changes the cursor back to the original cursor, for all windows in the
@@ -145,10 +153,25 @@ void wxBell();
     doesn't otherwise handle this event.
 
     @since 2.9.0
-
+    @see wxGetLibraryVersionInfo()
     @header{wx/utils.h}
 */
-void wxInfoMessageBox(wxWindow parent = NULL);
+void wxInfoMessageBox(wxWindow* parent);
+
+//@}
+
+/** @addtogroup group_funcmacro_version */
+//@{
+
+/**
+    Get wxWidgets version information.
+
+    @since 2.9.2
+    @see wxVersionInfo
+    @header{wx/utils.h}
+    @library{wxcore}
+*/
+wxVersionInfo wxGetLibraryVersionInfo();
 
 //@}
 
@@ -156,6 +179,18 @@ void wxInfoMessageBox(wxWindow parent = NULL);
 
 /** @addtogroup group_funcmacro_env */
 //@{
+
+/**
+    A map type containing environment variables names and values.
+
+    This type is used with wxGetEnvMap() function and wxExecuteEnv structure
+    optionally passed to wxExecute().
+
+    @since 2.9.2
+
+    @header{wx/utils.h}
+*/
+typedef wxStringToStringHashMap wxEnvVariableHashMap;
 
 /**
     This is a macro defined as @c getenv() or its wide char version in Unicode
@@ -190,8 +225,9 @@ bool wxGetEnv(const wxString& var, wxString* value);
     environment. wxSetEnv() will always update the first copy, which means that
     wxGetEnv(), which uses it directly, will always return the expected value
     after this call. But wxSetEnv() only updates the second copy for some
-    compilers/CRT implementations (currently only MSVC) and so using wxGetenv()
-    (notice the difference in case) may not return the updated value.
+    compilers/CRT implementations (currently only MSVC and MinGW which uses the
+    same MSVC CRT) and so using wxGetenv() (notice the difference in case) may
+    not return the updated value.
 
     @param var
         The environment variable to be set, must not contain @c '=' character.
@@ -217,6 +253,22 @@ bool wxSetEnv(const wxString& var, const wxString& value);
 */
 bool wxUnsetEnv(const wxString& var);
 
+/**
+    Fill a map with the complete content of current environment.
+
+    The map will contain the environment variable names as keys and their
+    values as values.
+
+    @param map
+        The environment map to fill, must be non-@NULL.
+    @return
+        @true if environment was successfully retrieved or @false otherwise.
+
+    @header{wx/utils.h}
+
+    @since 2.9.2
+*/
+bool wxGetEnvMap(wxEnvVariableHashMap *map);
 //@}
 
 
@@ -659,7 +711,7 @@ wxString wxGetOsDescription();
     'uname -r' command); e.g. "2" and "6" if the machine is using kernel 2.6.19.
 
     For Mac OS X systems (@c wxOS_MAC) the major and minor version integers are the
-    natural version numbers associated with the OS; e.g. "10" and and "6" if the machine
+    natural version numbers associated with the OS; e.g. "10" and "6" if the machine
     is using Mac OS X Snow Leopard.    
     
     For Windows-like systems (@c wxOS_WINDOWS) the major and minor version integers will 
@@ -735,6 +787,36 @@ wxLinuxDistributionInfo wxGetLinuxDistributionInfo();
 //@{
 
 /**
+    @struct wxExecuteEnv
+
+    This structure can optionally be passed to wxExecute() to specify
+    additional options to use for the child process.
+
+    @since 2.9.2
+
+    @header{wx/utils.h}
+*/
+struct wxExecuteEnv
+{
+    /**
+        The initial working directory for the new process.
+
+        If this field is empty, the current working directory of this process
+        is used.
+    */
+    wxString cwd;
+
+    /**
+        The environment variable map.
+
+        If the map is empty, the environment variables of the current process
+        are also used for the child one, otherwise only the variables defined
+        in this map are used.
+    */
+    wxEnvVariableHashMap env;
+};
+
+/**
     Executes another program in Unix or Windows.
 
     In the overloaded versions of this function, if @a flags parameter contains
@@ -799,6 +881,10 @@ wxLinuxDistributionInfo wxGetLinuxDistributionInfo();
         their combination, in wxEXEC_SYNC case.
     @param callback
         An optional pointer to wxProcess.
+    @param env
+        An optional pointer to additional parameters for the child process,
+        such as its initial working directory and environment variables. This
+        parameter is available in wxWidgets 2.9.2 and later only.
 
     @see wxShell(), wxProcess, @ref page_samples_exec,
          wxLaunchDefaultApplication(), wxLaunchDefaultBrowser()
@@ -810,8 +896,8 @@ wxLinuxDistributionInfo wxGetLinuxDistributionInfo();
     @endWxPerlOnly
 */
 long wxExecute(const wxString& command, int flags = wxEXEC_ASYNC,
-                wxProcess* callback = NULL);
-
+                wxProcess* callback = NULL,
+                const wxExecuteEnv* env = NULL);
 //@}
 
 /** @addtogroup group_funcmacro_procctrl */
@@ -834,6 +920,10 @@ long wxExecute(const wxString& command, int flags = wxEXEC_ASYNC,
         their combination, in wxEXEC_SYNC case.
     @param callback
         An optional pointer to wxProcess.
+    @param env
+        An optional pointer to additional parameters for the child process,
+        such as its initial working directory and environment variables. This
+        parameter is available in wxWidgets 2.9.2 and later only.
 
     @see wxShell(), wxProcess, @ref page_samples_exec,
          wxLaunchDefaultApplication(), wxLaunchDefaultBrowser()
@@ -845,9 +935,11 @@ long wxExecute(const wxString& command, int flags = wxEXEC_ASYNC,
     @endWxPerlOnly
 */
 long wxExecute(char** argv, int flags = wxEXEC_ASYNC,
-                wxProcess* callback = NULL);
+                wxProcess* callback = NULL,
+                const wxExecuteEnv *env = NULL);
 long wxExecute(wchar_t** argv, int flags = wxEXEC_ASYNC,
-                wxProcess* callback = NULL);
+                wxProcess* callback = NULL,
+                const wxExecuteEnv *env = NULL);
 //@}
 
 /** @addtogroup group_funcmacro_procctrl */
@@ -870,6 +962,10 @@ long wxExecute(wchar_t** argv, int flags = wxEXEC_ASYNC,
         May include wxEXEC_NOHIDE, wxEXEC_MAKE_GROUP_LEADER (in either case) or
         wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK, which is equal to
         their combination. wxEXEC_SYNC is always implicitly added to the flags.
+    @param env
+        An optional pointer to additional parameters for the child process,
+        such as its initial working directory and environment variables. This
+        parameter is available in wxWidgets 2.9.2 and later only.
 
     @see wxShell(), wxProcess, @ref page_samples_exec,
          wxLaunchDefaultApplication(), wxLaunchDefaultBrowser()
@@ -882,7 +978,8 @@ long wxExecute(wchar_t** argv, int flags = wxEXEC_ASYNC,
     where @c output in an array reference.
     @endWxPerlOnly
 */
-long wxExecute(const wxString& command, wxArrayString& output, int flags = 0);
+long wxExecute(const wxString& command, wxArrayString& output, int flags = 0,
+                const wxExecuteEnv *env = NULL);
 
 /**
     This is an overloaded version of wxExecute(const wxString&,int,wxProcess*),
@@ -903,6 +1000,10 @@ long wxExecute(const wxString& command, wxArrayString& output, int flags = 0);
         May include wxEXEC_NOHIDE, wxEXEC_MAKE_GROUP_LEADER (in either case) or
         wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK, which is equal to
         their combination. wxEXEC_SYNC is always implicitly added to the flags.
+    @param env
+        An optional pointer to additional parameters for the child process,
+        such as its initial working directory and environment variables. This
+        parameter is available in wxWidgets 2.9.2 and later only.
 
     @see wxShell(), wxProcess, @ref page_samples_exec,
          wxLaunchDefaultApplication(), wxLaunchDefaultBrowser()
@@ -916,7 +1017,8 @@ long wxExecute(const wxString& command, wxArrayString& output, int flags = 0);
     @endWxPerlOnly
 */
 long wxExecute(const wxString& command, wxArrayString& output,
-                wxArrayString& errors, int flags = 0);
+                wxArrayString& errors, int flags = 0,
+                const wxExecuteEnv *env = NULL);
 
 /**
     Returns the number uniquely identifying the current process in the system.
@@ -928,7 +1030,9 @@ unsigned long wxGetProcessId();
 
 /**
     Equivalent to the Unix kill function: send the given signal @a sig to the
-    process with PID @a pid. The valid signal values are:
+    process with PID @a pid.
+
+    The valid signal values are:
 
     @code
     enum wxSignal
@@ -957,7 +1061,7 @@ unsigned long wxGetProcessId();
     @c wxSIGTERM under Windows.
 
     Returns 0 on success, -1 on failure. If the @a rc parameter is not @NULL,
-    it will be filled with a value of the the @c wxKillError enum:
+    it will be filled with a value from the @c wxKillError enum:
 
     @code
     enum wxKillError
@@ -980,8 +1084,8 @@ unsigned long wxGetProcessId();
 
     @header{wx/utils.h}
 */
-int wxKill(long pid, int sig = wxSIGTERM,
-            wxKillError rc = NULL, int flags = 0);
+int wxKill(long pid, wxSignal sig = wxSIGTERM,
+            wxKillError* rc = NULL, int flags = wxKILL_NOCHILDREN);
 
 /**
     Executes a command in an interactive shell window. If no command is
@@ -991,7 +1095,7 @@ int wxKill(long pid, int sig = wxSIGTERM,
 
     @header{wx/utils.h}
 */
-bool wxShell(const wxString& command = NULL);
+bool wxShell(const wxString& command = wxEmptyString);
 
 /**
     This function shuts down or reboots the computer depending on the value of

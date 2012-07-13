@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by:
 // Created:     2003/02/15
-// RCS-ID:      $Id: stattext.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: stattext.mm 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,6 @@
 #import <AppKit/NSTextField.h>
 #include <math.h>
 
-IMPLEMENT_DYNAMIC_CLASS(wxStaticText, wxControl)
 BEGIN_EVENT_TABLE(wxStaticText, wxControl)
 END_EVENT_TABLE()
 WX_IMPLEMENT_COCOA_OWNER(wxStaticText,NSTextField,NSControl,NSView)

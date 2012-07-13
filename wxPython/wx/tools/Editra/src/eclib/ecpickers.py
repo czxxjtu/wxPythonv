@@ -19,8 +19,8 @@ Custom font picker control
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ecpickers.py 65202 2010-08-06 15:49:23Z CJP $"
-__revision__ = "$Revision: 65202 $"
+__svnid__ = "$Id: ecpickers.py 67672 2011-05-02 00:01:44Z CJP $"
+__revision__ = "$Revision: 67672 $"
 
 __all__ = ['PyFontPicker', 'FontChangeEvent',
            'EVT_FONT_CHANGED', 'edEVT_FONT_CHANGED']
@@ -145,8 +145,8 @@ class PyFontPicker(wx.Panel):
         fdata = wx.FontData()
         fdata.SetInitialFont(self._font)
         fdlg = wx.FontDialog(self.GetParent(), fdata)
-        fdlg.ShowModal()
-        fdata = fdlg.GetFontData()
+        if fdlg.ShowModal() == wx.ID_OK:
+            fdata = fdlg.GetFontData()
+            wx.PostEvent(self, wx.FontPickerEvent(self, self.GetId(),
+                                                  fdata.GetChosenFont()))
         fdlg.Destroy()
-        wx.PostEvent(self, wx.FontPickerEvent(self, self.GetId(),
-                                              fdata.GetChosenFont()))

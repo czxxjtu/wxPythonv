@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        splash.h
+// Name:        wx/generic/splash.h
 // Purpose:     Splash screen class
 // Author:      Julian Smart
 // Modified by:
 // Created:     28/6/2000
-// RCS-ID:      $Id: splash.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: splash.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////

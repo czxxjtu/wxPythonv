@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/common/mediactrl.cpp
+// Name:        src/common/mediactrlcmn.cpp
 // Purpose:     wxMediaCtrl common code
 // Author:      Ryan Norton <wxprojects@comcast.net>
 // Modified by:
 // Created:     11/07/04
-// RCS-ID:      $Id: mediactrlcmn.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: mediactrlcmn.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -123,7 +123,6 @@ bool wxMediaCtrl::Create(wxWindow* parent, wxWindowID id,
 
         while((classInfo = NextBackend(&it)) != NULL)
         {
-            wxLogMessage( classInfo->GetClassName() );
             if(!DoCreate(classInfo, parent, id,
                          pos, size, style, validator, name))
                 continue;

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Francesco Montorsi
 // Created:     04/01/98
-// RCS-ID:      $Id: valtext.cpp 63732 2010-03-21 11:06:36Z VZ $
+// RCS-ID:      $Id: valtext.cpp 66385 2010-12-16 17:21:49Z JMS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -32,6 +32,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "wx/combo.h"
 
 // ----------------------------------------------------------------------------
 // global helpers
@@ -125,8 +127,16 @@ wxTextEntry *wxTextValidator::GetTextEntry()
     }
 #endif
 
+#if wxUSE_COMBOCTRL
+    if (m_validatorWindow->IsKindOf(CLASSINFO(wxComboCtrl)))
+    {
+        return (wxComboCtrl*)m_validatorWindow;
+    }
+#endif
+
     wxFAIL_MSG(
-        wxT("wxTextValidator can only be used with wxTextCtrl or wxComboBox")
+        "wxTextValidator can only be used with wxTextCtrl, wxComboBox, "
+        "or wxComboCtrl"
     );
 
     return NULL;

@@ -4,7 +4,7 @@
 // Author:      P. Foggia 1996
 // Modified by: Wlodzimierz Skiba (ABX) since 2003
 // Created:     1996
-// RCS-ID:      $Id: bombs1.cpp 45933 2007-05-10 01:46:57Z VZ $
+// RCS-ID:      $Id: bombs1.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 1996 P. Foggia
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ void BombsCanvas::DrawField(wxDC *dc, int xc1, int yc1, int xc2, int yc2)
                     dc->SetBrush(*focusedBrush);
                 else if (m_game->IsSelected(x,y))
                     dc->SetBrush(*wxWHITE_BRUSH);
-                else 
+                else
                     dc->SetBrush(*yellowBrush);
                 dc->DrawRectangle( x*m_cellWidth*X_UNIT, y*m_cellHeight*Y_UNIT,
                     m_cellWidth*X_UNIT+1, m_cellHeight*Y_UNIT+1);
@@ -163,7 +163,7 @@ void BombsCanvas::DrawField(wxDC *dc, int xc1, int yc1, int xc2, int yc2)
 
     wxString msg;
     msg.Printf(wxT("%d bombs, %u marked, %d remaining cells"),
-               m_game->GetNumBombs(), m_game->GetNumMarkedCells(), 
+               m_game->GetNumBombs(), m_game->GetNumMarkedCells(),
                m_game->GetNumRemainingCells() );
 
 #if wxUSE_LOG && wxUSE_STATUSBAR

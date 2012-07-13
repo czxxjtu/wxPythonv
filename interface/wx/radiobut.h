@@ -2,7 +2,7 @@
 // Name:        radiobut.h
 // Purpose:     interface of wxRadioButton
 // Author:      wxWidgets team
-// RCS-ID:      $Id: radiobut.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: radiobut.h 65344 2010-08-18 21:36:40Z RR $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -107,6 +107,10 @@ public:
     /**
         Sets the radio button to selected or deselected status. This does not cause a
         @c wxEVT_COMMAND_RADIOBUTTON_SELECTED event to get emitted.
+        
+        If the radio button belongs to a group you can only select a radio button
+        (which will deselect the previously selected button) and you therefore
+        must not call this method with value set to @false in that case.
 
         @param value
             @true to select, @false to deselect.

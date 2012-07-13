@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     2003/02/28
-// RCS-ID:      $Id: msgdlg.h 52834 2008-03-26 15:06:00Z FM $
+// RCS-ID:      $Id: msgdlg.h 66994 2011-02-22 13:25:51Z VZ $
 // Copyright:   (c) Vaclav Slavik, 2003
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -18,7 +18,7 @@
 // type is an 'or' (|) of wxOK, wxCANCEL, wxYES_NO
 // Returns wxYES/NO/OK/CANCEL
 
-WXDLLIMPEXP_DATA_CORE(extern const wxChar) wxMessageBoxCaptionStr[];
+extern WXDLLIMPEXP_DATA_CORE(const wxChar) wxMessageBoxCaptionStr[];
 
 class WXDLLIMPEXP_CORE wxMessageDialog: public wxDialog, public wxMessageDialogBase
 {

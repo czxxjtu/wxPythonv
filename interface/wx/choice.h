@@ -2,7 +2,7 @@
 // Name:        choice.h
 // Purpose:     interface of wxChoice
 // Author:      wxWidgets team
-// RCS-ID:      $Id: choice.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: choice.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_CHOICE(id, func)}
-           Process a wxEVT_COMMAND_CHOICE_SELECTED event, when an item on the
+           Process a @c wxEVT_COMMAND_CHOICE_SELECTED event, when an item on the
            list is selected.
     @endEventTable
 
@@ -184,5 +184,15 @@ public:
                  anything under other platforms.
     */
     virtual void SetColumns(int n = 1);
+
+    virtual bool IsSorted() const;
+    
+    virtual unsigned int GetCount() const ;
+    virtual int GetSelection() const ;
+    virtual void SetSelection(int n);
+
+    virtual int FindString(const wxString& s, bool bCase = false) const;
+    virtual wxString GetString(unsigned int n) const ;
+    virtual void SetString(unsigned int pos, const wxString& s);
 };
 

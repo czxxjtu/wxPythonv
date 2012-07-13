@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin: merge with the MDI version and general cleanup
 // Created:     04/01/98
-// RCS-ID:      $Id: view.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: view.cpp 68051 2011-06-27 00:09:37Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 //              (c) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -41,31 +41,25 @@ END_EVENT_TABLE()
 
 // What to do when a view is created. Creates actual
 // windows for displaying the view.
-bool DrawingView::OnCreate(wxDocument *doc, long WXUNUSED(flags) )
+bool DrawingView::OnCreate(wxDocument *doc, long flags)
 {
+    if ( !wxView::OnCreate(doc, flags) )
+        return false;
+
     MyApp& app = wxGetApp();
     if ( app.GetMode() != MyApp::Mode_Single )
     {
         // create a new window and canvas inside it
-        m_frame = app.CreateChildFrame(doc, this, true);
-        m_frame->SetTitle("Drawing View");
-
-        m_canvas = new MyCanvas(this, m_frame);
-        m_frame->Show(true);
+        wxFrame* frame = app.CreateChildFrame(this, true);
+        wxASSERT(frame == GetFrame());
+        m_canvas = new MyCanvas(this);
+        frame->Show();
     }
     else // single document mode
     {
         // reuse the existing window and canvas
-        m_frame = wxStaticCast(app.GetTopWindow(), wxFrame);
         m_canvas = app.GetMainWindowCanvas();
         m_canvas->SetView(this);
-
-        // Associate the appropriate frame with this view.
-        SetFrame(m_frame);
-
-        // Make sure the document manager knows that this is the
-        // current view.
-        Activate(true);
 
         // Initialize the edit menu Undo and Redo items
         doc->GetCommandProcessor()->SetEditMenu(app.GetMainWindowEditMenu());
@@ -88,7 +82,7 @@ void DrawingView::OnDraw(wxDC *dc)
           ++i )
     {
         const DoodleLines& lines = i->GetLines();
-        for ( DoodleLines::const_iterator j = lines.begin(); 
+        for ( DoodleLines::const_iterator j = lines.begin();
               j != lines.end();
               ++j )
         {
@@ -114,7 +108,7 @@ void DrawingView::OnUpdate(wxView* sender, wxObject* hint)
 // Clean up windows used for displaying the view.
 bool DrawingView::OnClose(bool deleteWindow)
 {
-    if ( !GetDocument()->Close() )
+    if ( !wxView::OnClose(deleteWindow) )
         return false;
 
     Activate(false);
@@ -126,17 +120,17 @@ bool DrawingView::OnClose(bool deleteWindow)
         m_canvas->ResetView();
         m_canvas = NULL;
 
-        if ( m_frame )
-            m_frame->SetTitle(wxTheApp->GetAppDisplayName());
+        if (GetFrame())
+            wxStaticCast(GetFrame(), wxFrame)->SetTitle(wxTheApp->GetAppDisplayName());
     }
     else // not single window mode
     {
         if ( deleteWindow )
-            wxDELETE(m_frame);
+        {
+            GetFrame()->Destroy();
+            SetFrame(NULL);
+        }
     }
-
-    SetFrame(NULL);
-
     return true;
 }
 
@@ -159,17 +153,17 @@ BEGIN_EVENT_TABLE(TextEditView, wxView)
     EVT_MENU(wxID_SELECTALL, TextEditView::OnSelectAll)
 END_EVENT_TABLE()
 
-bool TextEditView::OnCreate(wxDocument *doc, long WXUNUSED(flags))
+bool TextEditView::OnCreate(wxDocument *doc, long flags)
 {
-    m_frame = wxGetApp().CreateChildFrame(doc, this, false);
-    m_text = new wxTextCtrl(m_frame, wxID_ANY, "",
-                            wxPoint(0, 0), m_frame->GetClientSize(),
+    if ( !wxView::OnCreate(doc, flags) )
+        return false;
+
+    wxFrame* frame = wxGetApp().CreateChildFrame(this, false);
+    wxASSERT(frame == GetFrame());
+    m_text = new wxTextCtrl(frame, wxID_ANY, "",
+                            wxDefaultPosition, wxDefaultSize,
                             wxTE_MULTILINE);
-
-    m_frame->SetTitle("Text View");
-    m_frame->Show(true);
-
-    Activate(true);
+    frame->Show();
 
     return true;
 }
@@ -181,7 +175,7 @@ void TextEditView::OnDraw(wxDC *WXUNUSED(dc))
 
 bool TextEditView::OnClose(bool deleteWindow)
 {
-    if ( !GetDocument()->Close() )
+    if ( !wxView::OnClose(deleteWindow) )
         return false;
 
     Activate(false);
@@ -193,9 +187,11 @@ bool TextEditView::OnClose(bool deleteWindow)
     else // not single window mode
     {
         if ( deleteWindow )
-            wxDELETE(m_frame);
+        {
+            GetFrame()->Destroy();
+            SetFrame(NULL);
+        }
     }
-
     return true;
 }
 
@@ -209,7 +205,7 @@ END_EVENT_TABLE()
 
 // Define a constructor for my canvas
 MyCanvas::MyCanvas(wxView *view, wxWindow *parent)
-    : wxScrolledWindow(parent, wxID_ANY, wxPoint(0, 0), parent->GetClientSize())
+    : wxScrolledWindow(parent ? parent : view->GetFrame())
 {
     m_view = view;
     m_currentSegment = NULL;
@@ -287,12 +283,11 @@ void MyCanvas::OnMouseEvent(wxMouseEvent& event)
 // ----------------------------------------------------------------------------
 
 // Define a constructor for my canvas
-ImageCanvas::ImageCanvas(wxView* view, wxWindow* parent)
-    : wxScrolledWindow(parent, wxID_ANY, wxPoint(0, 0), parent->GetClientSize())
+ImageCanvas::ImageCanvas(wxView* view)
+    : wxScrolledWindow(view->GetFrame())
 {
-    SetScrollRate( 10, 10 );
-
     m_view = view;
+    SetScrollRate( 10, 10 );
 }
 
 // Define the repainting behaviour
@@ -313,13 +308,16 @@ ImageDocument* ImageView::GetDocument()
     return wxStaticCast(wxView::GetDocument(), ImageDocument);
 }
 
-bool ImageView::OnCreate(wxDocument* doc, long WXUNUSED(flags))
+bool ImageView::OnCreate(wxDocument* doc, long flags)
 {
-    m_frame = wxGetApp().CreateChildFrame(doc, this, false);
-    m_frame->SetTitle("Image View");
-    m_canvas = new ImageCanvas(this, m_frame);
-    m_frame->Show(true);
-    Activate(true);
+    if ( !wxView::OnCreate(doc, flags) )
+        return false;
+
+    wxFrame* frame = wxGetApp().CreateChildFrame(this, false);
+    wxASSERT(frame == GetFrame());
+    m_canvas = new ImageCanvas(this);
+    frame->Show();
+
     return true;
 }
 
@@ -344,7 +342,7 @@ void ImageView::OnDraw(wxDC* dc)
 
 bool ImageView::OnClose(bool deleteWindow)
 {
-    if ( !GetDocument()->Close() )
+    if ( !wxView::OnClose(deleteWindow) )
         return false;
 
     Activate(false);
@@ -356,8 +354,84 @@ bool ImageView::OnClose(bool deleteWindow)
     else // not single window mode
     {
         if ( deleteWindow )
-            wxDELETE(m_frame);
+        {
+            GetFrame()->Destroy();
+            SetFrame(NULL);
+        }
     }
     return true;
 }
 
+// ----------------------------------------------------------------------------
+// ImageDetailsView
+// ----------------------------------------------------------------------------
+
+ImageDetailsView::ImageDetailsView(ImageDetailsDocument *doc)
+                : wxView()
+{
+    SetDocument(doc);
+
+    m_frame = wxGetApp().CreateChildFrame(this, false);
+    m_frame->SetTitle("Image Details");
+
+    wxPanel * const panel = new wxPanel(m_frame);
+    wxFlexGridSizer * const sizer = new wxFlexGridSizer(2, wxSize(5, 5));
+    const wxSizerFlags
+        flags = wxSizerFlags().Align(wxALIGN_CENTRE_VERTICAL).Border();
+
+    sizer->Add(new wxStaticText(panel, wxID_ANY, "Image &file:"), flags);
+    sizer->Add(new wxStaticText(panel, wxID_ANY, doc->GetFilename()), flags);
+
+    sizer->Add(new wxStaticText(panel, wxID_ANY, "Image &type:"), flags);
+    wxString typeStr;
+    switch ( doc->GetType() )
+    {
+        case wxBITMAP_TYPE_PNG:
+            typeStr = "PNG";
+            break;
+
+        case wxBITMAP_TYPE_JPEG:
+            typeStr = "JPEG";
+            break;
+
+        default:
+            typeStr = "Unknown";
+    }
+    sizer->Add(new wxStaticText(panel, wxID_ANY, typeStr), flags);
+
+    sizer->Add(new wxStaticText(panel, wxID_ANY, "Image &size:"), flags);
+    wxSize size = doc->GetSize();
+    sizer->Add(new wxStaticText(panel, wxID_ANY,
+                                wxString::Format("%d*%d", size.x, size.y)),
+               flags);
+
+    sizer->Add(new wxStaticText(panel, wxID_ANY, "Number of unique &colours:"),
+               flags);
+    sizer->Add(new wxStaticText(panel, wxID_ANY,
+                                wxString::Format("%lu", doc->GetNumColours())),
+               flags);
+
+    sizer->Add(new wxStaticText(panel, wxID_ANY, "Uses &alpha:"), flags);
+    sizer->Add(new wxStaticText(panel, wxID_ANY,
+                                doc->HasAlpha() ? "Yes" : "No"), flags);
+
+    panel->SetSizer(sizer);
+    m_frame->SetClientSize(panel->GetBestSize());
+    m_frame->Show(true);
+}
+
+void ImageDetailsView::OnDraw(wxDC * WXUNUSED(dc))
+{
+    // nothing to do here, we use controls to show our information
+}
+
+bool ImageDetailsView::OnClose(bool deleteWindow)
+{
+    if ( wxGetApp().GetMode() != MyApp::Mode_Single && deleteWindow )
+    {
+        delete m_frame;
+        m_frame = NULL;
+    }
+
+    return true;
+}

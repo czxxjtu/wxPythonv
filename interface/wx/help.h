@@ -2,7 +2,7 @@
 // Name:        help.h
 // Purpose:     interface of wxHelpController
 // Author:      wxWidgets team
-// RCS-ID:      $Id: help.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: help.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -208,7 +208,7 @@ public:
     virtual bool LoadFile(const wxString& file = wxEmptyString);
 
     /**
-        Overrideable member called when this application's viewer is quit by the user.
+        Overridable member called when this application's viewer is quit by the user.
         This does not work for all help controllers.
     */
     virtual bool OnQuit();

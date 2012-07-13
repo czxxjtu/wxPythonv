@@ -3,7 +3,7 @@
 // Purpose:     implements dispatcher for select() call
 // Author:      Lukasz Michalski and Vadim Zeitlin
 // Created:     December 2006
-// RCS-ID:      $Id: selectdispatcher.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: selectdispatcher.cpp 66076 2010-11-09 23:53:33Z VZ $
 // Copyright:   (c) 2006 Lukasz Michalski
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -220,8 +220,8 @@ int wxSelectDispatcher::DoSelect(wxSelectSets& sets, int timeout) const
     if ( timeout != TIMEOUT_INFINITE )
     {
         ptv = &tv;
-        tv.tv_sec = 0;
-        tv.tv_usec = timeout*1000;
+        tv.tv_sec = timeout / 1000;
+        tv.tv_usec = (timeout % 1000)*1000;
     }
     else // no timeout
     {

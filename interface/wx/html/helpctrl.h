@@ -2,7 +2,7 @@
 // Name:        html/helpctrl.h
 // Purpose:     interface of wxHtmlHelpController
 // Author:      wxWidgets team
-// RCS-ID:      $Id: helpctrl.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: helpctrl.h 67228 2011-03-18 09:16:14Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -170,6 +170,21 @@ public:
     */
     virtual void ReadCustomization(wxConfigBase* cfg,
                                    const wxString& path = wxEmptyString);
+
+    /**
+        Sets whether the help frame should prevent application from exiting
+        if it's the only remaining top level window.
+
+        @enable
+            If @true, the application will not quit unless the help frame is
+            closed. Default is @false, i.e. the application does exit if only
+            the help window remains opened.
+
+        @see wxApp::SetExitOnFrameDelete()
+
+        @since 2.9.2
+    */
+    void SetShouldPreventAppExit(bool enable);
 
     /**
         Sets the path for storing temporary files - cached binary versions of index and

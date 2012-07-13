@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dirdlg.h
+// Name:        wx/gtk/dirdlg.h
 // Purpose:     wxDirDialog
 // Author:      Francesco Montorsi
-// Id:          $Id: dirdlg.h 49660 2007-11-05 22:31:24Z VZ $
+// Id:          $Id: dirdlg.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2006 Francesco Montorsi
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

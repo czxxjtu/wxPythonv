@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     24-May-1998
-// RCS-ID:      $Id: _event.i 64487 2010-06-05 01:08:51Z RD $
+// RCS-ID:      $Id: _event.i 68414 2011-07-25 18:52:07Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@ wxEventType wxNewEventType();
 %constant wxEventType wxEVT_COMMAND_COMBOBOX_DROPDOWN;
 %constant wxEventType wxEVT_COMMAND_COMBOBOX_CLOSEUP;
 
-%constant wxEventType wxEVT_COMMAND_THREAD;
+%constant wxEventType wxEVT_THREAD;
 
 
 // Mouse event types
@@ -437,7 +437,7 @@ EVT_TEXT_CUT   =  wx.PyEventBinder( wxEVT_COMMAND_TEXT_CUT )
 EVT_TEXT_COPY  =  wx.PyEventBinder( wxEVT_COMMAND_TEXT_COPY )
 EVT_TEXT_PASTE =  wx.PyEventBinder( wxEVT_COMMAND_TEXT_PASTE )
 
-EVT_THREAD = wx.PyEventBinder( wxEVT_COMMAND_THREAD )
+EVT_THREAD = wx.PyEventBinder( wxEVT_THREAD )
 }
 
 //---------------------------------------------------------------------------
@@ -623,6 +623,11 @@ public:
 //---------------------------------------------------------------------------
 %newgroup;
 
+// TODO: wxCommandEvent now has an additional base class,
+// wxEventBasicPayloadMixin handling the common int, string, etc. data
+// methods.  Decide if that should be visible in the Python API too.
+
+
 DocStr(wxCommandEvent,
 "This event class contains information about command events, which
 originate from a variety of simple controls, as well as menus and
@@ -769,10 +774,22 @@ false otherwise (if it was).", "");
 //---------------------------------------------------------------------------
 %newgroup;
 
-class wxThreadEvent : public wxCommandEvent
+
+class wxThreadEvent : public wxEvent
 {
 public:
-    wxThreadEvent(wxEventType eventType = wxEVT_COMMAND_THREAD, int id = wxID_ANY);
+    wxThreadEvent(wxEventType eventType = wxEVT_THREAD, int id = wxID_ANY);
+
+    long GetExtraLong() const;
+    int GetInt() const;
+    wxString GetString() const;
+    void SetExtraLong(long extraLong);
+    void SetInt(int intCommand);   
+    void SetString(const wxString& string);
+
+    %property(ExtraLong, GetExtraLong, SetExtraLong, doc="See `GetExtraLong` and `SetExtraLong`");
+    %property(Int, GetInt, SetInt, doc="See `GetInt` and `SetInt`");
+    %property(String, GetString, SetString, doc="See `GetString` and `SetString`");
 };
 
 
@@ -1391,7 +1408,7 @@ character using `GetUnicodeKey`.", "");
         DocStr(
             GetUnicodeKey,
             "Returns the Unicode character corresponding to this key event.  This
-function is only meaningfule in a Unicode build of wxPython.", "");
+function is only meaningful in a Unicode build of wxPython.", "");
         int GetUnicodeKey() {
         %#if wxUSE_UNICODE
             return self->GetUnicodeKey();
@@ -1505,11 +1522,7 @@ event.", "");
     wxRect GetRect() const;
     void SetRect(wxRect rect);
 
-    %extend {
-        void SetSize(wxSize size) {
-            self->m_size = size;
-        }
-    }
+    void SetSize(wxSize size);
 
     wxSize m_size;
     wxRect m_rect;
@@ -2628,7 +2641,7 @@ public:
 
 DocStr(wxPyCommandEvent,
 "wx.PyCommandEvent can be used as a base class for implementing custom
-event types in Python, where the event shoudl travel up to parent
+event types in Python, where the event should travel up to parent
 windows looking for a handler.  You should derived from this class
 instead of `wx.CommandEvent` because this class is Python-aware and is
 able to transport its Python bits safely through the wxWidgets event

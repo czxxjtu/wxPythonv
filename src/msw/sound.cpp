@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        sound.cpp
+// Name:        src/msw/sound.cpp
 // Purpose:     wxSound
 // Author:      Julian Smart
 // Modified by: 2005-07-29: Vadim Zeitlin: redesign
 // Created:     04/01/98
-// RCS-ID:      $Id: sound.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: sound.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

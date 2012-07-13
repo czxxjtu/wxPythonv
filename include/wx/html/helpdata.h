@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        helpdata.h
+// Name:        wx/html/helpdata.h
 // Purpose:     wxHtmlHelpData
 // Notes:       Based on htmlhelp.cpp, implementing a monolithic
 //              HTML Help controller class,  by Vaclav Slavik
 // Author:      Harm van der Heijden and Vaclav Slavik
-// RCS-ID:      $Id: helpdata.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: helpdata.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Harm van der Heijden and Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

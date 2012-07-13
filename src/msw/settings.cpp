@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: settings.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: settings.cpp 67018 2011-02-25 09:38:35Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -132,6 +132,11 @@ wxColour wxSystemSettingsNative::GetColour(wxSystemColour index)
     {
         // there is no standard colour with this index, map to another one
         index = wxSYS_COLOUR_WINDOWTEXT;
+    }
+    else if ( index == wxSYS_COLOUR_LISTBOXHIGHLIGHTTEXT)
+    {
+        // there is no standard colour with this index, map to another one
+        index = wxSYS_COLOUR_HIGHLIGHTTEXT;
     }
     else if ( index == wxSYS_COLOUR_LISTBOX )
     {

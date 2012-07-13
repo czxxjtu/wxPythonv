@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: msgdlg.cpp 64068 2010-04-20 19:09:38Z SC $
+// RCS-ID:      $Id: msgdlg.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ wxMessageDialog::wxMessageDialog(wxWindow *parent,
                                  const wxString& caption,
                                  long style,
                                  const wxPoint& WXUNUSED(pos))
-               : wxMessageDialogWithCustomLabels(parent, message, caption, style)
+               : wxMessageDialogBase(parent, message, caption, style)
 {
 }
 
@@ -69,8 +69,8 @@ int wxMessageDialog::ShowModal()
     //
     // if the extended text is not empty we ignore the caption
     // and use the message and the extended message
-    
-    
+
+
     wxString msgtitle,msgtext;
     if(m_extendedMessage.IsEmpty())
     {
@@ -266,7 +266,7 @@ int wxMessageDialog::ShowModal()
             }
         }
     }
-    
+
     SetReturnCode(resultbutton);
 
     return resultbutton;

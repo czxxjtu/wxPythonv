@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        gtk/timer.cpp
+// Name:        src/gtk/timer.cpp
 // Purpose:     wxTimer implementation
 // Author:      Robert Roebling
-// Id:          $Id: timer.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: timer.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

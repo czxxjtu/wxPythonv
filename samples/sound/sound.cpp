@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     2004/01/29
-// RCS-ID:      $Id: sound.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: sound.cpp 66536 2011-01-03 14:58:26Z VZ $
 // Copyright:   (c) 2004 Vaclav Salvik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -993,7 +993,13 @@ void MyFrame::OnSelectFile(wxCommandEvent& WXUNUSED(event))
 #if wxUSE_FILEDLG
     wxFileDialog dlg(this, wxT("Choose a sound file"),
                      wxEmptyString, wxEmptyString,
-                     wxT("WAV files (*.wav)|*.wav"), wxFD_OPEN|wxFD_CHANGE_DIR);
+                     wxString::Format
+                     (
+                         "WAV files (*.wav)|*.wav|All files (%s)|%s",
+                         wxFileSelectorDefaultWildcardStr,
+                         wxFileSelectorDefaultWildcardStr
+                     ),
+                     wxFD_OPEN|wxFD_CHANGE_DIR);
     if ( dlg.ShowModal() == wxID_OK )
     {
         m_soundFile = dlg.GetPath();

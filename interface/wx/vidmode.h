@@ -2,7 +2,7 @@
 // Name:        vidmode.h
 // Purpose:     interface of wxVideoMode
 // Author:      wxWidgets team
-// RCS-ID:      $Id: display.h 52634 2008-03-20 13:45:17Z VS $
+// RCS-ID:      $Id: vidmode.h 67232 2011-03-18 15:10:15Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -86,5 +86,5 @@ public:
 /**
     A global wxVideoMode instance used by wxDisplay.
 */
-wxVideoMode wxDefaultVideoMode;
+const wxVideoMode wxDefaultVideoMode;
 

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: printwin.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: printwin.cpp 66813 2011-01-29 13:55:40Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -49,8 +49,9 @@
 #include "wx/msw/printdlg.h"
 #include "wx/msw/private.h"
 #include "wx/msw/dcprint.h"
-#include "wx/msw/enhmeta.h"
-
+#if wxUSE_ENH_METAFILE
+    #include "wx/msw/enhmeta.h"
+#endif
 #include <stdlib.h>
 
 // ---------------------------------------------------------------------------
@@ -390,6 +391,7 @@ void wxWindowsPrintPreview::DetermineScaling()
     m_previewScaleY = float(logPPIScreenY) / logPPIPrinterY;
 }
 
+#if wxUSE_ENH_METAFILE
 bool wxWindowsPrintPreview::RenderPageIntoBitmap(wxBitmap& bmp, int pageNum)
 {
     // The preview, as implemented in wxPrintPreviewBase (and as used prior to
@@ -435,7 +437,7 @@ bool wxWindowsPrintPreview::RenderPageIntoBitmap(wxBitmap& bmp, int pageNum)
 
     return true;
 }
-
+#endif // wxUSE_ENH_METAFILE
 
 BOOL CALLBACK wxAbortProc(HDC WXUNUSED(hdc), int WXUNUSED(error))
 {

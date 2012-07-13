@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: radiobox.h 60885 2009-06-03 22:33:32Z VZ $
+// RCS-ID:      $Id: radiobox.h 65957 2010-10-30 23:50:39Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -123,8 +123,13 @@ public:
     void SetLabelFont(const wxFont& WXUNUSED(font)) {}
     void SetButtonFont(const wxFont& font) { SetFont(font); }
 
+
     // implementation only from now on
     // -------------------------------
+
+    // This function can be used to check if the given radio button HWND
+    // belongs to one of our radio boxes. If it doesn't, NULL is returned.
+    static wxRadioBox *GetFromRadioButtonHWND(WXHWND hwnd);
 
     virtual bool MSWCommand(WXUINT param, WXWORD id);
     void Command(wxCommandEvent& event);

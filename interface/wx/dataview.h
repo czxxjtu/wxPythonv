@@ -2,7 +2,7 @@
 // Name:        dataview.h
 // Purpose:     interface of wxDataView* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dataview.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dataview.h 67920 2011-06-11 23:56:44Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -20,17 +20,26 @@
     wxDataViewModel::GetValue in order to define the data model which acts as an
     interface between your actual data and the wxDataViewCtrl.
 
-    Since you will usually also allow the wxDataViewCtrl to change your data
+    Note that wxDataViewModel does not define the position or index of any item
+    in the control because different controls might display the same data differently.
+    wxDataViewModel does provide a wxDataViewModel::Compare method which the
+    wxDataViewCtrl may use to sort the data either in conjunction with a column
+    header or without (see wxDataViewModel::HasDefaultCompare).
+
+    wxDataViewModel (as indeed the entire wxDataViewCtrl code) is using wxVariant
+    to store data and its type in a generic way. wxVariant can be extended to contain
+    almost any data without changes to the original class. To a certain extent,
+    you can use (the somewhat more elegant) wxAny instead of wxVariant as there
+    is code to convert between the two, but it is unclear what impact this will
+    have on performance.
+
+    Since you will usually allow the wxDataViewCtrl to change your data
     through its graphical interface, you will also have to override
     wxDataViewModel::SetValue which the wxDataViewCtrl will call when a change
     to some data has been committed.
 
-    wxDataViewModel (as indeed the entire wxDataViewCtrl code) is using wxVariant
-    to store data and its type in a generic way. wxVariant can be extended to contain
-    almost any data without changes to the original class.
-
-    The data that is presented through this data model is expected to change at
-    run-time. You need to inform the data model when a change happened.
+    If the data represented by the model is changed by something else than its
+    associated wxDataViewCtrl, the control has to be notified about the change.
     Depending on what happened you need to call one of the following methods:
     - wxDataViewModel::ValueChanged,
     - wxDataViewModel::ItemAdded,
@@ -43,12 +52,6 @@
     - wxDataViewModel::ItemsAdded,
     - wxDataViewModel::ItemsDeleted,
     - wxDataViewModel::ItemsChanged.
-
-    Note that wxDataViewModel does not define the position or index of any item
-    in the control because different controls might display the same data differently.
-    wxDataViewModel does provide a wxDataViewModel::Compare method which the
-    wxDataViewCtrl may use to sort the data either in conjunction with a column
-    header or without (see wxDataViewModel::HasDefaultCompare).
 
     This class maintains a list of wxDataViewModelNotifier which link this class
     to the specific implementations on the supported platforms so that e.g. calling
@@ -74,6 +77,19 @@
 
         // add columns now
     @endcode
+
+    A potentially better way to avoid memory leaks is to use wxObjectDataPtr
+    
+    @code
+        wxObjectDataPtr<MyMusicModel> musicModel;
+        
+        wxDataViewCtrl *musicCtrl = new wxDataViewCtrl( this, wxID_ANY );
+        musicModel = new MyMusicModel;
+        m_musicCtrl->AssociateModel( musicModel.get() );
+
+        // add columns now
+    @endcode
+
 
     @library{wxadv}
     @category{dvc}
@@ -152,6 +168,33 @@ public:
                          wxDataViewItemAttr& attr) const;
 
     /**
+        Override this to indicate that the item should be disabled.
+
+        Disabled items are displayed differently (e.g. grayed out) and cannot
+        be interacted with.
+
+        The base class version always returns @true, thus making all items
+        enabled by default.
+
+        @param item
+            The item whose enabled status is requested.
+        @param col
+            The column of the item whose enabled status is requested.
+        @return
+            @true if this item should be enabled, @false otherwise.
+
+        @note Currently disabling items is fully implemented only for the
+              native control implementation in wxOSX/Cocoa and wxGTK. 
+              This feature is only partially supported in the generic
+              version (used by wxMSW) and not supported by the wxOSX/Carbon
+              implementation.
+
+        @since 2.9.2
+    */
+    virtual bool IsEnabled(const wxDataViewItem &item,
+                           unsigned int col) const;
+
+    /**
         Override this so the control can query the child items of an item.
         Returns the number of items.
     */
@@ -173,7 +216,7 @@ public:
 
     /**
         Override this to indicate which wxDataViewItem representing the parent
-        of @a item or an invalid wxDataViewItem if the the root item is
+        of @a item or an invalid wxDataViewItem if the root item is
         the parent item.
     */
     virtual wxDataViewItem GetParent(const wxDataViewItem& item) const = 0;
@@ -188,7 +231,7 @@ public:
     /**
         Override this method to indicate if a container item merely acts as a
         headline (or for categorisation) or if it also acts a normal item with
-        entries for futher columns. By default returns @false.
+        entries for further columns. By default returns @false.
     */
     virtual bool HasContainerColumns(const wxDataViewItem& item) const;
 
@@ -227,41 +270,41 @@ public:
     /**
         Call this to inform the model that an item has been added to the data.
     */
-    virtual bool ItemAdded(const wxDataViewItem& parent,
+    bool ItemAdded(const wxDataViewItem& parent,
                            const wxDataViewItem& item);
 
     /**
         Call this to inform the model that an item has changed.
 
-        This will eventually emit a wxEVT_DATAVIEW_ITEM_VALUE_CHANGED
+        This will eventually emit a @c wxEVT_DATAVIEW_ITEM_VALUE_CHANGED
         event (in which the column fields will not be set) to the user.
     */
-    virtual bool ItemChanged(const wxDataViewItem& item);
+    bool ItemChanged(const wxDataViewItem& item);
 
     /**
         Call this to inform the model that an item has been deleted from the data.
     */
-    virtual bool ItemDeleted(const wxDataViewItem& parent,
+    bool ItemDeleted(const wxDataViewItem& parent,
                              const wxDataViewItem& item);
 
     /**
         Call this to inform the model that several items have been added to the data.
     */
-    virtual bool ItemsAdded(const wxDataViewItem& parent,
+    bool ItemsAdded(const wxDataViewItem& parent,
                             const wxDataViewItemArray& items);
 
     /**
         Call this to inform the model that several items have changed.
 
-        This will eventually emit wxEVT_DATAVIEW_ITEM_VALUE_CHANGED
+        This will eventually emit @c wxEVT_DATAVIEW_ITEM_VALUE_CHANGED
         events (in which the column fields will not be set) to the user.
     */
-    virtual bool ItemsChanged(const wxDataViewItemArray& items);
+    bool ItemsChanged(const wxDataViewItemArray& items);
 
     /**
         Call this to inform the model that several items have been deleted.
     */
-    virtual bool ItemsDeleted(const wxDataViewItem& parent,
+    bool ItemsDeleted(const wxDataViewItem& parent,
                               const wxDataViewItemArray& items);
 
     /**
@@ -294,7 +337,7 @@ public:
         This is also called from wxDataViewCtrl's internal editing code, e.g. when
         editing a text field in the control.
 
-        This will eventually emit a wxEVT_DATAVIEW_ITEM_VALUE_CHANGED
+        This will eventually emit a @c wxEVT_DATAVIEW_ITEM_VALUE_CHANGED
         event to the user.
     */
     virtual bool ValueChanged(const wxDataViewItem& item,
@@ -311,28 +354,17 @@ protected:
 
 
 /**
-    @class wxDataViewIndexListModel
+    @class wxDataViewListModel
 
-    wxDataViewIndexListModel is a specialized data model which lets you address
-    an item by its position (row) rather than its wxDataViewItem (which you can
-    obtain from this class).
-    This model also provides its own wxDataViewIndexListModel::Compare
-    method which sorts the model's data by the index.
-
-    This model is not a virtual model since the control stores each wxDataViewItem.
-    Use wxDataViewVirtualListModel if you need to display millions of items or
-    have other reason to use a virtual control.
+    Base class with abstract API for wxDataViewIndexListModel and
+    wxDataViewVirtualListModel.
 
     @library{wxadv}
     @category{dvc}
 */
-class wxDataViewIndexListModel : public wxDataViewModel
+class wxDataViewListModel : public wxDataViewModel
 {
 public:
-    /**
-        Constructor.
-    */
-    wxDataViewIndexListModel(unsigned int initial_size = 0);
 
     /**
         Destructor.
@@ -365,6 +397,28 @@ public:
     */
     virtual bool GetAttrByRow(unsigned int row, unsigned int col,
                          wxDataViewItemAttr& attr) const;
+
+    /**
+        Override this if you want to disable specific items.
+
+        The base class version always returns @true, thus making all items
+        enabled by default.
+
+        @param row
+            The row of the item whose enabled status is requested.
+        @param col
+            The column of the item whose enabled status is requested.
+        @return
+            @true if the item at this row and column should be enabled,
+            @false otherwise.
+
+        @note See wxDataViewModel::IsEnabled() for the current status of
+              support for disabling the items under different platforms.
+
+        @since 2.9.2
+    */
+    virtual bool IsEnabledByRow(unsigned int row,
+                                unsigned int col) const;
 
     /**
         Returns the number of items (i.e. rows) in the list.
@@ -439,6 +493,34 @@ public:
 };
 
 
+/**
+    @class wxDataViewIndexListModel
+
+    wxDataViewIndexListModel is a specialized data model which lets you address
+    an item by its position (row) rather than its wxDataViewItem (which you can
+    obtain from this class).
+    This model also provides its own wxDataViewIndexListModel::Compare
+    method which sorts the model's data by the index.
+
+    This model is not a virtual model since the control stores each wxDataViewItem.
+    Use wxDataViewVirtualListModel if you need to display millions of items or
+    have other reason to use a virtual control.
+
+    @see wxDataViewListModel for the API.
+    
+    @library{wxadv}
+    @category{dvc}
+*/
+
+class wxDataViewIndexListModel : public wxDataViewListModel
+{
+public:
+    /**
+        Constructor.
+    */
+    wxDataViewIndexListModel(unsigned int initial_size = 0);
+
+};
 
 /**
     @class wxDataViewVirtualListModel
@@ -448,15 +530,15 @@ public:
     the exact same interface as wxDataViewIndexListModel.
     The important difference is that under platforms other than OS X, using this
     model will result in a truly virtual control able to handle millions of items
-    as the control doesn't store any item (a feature not supported by the
-    Carbon API under OS X).
+    as the control doesn't store any item (a feature not supported by OS X).
 
-    @see wxDataViewIndexListModel for the API.
+    @see wxDataViewListModel for the API.
 
     @library{wxadv}
     @category{dvc}
 */
-class wxDataViewVirtualListModel : public wxDataViewModel
+
+class wxDataViewVirtualListModel : public wxDataViewListModel
 {
 public:
     /**
@@ -464,10 +546,6 @@ public:
     */
     wxDataViewVirtualListModel(unsigned int initial_size = 0);
 
-    /**
-        Returns the number of virtual items (i.e. rows) in the list.
-    */
-    unsigned int GetCount() const;
 };
 
 
@@ -589,6 +667,8 @@ public:
            Multiple selection mode.
     @style{wxDV_ROW_LINES}
            Use alternating colours for rows if supported by platform and theme.
+           Currently only supported by the native GTK and OS X implementations
+           but not by the generic one.
     @style{wxDV_HORIZ_RULES}
            Display fine rules between row if supported.
     @style{wxDV_VERT_RULES}
@@ -660,7 +740,8 @@ public:
                    const wxPoint& pos = wxDefaultPosition,
                    const wxSize& size = wxDefaultSize,
                    long style = 0,
-                   const wxValidator& validator = wxDefaultValidator);
+                   const wxValidator& validator = wxDefaultValidator,
+                   const wxString& name = wxDataViewCtrlNameStr);
 
     /**
         Destructor.
@@ -841,7 +922,8 @@ public:
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
                 long style = 0,
-                const wxValidator& validator = wxDefaultValidator);
+                const wxValidator& validator = wxDefaultValidator,
+                const wxString& name = wxDataViewCtrlNameStr);
 
     /**
         Deletes given column.
@@ -898,6 +980,26 @@ public:
     wxDataViewColumn* GetExpanderColumn() const;
 
     /**
+        Returns the currently focused item.
+
+        This is the item that the keyboard commands apply to. It may be invalid
+        if there is no focus currently.
+
+        This method is mostly useful for the controls with @c wxDV_MULTIPLE
+        style as in the case of single selection it returns the same thing as
+        GetSelection().
+
+        Notice that under all platforms except Mac OS X the currently focused
+        item may be selected or not but under OS X the current item is always
+        selected.
+
+        @see SetCurrentItem()
+
+        @since 2.9.2
+     */
+    wxDataViewItem GetCurrentItem() const;
+
+    /**
         Returns indentation.
     */
     int GetIndent() const;
@@ -947,6 +1049,10 @@ public:
 
     /**
         Select the given item.
+
+        In single selection mode this changes the (unique) currently selected
+        item. In multi selection mode, the @a item is selected and the
+        previously selected items remain selected.
     */
     virtual void Select(const wxDataViewItem& item);
 
@@ -961,7 +1067,26 @@ public:
     void SetExpanderColumn(wxDataViewColumn* col);
 
     /**
-        Sets the indendation.
+        Changes the currently focused item.
+
+        The @a item parameter must be valid, there is no way to remove the
+        current item from the control.
+
+        In single selection mode, calling this method is the same as calling
+        Select() and is thus not very useful. In multiple selection mode this
+        method only moves the current item however without changing the
+        selection except under OS X where the current item is always selected,
+        so calling SetCurrentItem() selects @a item if it hadn't been selected
+        before.
+
+        @see GetCurrentItem()
+
+        @since 2.9.2
+     */
+    void SetCurrentItem(const wxDataViewItem& item);
+
+    /**
+        Sets the indentation.
     */
     void SetIndent(int indent);
 
@@ -969,6 +1094,14 @@ public:
         Sets the selection to the array of wxDataViewItems.
     */
     virtual void SetSelections(const wxDataViewItemArray& sel);
+
+    /** 
+        Programmatically starts editing the given item on the given column.
+        Currently not implemented on wxOSX Carbon.
+        @since 2.9.2
+    */
+    
+    virtual void StartEditor(const wxDataViewItem & item, unsigned int column);
 
     /**
         Unselect the given item.
@@ -980,6 +1113,26 @@ public:
         This method only has effect if multiple selections are allowed.
     */
     virtual void UnselectAll();
+
+    /**
+        Sets the row height.
+
+        This function can only be used when all rows have the same height, i.e.
+        when wxDV_VARIABLE_LINE_HEIGHT flag is not used.
+
+        Currently this is implemented in the generic and native GTK versions
+        only and nothing is done (and @false returned) when using OS X port.
+
+        Also notice that this method can only be used to increase the row
+        height compared with the default one (as determined by the return value
+        of wxDataViewRenderer::GetSize()), if it is set to a too small value
+        then the minimum required by the renderers will be used.
+
+        @return @true if the line height was changed or @false otherwise.
+
+        @since 2.9.2
+    */
+    virtual bool SetRowHeight(int rowHeight);
 };
 
 
@@ -1446,7 +1599,7 @@ public:
         Override this to react to double clicks or ENTER.
         This method will only be called in wxDATAVIEW_CELL_ACTIVATABLE mode.
     */
-    virtual bool Activate( wxRect cell,
+    virtual bool Activate( const wxRect& cell,
                            wxDataViewModel* model,
                            const wxDataViewItem & item,
                            unsigned int col );
@@ -1465,9 +1618,9 @@ public:
         }
         @endcode
     */
-    virtual wxControl* CreateEditorCtrl(wxWindow* parent,
-                                        wxRect labelRect,
-                                        const wxVariant& value);
+    virtual wxWindow* CreateEditorCtrl(wxWindow* parent,
+                                       wxRect labelRect,
+                                       const wxVariant& value);
 
     /**
         Return the attribute to be used for rendering.
@@ -1502,7 +1655,7 @@ public:
         }
         @endcode
     */
-    virtual bool GetValueFromEditorCtrl(wxControl* editor,
+    virtual bool GetValueFromEditorCtrl(wxWindow* editor,
                                         wxVariant& value);
 
     /**
@@ -1515,8 +1668,8 @@ public:
         Override this to react to a left click.
         This method will only be called in @c wxDATAVIEW_CELL_ACTIVATABLE mode.
     */
-    virtual bool LeftClick( wxPoint cursor,
-                            wxRect cell,
+    virtual bool LeftClick( const wxPoint& cursor,
+                            const wxRect& cell,
                             wxDataViewModel * model,
                             const wxDataViewItem & item,
                             unsigned int col );
@@ -1540,7 +1693,8 @@ public:
     /**
         Override this to start a drag operation. Not yet supported.
     */
-    virtual bool StartDrag(wxPoint cursor, wxRect cell,
+    virtual bool StartDrag(const wxPoint& cursor,
+                           const wxRect& cell,
                            wxDataViewModel* model,
                            const wxDataViewItem & item,
                            unsigned int col);
@@ -1739,6 +1893,64 @@ public:
     //@}
 
     /**
+        Returns the position of given @e item or wxNOT_FOUND if it's
+        not a valid item.
+
+        @since 2.9.2
+     */
+    int ItemToRow(const wxDataViewItem &item) const;
+
+    /**
+        Returns the wxDataViewItem at the given @e row.
+
+        @since 2.9.2
+     */
+    wxDataViewItem RowToItem(int row) const;
+
+    //@{
+    /**
+        @name Selection handling functions
+     */
+
+    /**
+        Returns index of the selected row or wxNOT_FOUND.
+
+        @see wxDataViewCtrl::GetSelection()
+
+        @since 2.9.2
+     */
+    int GetSelectedRow() const;
+
+    /**
+        Selects given row.
+
+        @see wxDataViewCtrl::Select()
+
+        @since 2.9.2
+     */
+    void SelectRow(unsigned row);
+
+    /**
+        Unselects given row.
+
+        @see wxDataViewCtrl::Unselect()
+
+        @since 2.9.2
+     */
+    void UnselectRow(unsigned row);
+
+    /**
+        Returns true if @a row is selected.
+
+        @see wxDataViewCtrl::IsSelected()
+
+        @since 2.9.2
+     */
+    bool IsRowSelected(unsigned row) const;
+
+    //@}
+
+    /**
         @name Column management functions
     */
     //@{
@@ -1870,7 +2082,7 @@ public:
     /**
          Sets the value in the store and update the control.
 
-         This method assumes that the a string is stored in respective
+         This method assumes that the string is stored in respective
          column.
     */
     void SetTextValue( const wxString &value, unsigned int row, unsigned int col );
@@ -1878,7 +2090,7 @@ public:
     /**
          Returns the value from the store.
 
-         This method assumes that the a string is stored in respective
+         This method assumes that the string is stored in respective
          column.
     */
     wxString GetTextValue( unsigned int row, unsigned int col ) const;
@@ -1886,7 +2098,7 @@ public:
     /**
          Sets the value in the store and update the control.
 
-         This method assumes that the a boolean value is stored in
+         This method assumes that the boolean value is stored in
          respective column.
     */
     void SetToggleValue( bool value, unsigned int row, unsigned int col );
@@ -1894,7 +2106,7 @@ public:
     /**
          Returns the value from the store.
 
-         This method assumes that the a boolean value is stored in
+         This method assumes that the boolean value is stored in
          respective column.
     */
     bool GetToggleValue( unsigned int row, unsigned int col ) const;
@@ -2209,23 +2421,23 @@ public:
     void DeleteAllItems();
 
     /**
-        Overriden from wxDataViewModel
+        Overridden from wxDataViewModel
     */
     virtual unsigned int GetColumnCount() const;
 
     /**
-        Overriden from wxDataViewModel
+        Overridden from wxDataViewModel
     */
     virtual wxString GetColumnType( unsigned int col ) const;
 
     /**
-        Overriden from wxDataViewIndexListModel
+        Overridden from wxDataViewIndexListModel
     */
     virtual void GetValueByRow( wxVariant &value,
                            unsigned int row, unsigned int col ) const;
 
     /**
-        Overriden from wxDataViewIndexListModel
+        Overridden from wxDataViewIndexListModel
     */
     virtual bool SetValueByRow( const wxVariant &value,
                            unsigned int row, unsigned int col );
@@ -2235,7 +2447,7 @@ public:
 /**
     @class wxDataViewTreeStore
 
-    wxDataViewTreeStore is a specialised wxDataViewModel for stroing simple
+    wxDataViewTreeStore is a specialised wxDataViewModel for storing simple
     trees very much like wxTreeCtrl does and it offers a similar API.
 
     This class actually stores the entire tree and the values (therefore its name)
@@ -2297,7 +2509,7 @@ public:
     int GetChildCount(const wxDataViewItem& parent) const;
 
     /**
-        Returns the client data asoociated with the item.
+        Returns the client data associated with the item.
     */
     wxClientData* GetItemData(const wxDataViewItem& item) const;
 
@@ -2494,7 +2706,7 @@ public:
     wxDataViewModel* GetModel() const;
 
     /**
-        Returns a the position of a context menu event in screen coordinates.
+        Returns the position of a context menu event in screen coordinates.
     */
     wxPoint GetPosition() const;
 
@@ -2509,7 +2721,7 @@ public:
     void SetColumn(int col);
 
     /**
-        For wxEVT_DATAVIEW_COLUMN_HEADER_CLICKED only.
+        For @c wxEVT_DATAVIEW_COLUMN_HEADER_CLICKED only.
     */
     void SetDataViewColumn(wxDataViewColumn* col);
 

@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     2003/02/28
-// RCS-ID:      $Id: msgdlg.cpp 64019 2010-04-18 00:05:37Z VZ $
+// RCS-ID:      $Id: msgdlg.cpp 65812 2010-10-15 23:45:58Z VZ $
 // Copyright:   (c) Vaclav Slavik, 2003
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ wxMessageDialog::wxMessageDialog(wxWindow *parent,
                                  const wxString& caption,
                                  long style,
                                  const wxPoint& WXUNUSED(pos))
-               : wxMessageDialogWithCustomLabels
+               : wxMessageDialogBase
                  (
                     GetParentForModalDialog(parent, style),
                     message,
@@ -79,7 +79,7 @@ void wxMessageDialog::DoSetCustomLabel(wxString& var, const ButtonLabel& label)
     int stockId = label.GetStockId();
     if ( stockId == wxID_NONE )
     {
-        wxMessageDialogWithCustomLabels::DoSetCustomLabel(var, label);
+        wxMessageDialogBase::DoSetCustomLabel(var, label);
         var = wxConvertMnemonicsToGTK(var);
     }
     else // stock label
@@ -215,16 +215,23 @@ void wxMessageDialog::GTKCreateMsgDialog()
     {
         if ( addButtons )
         {
+            // Add the buttons in the correct order which is, according to
+            // http://library.gnome.org/devel/hig-book/stable/windows-alert.html.en
+            // the following one:
+            //
+            // [Help]                  [Alternative] [Cancel] [Affirmative]
+
             gtk_dialog_add_button(dlg, wxGTK_CONV(GetNoLabel()),
                                   GTK_RESPONSE_NO);
-            gtk_dialog_add_button(dlg, wxGTK_CONV(GetYesLabel()),
-                                  GTK_RESPONSE_YES);
 
             if ( m_dialogStyle & wxCANCEL )
             {
                 gtk_dialog_add_button(dlg, wxGTK_CONV(GetCancelLabel()),
                                       GTK_RESPONSE_CANCEL);
             }
+
+            gtk_dialog_add_button(dlg, wxGTK_CONV(GetYesLabel()),
+                                  GTK_RESPONSE_YES);
         }
 
         // it'd probably be harmless to call gtk_dialog_set_default_response()

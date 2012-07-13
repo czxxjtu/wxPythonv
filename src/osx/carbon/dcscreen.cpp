@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: dcscreen.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: dcscreen.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ wxBitmap wxScreenDCImpl::DoGetAsBitmap(const wxRect *subrect) const
     wxASSERT_MSG(image, wxT("wxScreenDC::GetAsBitmap - unable to get screenshot."));
 
     CGContextDrawImage(context, srcRect, image);
-    
+
     CGImageRelease(image);
 
     CGContextRestoreGState(context);

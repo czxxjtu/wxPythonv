@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin: merge with the MDI version and general cleanup
 // Created:     04/01/98
-// RCS-ID:      $Id: docview.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: docview.h 66079 2010-11-10 00:36:39Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 //              (c) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -44,7 +44,7 @@ public:
 
     // our specific methods
     Mode GetMode() const { return m_mode; }
-    wxFrame *CreateChildFrame(wxDocument *doc, wxView *view, bool isCanvas);
+    wxFrame *CreateChildFrame(wxView *view, bool isCanvas);
 
     // these accessors should only be called in single document mode, otherwise
     // the pointers are NULL and an assert is triggered

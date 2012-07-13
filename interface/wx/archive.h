@@ -2,7 +2,7 @@
 // Name:        archive.h
 // Purpose:     interface of wxArchive* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: archive.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: archive.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -170,7 +170,7 @@ public:
 
     For generic programming, when the worst case must be assumed, you can rely on
     all the fields of wxArchiveEntry being fully populated when
-    wxArchiveInputStream::GetNextEntry() returns, with the the following exceptions:
+    wxArchiveInputStream::GetNextEntry() returns, with the following exceptions:
 
     @li GetSize(): guaranteed to be available after the entry has been read to Eof(),
         or CloseEntry() has been called;

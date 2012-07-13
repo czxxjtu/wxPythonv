@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: tbtest.h 50402 2007-12-01 16:25:30Z VZ $
+// RCS-ID:      $Id: tbtest.h 67081 2011-02-28 09:26:55Z SC $
 // Copyright:   (c)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 class MyTaskBarIcon : public wxTaskBarIcon
 {
 public:
-#if defined(__WXCOCOA__)
+#if defined(__WXOSX__) && wxOSX_USE_COCOA
     MyTaskBarIcon(wxTaskBarIconType iconType = DEFAULT_TYPE)
     :   wxTaskBarIcon(iconType)
 #else
@@ -53,7 +53,7 @@ protected:
     void OnCloseWindow(wxCloseEvent& event);
 
     MyTaskBarIcon   *m_taskBarIcon;
-#if defined(__WXCOCOA__)
+#if defined(__WXOSX__) && wxOSX_USE_COCOA
     MyTaskBarIcon   *m_dockIcon;
 #endif
 

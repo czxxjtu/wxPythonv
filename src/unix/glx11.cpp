@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        src/univ/glx11.cpp
+// Name:        src/unix/glx11.cpp
 // Purpose:     code common to all X11-based wxGLCanvas implementations
 // Author:      Vadim Zeitlin
 // Created:     2007-04-15
-// RCS-ID:      $Id: glx11.cpp 63578 2010-02-28 11:08:54Z VZ $
+// RCS-ID:      $Id: glx11.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2007 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

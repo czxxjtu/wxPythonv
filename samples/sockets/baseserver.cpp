@@ -4,7 +4,7 @@
 // Author:      Lukasz Michalski
 // Modified by:
 // Created:     27.06.2005
-// RCS-ID:      $Id: baseserver.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: baseserver.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2005 Lukasz Michalski <lmichalski@user.sourceforge.net>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -315,7 +315,7 @@ bool Server::OnInit()
     m_listeningSocket->SetEventHandler(*this);
     m_listeningSocket->SetNotify(wxSOCKET_CONNECTION_FLAG);
     m_listeningSocket->Notify(true);
-    if (!m_listeningSocket->Ok())
+    if (!m_listeningSocket->IsOk())
     {
         wxLogError("Cannot bind listening socket");
         return false;

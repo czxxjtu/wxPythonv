@@ -2,7 +2,7 @@
 // Name:        artprov.h
 // Purpose:     interface of wxArtProvider
 // Author:      wxWidgets team
-// RCS-ID:      $Id: artprov.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: artprov.h 66504 2010-12-31 17:39:01Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -79,10 +79,12 @@ typedef class wxString wxArtID;
      @li wxART_GO_BACK
      @li wxART_GO_FORWARD
      @li wxART_GO_UP
-    </td><td>
      @li wxART_GO_DOWN
      @li wxART_GO_TO_PARENT
      @li wxART_GO_HOME
+     @li wxART_GOTO_FIRST (since 2.9.2)
+     </td><td>
+     @li wxART_GOTO_LAST (since 2.9.2)
      @li wxART_PRINT
      @li wxART_HELP
      @li wxART_TIP
@@ -96,11 +98,11 @@ typedef class wxString wxArtID;
      @li wxART_NORMAL_FILE
      @li wxART_TICK_MARK
      @li wxART_CROSS_MARK
-    </td><td>
      @li wxART_MISSING_IMAGE
      @li wxART_NEW
      @li wxART_FILE_OPEN
      @li wxART_FILE_SAVE
+     </td><td>
      @li wxART_FILE_SAVE_AS
      @li wxART_DELETE
      @li wxART_COPY
@@ -108,6 +110,8 @@ typedef class wxString wxArtID;
      @li wxART_PASTE
      @li wxART_UNDO
      @li wxART_REDO
+     @li wxART_PLUS (since 2.9.2)
+     @li wxART_MINUS (since 2.9.2)
      @li wxART_CLOSE
      @li wxART_QUIT
      @li wxART_FIND
@@ -130,12 +134,13 @@ typedef class wxString wxArtID;
         wxBitmap bmp = wxArtProvider::GetBitmap("gtk-cdrom", wxART_MENU);
     #endif
     @endcode
-    For a list of the GTK+ stock items please refer to the GTK+ documentation page
-    http://library.gnome.org/devel/gtk/stable/gtk-Stock-Items.html.
+    For a list of the GTK+ stock items please refer to the
+    <a href="http://library.gnome.org/devel/gtk/stable/gtk-Stock-Items.html">GTK+ documentation
+    page</a>.
     It is also possible to load icons from the current icon theme by specifying their name 
     (without extension and directory components).
-    Icon themes recognized by GTK+ follow the freedesktop.org Icon Themes specification
-    (see http://freedesktop.org/Standards/icon-theme-spec).
+    Icon themes recognized by GTK+ follow the freedesktop.org
+    <a href="http://freedesktop.org/Standards/icon-theme-spec">Icon Themes specification</a>.
     Note that themes are not guaranteed to contain all icons, so wxArtProvider may
     return ::wxNullBitmap or ::wxNullIcon.
     The default theme is typically installed in @c /usr/share/icons/hicolor.

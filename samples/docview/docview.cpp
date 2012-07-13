@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin: merge with the MDI version and general cleanup
 // Created:     04/01/98
-// RCS-ID:      $Id: docview.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: docview.cpp 66528 2011-01-02 22:05:14Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 //              (c) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -228,10 +228,9 @@ bool MyApp::OnInit()
     CreateMenuBarForFrame(frame, menuFile, m_menuEdit);
 
     frame->SetIcon(wxICON(doc));
-    frame->Centre(wxBOTH);
-    frame->Show(true);
+    frame->Centre();
+    frame->Show();
 
-    SetTopWindow(frame);
     return true;
 }
 
@@ -285,10 +284,11 @@ void MyApp::CreateMenuBarForFrame(wxFrame *frame, wxMenu *file, wxMenu *edit)
     frame->SetMenuBar(menubar);
 }
 
-wxFrame *MyApp::CreateChildFrame(wxDocument *doc, wxView *view, bool isCanvas)
+wxFrame *MyApp::CreateChildFrame(wxView *view, bool isCanvas)
 {
     // create a child frame of appropriate class for the current mode
     wxFrame *subframe;
+    wxDocument *doc = view->GetDocument();
 #if wxUSE_MDI_ARCHITECTURE
     if ( GetMode() == Mode_MDI )
     {
@@ -317,7 +317,7 @@ wxFrame *MyApp::CreateChildFrame(wxDocument *doc, wxView *view, bool isCanvas)
                             wxSize(300, 300)
                        );
 
-        subframe->Centre(wxBOTH);
+        subframe->Centre();
     }
 
     wxMenu *menuFile = new wxMenu;

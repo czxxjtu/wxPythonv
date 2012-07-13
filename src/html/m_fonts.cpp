@@ -2,7 +2,7 @@
 // Name:        src/html/m_fonts.cpp
 // Purpose:     wxHtml module for fonts & colors of fonts
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: m_fonts.cpp 45700 2007-04-27 21:35:43Z VS $
+// RCS-ID:      $Id: m_fonts.cpp 66492 2010-12-30 22:36:56Z VZ $
 // Copyright:   (c) 1999 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -51,10 +51,11 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
 
         if (tag.HasParam(wxT("SIZE")))
         {
-            int tmp = 0;
-            wxChar c = tag.GetParam(wxT("SIZE")).GetChar(0);
-            if (tag.GetParamAsInt(wxT("SIZE"), &tmp))
+            long tmp = 0;
+            const wxString sizeStr = tag.GetParam(wxT("SIZE"));
+            if (sizeStr.ToLong(&tmp))
             {
+                wxChar c = sizeStr[0];
                 if (c == wxT('+') || c == wxT('-'))
                     m_WParser->SetFontSize(oldsize+tmp);
                 else

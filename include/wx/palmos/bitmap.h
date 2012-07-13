@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: bitmap.h 59711 2009-03-21 23:36:37Z VZ $
+// RCS-ID:      $Id: bitmap.h 66086 2010-11-10 13:51:51Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -96,6 +96,7 @@ public:
 
 #if wxUSE_IMAGE && wxUSE_WXDIB
     wxImage ConvertToImage() const;
+    wxBitmap ConvertToDisabled(unsigned char brightness = 255) const;
 #endif // wxUSE_IMAGE
 
     // get the given part of bitmap

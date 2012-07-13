@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: dde.cpp 64657 2010-06-20 18:18:32Z VZ $
+// RCS-ID:      $Id: dde.cpp 66627 2011-01-07 17:44:11Z SC $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -139,7 +139,7 @@ private:
 
 IMPLEMENT_DYNAMIC_CLASS(wxDDEServer, wxServerBase)
 IMPLEMENT_DYNAMIC_CLASS(wxDDEClient, wxClientBase)
-IMPLEMENT_CLASS(wxDDEConnection, wxConnectionBase)
+IMPLEMENT_DYNAMIC_CLASS(wxDDEConnection, wxConnectionBase)
 IMPLEMENT_DYNAMIC_CLASS(wxDDEModule, wxModule)
 
 // ============================================================================

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-July-1997
-// RCS-ID:      $Id: helpers.cpp 65601 2010-09-23 18:23:18Z RD $
+// RCS-ID:      $Id: helpers.cpp 67599 2011-04-25 17:06:22Z RD $
 // Copyright:   (c) 1998 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -543,27 +543,29 @@ void wxPyApp::_BootstrapApp()
 
     // Only initialize wxWidgets once
     if (! haveInitialized) {
-        // Get any command-line args passed to this program from the sys module
+
+        // Copy the values in Python's sys.argv list to a C array of char* to
+        // be passed to the wxEntryStart function below.
         int    argc = 0;
         char** argv = NULL;
         blocked = wxPyBeginBlockThreads();
-        
         PyObject* sysargv = PySys_GetObject("argv");
-        PyObject* executable = PySys_GetObject("executable");
-        
-        if (sysargv != NULL && executable != NULL) {
-            argc = PyList_Size(sysargv) + 1;
+        if (sysargv != NULL) {            
+            argc = PyList_Size(sysargv);
             argv = new char*[argc+1];
-            argv[0] = strdup(PyString_AsString(executable));
             int x;
-            for(x=1; x<argc; x++) {
-                PyObject *pyArg = PyList_GetItem(sysargv, x-1);
+            for(x=0; x<argc; x++) {
+                PyObject *pyArg = PyList_GetItem(sysargv, x); // borrowed reference
+                // if there isn't anything in sys.argv[0] then set it to the python executable
+                if (x == 0 && PyObject_Length(pyArg) < 1) 
+                    pyArg = PySys_GetObject("executable");
                 argv[x] = strdup(PyString_AsString(pyArg));
             }
             argv[argc] = NULL;
         }
         wxPyEndBlockThreads(blocked);
 
+        
         // Initialize wxWidgets
 #ifdef __WXOSX__
         wxMacAutoreleasePool autoreleasePool;
@@ -2300,7 +2302,7 @@ wxString Py2wxString(PyObject* source)
             return wxEmptyString;
         }
         str = PyUnicode_AsUTF8String(uni);
-        PyString_AsStringAndSize(source, &tmpPtr, &tmpSize);
+        PyString_AsStringAndSize(str, &tmpPtr, &tmpSize);
     }
     else if (!PyUnicode_Check(source)) {
         uni = PyObject_Unicode(source); 
@@ -2309,11 +2311,11 @@ wxString Py2wxString(PyObject* source)
             return wxEmptyString;
         }
         str = PyUnicode_AsUTF8String(uni);
-        PyString_AsStringAndSize(source, &tmpPtr, &tmpSize);
+        PyString_AsStringAndSize(str, &tmpPtr, &tmpSize);
     }    
     else {
         str = PyUnicode_AsUTF8String(source);
-        PyString_AsStringAndSize(source, &tmpPtr, &tmpSize);
+        PyString_AsStringAndSize(str, &tmpPtr, &tmpSize);
     }
     target = wxString(tmpPtr, tmpSize);
     Py_XDECREF(str);
@@ -2913,7 +2915,7 @@ bool wxPySimple_typecheck(PyObject* source, const wxChar* classname, int seqLen)
         return true;
 
     PyErr_Clear();
-    if (PySequence_Check(source) && PySequence_Length(source) == seqLen)
+    if (seqLen > -1 && PySequence_Check(source) && PySequence_Length(source) == seqLen)
         return true;
 
     return false;
@@ -3357,24 +3359,37 @@ wxVariant wxVariant_in_helper(PyObject* source)
         ret = PyFloat_AS_DOUBLE(source);
     else if (PyString_Check(source) || PyUnicode_Check(source))
         ret = Py2wxString(source);
+    else if (wxPySimple_typecheck(source, wxT("wxDateTime"), -1)) {
+        wxDateTime* ptr;
+        wxPyConvertSwigPtr(source, (void**)&ptr, wxT("wxDateTime"));
+        ret = *ptr;
+    }
+    else if (wxPySimple_typecheck(source, wxT("wxBitmap"), -1)) {
+        wxBitmap* ptr;
+        wxPyConvertSwigPtr(source, (void**)&ptr, wxT("wxBitmap"));
+        ret << *ptr;
+    }  
+    else if (wxPySimple_typecheck(source, wxT("wxIcon"), -1)) {
+        wxIcon* ptr;
+        wxPyConvertSwigPtr(source, (void**)&ptr, wxT("wxIcon"));
+        ret << *ptr;
+    }  
     else
         ret = new wxVariantDataPyObject(source);
 
     return ret;
 }
 
+
 PyObject* wxVariant_out_helper(const wxVariant& value)
 {
     PyObject* ret;
 
-// TODO:  These too?  "char", "datetime", "arrstring", "wxObject"
+// TODO:  These too?  "char", "arrstring", "wxObject"
     
     if ( value.IsType("bool") )
     {
-        if ( value.GetBool() )
-            ret = Py_True;
-        else
-            ret = Py_False;
+        ret = value.GetBool() ? Py_True : Py_False;
         Py_INCREF(ret);
     }
     else if ( value.IsType("long") )
@@ -3388,6 +3403,23 @@ PyObject* wxVariant_out_helper(const wxVariant& value)
     else if ( value.IsType("string") )
     {
         ret = wx2PyString(value.GetString());
+    } 
+    else if ( value.IsType("datetime") )
+    {
+        wxDateTime val = value.GetDateTime();
+        ret = wxPyConstructObject(new wxDateTime(val), wxT("wxDateTime"));
+    }
+    else if ( value.IsType("wxBitmap") )
+    {
+        wxBitmap val;
+        val << value;
+        ret = wxPyConstructObject(new wxBitmap(val), wxT("wxBitmap"));
+    }
+    else if ( value.IsType("wxIcon") )
+    {
+        wxIcon val;
+        val << value;
+        ret = wxPyConstructObject(new wxIcon(val), wxT("wxIcon"));
     }
     else if ( value.IsType("PyObject") )
     {

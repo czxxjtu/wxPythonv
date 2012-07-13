@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        xh_simplehtmllbox.cpp
+// Name:        src/xrc/xh_simplehtmllbox.cpp
 // Purpose:     XML resource handler for wxSimpleHtmlListBox
 // Author:      Francesco Montorsi
 // Created:     2006/10/21
-// RCS-ID:      $Id: xh_htmllbox.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: xh_htmllbox.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2006 Francesco Montorsi
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

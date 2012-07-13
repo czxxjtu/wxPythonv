@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by: Marcin Wojdyr
 // Created:     07.04.02
-// RCS-ID:      $Id: keyboard.cpp 62914 2009-12-17 16:44:22Z VZ $
+// RCS-ID:      $Id: keyboard.cpp 65524 2010-09-11 10:18:57Z VZ $
 // Copyright:   (c) 2002 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -335,7 +335,12 @@ const char* GetVirtualKeyCodeName(int keycode)
         WXK_(NUMPAD_SUBTRACT)
         WXK_(NUMPAD_DECIMAL)
         WXK_(NUMPAD_DIVIDE)
+
+        WXK_(WINDOWS_LEFT)
+        WXK_(WINDOWS_RIGHT)
+        WXK_(COMMAND)
 #undef WXK_
+
     default:
         return NULL;
     }
@@ -348,15 +353,18 @@ wxString GetKeyName(const wxKeyEvent &event)
     const char* virt = GetVirtualKeyCodeName(keycode);
     if ( virt )
         return virt;
-    if ( keycode > 0 && keycode < 27 )
+    if ( keycode > 0 && keycode < 32 )
         return wxString::Format("Ctrl-%c", (unsigned char)('A' + keycode - 1));
-    if ( keycode >= 27 && keycode < 128 )
+    if ( keycode >= 32 && keycode < 128 )
         return wxString::Format("'%c'", (unsigned char)keycode);
+
 #if wxUSE_UNICODE
-    return wxString::Format("'%c'", event.GetUnicodeKey());
-#else
-    return "unknown";
+    int uc = event.GetUnicodeKey();
+    if ( uc != WXK_NONE )
+        return wxString::Format("'%c'", uc);
 #endif
+
+    return "unknown";
 }
 
 
@@ -371,7 +379,7 @@ void MyFrame::LogEvent(const wxString& name, wxKeyEvent& event)
                    "    none   "
 #endif
 #ifdef wxHAS_RAW_KEY_CODES
-                   "  %7lu    0x%lx"
+                   "  %7lu    0x%08lx"
 #else
                    "  not-set    not-set"
 #endif

@@ -2,7 +2,7 @@
 // Name:        src/gtk1/button.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: button.cpp 50329 2007-11-29 17:00:58Z VS $
+// Id:          $Id: button.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -93,8 +93,6 @@ gtk_button_style_set_callback( GtkWidget *m_widget, GtkStyle *WXUNUSED(style), w
 //-----------------------------------------------------------------------------
 // wxButton
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxButton,wxControl)
 
 wxButton::wxButton()
 {

@@ -4,7 +4,7 @@
 // Author:      Ron Lee, Jaakko Salli
 // Modified by:
 // Created:     Sep-20-2006
-// RCS-ID:      $Id: dcbufcmn.cpp 65614 2010-09-23 18:37:35Z RD $
+// RCS-ID:      $Id: dcbufcmn.cpp 67659 2011-05-01 15:47:46Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -105,6 +105,8 @@ IMPLEMENT_DYNAMIC_CLASS(wxSharedDCBufferManager, wxModule)
 
 void wxBufferedDC::UseBuffer(wxCoord w, wxCoord h)
 {
+    wxCHECK_RET( w >= -1 && h >= -1, "Invalid buffer size" );
+
     if ( !m_buffer || !m_buffer->IsOk() )
     {
         if ( w == -1 || h == -1 )
@@ -132,7 +134,7 @@ void wxBufferedDC::UnMask()
 
     // Ensure the scale matches the device
     SetUserScale(1.0, 1.0);
-    
+
     if ( m_style & wxBUFFER_CLIENT_AREA )
         GetDeviceOrigin(&x, &y);
 

@@ -2,7 +2,7 @@
 // Name:        ribbon/control.h
 // Purpose:     interface of wxRibbonControl
 // Author:      Peter Cawley
-// RCS-ID:      $Id: control.h 61944 2009-09-16 12:06:02Z PJC $
+// RCS-ID:      $Id: control.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -10,8 +10,8 @@
     @class wxRibbonControl
 
     wxRibbonControl serves as a base class for all controls which share the
-    ribbon charactertics of having a ribbon art provider, and (optionally)
-    non-continous resizing. Despite what the name may imply, it is not the
+    ribbon characteristics of having a ribbon art provider, and (optionally)
+    non-continuous resizing. Despite what the name may imply, it is not the
     top-level control for creating a ribbon interface - that is wxRibbonBar.
   
     Ribbon controls often have a region which is "transparent", and shows the
@@ -106,7 +106,7 @@ public:
     
     /**
         If sizing is not continuous, then return a suitable size for the control
-        which is larger then the current size.
+        which is larger than the current size.
     
         @param direction
             The direction(s) in which the size should increase.
@@ -121,7 +121,7 @@ public:
     
     /**
         If sizing is not continuous, then return a suitable size for the control
-        which is larger then the given size.
+        which is larger than the given size.
     
         @param direction
             The direction(s) in which the size should increase.

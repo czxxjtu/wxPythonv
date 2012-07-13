@@ -12,8 +12,8 @@ Text/Unicode handling functions and File wrapper class
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_txt.py 65714 2010-10-01 19:15:39Z CJP $"
-__revision__ = "$Revision: 65714 $"
+__svnid__ = "$Id: ed_txt.py 67628 2011-04-27 16:26:04Z CJP $"
+__revision__ = "$Revision: 67628 $"
 
 #--------------------------------------------------------------------------#
 # Imports
@@ -21,7 +21,6 @@ import sys
 import re
 import time
 import wx
-import threading
 import codecs
 import locale
 import types
@@ -32,6 +31,7 @@ from util import Log
 from profiler import Profile_Get
 import ed_msg
 import ebmlib
+import ed_thread
 
 #--------------------------------------------------------------------------#
 # Globals
@@ -44,6 +44,7 @@ except (LookupError, TypeError):
     DEFAULT_ENCODING = 'utf-8'
 
 # File Helper Functions
+# NOTE: keep in synch with CheckBom function
 BOM = { 'utf-8' : codecs.BOM_UTF8,
         'utf-16' : codecs.BOM,
         'utf-32' : codecs.BOM_UTF32 }
@@ -95,6 +96,7 @@ class EdFile(ebmlib.FileObjectImpl):
         self.__buffer = None
         self._raw = False           # Raw bytes?
         self._fuzzy_enc = False
+        self._job = None # async file read job
 
     def _HandleRawBytes(self, bytes):
         """Handle prepping raw bytes for return to the buffer
@@ -165,8 +167,8 @@ class EdFile(ebmlib.FileObjectImpl):
                 # other encodings.
                 if not self.encoding.startswith('utf') and '\0' in ustr:
                     Log("[ed_txt][info] NULL terminators found in decoded str")
-                    Log("[ed_txt][info] Attempting UTF-16 detection...")
-                    for utf_encoding in ('utf_16_le', 'utf_16_be'):
+                    Log("[ed_txt][info] Attempting UTF-16/32 detection...")
+                    for utf_encoding in ('utf_16_le', 'utf_16_be', 'utf_32'):
                         try:
                             tmpstr = bytes.decode(utf_encoding)
                         except UnicodeDecodeError:
@@ -177,7 +179,7 @@ class EdFile(ebmlib.FileObjectImpl):
                             Log("[ed_txt][info] %s detected" % utf_encoding)
                             break
                     else:
-                        Log("[ed_txt][info] No valid UTF-16 bytes detected")
+                        Log("[ed_txt][info] No valid UTF-16/32 bytes detected")
             else:
                 # Binary data was read
                 Log("[ed_txt][info] Binary bytes where read")
@@ -284,8 +286,12 @@ class EdFile(ebmlib.FileObjectImpl):
             try:
                 stxt = txt.encode(enc)
                 self.encoding = enc
+            except LookupError, msg:
+                Log("[ed_txt][err] Invalid encoding: %s" % enc)
+                Log("[ed_txt][err] %s" % msg)
+                self.SetLastError(unicde(msg))
             except UnicodeEncodeError, msg:
-                Log("[ed_txt][err] Failed to encode text with %s" % self.encoding)
+                Log("[ed_txt][err] Failed to encode text with %s" % enc)
                 Log("[ed_txt][err] %s" % msg)
                 self.SetLastError(unicode(msg))
             else:
@@ -356,6 +362,7 @@ class EdFile(ebmlib.FileObjectImpl):
         any decoding that may be needed.
         @keyword chunk: read size
         @return: unicode str
+        @throws: ReadError Failed to open file for reading
 
         """
         if self.DoOpen('rb'):
@@ -395,8 +402,8 @@ class EdFile(ebmlib.FileObjectImpl):
         pid = control.GetTopLevelParent().GetId()
         filesize = ebmlib.GetFileSize(self.GetPath())
         ed_msg.PostMessage(ed_msg.EDMSG_PROGRESS_STATE, (pid, 1, filesize))
-        thread = FileReadThread(control, self.ReadGenerator, 4096)
-        thread.start()
+        self._job = FileReadJob(control, self.ReadGenerator, 4096)
+        ed_thread.EdThreadPool().QueueJob(self._job.run)
 
     def ReadGenerator(self, chunk=512):
         """Get the contents of the file as a string, automatically handling
@@ -404,6 +411,7 @@ class EdFile(ebmlib.FileObjectImpl):
 
         @keyword chunk: read size
         @return: unicode str
+        @throws: ReadError Failed to open file for reading.
 
         """
         if self.DoOpen('rb'):
@@ -473,7 +481,8 @@ class EdFile(ebmlib.FileObjectImpl):
         """Write the given value to the file
         @param value: (Unicode) String of text to write to disk
         @note: exceptions are allowed to be raised for the writing
-               but 
+        @throws: WriteError Failed to open file for writing
+        @throws: UnicodeEncodeError Failed to encode text using set encoding
 
         """
         # Check if a magic comment was added or changed
@@ -508,15 +517,15 @@ class EdFile(ebmlib.FileObjectImpl):
 
 #-----------------------------------------------------------------------------#
 
-class FileReadThread(threading.Thread):
-    """Worker thread for reading text from a file"""
+class FileReadJob(object):
+    """Job for running an async file read in a background thread"""
     def __init__(self, reciever, task, *args, **kwargs):
         """Create the thread
-        @param reciever: Window to recieve events
+        @param receiver: Window to receive events
         @param task: generator method to call
 
         """
-        threading.Thread.__init__(self)
+        super(FileReadJob, self).__init__()
 
         # Attributes
         self.cancel = False
@@ -557,7 +566,7 @@ class FileLoadEvent(wx.PyEvent):
     """Event to signal that a chunk of text haes been read"""
     def __init__(self, etype, eid, value=None, state=FL_STATE_READING):
         """Creates the event object"""
-        wx.PyEvent.__init__(self, eid, etype)
+        super(FileLoadEvent, self).__init__(eid, etype)
 
         # Attributes
         self._state = state
@@ -599,14 +608,16 @@ class FileLoadEvent(wx.PyEvent):
 #-----------------------------------------------------------------------------#
 # Utility Function
 def CheckBom(line):
-    """Try to look for a bom byte at the begining of the given line
+    """Try to look for a bom byte at the beginning of the given line
     @param line: line (first line) of a file
     @return: encoding or None
 
     """
     Log("[ed_txt][info] CheckBom called")
     has_bom = None
-    for enc, bom in BOM.iteritems():
+    # NOTE: MUST check UTF-32 BEFORE utf-16
+    for enc in ('utf-8', 'utf-32', 'utf-16'):
+        bom = BOM[enc]
         if line.startswith(bom):
             has_bom = enc
             break
@@ -752,6 +763,11 @@ def GetEncodings():
     rlist = list()
     for enc in encodings:
         if enc is not None and len(enc) and enc not in rlist:
-            rlist.append(enc.lower())
+            try:
+                codecs.lookup(enc)
+            except LookupError:
+                pass
+            else:
+                rlist.append(enc.lower())
 
     return rlist

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     25-Nov-1998
-// RCS-ID:      $Id: html.i 64488 2010-06-05 01:09:48Z RD $
+// RCS-ID:      $Id: html.i 68890 2011-08-25 18:48:07Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1308,10 +1308,10 @@ public:
                        wxWindow *parentWindow = NULL);
     ~wxHtmlEasyPrinting();
 
-    void PreviewFile(const wxString &htmlfile);
-    void PreviewText(const wxString &htmltext, const wxString& basepath = wxPyEmptyString);
-    void PrintFile(const wxString &htmlfile);
-    void PrintText(const wxString &htmltext, const wxString& basepath = wxPyEmptyString);
+    bool PreviewFile(const wxString &htmlfile);
+    bool PreviewText(const wxString &htmltext, const wxString& basepath = wxPyEmptyString);
+    bool PrintFile(const wxString &htmlfile);
+    bool PrintText(const wxString &htmltext, const wxString& basepath = wxPyEmptyString);
 //    void PrinterSetup();
     void PageSetup();
     void SetHeader(const wxString& header, int pg = wxPAGE_ALL);
@@ -1667,6 +1667,8 @@ public:
 
     void AddGrabIfNeeded();
 
+    void SetShouldPreventAppExit(bool enable);
+
     /// Returns the help controller associated with the window.
     wxHtmlHelpController* GetController() const;
 
@@ -1837,6 +1839,8 @@ public:
 
     wxHtmlHelpController(int style = wxHF_DEFAULT_STYLE, wxWindow* parentWindow = NULL);
     ~wxHtmlHelpController();
+
+    void SetShouldPreventAppExit(bool enable);
 
     wxHtmlHelpWindow* GetHelpWindow();
     void SetHelpWindow(wxHtmlHelpWindow* helpWindow);

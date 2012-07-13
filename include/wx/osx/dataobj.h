@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        mac/dataobj.h
+// Name:        wx/osx/dataobj.h
 // Purpose:     declaration of the wxDataObject
 // Author:      Stefan Csomor (adapted from Robert Roebling's gtk port)
 // Modified by:
 // Created:     10/21/99
-// RCS-ID:      $Id: dataobj.h 58168 2009-01-17 10:43:43Z SC $
+// RCS-ID:      $Id: dataobj.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998, 1999 Vadim Zeitlin, Robert Roebling
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

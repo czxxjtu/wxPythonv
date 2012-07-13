@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     22-May-1998
-// RCS-ID:      $Id: core.i 64175 2010-04-29 23:09:59Z RD $
+// RCS-ID:      $Id: core.i 66325 2010-12-04 03:30:23Z RD $
 // Copyright:   (c) 1998 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -110,6 +110,7 @@ MAKE_CONST_WXSTRING(EmptyString);
 
 // other
 %include _headercol.i
+%include _versioninfo.i
 
 
 %pythoncode "_core_ex.py"

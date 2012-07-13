@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     06.01.01
-// RCS-ID:      $Id: popupwin.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: popupwin.h 67244 2011-03-19 11:57:06Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ public:
 
     // called when a mouse is pressed while the popup is shown: return true
     // from here to prevent its normal processing by the popup (which consists
-    // in dismissing it if the mouse is cilcked outside it)
+    // in dismissing it if the mouse is clicked outside it)
     virtual bool ProcessLeftDown(wxMouseEvent& event);
 
     // Overridden to grab the input on some plaforms

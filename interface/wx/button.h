@@ -2,9 +2,14 @@
 // Name:        button.h
 // Purpose:     interface of wxButton
 // Author:      wxWidgets team
-// RCS-ID:      $Id: button.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: button.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+
+#define wxBU_EXACTFIT        0x0001
+#define wxBU_NOTEXT          0x0002
+
 
 /**
     @class wxButton
@@ -50,7 +55,7 @@
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_BUTTON(id, func)}
-           Process a wxEVT_COMMAND_BUTTON_CLICKED event, when the button is clicked.
+           Process a @c wxEVT_COMMAND_BUTTON_CLICKED event, when the button is clicked.
     @endEventTable
 
 
@@ -78,7 +83,11 @@
         get reasonably good behaviour on all platforms.
 
     All of the bitmaps must be of the same size and the normal bitmap must be
-    set first (to a valid bitmap), before setting any other ones.
+    set first (to a valid bitmap), before setting any other ones. Also, if the
+    size of the bitmaps is changed later, you need to change the size of the
+    normal bitmap before setting any other bitmaps with the new size (and you
+    do need to reset all of them as their original values can be lost when the
+    normal bitmap size changes).
 
     The position of the image inside the button be configured using
     SetBitmapPosition(). By default the image is on the left of the text.
@@ -107,7 +116,15 @@ public:
 
         The preferred way to create standard buttons is to use default value of
         @a label. If no label is supplied and @a id is one of standard IDs from
-        @ref page_stockitems "this list", a standard label will be used.
+        @ref page_stockitems "this list", a standard label will be used. In
+        other words, if you use a predefined @c wxID_XXX constant, just omit
+        the label completely rather than specifying it. In particular, help
+        buttons (the ones with @a id of @c wxID_HELP) under Mac OS X can't
+        display any label at all and while wxButton will detect if the standard
+        "Help" label is used and ignore it, using any other label will prevent
+        the button from correctly appearing as a help button and so should be
+        avoided.
+
 
         In addition to that, the button will be decorated with stock icons under GTK+ 2.
 

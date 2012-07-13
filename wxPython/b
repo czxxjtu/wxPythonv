@@ -7,6 +7,13 @@
 set -o errexit
 #set -o xtrace
 
+# Why are these not being translated already like they used to be? 
+if [ "$OSTYPE" = "cygwin" ]; then
+    TOOLS=`cygpath -u $TOOLS`
+    #PROJECTS=`cygpath -u $PROJECTS`
+fi
+
+
 if [ "$PYTHON" = "" ]; then
     case $1 in 
 	23 | 2.3) VER=23; PYVER=2.3; shift ;;
@@ -16,7 +23,7 @@ if [ "$PYTHON" = "" ]; then
 	27 | 2.7) VER=27; PYVER=2.7; shift ;;
 	30 | 3.0) VER=30; PYVER=3.0; shift ;;
 	
-	*) VER=25; PYVER=2.5
+	*) VER=27; PYVER=2.7
     esac
 	
     if [ "$OSTYPE" = "cygwin" ]; then
@@ -25,7 +32,7 @@ if [ "$PYTHON" = "" ]; then
 	PYTHON=python$PYVER
     fi
 fi
-echo "Using:" $PYTHON
+echo "Using:" `which $PYTHON`
 $PYTHON -c "import sys;print sys.version, '\n'"
 
 
@@ -55,7 +62,7 @@ function show_help {
 }
 
 
-ARGS="--reswig --unicode --build_dir=../bld --prefix=/opt/wx/2.9"
+ARGS="--reswig --unicode --build_dir=../bld --prefix=/opt/wx/2.9 --cairo"
 DEBUG="--debug"
 BOTH="no"
 

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        common/timercmn.cpp
+// Name:        src/common/timerimpl.cpp
 // Purpose:     wxTimerBase implementation
 // Author:      Julian Smart, Guillermo Rodriguez, Vadim Zeitlin
 // Modified by: VZ: extracted all non-wxTimer stuff in stopwatch.cpp (20.06.03)
 // Created:     04/01/98
-// RCS-ID:      $Id: timerimpl.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: timerimpl.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 //              (c) 1999 Guillermo Rodriguez <guille@iies.es>
 // Licence:     wxWindows licence

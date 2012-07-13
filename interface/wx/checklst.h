@@ -2,7 +2,7 @@
 // Name:        checklst.h
 // Purpose:     interface of wxCheckListBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: checklst.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: checklst.h 66611 2011-01-06 19:52:14Z SJL $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -17,7 +17,7 @@
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_CHECKLISTBOX(id, func)}
-        Process a wxEVT_COMMAND_CHECKLISTBOX_TOGGLED event, when an item in
+        Process a @c wxEVT_COMMAND_CHECKLISTBOX_TOGGLED event, when an item in
         the check list box is checked or unchecked. wxCommandEvent::GetInt()
         will contain the index of the item that was checked or unchecked.
         wxCommandEvent::IsChecked() is not valid! Use wxCheckListBox::IsChecked()
@@ -116,7 +116,7 @@ public:
 
     /**
         Checks the given item. Note that calling this method does not result in
-        a wxEVT_COMMAND_CHECKLISTBOX_TOGGLE event being emitted.
+        a @c wxEVT_COMMAND_CHECKLISTBOX_TOGGLE event being emitted.
 
         @param item
             Index of item to check.

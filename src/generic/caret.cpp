@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        generic/caret.cpp
+// Name:        src/generic/caret.cpp
 // Purpose:     generic wxCaret class implementation
 // Author:      Vadim Zeitlin (original code by Robert Roebling)
 // Modified by:
 // Created:     25.05.99
-// RCS-ID:      $Id: caret.cpp 59033 2009-02-19 17:45:09Z PC $
+// RCS-ID:      $Id: caret.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

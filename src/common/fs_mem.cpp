@@ -2,7 +2,7 @@
 // Name:        src/common/fs_mem.cpp
 // Purpose:     in-memory file system
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: fs_mem.cpp 60774 2009-05-28 09:59:32Z SC $
+// RCS-ID:      $Id: fs_mem.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -253,7 +253,7 @@ wxMemoryFSHandler::AddFile(const wxString& filename,
         return;
 
     wxMemoryOutputStream mems;
-    if ( image.Ok() && image.SaveFile(mems, type) )
+    if ( image.IsOk() && image.SaveFile(mems, type) )
     {
         m_Hash[filename] = new wxMemoryFSFile
                                (

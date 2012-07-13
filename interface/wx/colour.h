@@ -2,7 +2,7 @@
 // Name:        colour.h
 // Purpose:     interface of wxColour
 // Author:      wxWidgets team
-// RCS-ID:      $Id: colour.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: colour.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -13,12 +13,16 @@
 
     @{
 */
-#define wxC2S_NAME              1   //!< Return colour name, when possible.
-#define wxC2S_CSS_SYNTAX        2   //!< Return colour in "rgb(r,g,b)" syntax.
-#define wxC2S_HTML_SYNTAX       4   //!< Return colour in "#rrggbb" syntax.
+enum {
+    wxC2S_NAME             = 1,   // return colour name, when possible
+    wxC2S_CSS_SYNTAX       = 2,   // return colour in rgb(r,g,b) syntax
+    wxC2S_HTML_SYNTAX      = 4    // return colour in #rrggbb syntax
+};
 
 //@}
 
+const unsigned char wxALPHA_TRANSPARENT = 0;
+const unsigned char wxALPHA_OPAQUE = 0xff;
 
 /**
     @class wxColour
@@ -78,6 +82,12 @@ public:
     */
     wxColour(const wxString& colourName);
 
+    /**
+        @param colRGB
+            A packed RGB value.
+    */
+    wxColour(unsigned long colRGB);
+    
     /**
         Copy constructor.
     */
@@ -155,7 +165,7 @@ public:
         On X, an allocated pixel value is returned.
         If the pixel is invalid (on X, unallocated), @c -1 is returned.
     */
-    int GetPixel() const;
+    wxIntPtr GetPixel() const;
 
     /**
         Returns the green intensity.
@@ -177,13 +187,12 @@ public:
     /**
         Sets the RGB intensity values using the given values (first overload),
         extracting them from the packed long (second overload), using the given
-        string (third overloard).
+        string (third overload).
 
         When using third form, Set() accepts: colour names (those listed in
-        wxTheColourDatabase()), the CSS-like @c "rgb(r,g,b)" or
-        @c "rgba(r,g,b,a)" syntax (case insensitive) and the HTML-like syntax
-        (i.e. @c "#" followed by 6 hexadecimal digits for red, green, blue
-        components).
+        wxColourDatabase), the CSS-like @c "rgb(r,g,b)" or @c "rgba(r,g,b,a)" syntax 
+        (case insensitive) and the HTML-like syntax: @c "#" followed by 6 hexadecimal 
+        digits for red, green, blue components.
 
         Returns @true if the conversion was successful, @false otherwise.
 

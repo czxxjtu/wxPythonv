@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: checklst_osx.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: checklst_osx.cpp 67243 2011-03-19 08:36:23Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -23,8 +23,6 @@
 #endif
 
 #include "wx/osx/private.h"
-
-IMPLEMENT_DYNAMIC_CLASS(wxCheckListBox, wxListBox)
 
 BEGIN_EVENT_TABLE(wxCheckListBox, wxListBox)
 END_EVENT_TABLE()
@@ -58,9 +56,8 @@ bool wxCheckListBox::Create(
    long style,
    const wxValidator& validator,
    const wxString& name )
-{
-    m_macIsUserPane = false;
-
+{    
+    
     wxASSERT_MSG( !(style & wxLB_MULTIPLE) || !(style & wxLB_EXTENDED),
                   wxT("only one of listbox selection modes can be specified") );
 

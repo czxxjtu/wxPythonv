@@ -4,7 +4,7 @@
 // Author:      Wolfram Gloger/adapted by Guilhem Lavaux
 // Modified by:
 // Created:     04/11/98
-// RCS-ID:      $Id: module.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: module.cpp 66630 2011-01-07 17:49:18Z SC $
 // Copyright:   (c) Wolfram Gloger and Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@
 
 WX_DEFINE_LIST(wxModuleList)
 
-IMPLEMENT_CLASS(wxModule, wxObject)
+wxIMPLEMENT_ABSTRACT_CLASS(wxModule, wxObject)
 
 wxModuleList wxModule::m_modules;
 

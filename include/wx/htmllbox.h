@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     31.05.03
-// RCS-ID:      $Id: htmllbox.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: htmllbox.h 66751 2011-01-25 05:03:17Z RD $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -199,6 +199,7 @@ private:
 class WXDLLIMPEXP_HTML wxSimpleHtmlListBox : public wxHtmlListBox,
                                              public wxItemContainer
 {
+    DECLARE_ABSTRACT_CLASS(wxSimpleHtmlListBox)
 public:
     // wxListbox-compatible constructors
     // ---------------------------------

@@ -2,7 +2,7 @@
 
 <!--
     Name:       StellarWerx64.xml
-    RCS-ID:     $Id: StellarWerx64.xml 63975 2010-04-14 07:21:44Z MW $
+    RCS-ID:     $Id: StellarWerx64.xml 65868 2010-10-22 22:12:00Z MW $
 -->
 
 <bot xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -27,7 +27,7 @@
     <scheduler>daily_0700</scheduler>
     <steps>
         <checkout/>
-        <configure options="--with-x11"/>
+        <configure options="--with-x11 --enable-debug"/>
         <compile-all/>
         <run-tests/>
     </steps>

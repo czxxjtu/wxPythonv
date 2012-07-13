@@ -37,14 +37,13 @@ Message Format:
    </arglist>
 </edipc>
 
-@example: SESSION_KEY;xml;MSGEND
 @summary: Editra's IPC Library
 
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_ipc.py 65165 2010-08-02 22:04:37Z CJP $"
-__revision__ = "$Revision: 65165 $"
+__svnid__ = "$Id: ed_ipc.py 67991 2011-06-20 23:48:01Z CJP $"
+__revision__ = "$Revision: 67991 $"
 
 #-----------------------------------------------------------------------------#
 # Imports
@@ -57,7 +56,7 @@ import time
 
 # Editra Libs
 import util
-import syntax
+import ed_xml
 import ebmlib
 
 #-----------------------------------------------------------------------------#
@@ -65,14 +64,14 @@ import ebmlib
 
 # Port choosing algorithm ;)
 EDPORT = (10 * int('ed', 16) + sum(ord(x) for x in "itr") + int('a', 16)) * 10
-MSGEND = u"*EDEND*"
+MSGEND = "*EDEND*"
 
 # Xml Implementation
-EDXML_IPC       = u"edipc"
-EDXML_FILELIST  = u"filelist"
-EDXML_FILE      = u"file"
-EDXML_ARGLIST   = u"arglist"
-EDXML_ARG       = u"arg"
+EDXML_IPC       = "edipc"
+EDXML_FILELIST  = "filelist"
+EDXML_FILE      = "file"
+EDXML_ARGLIST   = "arglist"
+EDXML_ARG       = "arg"
 
 #-----------------------------------------------------------------------------#
 
@@ -176,16 +175,16 @@ class EdIpcServer(threading.Thread):
                 # the input and dispatch to the app.
                 if recieved.startswith(self.__key) and recieved.endswith(MSGEND):
                     # Strip the key
-                    recieved = recieved.replace(self.__key, u'', 1)
+                    recieved = recieved.replace(self.__key, '', 1)
                     # Strip the end token
-                    xmlstr = recieved.rstrip(MSGEND).strip(u";")
+                    xmlstr = recieved.rstrip(MSGEND).strip(";")
 
                     # Parse the xml
                     exml = IPCCommand()
                     try:
                         # Well formed xml must be utf-8 string not unicode
                         xmlstr = xmlstr.encode('utf-8')
-                        exml.LoadFromString(xmlstr)
+                        exml = IPCCommand.parse(xmlstr)
                     except Exception, msg:
                         # Log and ignore parsing errors
                         logmsg = "[ed_ipc][err] Parsing failed: %s\n" % msg
@@ -217,7 +216,7 @@ def SendCommands(xmlobj, key):
     @return: bool
 
     """
-    assert isinstance(xmlobj, syntax.EditraXml), "SendCommands expects an xml object"
+    assert isinstance(xmlobj, ed_xml.EdXml), "SendCommands expects an xml object"
 
     # Build the edipc protocol msg
     cmds = list()
@@ -231,7 +230,7 @@ def SendCommands(xmlobj, key):
         client.connect(('127.0.0.1', EDPORT))
 
         # Server expects commands delimited by ;
-        message = u";".join(cmds)
+        message = ";".join(cmds)
         client.send(message)
         client.shutdown(socket.SHUT_RDWR)
         client.close()
@@ -243,161 +242,28 @@ def SendCommands(xmlobj, key):
 #-----------------------------------------------------------------------------#
 # Command Serialization
 
-class IPCCommand(syntax.EditraXml):
-    """Xml packet used for sending data to remote process through ipc"""
-    def __init__(self):
-        syntax.EditraXml.__init__(self)
-
-        # Attributes
-        self._files = IPCFileList()
-        self._args = IPCArgList()
-
-        # Setup
-        self.SetName(EDXML_IPC)
-        self.RegisterHandler(self._files)
-        self.RegisterHandler(self._args)
-
-    #---- Public Api ----#
-
-    def GetArgs(self):
-        """Get the list of paths
-        @return: list of tuples
-
-        """
-        return self._args.GetArgs()
-
-    def SetArgs(self, args):
-        """Set the files
-        @param flist: list of strings
-
-        """
-        self._args.SetArgs(args)
-
-    def GetFiles(self):
-        """Get the list of paths
-        @return: list of strings
-
-        """
-        return self._files.GetFiles()
-
-    def SetFiles(self, flist):
-        """Set the files
-        @param flist: list of strings
-
-        """
-        self._files.SetFiles(flist)
-
-class IPCFileList(syntax.EditraXml):
+class IPCFile(ed_xml.EdXml):
     """Xml object for holding the list of files
-
-    <filelist>
-       <file value="/path/to/file"/>
-    </filelist>
+    <file value="/path/to/file"/>
 
     """
-    def __init__(self):
-        syntax.EditraXml.__init__(self)
+    class meta:
+        tagname = EDXML_FILE
+    value = ed_xml.String(required=True)
 
-        # Attributes
-        self._files = list()
-
-        # Setup
-        self.SetName(EDXML_FILELIST)
-
-    #---- Xml Implementation ----#
-
-    def startElement(self, name, attrs):
-        """Collect all the file elements"""
-        if name == EDXML_FILE:
-            fname = attrs.get(syntax.EXML_VALUE, None)
-            if fname is not None:
-                self._files.append(fname)
-
-    def GetSubElements(self):
-        """Get the objects subelements"""
-        xmlstr = u""
-        tmp = u"<%s %s=\"" % (EDXML_FILE, syntax.EXML_VALUE)
-        tmp += u"%s\"/>"
-        for fname in self._files:
-            if not ebmlib.IsUnicode(fname):
-                fname = fname.decode(sys.getfilesystemencoding())
-            xmlstr += tmp % fname
-        return xmlstr
-
-    #--- public api ----#
-
-    def GetFiles(self):
-        """Get the list of paths
-        @return: list of strings
-
-        """
-        return self._files
-
-    def SetFiles(self, flist):
-        """Set the list of files
-        @param flist: list of strings
-
-        """
-        self._files = flist
-
-class IPCArgList(syntax.EditraXml):
+class IPCArg(ed_xml.EdXml):
     """Xml object for holding the list of args
-
-    <arglist>
        <arg name="test" value="x"/>
-    </arglist>
 
     """
-    def __init__(self):
-        syntax.EditraXml.__init__(self)
+    class meta:
+        tagname = EDXML_ARG
+    name = ed_xml.String(required=True)
+    value = ed_xml.String(required=True)
 
-        # Attributes
-        self._args = list()
-
-        # Setup
-        self.SetName(EDXML_ARGLIST)
-
-    #---- Xml Implementation ----#
-
-    def startElement(self, name, attrs):
-        """Collect all the file elements"""
-        if name == EDXML_ARG:
-            arg = attrs.get(syntax.EXML_NAME, None)
-            val = attrs.get(syntax.EXML_VALUE, u'')
-            if not val.isdigit():
-                val = -1
-            else:
-                val = int(val)
-            if arg is not None:
-                self._args.append((arg, val))
-
-    def GetSubElements(self):
-        """Get the objects sub-elements"""
-        xmlstr = u""
-        tmp = u"<%s %s=\"" % (EDXML_ARG, syntax.EXML_NAME)
-        tmp += u"%s\" "
-        tmp += "%s=\"" % syntax.EXML_VALUE
-        tmp += "%s\"/>"
-        for argval in self._args:
-            xmlstr += tmp % argval
-        return xmlstr
-
-    #--- public api ----#
-
-    def GetArgs(self):
-        """Get the list of arguments (command line switches)
-        @return: list of tuples
-
-        """
-        return self._args
-
-    def SetArgs(self, args):
-        """Set the list of files
-        @param flist: list of tuples
-
-        """
-        assert isinstance(args, list)
-        for arg in args:
-            assert isinstance(arg, tuple)
-        self._args = args
-    
+class IPCCommand(ed_xml.EdXml):
+    """IPC XML Command"""
+    class meta:
+        tagname = EDXML_IPC
+    filelist = ed_xml.List(ed_xml.Model(IPCFile))
+    arglist = ed_xml.List(ed_xml.Model(IPCArg))

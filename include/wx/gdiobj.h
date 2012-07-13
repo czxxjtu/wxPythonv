@@ -5,7 +5,7 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Julian Smart
-// RCS-ID:      $Id: gdiobj.h 56644 2008-11-02 02:39:52Z VZ $
+// RCS-ID:      $Id: gdiobj.h 66374 2010-12-14 18:43:49Z VZ $
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -23,9 +23,16 @@
 class WXDLLIMPEXP_CORE wxGDIRefData : public wxObjectRefData
 {
 public:
+    // Default ctor which needs to be defined just because we use
+    // wxDECLARE_NO_COPY_CLASS() below.
+    wxGDIRefData() { }
+
     // override this in the derived classes to check if this data object is
     // really fully initialized
     virtual bool IsOk() const { return true; }
+
+private:
+    wxDECLARE_NO_COPY_CLASS(wxGDIRefData);
 };
 
 // ----------------------------------------------------------------------------

@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     10.07.01
-// RCS-ID:      $Id: evtloop.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: evtloop.cpp 66090 2010-11-10 13:52:17Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -95,6 +95,8 @@ static gboolean wx_on_channel_event(GIOChannel *channel,
                                     GIOCondition condition,
                                     gpointer data)
 {
+    wxUnusedVar(channel); // Unused if !wxUSE_LOG || !wxDEBUG_LEVEL
+
     wxLogTrace(wxTRACE_EVT_SOURCE,
                "wx_on_channel_event, fd=%d, condition=%08x",
                g_io_channel_unix_get_fd(channel), condition);

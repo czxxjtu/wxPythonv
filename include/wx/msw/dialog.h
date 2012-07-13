@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: dialog.h 60559 2009-05-09 12:26:15Z VZ $
+// RCS-ID:      $Id: dialog.h 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -16,7 +16,7 @@
 
 // this option is always enabled (there doesn't seem to be any good reason to
 // disable it) for desktop Windows versions but Windows CE dialogs are usually
-// not resizeable and never show resize gripper anyhow so don't use it there
+// not resizable and never show resize gripper anyhow so don't use it there
 #ifdef __WXWINCE__
     #define wxUSE_DIALOG_SIZEGRIP 0
 #else
@@ -114,7 +114,7 @@ protected:
 private:
 #if wxUSE_DIALOG_SIZEGRIP
     // these functions deal with the gripper window shown in the corner of
-    // resizeable dialogs
+    // resizable dialogs
     void CreateGripper();
     void DestroyGripper();
     void ShowGripper(bool show);

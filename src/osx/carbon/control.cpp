@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: control.cpp 58246 2009-01-20 18:33:33Z VZ $
+// RCS-ID:      $Id: control.cpp 67230 2011-03-18 14:20:12Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ bool wxControl::ProcessCommand( wxCommandEvent &event )
 
 void  wxControl::OnKeyDown( wxKeyEvent &WXUNUSED(event) )
 {
-    if ( m_peer == NULL || !m_peer->IsOk() )
+    if ( GetPeer() == NULL || !GetPeer()->IsOk() )
         return;
 
 #if wxOSX_USE_CARBON
@@ -84,7 +84,7 @@ void  wxControl::OnKeyDown( wxKeyEvent &WXUNUSED(event) )
     GetEventParameter( (EventRef)wxTheApp->MacGetCurrentEvent(), kEventParamKeyMacCharCodes, typeChar, NULL, sizeof(char), NULL, &charCode );
     GetEventParameter( (EventRef)wxTheApp->MacGetCurrentEvent(), kEventParamKeyModifiers, typeUInt32, NULL, sizeof(UInt32), NULL, &modifiers );
 
-    m_peer->HandleKey( keyCode, charCode, modifiers );
+    GetPeer()->HandleKey( keyCode, charCode, modifiers );
 #else
     // TODO
 #endif

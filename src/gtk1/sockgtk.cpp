@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        gtk/gsockgtk.cpp
+// Name:        src/gtk1/sockgtk.cpp
 // Purpose:     implementation of wxGTK-specific socket event handling
 // Author:      Guilhem Lavaux, Vadim Zeitlin
 // Created:     1999
-// RCS-ID:      $Id: sockgtk.cpp 61688 2009-08-17 23:02:46Z VZ $
+// RCS-ID:      $Id: sockgtk.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1999, 2007 wxWidgets dev team
 //              (c) 2009 Vadim Zeitlin
 // Licence:     wxWindows licence

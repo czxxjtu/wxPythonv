@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _icon.i 65635 2010-09-25 00:26:13Z RD $
+// RCS-ID:      $Id: _icon.i 68892 2011-08-25 18:49:03Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -149,8 +149,9 @@ public:
     wxIconBundle();
 
     // initializes the bundle with the icon(s) found in the file
-    %RenameCtor(IconBundleFromFile, wxIconBundle( const wxString& file,
-                                                  wxBitmapType type ));
+    %RenameCtor(IconBundleFromFile, wxIconBundle(
+                    const wxString& file, wxBitmapType type = wxBITMAP_TYPE_ANY
+                    ));
 
     // initializes the bundle with a single icon
     %RenameCtor(IconBundleFromIcon, wxIconBundle( const wxIcon& icon ));

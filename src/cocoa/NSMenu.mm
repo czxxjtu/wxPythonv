@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cocoa/NSMenu.mm
+// Name:        src/cocoa/NSMenu.mm
 // Purpose:     wxCocoaNSMenu implementation
 // Author:      David Elliott
 // Modified by:
 // Created:     2002/12/09
-// RCS-ID:      $Id: NSMenu.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: NSMenu.mm 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2002 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

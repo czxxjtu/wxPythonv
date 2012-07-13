@@ -3,7 +3,7 @@
 // Purpose:     GTK toolbar
 // Author:      Robert Roebling
 // Modified:    13.12.99 by VZ to derive from wxToolBarBase
-// RCS-ID:      $Id: toolbar.cpp 62849 2009-12-10 03:04:07Z VZ $
+// RCS-ID:      $Id: toolbar.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@ public:
 
     void SetPixmap(const wxBitmap& bitmap)
     {
-        if (bitmap.Ok())
+        if (bitmap.IsOk())
         {
             GdkBitmap *mask = bitmap.GetMask() ? bitmap.GetMask()->GetBitmap()
                                                : NULL;
@@ -357,7 +357,7 @@ bool wxToolBar::DoInsertTool(size_t pos, wxToolBarToolBase *toolBase)
         {
             wxBitmap bitmap = tool->GetNormalBitmap();
 
-            wxCHECK_MSG( bitmap.Ok(), false,
+            wxCHECK_MSG( bitmap.IsOk(), false,
                          wxT("invalid bitmap for wxToolBar icon") );
 
             wxCHECK_MSG( bitmap.GetBitmap() == NULL, false,
@@ -597,9 +597,9 @@ void wxToolBar::SetToolShortHelp( int id, const wxString& helpString )
 void wxToolBar::OnInternalIdle()
 {
     wxCursor cursor = m_cursor;
-    if (g_globalCursor.Ok()) cursor = g_globalCursor;
+    if (g_globalCursor.IsOk()) cursor = g_globalCursor;
 
-    if (cursor.Ok())
+    if (cursor.IsOk())
     {
         /* I now set the cursor the anew in every OnInternalIdle call
            as setting the cursor in a parent window also effects the

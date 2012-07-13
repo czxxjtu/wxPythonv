@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wince/crt.cpp
+// Name:        src/msw/wince/crt.cpp
 // Purpose:     Implementation of CRT functions missing under Windows CE
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     03.04.04
-// RCS-ID:      $Id: crt.cpp 58022 2009-01-11 12:00:51Z FM $
+// RCS-ID:      $Id: crt.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     19.05.01
-// RCS-ID:      $Id: dircmn.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dircmn.cpp 66089 2010-11-10 13:52:10Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -356,6 +356,8 @@ wxULongLong wxDir::GetTotalSize(const wxString &dirname, wxArrayString *filesSki
     return traverser.GetTotalSize();
 }
 
+#endif // wxUSE_LONGLONG
+
 // ----------------------------------------------------------------------------
 // wxDir helpers
 // ----------------------------------------------------------------------------
@@ -377,5 +379,4 @@ bool wxDir::Remove(const wxString &dir, int flags)
 {
     return wxFileName::Rmdir(dir, flags);
 }
-    
-#endif // wxUSE_LONGLONG
+

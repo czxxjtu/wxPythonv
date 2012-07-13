@@ -4,7 +4,7 @@
 // Author:      Julian Smart et al
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: treebase.h 58718 2009-02-07 18:59:25Z VZ $
+// RCS-ID:      $Id: treebase.h 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1997,1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -252,9 +252,9 @@ public:
     void SetFont(const wxFont& font) { m_font = font; }
 
     // accessors
-    bool HasTextColour() const { return m_colText.Ok(); }
-    bool HasBackgroundColour() const { return m_colBack.Ok(); }
-    bool HasFont() const { return m_font.Ok(); }
+    bool HasTextColour() const { return m_colText.IsOk(); }
+    bool HasBackgroundColour() const { return m_colBack.IsOk(); }
+    bool HasFont() const { return m_font.IsOk(); }
 
     const wxColour& GetTextColour() const { return m_colText; }
     const wxColour& GetBackgroundColour() const { return m_colBack; }

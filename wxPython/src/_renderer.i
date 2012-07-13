@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     9-June-2005
-// RCS-ID:      $Id: _renderer.i 65700 2010-10-01 06:49:15Z RD $
+// RCS-ID:      $Id: _renderer.i 66325 2010-12-04 03:30:23Z RD $
 // Copyright:   (c) 2005 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -189,6 +189,9 @@ arrows, etc.)  Normally this is only called by `DrawHeaderButton`.", "");
         virtual int , GetHeaderButtonHeight(wxWindow *win),
         "Returns the default height of a header button, either a fixed platform
 height if available, or a generic height based on the window's font.", "");    
+
+    // Returns the margin on left and right sides of header button's label
+    virtual int GetHeaderButtonMargin(wxWindow *win);
 
 
     DocDeclStr(

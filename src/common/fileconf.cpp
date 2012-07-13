@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     07.04.98 (adapted from appconf.cpp)
-// RCS-ID:      $Id: fileconf.cpp 63228 2010-01-23 13:22:14Z VZ $
+// RCS-ID:      $Id: fileconf.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) 1997 Karsten Ballueder  &  Vadim Zeitlin
 //                       Ballueder@usa.net     <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
@@ -146,7 +146,7 @@ private:
 
   wxString      m_strName,      // entry name
                 m_strValue;     //       value
-  bool          m_bImmutable:1, // can be overriden locally?
+  bool          m_bImmutable:1, // can be overridden locally?
                 m_bHasValue:1;  // set after first call to SetValue()
 
   int           m_nLine;        // used if m_pLine == NULL only
@@ -661,7 +661,7 @@ void wxFileConfig::Parse(const wxTextBuffer& buffer, bool bLocal)
           // which is exactly what we want.
           else if ( !bLocal || pEntry->IsLocal() ) {
             wxLogWarning(_("file '%s', line %d: key '%s' was first found at line %d."),
-                         buffer.GetName(), n + 1, strKey.c_str(), pEntry->Line());
+                         buffer.GetName(), (int)n + 1, strKey.c_str(), pEntry->Line());
 
           }
         }

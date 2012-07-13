@@ -6,7 +6,7 @@
 # Author:       Robin Dunn
 #
 # Created:      6-March-2000
-# RCS-ID:       $Id: run.py 65605 2010-09-23 18:25:38Z RD $
+# RCS-ID:       $Id: run.py 68888 2011-08-25 18:45:24Z RD $
 # Copyright:    (c) 2000 by Total Control Software
 # Licence:      wxWindows license
 #----------------------------------------------------------------------------
@@ -51,10 +51,10 @@ class RunDemoApp(wx.App, wx.lib.mixins.inspection.InspectionMixin):
 
 
     def OnInit(self):
-        wx.Log_SetActiveTarget(wx.LogStderr())
+        wx.Log.SetActiveTarget(wx.LogStderr())
 
         self.SetAssertMode(assertMode)
-        self.Init()  # InspectionMixin
+        self.InitInspection()  # for the InspectionMixin base class
 
         frame = wx.Frame(None, -1, "RunDemo: " + self.name, pos=(50,50), size=(200,100),
                         style=wx.DEFAULT_FRAME_STYLE, name="run a sample")

@@ -4,7 +4,7 @@
 // Author:      Julian Smart, Robert Roebling, Vadim Zeitlin
 // Modified by:
 // Created:     31.05.01 (extracted from other files)
-// RCS-ID:      $Id: accel.h 54125 2008-06-11 19:17:41Z SC $
+// RCS-ID:      $Id: accel.h 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -107,8 +107,7 @@ public:
 
     bool IsOk() const
     {
-        return m_flags != 0 &&
-               m_keyCode != 0;
+        return  m_keyCode != 0;
     }
 
 
@@ -117,7 +116,7 @@ public:
 
     // returns a wxString for the this accelerator.
     // this function formats it using the <flags>-<keycode> format
-    // where <flags> maybe a hyphen-separed list of "shift|alt|ctrl"
+    // where <flags> maybe a hyphen-separated list of "shift|alt|ctrl"
     wxString ToString() const;
 
     // returns true if the given string correctly initialized this object

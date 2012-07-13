@@ -3,7 +3,7 @@
 // Purpose:     includes all xh_*.h files
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xh_all.h 61027 2009-06-12 17:40:11Z VZ $
+// RCS-ID:      $Id: xh_all.h 65885 2010-10-23 18:56:28Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -25,6 +25,7 @@
 #include "wx/xrc/xh_choic.h"
 #include "wx/xrc/xh_choicbk.h"
 #include "wx/xrc/xh_clrpicker.h"
+#include "wx/xrc/xh_cmdlinkbn.h"
 #include "wx/xrc/xh_collpane.h"
 #include "wx/xrc/xh_combo.h"
 #include "wx/xrc/xh_comboctrl.h"
@@ -68,6 +69,7 @@
 #include "wx/xrc/xh_text.h"
 #include "wx/xrc/xh_tglbtn.h"
 #include "wx/xrc/xh_toolb.h"
+#include "wx/xrc/xh_toolbk.h"
 #include "wx/xrc/xh_tree.h"
 #include "wx/xrc/xh_treebk.h"
 #include "wx/xrc/xh_unkwn.h"

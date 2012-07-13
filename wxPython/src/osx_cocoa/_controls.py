@@ -63,7 +63,112 @@ BU_ALIGN_MASK = _controls_.BU_ALIGN_MASK
 BU_EXACTFIT = _controls_.BU_EXACTFIT
 BU_AUTODRAW = _controls_.BU_AUTODRAW
 BU_NOTEXT = _controls_.BU_NOTEXT
-class Button(_core.Control):
+class AnyButton(_core.Control):
+    """Proxy of C++ AnyButton class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
+    def SetBitmap(*args, **kwargs):
+        """SetBitmap(self, Bitmap bitmap, int dir=LEFT)"""
+        return _controls_.AnyButton_SetBitmap(*args, **kwargs)
+
+    def GetBitmap(*args, **kwargs):
+        """GetBitmap(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmap(*args, **kwargs)
+
+    Bitmap = property(GetBitmap,SetBitmap) 
+    def SetBitmapLabel(*args, **kwargs):
+        """SetBitmapLabel(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapLabel(*args, **kwargs)
+
+    def SetBitmapPressed(*args, **kwargs):
+        """SetBitmapPressed(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapPressed(*args, **kwargs)
+
+    def SetBitmapDisabled(*args, **kwargs):
+        """SetBitmapDisabled(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapDisabled(*args, **kwargs)
+
+    def SetBitmapCurrent(*args, **kwargs):
+        """SetBitmapCurrent(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapCurrent(*args, **kwargs)
+
+    def SetBitmapFocus(*args, **kwargs):
+        """SetBitmapFocus(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapFocus(*args, **kwargs)
+
+    def GetBitmapLabel(*args, **kwargs):
+        """GetBitmapLabel(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapLabel(*args, **kwargs)
+
+    def GetBitmapPressed(*args, **kwargs):
+        """GetBitmapPressed(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapPressed(*args, **kwargs)
+
+    def GetBitmapDisabled(*args, **kwargs):
+        """GetBitmapDisabled(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapDisabled(*args, **kwargs)
+
+    def GetBitmapCurrent(*args, **kwargs):
+        """GetBitmapCurrent(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapCurrent(*args, **kwargs)
+
+    def GetBitmapFocus(*args, **kwargs):
+        """GetBitmapFocus(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapFocus(*args, **kwargs)
+
+    BitmapLabel = property(GetBitmapLabel,SetBitmapLabel) 
+    BitmapPressed = property(GetBitmapPressed,SetBitmapPressed) 
+    BitmapDisabled = property(GetBitmapDisabled,SetBitmapDisabled) 
+    BitmapCurrent = property(GetBitmapCurrent,SetBitmapCurrent) 
+    BitmapFocus = property(GetBitmapFocus,SetBitmapFocus) 
+    def GetBitmapSelected(*args, **kwargs):
+        """GetBitmapSelected(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapSelected(*args, **kwargs)
+
+    def GetBitmapHover(*args, **kwargs):
+        """GetBitmapHover(self) -> Bitmap"""
+        return _controls_.AnyButton_GetBitmapHover(*args, **kwargs)
+
+    def SetBitmapSelected(*args, **kwargs):
+        """SetBitmapSelected(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapSelected(*args, **kwargs)
+
+    def SetBitmapHover(*args, **kwargs):
+        """SetBitmapHover(self, Bitmap bitmap)"""
+        return _controls_.AnyButton_SetBitmapHover(*args, **kwargs)
+
+    BitmapSelected = property(GetBitmapSelected,SetBitmapSelected) 
+    BitmapHover = property(GetBitmapHover,SetBitmapHover) 
+    def SetBitmapMargins(*args):
+        """
+        SetBitmapMargins(self, int x, int y)
+        SetBitmapMargins(self, Size sz)
+        """
+        return _controls_.AnyButton_SetBitmapMargins(*args)
+
+    def GetBitmapMargins(*args, **kwargs):
+        """GetBitmapMargins(self) -> Size"""
+        return _controls_.AnyButton_GetBitmapMargins(*args, **kwargs)
+
+    BitmapMargins = property(GetBitmapMargins,SetBitmapMargins) 
+    def SetBitmapPosition(*args, **kwargs):
+        """SetBitmapPosition(self, int dir)"""
+        return _controls_.AnyButton_SetBitmapPosition(*args, **kwargs)
+
+    def DontShowLabel(*args, **kwargs):
+        """DontShowLabel(self) -> bool"""
+        return _controls_.AnyButton_DontShowLabel(*args, **kwargs)
+
+    def ShowsLabel(*args, **kwargs):
+        """ShowsLabel(self) -> bool"""
+        return _controls_.AnyButton_ShowsLabel(*args, **kwargs)
+
+_controls_.AnyButton_swigregister(AnyButton)
+cvar = _controls_.cvar
+ButtonNameStr = cvar.ButtonNameStr
+
+class Button(AnyButton):
     """
     A button is a control that contains a text string, and is one of the most
     common elements of a GUI.  It may be placed on a dialog box or panel, or
@@ -107,94 +212,6 @@ class Button(_core.Control):
         """GetAuthNeeded(self) -> bool"""
         return _controls_.Button_GetAuthNeeded(*args, **kwargs)
 
-    def SetBitmap(*args, **kwargs):
-        """SetBitmap(self, Bitmap bitmap, int dir=LEFT)"""
-        return _controls_.Button_SetBitmap(*args, **kwargs)
-
-    def GetBitmap(*args, **kwargs):
-        """GetBitmap(self) -> Bitmap"""
-        return _controls_.Button_GetBitmap(*args, **kwargs)
-
-    Bitmap = property(GetBitmap,SetBitmap) 
-    def SetBitmapLabel(*args, **kwargs):
-        """SetBitmapLabel(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapLabel(*args, **kwargs)
-
-    def SetBitmapPressed(*args, **kwargs):
-        """SetBitmapPressed(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapPressed(*args, **kwargs)
-
-    def SetBitmapDisabled(*args, **kwargs):
-        """SetBitmapDisabled(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapDisabled(*args, **kwargs)
-
-    def SetBitmapCurrent(*args, **kwargs):
-        """SetBitmapCurrent(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapCurrent(*args, **kwargs)
-
-    def SetBitmapFocus(*args, **kwargs):
-        """SetBitmapFocus(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapFocus(*args, **kwargs)
-
-    def GetBitmapLabel(*args, **kwargs):
-        """GetBitmapLabel(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapLabel(*args, **kwargs)
-
-    def GetBitmapPressed(*args, **kwargs):
-        """GetBitmapPressed(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapPressed(*args, **kwargs)
-
-    def GetBitmapDisabled(*args, **kwargs):
-        """GetBitmapDisabled(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapDisabled(*args, **kwargs)
-
-    def GetBitmapCurrent(*args, **kwargs):
-        """GetBitmapCurrent(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapCurrent(*args, **kwargs)
-
-    def GetBitmapFocus(*args, **kwargs):
-        """GetBitmapFocus(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapFocus(*args, **kwargs)
-
-    BitmapLabel = property(GetBitmapLabel,SetBitmapLabel) 
-    BitmapPressed = property(GetBitmapPressed,SetBitmapPressed) 
-    BitmapDisabled = property(GetBitmapDisabled,SetBitmapDisabled) 
-    BitmapCurrent = property(GetBitmapCurrent,SetBitmapCurrent) 
-    BitmapFocus = property(GetBitmapFocus,SetBitmapFocus) 
-    def GetBitmapSelected(*args, **kwargs):
-        """GetBitmapSelected(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapSelected(*args, **kwargs)
-
-    def GetBitmapHover(*args, **kwargs):
-        """GetBitmapHover(self) -> Bitmap"""
-        return _controls_.Button_GetBitmapHover(*args, **kwargs)
-
-    def SetBitmapSelected(*args, **kwargs):
-        """SetBitmapSelected(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapSelected(*args, **kwargs)
-
-    def SetBitmapHover(*args, **kwargs):
-        """SetBitmapHover(self, Bitmap bitmap)"""
-        return _controls_.Button_SetBitmapHover(*args, **kwargs)
-
-    BitmapSelected = property(GetBitmapSelected,SetBitmapSelected) 
-    BitmapHover = property(GetBitmapHover,SetBitmapHover) 
-    def SetBitmapMargins(*args):
-        """
-        SetBitmapMargins(self, int x, int y)
-        SetBitmapMargins(self, Size sz)
-        """
-        return _controls_.Button_SetBitmapMargins(*args)
-
-    def GetBitmapMargins(*args, **kwargs):
-        """GetBitmapMargins(self) -> Size"""
-        return _controls_.Button_GetBitmapMargins(*args, **kwargs)
-
-    BitmapMargins = property(GetBitmapMargins,SetBitmapMargins) 
-    def SetBitmapPosition(*args, **kwargs):
-        """SetBitmapPosition(self, int dir)"""
-        return _controls_.Button_SetBitmapPosition(*args, **kwargs)
-
     def SetDefault(*args, **kwargs):
         """
         SetDefault(self) -> Window
@@ -231,8 +248,6 @@ class Button(_core.Control):
 
     GetClassDefaultAttributes = staticmethod(GetClassDefaultAttributes)
 _controls_.Button_swigregister(Button)
-cvar = _controls_.cvar
-ButtonNameStr = cvar.ButtonNameStr
 
 def PreButton(*args, **kwargs):
     """
@@ -961,7 +976,6 @@ def StaticLine_GetClassDefaultAttributes(*args, **kwargs):
 #---------------------------------------------------------------------------
 
 ST_NO_AUTORESIZE = _controls_.ST_NO_AUTORESIZE
-ST_MARKUP = _controls_.ST_MARKUP
 ST_ELLIPSIZE_START = _controls_.ST_ELLIPSIZE_START
 ST_ELLIPSIZE_MIDDLE = _controls_.ST_ELLIPSIZE_MIDDLE
 ST_ELLIPSIZE_END = _controls_.ST_ELLIPSIZE_END
@@ -1001,37 +1015,6 @@ class StaticText(_core.Control):
         """IsEllipsized(self) -> bool"""
         return _controls_.StaticText_IsEllipsized(*args, **kwargs)
 
-    def RemoveMarkup(*args, **kwargs):
-        """
-        RemoveMarkup(String str) -> String
-
-        Removes the markup accepted by wx.StaticText when wx.ST_MARKUP is
-        used, and then returns the cleaned string.
-            
-        """
-        return _controls_.StaticText_RemoveMarkup(*args, **kwargs)
-
-    RemoveMarkup = staticmethod(RemoveMarkup)
-    def EscapeMarkup(*args, **kwargs):
-        """
-        EscapeMarkup(String str) -> String
-
-        Escapes the alls special symbols (<>"'&) present inside the given
-        string using the corresponding entities (&lt; &gt; &quot; &apos;
-        &amp;)
-        """
-        return _controls_.StaticText_EscapeMarkup(*args, **kwargs)
-
-    EscapeMarkup = staticmethod(EscapeMarkup)
-    def GetLabelText(*args, **kwargs):
-        """
-        GetLabelText(self) -> String
-
-        Get the string without mnemonic characters ('&') and without markup (if
-        wxST_MARKUP is being used)
-        """
-        return _controls_.StaticText_GetLabelText(*args, **kwargs)
-
     def GetClassDefaultAttributes(*args, **kwargs):
         """
         GetClassDefaultAttributes(int variant=WINDOW_VARIANT_NORMAL) -> VisualAttributes
@@ -1056,26 +1039,6 @@ def PreStaticText(*args, **kwargs):
     """PreStaticText() -> StaticText"""
     val = _controls_.new_PreStaticText(*args, **kwargs)
     return val
-
-def StaticText_RemoveMarkup(*args, **kwargs):
-  """
-    StaticText_RemoveMarkup(String str) -> String
-
-    Removes the markup accepted by wx.StaticText when wx.ST_MARKUP is
-    used, and then returns the cleaned string.
-        
-    """
-  return _controls_.StaticText_RemoveMarkup(*args, **kwargs)
-
-def StaticText_EscapeMarkup(*args, **kwargs):
-  """
-    StaticText_EscapeMarkup(String str) -> String
-
-    Escapes the alls special symbols (<>"'&) present inside the given
-    string using the corresponding entities (&lt; &gt; &quot; &apos;
-    &amp;)
-    """
-  return _controls_.StaticText_EscapeMarkup(*args, **kwargs)
 
 def StaticText_GetClassDefaultAttributes(*args, **kwargs):
   """
@@ -1508,11 +1471,6 @@ TEXT_ATTR_EFFECT_SUBSCRIPT = _controls_.TEXT_ATTR_EFFECT_SUBSCRIPT
 TEXT_ATTR_LINE_SPACING_NORMAL = _controls_.TEXT_ATTR_LINE_SPACING_NORMAL
 TEXT_ATTR_LINE_SPACING_HALF = _controls_.TEXT_ATTR_LINE_SPACING_HALF
 TEXT_ATTR_LINE_SPACING_TWICE = _controls_.TEXT_ATTR_LINE_SPACING_TWICE
-TE_HT_UNKNOWN = _controls_.TE_HT_UNKNOWN
-TE_HT_BEFORE = _controls_.TE_HT_BEFORE
-TE_HT_ON_TEXT = _controls_.TE_HT_ON_TEXT
-TE_HT_BELOW = _controls_.TE_HT_BELOW
-TE_HT_BEYOND = _controls_.TE_HT_BEYOND
 OutOfRangeTextCoord = _controls_.OutOfRangeTextCoord
 InvalidTextCoord = _controls_.InvalidTextCoord
 TEXT_TYPE_ANY = _controls_.TEXT_TYPE_ANY
@@ -1537,7 +1495,7 @@ class TextAttr(object):
         return _controls_.TextAttr_Copy(*args, **kwargs)
 
     def EqPartial(*args, **kwargs):
-        """EqPartial(self, TextAttr attr, int flags) -> bool"""
+        """EqPartial(self, TextAttr attr) -> bool"""
         return _controls_.TextAttr_EqPartial(*args, **kwargs)
 
     def GetFontAttributes(*args, **kwargs):
@@ -1912,6 +1870,14 @@ class TextAttr(object):
     def HasFlag(*args, **kwargs):
         """HasFlag(self, long flag) -> bool"""
         return _controls_.TextAttr_HasFlag(*args, **kwargs)
+
+    def RemoveFlag(*args, **kwargs):
+        """RemoveFlag(self, long flag)"""
+        return _controls_.TextAttr_RemoveFlag(*args, **kwargs)
+
+    def AddFlag(*args, **kwargs):
+        """AddFlag(self, long flag)"""
+        return _controls_.TextAttr_AddFlag(*args, **kwargs)
 
     def IsCharacterStyle(*args, **kwargs):
         """IsCharacterStyle(self) -> bool"""
@@ -2997,7 +2963,7 @@ def Slider_GetClassDefaultAttributes(*args, **kwargs):
 wxEVT_COMMAND_TOGGLEBUTTON_CLICKED = _controls_.wxEVT_COMMAND_TOGGLEBUTTON_CLICKED
 EVT_TOGGLEBUTTON = wx.PyEventBinder( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, 1)
 
-class ToggleButton(_core.Control):
+class ToggleButton(AnyButton):
     """Proxy of C++ ToggleButton class"""
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
@@ -6823,9 +6789,10 @@ class HyperlinkCtrl(_core.Control):
     __repr__ = _swig_repr
     def __init__(self, *args, **kwargs): 
         """
-        __init__(self, Window parent, int id, String label, String url, Point pos=DefaultPosition, 
-            Size size=DefaultSize, 
-            long style=HL_DEFAULT_STYLE, String name=HyperlinkCtrlNameStr) -> HyperlinkCtrl
+        __init__(self, Window parent, int id=-1, String label=wxEmptyString, 
+            String url=wxEmptyString, Point pos=DefaultPosition, 
+            Size size=DefaultSize, long style=HL_DEFAULT_STYLE, 
+            String name=HyperlinkCtrlNameStr) -> HyperlinkCtrl
 
         A static text control that emulates a hyperlink. The link is displayed
         in an appropriate text style, derived from the control's normal font.
@@ -6842,9 +6809,10 @@ class HyperlinkCtrl(_core.Control):
 
     def Create(*args, **kwargs):
         """
-        Create(self, Window parent, int id, String label, String url, Point pos=DefaultPosition, 
-            Size size=DefaultSize, 
-            long style=HL_DEFAULT_STYLE, String name=HyperlinkCtrlNameStr) -> bool
+        Create(self, Window parent, int id=-1, String label=wxEmptyString, 
+            String url=wxEmptyString, Point pos=DefaultPosition, 
+            Size size=DefaultSize, long style=HL_DEFAULT_STYLE, 
+            String name=HyperlinkCtrlNameStr) -> bool
         """
         return _controls_.HyperlinkCtrl_Create(*args, **kwargs)
 
@@ -8075,6 +8043,66 @@ def PreInfoBar(*args, **kwargs):
     similarly to message bars in current web browsers.
     """
     val = _controls_.new_PreInfoBar(*args, **kwargs)
+    return val
+
+#---------------------------------------------------------------------------
+
+class CommandLinkButton(Button):
+    """Proxy of C++ CommandLinkButton class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """
+        __init__(self, Window parent, int id=-1, String mainLabel=wxEmptyString, 
+            String note=wxEmptyString, Point pos=DefaultPosition, 
+            Size size=DefaultSize, long style=0, 
+            Validator validator=DefaultValidator, 
+            String name=wxButtonNameStr) -> CommandLinkButton
+        """
+        _controls_.CommandLinkButton_swiginit(self,_controls_.new_CommandLinkButton(*args, **kwargs))
+        self._setOORInfo(self)
+
+    def Create(*args, **kwargs):
+        """
+        Create(self, Window parent, int id=-1, String mainLabel=wxEmptyString, 
+            String note=wxEmptyString, Point pos=DefaultPosition, 
+            Size size=DefaultSize, long style=0, 
+            Validator validator=DefaultValidator, 
+            String name=wxButtonNameStr) -> bool
+        """
+        return _controls_.CommandLinkButton_Create(*args, **kwargs)
+
+    def SetMainLabelAndNote(*args, **kwargs):
+        """SetMainLabelAndNote(self, String mainLabel, String note)"""
+        return _controls_.CommandLinkButton_SetMainLabelAndNote(*args, **kwargs)
+
+    def SetMainLabel(*args, **kwargs):
+        """SetMainLabel(self, String mainLabel)"""
+        return _controls_.CommandLinkButton_SetMainLabel(*args, **kwargs)
+
+    def SetNote(*args, **kwargs):
+        """SetNote(self, String note)"""
+        return _controls_.CommandLinkButton_SetNote(*args, **kwargs)
+
+    def GetMainLabel(*args, **kwargs):
+        """GetMainLabel(self) -> String"""
+        return _controls_.CommandLinkButton_GetMainLabel(*args, **kwargs)
+
+    def GetNote(*args, **kwargs):
+        """GetNote(self) -> String"""
+        return _controls_.CommandLinkButton_GetNote(*args, **kwargs)
+
+    MainLabel = property(GetMainLabel,SetMainLabel) 
+    Note = property(GetNote,SetNote) 
+_controls_.CommandLinkButton_swigregister(CommandLinkButton)
+
+def PreCommandLinkButton(*args, **kwargs):
+    """
+    PreCommandLinkButton() -> CommandLinkButton
+
+    Precreate a Button for 2-phase creation.
+    """
+    val = _controls_.new_PreCommandLinkButton(*args, **kwargs)
     return val
 
 

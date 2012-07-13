@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Francesco Montorsi, Bo Yang
 // Created:     06/01/06
-// RCS-ID:      $Id: mymodels.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: mymodels.cpp 66403 2010-12-19 15:02:56Z VZ $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -244,6 +244,17 @@ bool MyMusicTreeModel::SetValue( const wxVariant &variant,
     return false;
 }
 
+bool MyMusicTreeModel::IsEnabled( const wxDataViewItem &item,
+                                  unsigned int col ) const
+{
+    wxASSERT(item.IsOk());
+
+    MyMusicTreeModelNode *node = (MyMusicTreeModelNode*) item.GetID();
+
+    // disable Beethoven's ratings, his pieces can only be good
+    return !(col == 3 && node->m_artist.EndsWith("Beethoven"));
+}
+
 wxDataViewItem MyMusicTreeModel::GetParent( const wxDataViewItem &item ) const
 {
     // the invisible root node has no parent
@@ -317,13 +328,11 @@ static int my_sort( int *v1, int *v2 )
    return *v1-*v2;
 }
 
-#define INITIAL_NUMBER_OF_ITEMS 100000
+#define INITIAL_NUMBER_OF_ITEMS 10000
 
 MyListModel::MyListModel() :
         wxDataViewVirtualListModel( INITIAL_NUMBER_OF_ITEMS )
 {
-    m_virtualItems = INITIAL_NUMBER_OF_ITEMS;
-
     // the first 100 items are really stored in this model;
     // all the others are synthesized on request
     static const unsigned NUMBER_REAL_ITEMS = 100;
@@ -350,6 +359,7 @@ void MyListModel::Prepend( const wxString &text )
 void MyListModel::DeleteItem( const wxDataViewItem &item )
 {
     unsigned int row = GetRow( item );
+
     if (row >= m_textColValues.GetCount())
         return;
 
@@ -392,8 +402,7 @@ void MyListModel::DeleteItems( const wxDataViewItemArray &items )
 
 void MyListModel::AddMany()
 {
-    m_virtualItems += 1000;
-    Reset( m_textColValues.GetCount() + m_virtualItems );
+    Reset( GetCount()+1000 );
 }
 
 void MyListModel::GetValueByRow( wxVariant &variant,
@@ -526,4 +535,15 @@ bool MyListModel::SetValueByRow( const wxVariant &variant,
     }
 
     return false;
+}
+
+
+// ----------------------------------------------------------------------------
+// MyListStoreDerivedModel
+// ----------------------------------------------------------------------------
+
+bool MyListStoreDerivedModel::IsEnabledByRow(unsigned int row, unsigned int col) const
+{
+    // disabled the last two checkboxes
+    return !(col == 0 && 8 <= row && row <= 9);
 }

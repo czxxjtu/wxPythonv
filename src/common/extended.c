@@ -1,10 +1,10 @@
 /*****************************************************************************
-** Name:        extended.c
+** Name:        src/common/extended.c
 ** Purpose:     IEEE Extended<->Double routines to save floats to file
 ** Maintainer:  Ryan Norton
 ** Modified by:
 ** Created:     11/24/04
-** RCS-ID:      $Id: extended.c 50646 2007-12-12 01:35:53Z VZ $
+** RCS-ID:      $Id: extended.c 67254 2011-03-20 00:14:35Z DS $
 *****************************************************************************/
 
 

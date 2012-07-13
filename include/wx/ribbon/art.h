@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-05-25
-// RCS-ID:      $Id: art.h 61993 2009-09-21 13:08:52Z SC $
+// RCS-ID:      $Id: art.h 66055 2010-11-07 13:44:22Z PJC $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -154,6 +154,7 @@ enum wxRibbonButtonKind
     wxRIBBON_BUTTON_NORMAL    = 1 << 0,
     wxRIBBON_BUTTON_DROPDOWN  = 1 << 1,
     wxRIBBON_BUTTON_HYBRID    = wxRIBBON_BUTTON_NORMAL | wxRIBBON_BUTTON_DROPDOWN,
+    wxRIBBON_BUTTON_TOGGLE    = 1 << 2
 };
 
 enum wxRibbonButtonBarButtonState
@@ -170,7 +171,8 @@ enum wxRibbonButtonBarButtonState
     wxRIBBON_BUTTONBAR_BUTTON_DROPDOWN_ACTIVE   = 1 << 6,
     wxRIBBON_BUTTONBAR_BUTTON_ACTIVE_MASK       = wxRIBBON_BUTTONBAR_BUTTON_NORMAL_ACTIVE | wxRIBBON_BUTTONBAR_BUTTON_DROPDOWN_ACTIVE,
     wxRIBBON_BUTTONBAR_BUTTON_DISABLED          = 1 << 7,
-    wxRIBBON_BUTTONBAR_BUTTON_STATE_MASK        = 0xF8,
+    wxRIBBON_BUTTONBAR_BUTTON_TOGGLED           = 1 << 8,
+    wxRIBBON_BUTTONBAR_BUTTON_STATE_MASK        = 0x1F8,
 };
 
 enum wxRibbonGalleryButtonState
@@ -629,7 +631,7 @@ protected:
     wxColour m_button_bar_active_background_top_colour;
     wxColour m_button_bar_active_background_top_gradient_colour;
     wxColour m_gallery_button_background_colour;
-    wxColour m_gallery_button_background_gradient_colour;    
+    wxColour m_gallery_button_background_gradient_colour;
     wxColour m_gallery_button_hover_background_colour;
     wxColour m_gallery_button_hover_background_gradient_colour;
     wxColour m_gallery_button_active_background_colour;

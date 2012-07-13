@@ -2,7 +2,7 @@
 // Name:        dcmemory.h
 // Purpose:     interface of wxMemoryDC
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dcmemory.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dcmemory.h 65913 2010-10-24 22:41:46Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -81,13 +81,17 @@ public:
         should use when you select a bitmap because you want to modify it, e.g.
         drawing on this DC.
 
-        Using SelectObjectAsSource() when modifying the bitmap may incurr some
+        Using SelectObjectAsSource() when modifying the bitmap may incur some
         problems related to wxBitmap being a reference counted object (see
         @ref overview_refcount).
 
-        Also, before using the updated bitmap data, make sure to select it out
-        of context first (for example by selecting ::wxNullBitmap into the device
-        context).
+        Before using the updated bitmap data, make sure to select it out of
+        context first either by selecting ::wxNullBitmap into the device
+        context or destroying the device context entirely.
+
+        If the bitmap is already selected in this device context, nothing is
+        done. If it is selected in another context, the function asserts and
+        drawing on the bitmap won't work correctly.
 
         @see wxDC::DrawBitmap()
     */

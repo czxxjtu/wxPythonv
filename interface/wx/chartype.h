@@ -2,7 +2,7 @@
 // Name:        chartype.h
 // Purpose:     interface of global functions
 // Author:      wxWidgets team
-// RCS-ID:      $Id: chartype.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: chartype.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -31,6 +31,32 @@
     @header{wx/chartype.h}
 */
 #define wxT(string)
+
+/**
+    Compatibility macro which expands to wxT() in wxWidgets 2 only.
+
+    This macro can be used in the code which needs to compile with both
+    wxWidgets 2 and 3 versions in places where v2 API requires a Unicode string
+    (in Unicode build) and v3 API only accepts a standard narrow
+    string as in e.g. wxCmdLineEntryDesc structure objects initializers.
+
+    Example of use:
+    @code
+    const wxCmdLineEntryDesc cmdLineDesc[] =
+    {
+        { wxCMD_LINE_SWITCH, wxT_2("q"), wxT_2("quiet"),
+          wxT_2("Don't output verbose messages") },
+        wxCMD_LINE_DESC_END
+    };
+    @endcode
+
+    Without @c wxT_2 the code above wouldn't compile with wxWidgets 2, with @c
+    wxT instead of it, it wouldn't compile with wxWidgets 3.
+
+    @see wxT()
+
+    @header{wx/chartype.h}
+ */
 
 /**
     wxS is macro which can be used with character and string literals (in other words,

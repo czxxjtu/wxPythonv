@@ -3,7 +3,7 @@
 // Purpose:     wxGenericStaticBitmap
 // Author:      Marcin Wojdyr, Stefan Csomor
 // Created:     2008-06-16
-// RCS-ID:      $Id: statbmpg.cpp 62923 2009-12-18 14:46:44Z VZ $
+// RCS-ID:      $Id: statbmpg.cpp 66569 2011-01-04 12:52:12Z SC $
 // Copyright:   wxWidgets developers
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -17,8 +17,6 @@
 #endif
 
 #include "wx/generic/statbmpg.h"
-
-IMPLEMENT_DYNAMIC_CLASS(wxGenericStaticBitmap, wxStaticBitmapBase)
 
 bool wxGenericStaticBitmap::Create(wxWindow *parent, wxWindowID id,
                                    const wxBitmap& bitmap,
@@ -39,6 +37,13 @@ void wxGenericStaticBitmap::OnPaint(wxPaintEvent& WXUNUSED(event))
     if (m_bitmap.IsOk())
         dc.DrawBitmap(m_bitmap, 0, 0, true);
 }
+
+// under OSX_cocoa is a define, avoid duplicate info
+#ifndef wxGenericStaticBitmap
+
+IMPLEMENT_DYNAMIC_CLASS(wxGenericStaticBitmap, wxStaticBitmapBase)
+
+#endif
 
 #endif // wxUSE_STATBMP
 

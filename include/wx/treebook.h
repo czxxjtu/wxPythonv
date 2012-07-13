@@ -4,7 +4,7 @@
 // Author:      Evgeniy Tarassov, Vadim Zeitlin
 // Modified by:
 // Created:     2005-09-15
-// RCS-ID:      $Id: treebook.h 63632 2010-03-05 23:55:19Z VZ $
+// RCS-ID:      $Id: treebook.h 65931 2010-10-27 16:54:36Z VZ $
 // Copyright:   (c) 2005 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -126,7 +126,6 @@ public:
     // Standard operations inherited from wxBookCtrlBase
     // -------------------------------------------------
 
-    virtual int GetSelection() const;
     virtual bool SetPageText(size_t n, const wxString& strText);
     virtual wxString GetPageText(size_t n) const;
     virtual int GetPageImage(size_t n) const;
@@ -151,9 +150,6 @@ protected:
 
     // array of page ids and page windows
     wxArrayTreeItemIds m_treeIds;
-
-    // the currently selected page or wxNOT_FOUND if none
-    int m_selection;
 
     // in the situation when m_selection page is not wxNOT_FOUND but page is
     // NULL this is the first (sub)child that has a non-NULL page

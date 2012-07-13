@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _colour.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _colour.i 66325 2010-12-04 03:30:23Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 
 %{
 #ifdef __WXMAC__
-#include <wx/osx/carbon/private.h>
+#include <wx/osx/private.h>
 #endif
 %}
 

@@ -2,7 +2,7 @@
 // Name:        textctrl.h
 // Purpose:     interface of wxTextAttr
 // Author:      wxWidgets team
-// RCS-ID:      $Id: textctrl.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: textctrl.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -796,7 +796,7 @@ public:
     void SetTabs(const wxArrayInt& tabs);
 
     /**
-        Sets the text foreground colout.
+        Sets the text foreground colour.
     */
     void SetTextColour(const wxColour& colText);
 
@@ -854,11 +854,11 @@ public:
 
     @beginStyleTable
     @style{wxTE_PROCESS_ENTER}
-           The control will generate the event wxEVT_COMMAND_TEXT_ENTER
+           The control will generate the event @c wxEVT_COMMAND_TEXT_ENTER
            (otherwise pressing Enter key is either processed internally by the
            control or used for navigation between dialog controls).
     @style{wxTE_PROCESS_TAB}
-           The control will receive wxEVT_CHAR events for TAB pressed -
+           The control will receive @c wxEVT_CHAR events for TAB pressed -
            normally, TAB is used for passing to the next control in a dialog
            instead. For the control created with this style, you can still use
            Ctrl-Enter to pass to the next control from the keyboard.
@@ -1049,14 +1049,14 @@ public:
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_TEXT(id, func)}
-        Respond to a wxEVT_COMMAND_TEXT_UPDATED event, generated when the text
+        Respond to a @c wxEVT_COMMAND_TEXT_UPDATED event, generated when the text
         changes. Notice that this event will be sent when the text controls
         contents changes -- whether this is due to user input or comes from the
         program itself (for example, if wxTextCtrl::SetValue() is called); see
         wxTextCtrl::ChangeValue() for a function which does not send this event.
         This event is however not sent during the control creation.
     @event{EVT_TEXT_ENTER(id, func)}
-        Respond to a wxEVT_COMMAND_TEXT_ENTER event, generated when enter is
+        Respond to a @c wxEVT_COMMAND_TEXT_ENTER event, generated when enter is
         pressed in a text control which must have wxTE_PROCESS_ENTER style for
         this event to be generated.
     @event{EVT_TEXT_URL(id, func)}
@@ -1226,26 +1226,47 @@ public:
     */
     virtual bool GetStyle(long position, wxTextAttr& style);
 
+    //@{
     /**
         This function finds the character at the specified position expressed
         in pixels.
 
+        The two overloads of this method allow to find either the position of
+        the character, as an index into the text control contents, or its row
+        and column.
+
         If the return code is not @c wxTE_HT_UNKNOWN the row and column of the
-        character closest to this position are returned in the @a col and @a
-        row parameters (unless the pointers are @NULL which is allowed).
-        Please note that this function is currently only implemented in wxUniv, wxMSW
-        and wxGTK2 ports.
+        character closest to this position are returned, otherwise the output
+        parameters are not modified.
+
+        Please note that this function is currently only implemented in wxUniv,
+        wxMSW and wxGTK2 ports and always returns @c wxTE_HT_UNKNOWN in the
+        other ports.
 
         @beginWxPerlOnly
         In wxPerl this function takes only the @a pt argument and
         returns a 3-element list (result, col, row).
         @endWxPerlOnly
 
+        @param pt
+            The position of the point to check, in window device coordinates.
+        @param col
+            Receives the column of the character at the given position. May be
+            @NULL.
+        @param row
+            Receives the row of the character at the given position. May be
+            @NULL.
+        @param pos
+            Receives the position of the character at the given position. May
+            be @NULL.
+
         @see PositionToXY(), XYToPosition()
     */
+    wxTextCtrlHitTestResult HitTest(const wxPoint& pt, long *pos) const;
     wxTextCtrlHitTestResult HitTest(const wxPoint& pt,
-                                    wxTextCoord col,
-                                    wxTextCoord row) const;
+                                    wxTextCoord *col,
+                                    wxTextCoord *row) const;
+    //@}
 
     /**
         Returns @true if the text has been modified by user.

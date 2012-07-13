@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2006-01-12
-// RCS-ID:      $Id: evtloopcmn.cpp 63697 2010-03-17 07:14:03Z SC $
+// RCS-ID:      $Id: evtloopcmn.cpp 66229 2010-11-22 01:22:56Z VZ $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,7 +139,7 @@ int wxEventLoopManual::Run()
 
                 // generate and process idle events for as long as we don't
                 // have anything else to do
-                while ( !Pending() && ProcessIdle() )
+                while ( !Pending() && ProcessIdle() && !m_shouldExit )
                     ;
 
                 // if the "should exit" flag is set, the loop should terminate

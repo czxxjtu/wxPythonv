@@ -2,7 +2,7 @@
 // Name:        src/gtk1/choice.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: choice.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: choice.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -85,8 +85,6 @@ static void gtk_choice_clicked_callback( GtkWidget *WXUNUSED(widget), wxChoice *
 //-----------------------------------------------------------------------------
 // wxChoice
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxChoice, wxControlWithItems)
 
 wxChoice::wxChoice()
 {

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: colour.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: colour.h 67068 2011-02-27 12:48:42Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ public:
 #endif
 #if wxOSX_USE_COCOA
     wxColour(WX_NSColor color);
-    WX_NSColor OSXGetNSColor();
+    WX_NSColor OSXGetNSColor() const;
 #endif
     wxColour& operator=(CGColorRef col);
     wxColour& operator=(const wxColour& col);

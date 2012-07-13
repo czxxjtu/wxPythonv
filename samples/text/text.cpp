@@ -3,7 +3,7 @@
 // Purpose:     TextCtrl wxWidgets sample
 // Author:      Robert Roebling
 // Modified by:
-// RCS-ID:      $Id: text.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: text.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Robert Roebling, Julian Smart, Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -544,8 +544,6 @@ bool MyApp::OnInit()
     frame->SetMenuBar(menu_bar);
 
     frame->Show(true);
-
-    SetTopWindow(frame);
 
     // report success
     return true;
@@ -1850,7 +1848,7 @@ void RichTextFrame::OnIdle(wxIdleEvent& WXUNUSED(event))
         {
             wxString msg;
             wxString facename(wxT("unknown"));
-            if (attr.GetFont().Ok())
+            if (attr.GetFont().IsOk())
             {
                 facename = attr.GetFont().GetFaceName();
             }
@@ -1863,9 +1861,20 @@ void RichTextFrame::OnIdle(wxIdleEvent& WXUNUSED(event))
                 alignment = wxT("left-aligned");
             else if (attr.GetAlignment() == wxTEXT_ALIGNMENT_JUSTIFIED)
                 alignment = wxT("justified");
-            msg.Printf( "Facename: %s, wxColour(%d, %d, %d), %s", facename,
-                attr.GetTextColour().Red(), attr.GetTextColour().Green(), attr.GetTextColour().Blue(),
-                alignment );
+
+            msg.Printf("Facename: %s", facename);
+
+            if (attr.HasTextColour())
+            {
+                msg += wxString::Format(", colour: %s",
+                                        attr.GetTextColour().GetAsString());
+            }
+            else
+            {
+                msg += ", no colour";
+            }
+
+            msg << ", " << alignment;
 
             if (attr.HasFont())
             {

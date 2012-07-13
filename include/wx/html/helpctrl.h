@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        helpctrl.h
+// Name:        wx/html/helpctrl.h
 // Purpose:     wxHtmlHelpController
 // Notes:       Based on htmlhelp.cpp, implementing a monolithic
 //              HTML Help controller class,  by Vaclav Slavik
 // Author:      Harm van der Heijden and Vaclav Slavik
-// RCS-ID:      $Id: helpctrl.h 63548 2010-02-25 00:03:30Z VZ $
+// RCS-ID:      $Id: helpctrl.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Harm van der Heijden and Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -47,6 +47,8 @@ class WXDLLIMPEXP_HTML wxHtmlHelpController : public wxHelpControllerBase // wxE
 public:
     wxHtmlHelpController(int style = wxHF_DEFAULT_STYLE, wxWindow* parentWindow = NULL);
     virtual ~wxHtmlHelpController();
+
+    void SetShouldPreventAppExit(bool enable);
 
     void SetTitleFormat(const wxString& format);
     void SetTempDir(const wxString& path) { m_helpData.SetTempDir(path); }
@@ -128,6 +130,8 @@ protected:
     int                 m_FrameStyle;
     wxHtmlHelpFrame*    m_helpFrame;
     wxHtmlHelpDialog*   m_helpDialog;
+
+    bool                m_shouldPreventAppExit;
 
     wxDECLARE_NO_COPY_CLASS(wxHtmlHelpController);
 };

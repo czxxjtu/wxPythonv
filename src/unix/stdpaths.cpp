@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        unix/stdpaths.cpp
+// Name:        src/unix/stdpaths.cpp
 // Purpose:     wxStandardPaths implementation for Unix & OpenVMS systems
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2004-10-19
-// RCS-ID:      $Id: stdpaths.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: stdpaths.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2004 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     08.12.99
-// RCS-ID:      $Id: dir.h 64634 2010-06-19 12:28:38Z FM $
+// RCS-ID:      $Id: dir.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ public:
 
     // get the full name of the directory (without '/' at the end)
     wxString GetName() const;
-    
+
 
     // file enumeration routines
     // -------------------------
@@ -155,7 +155,7 @@ public:
     // static utilities for directory management
     // (alias to wxFileName's functions for dirs)
     // -----------------------------------------
-    
+
     // test for existence of a directory with the given name
     static bool Exists(const wxString& dir);
 
@@ -163,7 +163,7 @@ public:
                      int flags = 0);
 
     static bool Remove(const wxString &dir, int flags = 0);
-    
+
 
 private:
     friend class wxDirData;

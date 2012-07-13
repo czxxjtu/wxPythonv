@@ -3,7 +3,7 @@
 // Purpose:     STC test module
 // Maintainer:  Wyo
 // Created:     2003-09-01
-// RCS-ID:      $Id: edit.h 63792 2010-03-30 03:50:06Z RD $
+// RCS-ID:      $Id: edit.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) wxGuide
 // Licence:     wxWindows licence
 //////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ public:
     Edit (wxWindow *parent, wxWindowID id = wxID_ANY,
           const wxPoint &pos = wxDefaultPosition,
           const wxSize &size = wxDefaultSize,
-          long style = 
+          long style =
 #ifndef __WXMAC__
           wxSUNKEN_BORDER|
 #endif

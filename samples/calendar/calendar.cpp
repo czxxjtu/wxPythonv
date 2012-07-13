@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     02.01.00
-// RCS-ID:      $Id: calendar.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: calendar.cpp 67987 2011-06-19 22:46:36Z VZ $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -280,7 +280,6 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
 #ifdef __WXGTK20__
     EVT_UPDATE_UI(Calendar_Cal_Monday, MyFrame::OnUpdateUIGenericOnly)
     EVT_UPDATE_UI(Calendar_Cal_Holidays, MyFrame::OnUpdateUIGenericOnly)
-    EVT_UPDATE_UI(Calendar_Cal_LimitDates, MyFrame::OnUpdateUIGenericOnly)
 #endif
     EVT_UPDATE_UI(Calendar_Cal_Special, MyFrame::OnUpdateUIGenericOnly)
     EVT_UPDATE_UI(Calendar_Cal_SurroundWeeks, MyFrame::OnUpdateUIGenericOnly)

@@ -2,7 +2,7 @@
 // Name:        tglbtn.h
 // Purpose:     interface of wxBitmapToggleButton, wxToggleButton
 // Author:      wxWidgets team
-// RCS-ID:      $Id: tglbtn.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: tglbtn.h 65706 2010-10-01 13:05:36Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -106,8 +106,14 @@ public:
 /**
     @class wxBitmapToggleButton
 
-    wxBitmapToggleButton is a wxToggleButton
-    that contains a bitmap instead of text.
+    wxBitmapToggleButton is a wxToggleButton that contains a bitmap instead of
+    text.
+
+    This class is not available in all ports currently (although it is
+    available in the major ones), test for @c wxHAS_BITMAPTOGGLEBUTTON to
+    determine whether it can be used (in addition for possibly testing for
+    @c wxUSE_TOGGLEBTN which can be set to 0 to explicitly disable support for
+    this class and wxToggleButton).
 
     This control emits an update UI event.
 

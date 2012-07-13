@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        wx/private/sockaddr.h
+// Name:        wx/private/sckaddr.h
 // Purpose:     wxSockAddressImpl
 // Author:      Vadim Zeitlin
 // Created:     2008-12-28
-// RCS-ID:      $Id: sckaddr.h 62762 2009-12-02 16:36:50Z PC $
+// RCS-ID:      $Id: sckaddr.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dc.cpp
+// Name:        src/gtk1/dc.cpp
 // Purpose:
 // Author:      Robert Roebling
-// RCS-ID:      $Id: dc.cpp 50728 2007-12-15 18:20:59Z VZ $
+// RCS-ID:      $Id: dc.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

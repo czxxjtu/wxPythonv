@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        pnghand.h
+// Name:        wx/osx/pnghand.h
 // Purpose:     PNG bitmap handler
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: pnghand.h 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: pnghand.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor, Dan "Bud" Keith (composite combobox)
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: combobox.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: combobox.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -24,8 +24,6 @@
 #endif
 
 #include "wx/osx/private.h"
-
-IMPLEMENT_DYNAMIC_CLASS(wxComboBox, wxControl)
 
 WX_DELEGATE_TO_CONTROL_CONTAINER(wxComboBox, wxControl)
 
@@ -676,7 +674,7 @@ wxTextWidgetImpl* wxComboBox::GetTextPeer() const
 {
     if (m_text)
         return m_text->GetTextPeer();
-    
+
     return NULL;
 }
 

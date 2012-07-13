@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------- #
-# FANCYBUTTONPANEL Widget wxPython IMPLEMENTATION
+# BUTTONPANEL Widget wxPython IMPLEMENTATION
 #
 # Original C++ Code From Eran. You Can Find It At:
 #
@@ -11,14 +11,14 @@
 # Python Code By:
 #
 # Andrea Gavana, @ 02 Oct 2006
-# Latest Revision: 14 Apr 2010, 12.00 GMT
+# Latest Revision: 17 Aug 2011, 15.00 GMT
 #
 #
 # For All Kind Of Problems, Requests Of Enhancements And Bug Reports, Please
 # Write To Me At:
 #
 # andrea.gavana@gmail.com
-# gavana@kpo.kz
+# andrea.gavana@maerskoil.com
 #
 # Or, Obviously, To The wxPython Mailing List!!!
 #
@@ -34,7 +34,7 @@ add buttons and controls still respecting the gradient background.
 Description
 ===========
 
-With `ButtonPanel` class you have a panel with gradient colouring
+With L{ButtonPanel} class you have a panel with gradient colouring
 on it and with the possibility to place some buttons on it. Using a
 standard panel with normal `wx.Buttons` leads to an ugly result: the
 buttons are placed correctly on the panel - but with grey area around
@@ -56,86 +56,97 @@ classic look).
 Usage
 =====
 
-ButtonPanel supports 4 alignments: left, right, top, bottom, which have a
+L{ButtonPanel} supports 4 alignments: left, right, top, bottom, which have a
 different meaning and behavior with respect to `wx.Toolbar`. The easiest
 thing is to try the demo to understand, but I'll try to explain how it works.
 
-**CASE 1**: `ButtonPanel` has a main caption text.
+**CASE 1**: L{ButtonPanel} has a main caption text.
 
-- Left alignment means `ButtonPanel` is horizontal, with the text aligned to the
+- Left alignment means L{ButtonPanel} is horizontal, with the text aligned to the
   left. When you shrink the demo frame, if there is not enough room for all
   the controls to be shown, the controls closest to the text are hidden;
 
-- Right alignment means `ButtonPanel` is horizontal, with the text aligned to the
+- Right alignment means L{ButtonPanel} is horizontal, with the text aligned to the
   right. Item layout as above;
 
-- Top alignment means `ButtonPanel` is vertical, with the text aligned to the top.
+- Top alignment means L{ButtonPanel} is vertical, with the text aligned to the top.
   Item layout as above;
 
-- Bottom alignment means `ButtonPanel` is vertical, with the text aligned to the
+- Bottom alignment means L{ButtonPanel} is vertical, with the text aligned to the
   bottom. Item layout as above.
 
 
-**CASE 2**: `ButtonPanel` has **no** main caption text.
+**CASE 2**: L{ButtonPanel} has **no** main caption text.
 
 - In this case, left and right alignment are the same (as top and bottom are the same),
   but the layout strategy changes: now if there is not enough room for all the controls
-  to be shown, the last added items are hidden ("last" means on the far right for
-  horizontal ButtonPanels and far bottom for vertical ButtonPanels).
+  to be shown, the last added items are hidden ("last" means on the far right for an
+  horizontal L{ButtonPanel} and far bottom for a vertical L{ButtonPanel}).
 
 
-The following example shows a simple implementation that uses `ButtonPanel`
-inside a very simple frame::
+Usage example::
 
-  class MyFrame(wx.Frame):
+    import wx
+    import wx.lib.agw.buttonpanel as BP
 
-      def __init__(self, parent, id=-1, title="ButtonPanel", pos=wx.DefaultPosition,
-                   size=(800, 600), style=wx.DEFAULT_FRAME_STYLE):
+    class MyFrame(wx.Frame):
+
+        def __init__(self, parent, id=-1, title="ButtonPanel", pos=wx.DefaultPosition,
+                     size=(800, 600), style=wx.DEFAULT_FRAME_STYLE):
                  
-          wx.Frame.__init__(self, parent, id, title, pos, size, style)
+            wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
-          mainPanel = wx.Panel(self, -1)
-          self.logtext = wx.TextCtrl(mainPanel, -1, "", style=wx.TE_MULTILINE)
+            mainPanel = wx.Panel(self, -1)
+            self.logtext = wx.TextCtrl(mainPanel, -1, "", style=wx.TE_MULTILINE)
 
-          vSizer = wx.BoxSizer(wx.VERTICAL) 
-          mainPanel.SetSizer(vSizer) 
+            vSizer = wx.BoxSizer(wx.VERTICAL) 
+            mainPanel.SetSizer(vSizer) 
 
-          alignment = BP_ALIGN_RIGHT 
+            titleBar = BP.ButtonPanel(mainPanel, -1, "A Simple Test & Demo")
 
-          titleBar = ButtonPanel(mainPanel, -1, "A Simple Test & Demo")
+            btn1 = BP.ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png4.png", wx.BITMAP_TYPE_PNG))
+            titleBar.AddButton(btn1)
+            self.Bind(wx.EVT_BUTTON, self.OnButton, btn1)
 
-          btn1 = ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png4.png", wx.BITMAP_TYPE_PNG))
-          titleBar.AddButton(btn1)
-          self.Bind(wx.EVT_BUTTON, self.OnButton, btn1)
+            btn2 = BP.ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png3.png", wx.BITMAP_TYPE_PNG))
+            titleBar.AddButton(btn2)
+            self.Bind(wx.EVT_BUTTON, self.OnButton, btn2)
 
-          btn2 = ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png3.png", wx.BITMAP_TYPE_PNG))
-          titleBar.AddButton(btn2)
-          self.Bind(wx.EVT_BUTTON, self.OnButton, btn2)
+            btn3 = BP.ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png2.png", wx.BITMAP_TYPE_PNG))
+            titleBar.AddButton(btn3)
+            self.Bind(wx.EVT_BUTTON, self.OnButton, btn3)
 
-          btn3 = ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png2.png", wx.BITMAP_TYPE_PNG))
-          titleBar.AddButton(btn3)
-          self.Bind(wx.EVT_BUTTON, self.OnButton, btn3)
+            btn4 = BP.ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png1.png", wx.BITMAP_TYPE_PNG))
+            titleBar.AddButton(btn4)
+            self.Bind(wx.EVT_BUTTON, self.OnButton, btn4)
 
-          btn4 = ButtonInfo(titleBar, wx.NewId(), wx.Bitmap("png1.png", wx.BITMAP_TYPE_PNG))
-          titleBar.AddButton(btn4)
-          self.Bind(wx.EVT_BUTTON, self.OnButton, btn4)
+            vSizer.Add(titleBar, 0, wx.EXPAND)
+            vSizer.Add((20, 20))
+            vSizer.Add(self.logtext, 1, wx.EXPAND|wx.ALL, 5)
 
-          vSizer.Add(titleBar, 0, wx.EXPAND)
-          vSizer.Add((20, 20))
-          vSizer.Add(self.logtext, 1, wx.EXPAND|wx.ALL, 5)
+            titleBar.DoLayout()
+            vSizer.Layout()
 
-          titleBar.DoLayout()
-          vSizer.Layout()
-  
-  # our normal wxApp-derived class, as usual
 
-  app = wx.PySimpleApp()
-  
-  frame = MyFrame(None)
-  app.SetTopWindow(frame)
-  frame.Show()
-  
-  app.MainLoop()
+        def OnButton(self, event):
+            ''' Handler for the ``wx.EVT_BUTTON`` event. '''
+
+            obj = event.GetEventObject()
+
+            # This will print the button label
+            print obj.GetText()
+
+
+    # our normal wxApp-derived class, as usual
+
+    app = wx.PySimpleApp()
+
+    frame = MyFrame(None)
+    app.SetTopWindow(frame)
+    frame.Show()
+
+    app.MainLoop()
+
 
 
 Window Styles
@@ -146,8 +157,8 @@ This class supports the following window styles:
 ==================== =========== ==================================================
 Window Styles        Hex Value   Description
 ==================== =========== ==================================================
-``BP_DEFAULT_STYLE``         0x1 `ButtonPanel` has a plain solid background.
-``BP_USE_GRADIENT``          0x2 `ButtonPanel` has a gradient shading background.
+``BP_DEFAULT_STYLE``         0x1 L{ButtonPanel} has a plain solid background.
+``BP_USE_GRADIENT``          0x2 L{ButtonPanel} has a gradient shading background.
 ==================== =========== ==================================================
 
 
@@ -166,9 +177,9 @@ Event Name        Description
 License And Version
 ===================
 
-ButtonPanel is distributed under the wxPython license. 
+L{ButtonPanel} is distributed under the wxPython license. 
 
-Latest Revision: Andrea Gavana @ 14 Apr 2010, 12.00 GMT
+Latest Revision: Andrea Gavana @ 17 Aug 2011, 15.00 GMT
 
 Version 0.6.
 
@@ -181,13 +192,13 @@ import wx
 BP_BACKGROUND_COLOUR = 0
 """ Background brush colour when no gradient shading exists. """
 BP_GRADIENT_COLOUR_FROM = 1
-""" Starting gradient colour, used only when BP_USE_GRADIENT style is applied. """
+""" Starting gradient colour, used only when ``BP_USE_GRADIENT`` style is applied. """
 BP_GRADIENT_COLOUR_TO = 2
-""" Ending gradient colour, used only when BP_USE_GRADIENT style is applied. """
+""" Ending gradient colour, used only when ``BP_USE_GRADIENT`` style is applied. """
 BP_BORDER_COLOUR = 3
-""" Pen colour to paint the border of ButtonPanel. """
+""" Pen colour to paint the border of L{ButtonPanel}. """
 BP_TEXT_COLOUR = 4
-""" Main ButtonPanel caption colour. """
+""" Main L{ButtonPanel} caption colour. """
 BP_BUTTONTEXT_COLOUR = 5
 """ Text colour for buttons with text. """
 BP_BUTTONTEXT_INACTIVE_COLOUR = 6
@@ -199,7 +210,7 @@ BP_SELECTION_PEN_COLOUR = 8
 BP_SEPARATOR_COLOUR = 9
 """ Pen colour used to paint the separators. """
 BP_TEXT_FONT = 10
-""" Font of the ButtonPanel main caption. """
+""" Font of the L{ButtonPanel} main caption. """
 BP_BUTTONTEXT_FONT = 11
 """ Text font for the buttons with text. """
 
@@ -209,15 +220,9 @@ BP_BUTTONTEXT_ALIGN_RIGHT = 13
 """ Flag that indicates the text is shown alongside the image in buttons with text. """
 
 BP_SEPARATOR_SIZE = 14
-"""
-Separator size. NB: This is not the line width, but the sum of the space before
-and after the separator line plus the width of the line.
-"""
+""" Separator size. NB: This is not the line width, but the sum of the space before and after the separator line plus the width of the line. """
 BP_MARGINS_SIZE = 15
-"""
-Size of the left/right margins in ButtonPanel (top/bottom for vertically
-aligned ButtonPanels).
-"""
+""" Size of the left/right margins in L{ButtonPanel} (top/bottom for vertically aligned L{ButtonPanel})."""
 BP_BORDER_SIZE = 16
 """ Size of the border. """
 BP_PADDING_SIZE = 17
@@ -233,19 +238,25 @@ BP_GRADIENT_HORIZONTAL = 2
 
 # Flags for HitTest() method
 BP_HT_BUTTON = 200
+""" This flag indicates that the user has hit a button inside L{ButtonPanel}. """
 BP_HT_NONE = 201
+""" This flag indicates that no buttons were hit inside L{ButtonPanel}. """
 
 # Alignment of buttons in the panel
 BP_ALIGN_RIGHT = 1
+""" Aligns the buttons to the right (for an horizontal L{ButtonPanel}). """
 BP_ALIGN_LEFT = 2
+""" Aligns the buttons to the left (for an horizontal L{ButtonPanel}). """
 BP_ALIGN_TOP = 4
+""" Aligns the buttons at the top (for a vertical L{ButtonPanel}). """
 BP_ALIGN_BOTTOM = 8
+""" Aligns the buttons at the bottom (for a vertical L{ButtonPanel}). """
 
 # ButtonPanel styles
 BP_DEFAULT_STYLE = 1
-""" `ButtonPanel` has a plain solid background. """
+""" L{ButtonPanel} has a plain solid background. """
 BP_USE_GRADIENT = 2
-""" `ButtonPanel` has a gradient shading background. """
+""" L{ButtonPanel} has a gradient shading background. """
 
 # Delay used to cancel the longHelp in the statusbar field
 _DELAY = 3000
@@ -364,7 +375,7 @@ class BPArt(object):
          Size Id                         Value  Description
          ============================== ======= =====================================
          ``BP_SEPARATOR_SIZE``               14 Separator size. Note: This is not the line width, but the sum of the space before and after the separator line plus the width of the line
-         ``BP_MARGINS_SIZE``                 15 Size of the left/right margins in L{ButtonPanel} (top/bottom for vertically aligned ButtonPanels)
+         ``BP_MARGINS_SIZE``                 15 Size of the left/right margins in L{ButtonPanel} (top/bottom for vertically aligned L{ButtonPanel})
          ``BP_BORDER_SIZE``                  16 Size of the border
          ``BP_PADDING_SIZE``                 17 Inter-tool separator size
          ============================== ======= =====================================
@@ -420,7 +431,7 @@ class BPArt(object):
          ``BP_GRADIENT_COLOUR_FROM``              1 Starting gradient colour, used only when ``BP_USE_GRADIENT`` style is applied
          ``BP_GRADIENT_COLOUR_TO``                2 Ending gradient colour, used only when ``BP_USE_GRADIENT`` style is applied
          ``BP_BORDER_COLOUR``                     3 Pen colour to paint the border of L{ButtonPanel}
-         ``BP_TEXT_COLOUR``                       4 Main ButtonPanel caption colour
+         ``BP_TEXT_COLOUR``                       4 Main L{ButtonPanel} caption colour
          ``BP_BUTTONTEXT_COLOUR``                 5 Text colour for buttons with text
          ``BP_BUTTONTEXT_INACTIVE_COLOUR``        6 Text colour for inactive buttons with text
          ``BP_SELECTION_BRUSH_COLOUR``            7 Brush colour to be used when hovering or selecting a button
@@ -802,7 +813,7 @@ class Control(wx.EvtHandler):
     L{ButtonPanel}.
     """
 
-    def __init__(self, parent, size=wx.Size(-1, -1)):
+    def __init__(self, parent, size=wx.Size(-1, -1), id=wx.ID_ANY):
         """
         Default class constructor.
         
@@ -816,7 +827,12 @@ class Control(wx.EvtHandler):
         wx.EvtHandler.__init__(self)
 
         self._parent = parent
-        self._id = wx.NewId()
+
+        if id == wx.ID_ANY:
+            self._id = wx.NewId()
+        else:
+            self._id = id
+        
         self._size = size
         self._isshown = True
         self._focus = False
@@ -1354,7 +1370,7 @@ class ButtonInfo(Control):
         self._bitmaps = {"Normal": bmp, "Toggled": None, "Disabled": disabledbmp,
                          "Hover": None, "Pressed": None}        
 
-        Control.__init__(self, parent)
+        Control.__init__(self, parent, id=id)
         
 
     def GetBestSize(self):

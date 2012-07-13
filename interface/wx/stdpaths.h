@@ -2,7 +2,7 @@
 // Name:        stdpaths.h
 // Purpose:     interface of wxStandardPaths
 // Author:      wxWidgets team
-// RCS-ID:      $Id: stdpaths.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: stdpaths.h 65652 2010-09-27 11:51:50Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -54,6 +54,17 @@
 class wxStandardPaths
 {
 public:
+    /// Possible values for category parameter of GetLocalizedResourcesDir().
+    enum ResourceCat
+    {
+        /// No special category, this is the default.
+        ResourceCat_None,
+
+        /// Message catalog resources category.
+        ResourceCat_Messages
+    };
+
+
     /**
         MSW-specific function undoing the effect of IgnoreAppSubDir() calls.
 
@@ -174,8 +185,9 @@ public:
 
         @since 2.7.0
     */
-    virtual wxString GetLocalizedResourcesDir(const wxString& lang,
-                                              ResourceCat category) const;
+    virtual wxString
+    GetLocalizedResourcesDir(const wxString& lang,
+                             ResourceCat category = ResourceCat_None) const;
 
     /**
         Return the directory where the loadable modules (plugins) live.

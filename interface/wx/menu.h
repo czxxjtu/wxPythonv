@@ -2,7 +2,7 @@
 // Name:        menu.h
 // Purpose:     interface of wxMenuBar
 // Author:      wxWidgets team
-// RCS-ID:      $Id: menu.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: menu.h 68974 2011-09-03 01:39:39Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -386,8 +386,9 @@ public:
 
     A menu item has an integer ID associated with it which can be used to
     identify the selection, or to change the menu item in some way. A menu item
-    with a special identifier -1 is a separator item and doesn't have an
-    associated command but just makes a separator line appear in the menu.
+    with a special identifier @e wxID_SEPARATOR is a separator item and doesn't
+    have an associated command but just makes a separator line appear in the
+    menu.
 
     @note
     Please note that @e wxID_ABOUT and @e wxID_EXIT are predefined by wxWidgets
@@ -452,6 +453,12 @@ public:
 class wxMenu : public wxEvtHandler
 {
 public:
+
+    /**
+        Constructs a wxMenu object.
+    */
+    wxMenu();
+    
     /**
         Constructs a wxMenu object.
 
@@ -532,7 +539,7 @@ public:
             Pull-right submenu.
         @param helpString
             An optional help string associated with the item.
-            By default, the handler for the wxEVT_MENU_HIGHLIGHT event displays
+            By default, the handler for the @c wxEVT_MENU_HIGHLIGHT event displays
             this string in the status line.
 
         @see AppendSeparator(), AppendCheckItem(), AppendRadioItem(),
@@ -646,7 +653,7 @@ public:
         @param id
             Id of the menu item to be deleted.
 
-        @see FindItem(), Deletes(), Remove()
+        @see FindItem(), Delete(), Remove()
     */
     bool Destroy(int id);
 
@@ -658,7 +665,7 @@ public:
         @param item
             Menu item to be deleted.
 
-        @see FindItem(), Deletes(), Remove()
+        @see FindItem(), Delete(), Remove()
     */
     bool Destroy(wxMenuItem* item);
 
@@ -779,9 +786,6 @@ public:
 
     /**
         Returns the title of the menu.
-
-        @remarks This is relevant only to popup menus, use
-                 wxMenuBar::GetMenuLabel for the menus in the menubar.
 
         @see SetTitle()
     */
@@ -952,8 +956,9 @@ public:
         @param title
             The title to set.
 
-        @remarks This is relevant only to popup menus, use
-                 wxMenuBar::SetLabelTop for the menus in the menubar.
+        @remarks Notice that you can only call this method directly for the
+            popup menus, to change the title of a menu that is part of a menu
+            bar you need to use wxMenuBar::SetLabelTop().
 
         @see GetTitle()
     */

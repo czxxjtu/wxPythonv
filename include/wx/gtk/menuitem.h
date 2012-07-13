@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        menuitem.h
+// Name:        wx/gtk/menuitem.h
 // Purpose:     wxMenuItem class
 // Author:      Robert Roebling
-// RCS-ID:      $Id: menuitem.h 58227 2009-01-19 13:55:27Z VZ $
+// RCS-ID:      $Id: menuitem.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

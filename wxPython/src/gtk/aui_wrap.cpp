@@ -2682,48 +2682,49 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 #define SWIGTYPE_p_wxQueryLayoutInfoEvent swig_types[216]
 #define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[217]
 #define SWIGTYPE_p_wxRect swig_types[218]
-#define SWIGTYPE_p_wxSashEvent swig_types[219]
-#define SWIGTYPE_p_wxSashLayoutWindow swig_types[220]
-#define SWIGTYPE_p_wxSashWindow swig_types[221]
-#define SWIGTYPE_p_wxScrollEvent swig_types[222]
-#define SWIGTYPE_p_wxScrollWinEvent swig_types[223]
-#define SWIGTYPE_p_wxScrolledWindow swig_types[224]
-#define SWIGTYPE_p_wxSetCursorEvent swig_types[225]
-#define SWIGTYPE_p_wxShowEvent swig_types[226]
-#define SWIGTYPE_p_wxSimpleHtmlListBox swig_types[227]
-#define SWIGTYPE_p_wxSingleChoiceDialog swig_types[228]
-#define SWIGTYPE_p_wxSize swig_types[229]
-#define SWIGTYPE_p_wxSizeEvent swig_types[230]
-#define SWIGTYPE_p_wxSizer swig_types[231]
-#define SWIGTYPE_p_wxSizerItem swig_types[232]
-#define SWIGTYPE_p_wxSplashScreen swig_types[233]
-#define SWIGTYPE_p_wxSplashScreenWindow swig_types[234]
-#define SWIGTYPE_p_wxSplitterEvent swig_types[235]
-#define SWIGTYPE_p_wxSplitterWindow swig_types[236]
-#define SWIGTYPE_p_wxStandardDialogLayoutAdapter swig_types[237]
-#define SWIGTYPE_p_wxStaticBoxSizer swig_types[238]
-#define SWIGTYPE_p_wxStatusBar swig_types[239]
-#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[240]
-#define SWIGTYPE_p_wxString swig_types[241]
-#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[242]
-#define SWIGTYPE_p_wxTGAHandler swig_types[243]
-#define SWIGTYPE_p_wxTIFFHandler swig_types[244]
-#define SWIGTYPE_p_wxTaskBarIconEvent swig_types[245]
-#define SWIGTYPE_p_wxTextCtrlBase swig_types[246]
-#define SWIGTYPE_p_wxTextEntryDialog swig_types[247]
-#define SWIGTYPE_p_wxThreadEvent swig_types[248]
-#define SWIGTYPE_p_wxTipWindow swig_types[249]
-#define SWIGTYPE_p_wxTopLevelWindow swig_types[250]
-#define SWIGTYPE_p_wxUpdateUIEvent swig_types[251]
-#define SWIGTYPE_p_wxValidator swig_types[252]
-#define SWIGTYPE_p_wxWindow swig_types[253]
-#define SWIGTYPE_p_wxWindowCreateEvent swig_types[254]
-#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[255]
-#define SWIGTYPE_p_wxWindowModalDialogEvent swig_types[256]
-#define SWIGTYPE_p_wxWrapSizer swig_types[257]
-#define SWIGTYPE_p_wxXPMHandler swig_types[258]
-static swig_type_info *swig_types[260];
-static swig_module_info swig_module = {swig_types, 259, 0, 0, 0, 0};
+#define SWIGTYPE_p_wxRefCounter swig_types[219]
+#define SWIGTYPE_p_wxSashEvent swig_types[220]
+#define SWIGTYPE_p_wxSashLayoutWindow swig_types[221]
+#define SWIGTYPE_p_wxSashWindow swig_types[222]
+#define SWIGTYPE_p_wxScrollEvent swig_types[223]
+#define SWIGTYPE_p_wxScrollWinEvent swig_types[224]
+#define SWIGTYPE_p_wxScrolledWindow swig_types[225]
+#define SWIGTYPE_p_wxSetCursorEvent swig_types[226]
+#define SWIGTYPE_p_wxShowEvent swig_types[227]
+#define SWIGTYPE_p_wxSimpleHtmlListBox swig_types[228]
+#define SWIGTYPE_p_wxSingleChoiceDialog swig_types[229]
+#define SWIGTYPE_p_wxSize swig_types[230]
+#define SWIGTYPE_p_wxSizeEvent swig_types[231]
+#define SWIGTYPE_p_wxSizer swig_types[232]
+#define SWIGTYPE_p_wxSizerItem swig_types[233]
+#define SWIGTYPE_p_wxSplashScreen swig_types[234]
+#define SWIGTYPE_p_wxSplashScreenWindow swig_types[235]
+#define SWIGTYPE_p_wxSplitterEvent swig_types[236]
+#define SWIGTYPE_p_wxSplitterWindow swig_types[237]
+#define SWIGTYPE_p_wxStandardDialogLayoutAdapter swig_types[238]
+#define SWIGTYPE_p_wxStaticBoxSizer swig_types[239]
+#define SWIGTYPE_p_wxStatusBar swig_types[240]
+#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[241]
+#define SWIGTYPE_p_wxString swig_types[242]
+#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[243]
+#define SWIGTYPE_p_wxTGAHandler swig_types[244]
+#define SWIGTYPE_p_wxTIFFHandler swig_types[245]
+#define SWIGTYPE_p_wxTaskBarIconEvent swig_types[246]
+#define SWIGTYPE_p_wxTextCtrlBase swig_types[247]
+#define SWIGTYPE_p_wxTextEntryDialog swig_types[248]
+#define SWIGTYPE_p_wxThreadEvent swig_types[249]
+#define SWIGTYPE_p_wxTipWindow swig_types[250]
+#define SWIGTYPE_p_wxTopLevelWindow swig_types[251]
+#define SWIGTYPE_p_wxUpdateUIEvent swig_types[252]
+#define SWIGTYPE_p_wxValidator swig_types[253]
+#define SWIGTYPE_p_wxWindow swig_types[254]
+#define SWIGTYPE_p_wxWindowCreateEvent swig_types[255]
+#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[256]
+#define SWIGTYPE_p_wxWindowModalDialogEvent swig_types[257]
+#define SWIGTYPE_p_wxWrapSizer swig_types[258]
+#define SWIGTYPE_p_wxXPMHandler swig_types[259]
+static swig_type_info *swig_types[261];
+static swig_module_info swig_module = {swig_types, 260, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3916,6 +3917,36 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_AuiPaneInfo_IsDockable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxAuiPaneInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiPaneInfo_IsDockable" "', expected argument " "1"" of type '" "wxAuiPaneInfo const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiPaneInfo * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxAuiPaneInfo const *)arg1)->IsDockable();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_AuiPaneInfo_IsFloatable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
@@ -4418,6 +4449,53 @@ fail:
     if (temp2)
     delete arg2;
   }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiPaneInfo_Icon(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
+  wxBitmap *arg2 = 0 ;
+  wxAuiPaneInfo *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "b", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiPaneInfo_Icon",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiPaneInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiPaneInfo_Icon" "', expected argument " "1"" of type '" "wxAuiPaneInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiPaneInfo * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxBitmap,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AuiPaneInfo_Icon" "', expected argument " "2"" of type '" "wxBitmap const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AuiPaneInfo_Icon" "', expected argument " "2"" of type '" "wxBitmap const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxBitmap * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    {
+      wxAuiPaneInfo &_result_ref = (arg1)->Icon((wxBitmap const &)*arg2);
+      result = (wxAuiPaneInfo *) &_result_ref;
+    }
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = obj0; Py_INCREF(resultobj); 
+  }
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -6436,6 +6514,59 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_AuiPaneInfo_icon_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
+  wxBitmap *arg2 = (wxBitmap *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args,"AuiPaneInfo_icon_set",2,2,swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxAuiPaneInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiPaneInfo_icon_set" "', expected argument " "1"" of type '" "wxAuiPaneInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiPaneInfo * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_wxBitmap, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AuiPaneInfo_icon_set" "', expected argument " "2"" of type '" "wxBitmap *""'"); 
+  }
+  arg2 = reinterpret_cast< wxBitmap * >(argp2);
+  if (arg1) (arg1)->icon = *arg2;
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiPaneInfo_icon_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
+  wxBitmap *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxAuiPaneInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiPaneInfo_icon_get" "', expected argument " "1"" of type '" "wxAuiPaneInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiPaneInfo * >(argp1);
+  result = (wxBitmap *)& ((arg1)->icon);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxBitmap, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_AuiPaneInfo_window_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
@@ -7235,6 +7366,36 @@ SWIGINTERN PyObject *_wrap_AuiPaneInfo_rect_get(PyObject *SWIGUNUSEDPARM(self), 
   arg1 = reinterpret_cast< wxAuiPaneInfo * >(argp1);
   result = (wxRect *)& ((arg1)->rect);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wxRect, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiPaneInfo_IsValid(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxAuiPaneInfo *arg1 = (wxAuiPaneInfo *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxAuiPaneInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiPaneInfo_IsValid" "', expected argument " "1"" of type '" "wxAuiPaneInfo const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiPaneInfo * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxAuiPaneInfo const *)arg1)->IsValid();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
   return resultobj;
 fail:
   return NULL;
@@ -11826,6 +11987,66 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_AuiDefaultDockArt_DrawIcon(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiDefaultDockArt *arg1 = (wxAuiDefaultDockArt *) 0 ;
+  wxDC *arg2 = 0 ;
+  wxRect *arg3 = 0 ;
+  wxAuiPaneInfo *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  wxRect temp3 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "dc",(char *) "rect",(char *) "pane", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOOO:AuiDefaultDockArt_DrawIcon",kwnames,&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiDefaultDockArt, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiDefaultDockArt_DrawIcon" "', expected argument " "1"" of type '" "wxAuiDefaultDockArt *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiDefaultDockArt * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxDC,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AuiDefaultDockArt_DrawIcon" "', expected argument " "2"" of type '" "wxDC &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AuiDefaultDockArt_DrawIcon" "', expected argument " "2"" of type '" "wxDC &""'"); 
+  }
+  arg2 = reinterpret_cast< wxDC * >(argp2);
+  {
+    arg3 = &temp3;
+    if ( ! wxRect_helper(obj2, &arg3)) SWIG_fail;
+  }
+  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_wxAuiPaneInfo,  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "AuiDefaultDockArt_DrawIcon" "', expected argument " "4"" of type '" "wxAuiPaneInfo &""'"); 
+  }
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AuiDefaultDockArt_DrawIcon" "', expected argument " "4"" of type '" "wxAuiPaneInfo &""'"); 
+  }
+  arg4 = reinterpret_cast< wxAuiPaneInfo * >(argp4);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->DrawIcon(*arg2,(wxRect const &)*arg3,*arg4);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *AuiDefaultDockArt_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -13291,6 +13512,78 @@ SWIGINTERN PyObject *_wrap_AuiTabArt_SetMeasuringFont(PyObject *SWIGUNUSEDPARM(s
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     (arg1)->SetMeasuringFont((wxFont const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiTabArt_SetColour(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiTabArt *arg1 = (wxAuiTabArt *) 0 ;
+  wxColour *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  wxColour temp2 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "colour", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiTabArt_SetColour",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiTabArt, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiTabArt_SetColour" "', expected argument " "1"" of type '" "wxAuiTabArt *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiTabArt * >(argp1);
+  {
+    arg2 = &temp2;
+    if ( ! wxColour_helper(obj1, &arg2)) SWIG_fail;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetColour((wxColour const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiTabArt_SetActiveColour(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiTabArt *arg1 = (wxAuiTabArt *) 0 ;
+  wxColour *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  wxColour temp2 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "colour", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiTabArt_SetActiveColour",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiTabArt, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiTabArt_SetActiveColour" "', expected argument " "1"" of type '" "wxAuiTabArt *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiTabArt * >(argp1);
+  {
+    arg2 = &temp2;
+    if ( ! wxColour_helper(obj1, &arg2)) SWIG_fail;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetActiveColour((wxColour const &)*arg2);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -14835,6 +15128,78 @@ SWIGINTERN PyObject *_wrap_AuiTabContainer_SetMeasuringFont(PyObject *SWIGUNUSED
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     (arg1)->SetMeasuringFont((wxFont const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiTabContainer_SetColour(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiTabContainer *arg1 = (wxAuiTabContainer *) 0 ;
+  wxColour *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  wxColour temp2 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "colour", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiTabContainer_SetColour",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiTabContainer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiTabContainer_SetColour" "', expected argument " "1"" of type '" "wxAuiTabContainer *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiTabContainer * >(argp1);
+  {
+    arg2 = &temp2;
+    if ( ! wxColour_helper(obj1, &arg2)) SWIG_fail;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetColour((wxColour const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiTabContainer_SetActiveColour(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiTabContainer *arg1 = (wxAuiTabContainer *) 0 ;
+  wxColour *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  wxColour temp2 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "colour", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiTabContainer_SetActiveColour",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiTabContainer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiTabContainer_SetActiveColour" "', expected argument " "1"" of type '" "wxAuiTabContainer *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiTabContainer * >(argp1);
+  {
+    arg2 = &temp2;
+    if ( ! wxColour_helper(obj1, &arg2)) SWIG_fail;
+  }
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetActiveColour((wxColour const &)*arg2);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -18934,7 +19299,7 @@ SWIGINTERN PyObject *_wrap_AuiToolBarEvent_SetToolId(PyObject *SWIGUNUSEDPARM(se
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   char *  kwnames[] = {
-    (char *) "self",(char *) "id", NULL 
+    (char *) "self",(char *) "toolid", NULL 
   };
   
   if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiToolBarEvent_SetToolId",kwnames,&obj0,&obj1)) SWIG_fail;
@@ -24373,6 +24738,89 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_AuiToolBar_GetHintSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiToolBar *arg1 = (wxAuiToolBar *) 0 ;
+  int arg2 ;
+  wxSize result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "dock_direction", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiToolBar_GetHintSize",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiToolBar, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiToolBar_GetHintSize" "', expected argument " "1"" of type '" "wxAuiToolBar const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiToolBar * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "AuiToolBar_GetHintSize" "', expected argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = ((wxAuiToolBar const *)arg1)->GetHintSize(arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_NewPointerObj((new wxSize(static_cast< const wxSize& >(result))), SWIGTYPE_p_wxSize, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_AuiToolBar_IsPaneValid(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxAuiToolBar *arg1 = (wxAuiToolBar *) 0 ;
+  wxAuiPaneInfo *arg2 = 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "pane", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:AuiToolBar_IsPaneValid",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxAuiToolBar, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "AuiToolBar_IsPaneValid" "', expected argument " "1"" of type '" "wxAuiToolBar const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxAuiToolBar * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_wxAuiPaneInfo,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "AuiToolBar_IsPaneValid" "', expected argument " "2"" of type '" "wxAuiPaneInfo const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "AuiToolBar_IsPaneValid" "', expected argument " "2"" of type '" "wxAuiPaneInfo const &""'"); 
+  }
+  arg2 = reinterpret_cast< wxAuiPaneInfo * >(argp2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxAuiToolBar const *)arg1)->IsPaneValid((wxAuiPaneInfo const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *AuiToolBar_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args,(char*)"swigregister", 1, 1,&obj)) return NULL;
@@ -24639,6 +25087,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiPaneInfo_IsBottomDockable", (PyCFunction)_wrap_AuiPaneInfo_IsBottomDockable, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_IsLeftDockable", (PyCFunction)_wrap_AuiPaneInfo_IsLeftDockable, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_IsRightDockable", (PyCFunction)_wrap_AuiPaneInfo_IsRightDockable, METH_O, NULL},
+	 { (char *)"AuiPaneInfo_IsDockable", (PyCFunction)_wrap_AuiPaneInfo_IsDockable, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_IsFloatable", (PyCFunction)_wrap_AuiPaneInfo_IsFloatable, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_IsMovable", (PyCFunction)_wrap_AuiPaneInfo_IsMovable, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_IsDestroyOnClose", (PyCFunction)_wrap_AuiPaneInfo_IsDestroyOnClose, METH_O, NULL},
@@ -24654,6 +25103,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiPaneInfo_Window", (PyCFunction) _wrap_AuiPaneInfo_Window, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiPaneInfo_Name", (PyCFunction) _wrap_AuiPaneInfo_Name, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiPaneInfo_Caption", (PyCFunction) _wrap_AuiPaneInfo_Caption, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiPaneInfo_Icon", (PyCFunction) _wrap_AuiPaneInfo_Icon, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiPaneInfo_Left", (PyCFunction)_wrap_AuiPaneInfo_Left, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_Right", (PyCFunction)_wrap_AuiPaneInfo_Right, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_Top", (PyCFunction)_wrap_AuiPaneInfo_Top, METH_O, NULL},
@@ -24704,6 +25154,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiPaneInfo_name_get", (PyCFunction)_wrap_AuiPaneInfo_name_get, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_caption_set", _wrap_AuiPaneInfo_caption_set, METH_VARARGS, NULL},
 	 { (char *)"AuiPaneInfo_caption_get", (PyCFunction)_wrap_AuiPaneInfo_caption_get, METH_O, NULL},
+	 { (char *)"AuiPaneInfo_icon_set", _wrap_AuiPaneInfo_icon_set, METH_VARARGS, NULL},
+	 { (char *)"AuiPaneInfo_icon_get", (PyCFunction)_wrap_AuiPaneInfo_icon_get, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_window_set", _wrap_AuiPaneInfo_window_set, METH_VARARGS, NULL},
 	 { (char *)"AuiPaneInfo_window_get", (PyCFunction)_wrap_AuiPaneInfo_window_get, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_frame_set", _wrap_AuiPaneInfo_frame_set, METH_VARARGS, NULL},
@@ -24734,6 +25186,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiPaneInfo_buttons_get", (PyCFunction)_wrap_AuiPaneInfo_buttons_get, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_rect_set", _wrap_AuiPaneInfo_rect_set, METH_VARARGS, NULL},
 	 { (char *)"AuiPaneInfo_rect_get", (PyCFunction)_wrap_AuiPaneInfo_rect_get, METH_O, NULL},
+	 { (char *)"AuiPaneInfo_IsValid", (PyCFunction)_wrap_AuiPaneInfo_IsValid, METH_O, NULL},
 	 { (char *)"AuiPaneInfo_swigregister", AuiPaneInfo_swigregister, METH_VARARGS, NULL},
 	 { (char *)"AuiPaneInfo_swiginit", AuiPaneInfo_swiginit, METH_VARARGS, NULL},
 	 { (char *)"new_AuiManager", (PyCFunction) _wrap_new_AuiManager, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -24873,6 +25326,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiDockArt_DrawPaneButton", (PyCFunction) _wrap_AuiDockArt_DrawPaneButton, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiDockArt_swigregister", AuiDockArt_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_AuiDefaultDockArt", (PyCFunction)_wrap_new_AuiDefaultDockArt, METH_NOARGS, NULL},
+	 { (char *)"AuiDefaultDockArt_DrawIcon", (PyCFunction) _wrap_AuiDefaultDockArt_DrawIcon, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiDefaultDockArt_swigregister", AuiDefaultDockArt_swigregister, METH_VARARGS, NULL},
 	 { (char *)"AuiDefaultDockArt_swiginit", AuiDefaultDockArt_swiginit, METH_VARARGS, NULL},
 	 { (char *)"new_AuiFloatingFrame", (PyCFunction) _wrap_new_AuiFloatingFrame, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -24927,6 +25381,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiTabArt_SetNormalFont", (PyCFunction) _wrap_AuiTabArt_SetNormalFont, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabArt_SetSelectedFont", (PyCFunction) _wrap_AuiTabArt_SetSelectedFont, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabArt_SetMeasuringFont", (PyCFunction) _wrap_AuiTabArt_SetMeasuringFont, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiTabArt_SetColour", (PyCFunction) _wrap_AuiTabArt_SetColour, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiTabArt_SetActiveColour", (PyCFunction) _wrap_AuiTabArt_SetActiveColour, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabArt_DrawBackground", (PyCFunction) _wrap_AuiTabArt_DrawBackground, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabArt_ShowDropDown", (PyCFunction) _wrap_AuiTabArt_ShowDropDown, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabArt_GetIndentSize", (PyCFunction)_wrap_AuiTabArt_GetIndentSize, METH_O, NULL},
@@ -24966,6 +25422,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiTabContainer_SetNormalFont", (PyCFunction) _wrap_AuiTabContainer_SetNormalFont, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabContainer_SetSelectedFont", (PyCFunction) _wrap_AuiTabContainer_SetSelectedFont, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabContainer_SetMeasuringFont", (PyCFunction) _wrap_AuiTabContainer_SetMeasuringFont, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiTabContainer_SetColour", (PyCFunction) _wrap_AuiTabContainer_SetColour, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiTabContainer_SetActiveColour", (PyCFunction) _wrap_AuiTabContainer_SetActiveColour, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabContainer_DoShowHide", (PyCFunction)_wrap_AuiTabContainer_DoShowHide, METH_O, NULL},
 	 { (char *)"AuiTabContainer_SetRect", (PyCFunction) _wrap_AuiTabContainer_SetRect, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiTabContainer_RemoveButton", (PyCFunction) _wrap_AuiTabContainer_RemoveButton, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -25207,6 +25665,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AuiToolBar_GetToolLongHelp", (PyCFunction) _wrap_AuiToolBar_GetToolLongHelp, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiToolBar_SetToolLongHelp", (PyCFunction) _wrap_AuiToolBar_SetToolLongHelp, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiToolBar_SetCustomOverflowItems", (PyCFunction) _wrap_AuiToolBar_SetCustomOverflowItems, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiToolBar_GetHintSize", (PyCFunction) _wrap_AuiToolBar_GetHintSize, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"AuiToolBar_IsPaneValid", (PyCFunction) _wrap_AuiToolBar_IsPaneValid, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"AuiToolBar_swigregister", AuiToolBar_swigregister, METH_VARARGS, NULL},
 	 { (char *)"AuiToolBar_swiginit", AuiToolBar_swiginit, METH_VARARGS, NULL},
 	 { (char *)"new_PyAuiDockArt", (PyCFunction)_wrap_new_PyAuiDockArt, METH_NOARGS, NULL},
@@ -25363,7 +25823,7 @@ static void *_p_wxSysColourChangedEventTo_p_wxEvent(void *x) {
     return (void *)((wxEvent *)  ((wxSysColourChangedEvent *) x));
 }
 static void *_p_wxThreadEventTo_p_wxEvent(void *x) {
-    return (void *)((wxEvent *) (wxCommandEvent *) ((wxThreadEvent *) x));
+    return (void *)((wxEvent *)  ((wxThreadEvent *) x));
 }
 static void *_p_wxDropFilesEventTo_p_wxEvent(void *x) {
     return (void *)((wxEvent *)  ((wxDropFilesEvent *) x));
@@ -26092,7 +26552,7 @@ static void *_p_wxPyWindowTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvtHandler *)(wxWindow *) ((wxPyWindow *) x));
 }
 static void *_p_wxThreadEventTo_p_wxObject(void *x) {
-    return (void *)((wxObject *) (wxEvent *)(wxCommandEvent *) ((wxThreadEvent *) x));
+    return (void *)((wxObject *) (wxEvent *) ((wxThreadEvent *) x));
 }
 static void *_p_wxSysColourChangedEventTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvent *) ((wxSysColourChangedEvent *) x));
@@ -26628,20 +27088,17 @@ static void *_p_wxDateEventTo_p_wxCommandEvent(void *x) {
 static void *_p_wxWindowCreateEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxWindowCreateEvent *) x));
 }
-static void *_p_wxThreadEventTo_p_wxCommandEvent(void *x) {
-    return (void *)((wxCommandEvent *)  ((wxThreadEvent *) x));
-}
 static void *_p_wxNotifyEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxNotifyEvent *) x));
+}
+static void *_p_wxFindDialogEventTo_p_wxCommandEvent(void *x) {
+    return (void *)((wxCommandEvent *)  ((wxFindDialogEvent *) x));
 }
 static void *_p_wxWindowModalDialogEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxWindowModalDialogEvent *) x));
 }
 static void *_p_wxUpdateUIEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxUpdateUIEvent *) x));
-}
-static void *_p_wxFindDialogEventTo_p_wxCommandEvent(void *x) {
-    return (void *)((wxCommandEvent *)  ((wxFindDialogEvent *) x));
 }
 static void *_p_wxAuiDefaultToolBarArtTo_p_wxAuiToolBarArt(void *x) {
     return (void *)((wxAuiToolBarArt *)  ((wxAuiDefaultToolBarArt *) x));
@@ -26754,10 +27211,9 @@ static swig_type_info _swigt__p_wxContextMenuEvent = {"_p_wxContextMenuEvent", 0
 static swig_type_info _swigt__p_wxChildFocusEvent = {"_p_wxChildFocusEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxDateEvent = {"_p_wxDateEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxWindowCreateEvent = {"_p_wxWindowCreateEvent", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_wxThreadEvent = {"_p_wxThreadEvent", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxFindDialogEvent = {"_p_wxFindDialogEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxWindowModalDialogEvent = {"_p_wxWindowModalDialogEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxUpdateUIEvent = {"_p_wxUpdateUIEvent", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_wxFindDialogEvent = {"_p_wxFindDialogEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxControl = {"_p_wxControl", "wxControl *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxControlWithItems = {"_p_wxControlWithItems", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxTextCtrlBase = {"_p_wxTextCtrlBase", 0, 0, 0, 0, 0};
@@ -26783,6 +27239,7 @@ static swig_type_info _swigt__p_wxPaletteChangedEvent = {"_p_wxPaletteChangedEve
 static swig_type_info _swigt__p_wxDisplayChangedEvent = {"_p_wxDisplayChangedEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxMouseCaptureChangedEvent = {"_p_wxMouseCaptureChangedEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxSysColourChangedEvent = {"_p_wxSysColourChangedEvent", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxThreadEvent = {"_p_wxThreadEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxDropFilesEvent = {"_p_wxDropFilesEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxFocusEvent = {"_p_wxFocusEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxQueryLayoutInfoEvent = {"_p_wxQueryLayoutInfoEvent", 0, 0, 0, 0, 0};
@@ -26899,6 +27356,7 @@ static swig_type_info _swigt__p_wxPoint = {"_p_wxPoint", "wxPoint *", 0, 0, (voi
 static swig_type_info _swigt__p_wxPyAuiDockArt = {"_p_wxPyAuiDockArt", "wxPyAuiDockArt *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxPyAuiTabArt = {"_p_wxPyAuiTabArt", "wxPyAuiTabArt *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxRect = {"_p_wxRect", "wxRect *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_wxRefCounter = {"_p_wxRefCounter", "wxRefCounter *|wxObjectRefData *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxSize = {"_p_wxSize", "wxSize *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxSizer = {"_p_wxSizer", "wxSizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxSizerItem = {"_p_wxSizerItem", "wxSizerItem *", 0, 0, (void*)0, 0};
@@ -27126,6 +27584,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxQueryLayoutInfoEvent,
   &_swigt__p_wxQueryNewPaletteEvent,
   &_swigt__p_wxRect,
+  &_swigt__p_wxRefCounter,
   &_swigt__p_wxSashEvent,
   &_swigt__p_wxSashLayoutWindow,
   &_swigt__p_wxSashWindow,
@@ -27275,11 +27734,10 @@ static swig_cast_info _swigc__p_wxContextMenuEvent[] = {{&_swigt__p_wxContextMen
 static swig_cast_info _swigc__p_wxChildFocusEvent[] = {{&_swigt__p_wxChildFocusEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDateEvent[] = {{&_swigt__p_wxDateEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWindowCreateEvent[] = {{&_swigt__p_wxWindowCreateEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxThreadEvent[] = {{&_swigt__p_wxThreadEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxFindDialogEvent[] = {{&_swigt__p_wxFindDialogEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWindowModalDialogEvent[] = {{&_swigt__p_wxWindowModalDialogEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxUpdateUIEvent[] = {{&_swigt__p_wxUpdateUIEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxFindDialogEvent[] = {{&_swigt__p_wxFindDialogEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxCommandEvent[] = {  {&_swigt__p_wxSashEvent, _p_wxSashEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxSplitterEvent, _p_wxSplitterEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxAuiToolBarEvent, _p_wxAuiToolBarEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxCommandEvent, 0, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxAuiNotebookEvent, _p_wxAuiNotebookEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxThreadEvent, _p_wxThreadEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowModalDialogEvent, _p_wxWindowModalDialogEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxFindDialogEvent, _p_wxFindDialogEventTo_p_wxCommandEvent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxCommandEvent[] = {  {&_swigt__p_wxSashEvent, _p_wxSashEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxSplitterEvent, _p_wxSplitterEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxAuiToolBarEvent, _p_wxAuiToolBarEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxCommandEvent, 0, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxAuiNotebookEvent, _p_wxAuiNotebookEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxFindDialogEvent, _p_wxFindDialogEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowModalDialogEvent, _p_wxWindowModalDialogEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxCommandEvent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxControlWithItems[] = {{&_swigt__p_wxControlWithItems, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxTextCtrlBase[] = {{&_swigt__p_wxTextCtrlBase, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxControl[] = {  {&_swigt__p_wxControl, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxControl, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxControl, 0, 0},  {&_swigt__p_wxAuiMDIClientWindow, _p_wxAuiMDIClientWindowTo_p_wxControl, 0, 0},  {&_swigt__p_wxAuiTabCtrl, _p_wxAuiTabCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxAuiNotebook, _p_wxAuiNotebookTo_p_wxControl, 0, 0},  {&_swigt__p_wxAuiToolBar, _p_wxAuiToolBarTo_p_wxControl, 0, 0},{0, 0, 0, 0}};
@@ -27304,6 +27762,7 @@ static swig_cast_info _swigc__p_wxPaletteChangedEvent[] = {{&_swigt__p_wxPalette
 static swig_cast_info _swigc__p_wxDisplayChangedEvent[] = {{&_swigt__p_wxDisplayChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxMouseCaptureChangedEvent[] = {{&_swigt__p_wxMouseCaptureChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSysColourChangedEvent[] = {{&_swigt__p_wxSysColourChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxThreadEvent[] = {{&_swigt__p_wxThreadEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDropFilesEvent[] = {{&_swigt__p_wxDropFilesEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxFocusEvent[] = {{&_swigt__p_wxFocusEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxQueryLayoutInfoEvent[] = {{&_swigt__p_wxQueryLayoutInfoEvent, 0, 0, 0},{0, 0, 0, 0}};
@@ -27421,6 +27880,7 @@ static swig_cast_info _swigc__p_wxPoint[] = {  {&_swigt__p_wxPoint, 0, 0, 0},{0,
 static swig_cast_info _swigc__p_wxPyAuiDockArt[] = {  {&_swigt__p_wxPyAuiDockArt, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyAuiTabArt[] = {  {&_swigt__p_wxPyAuiTabArt, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxRect[] = {  {&_swigt__p_wxRect, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxRefCounter[] = {  {&_swigt__p_wxRefCounter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSize[] = {  {&_swigt__p_wxSize, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSizer[] = {  {&_swigt__p_wxSizer, 0, 0, 0},  {&_swigt__p_wxBoxSizer, _p_wxBoxSizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxStaticBoxSizer, _p_wxStaticBoxSizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxStdDialogButtonSizer, _p_wxStdDialogButtonSizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxGridBagSizer, _p_wxGridBagSizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxGridSizer, _p_wxGridSizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxFlexGridSizer, _p_wxFlexGridSizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxPySizer, _p_wxPySizerTo_p_wxSizer, 0, 0},  {&_swigt__p_wxWrapSizer, _p_wxWrapSizerTo_p_wxSizer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSizerItem[] = {  {&_swigt__p_wxSizerItem, 0, 0, 0},  {&_swigt__p_wxGBSizerItem, _p_wxGBSizerItemTo_p_wxSizerItem, 0, 0},{0, 0, 0, 0}};
@@ -27648,6 +28108,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxQueryLayoutInfoEvent,
   _swigc__p_wxQueryNewPaletteEvent,
   _swigc__p_wxRect,
+  _swigc__p_wxRefCounter,
   _swigc__p_wxSashEvent,
   _swigc__p_wxSashLayoutWindow,
   _swigc__p_wxSashWindow,
@@ -28332,7 +28793,9 @@ SWIGEXPORT void SWIG_init(void) {
   SWIG_Python_SetConstant(d, "AUI_TB_OVERFLOW",SWIG_From_int(static_cast< int >(wxAUI_TB_OVERFLOW)));
   SWIG_Python_SetConstant(d, "AUI_TB_VERTICAL",SWIG_From_int(static_cast< int >(wxAUI_TB_VERTICAL)));
   SWIG_Python_SetConstant(d, "AUI_TB_HORZ_LAYOUT",SWIG_From_int(static_cast< int >(wxAUI_TB_HORZ_LAYOUT)));
+  SWIG_Python_SetConstant(d, "AUI_TB_HORIZONTAL",SWIG_From_int(static_cast< int >(wxAUI_TB_HORIZONTAL)));
   SWIG_Python_SetConstant(d, "AUI_TB_HORZ_TEXT",SWIG_From_int(static_cast< int >(wxAUI_TB_HORZ_TEXT)));
+  SWIG_Python_SetConstant(d, "AUI_ORIENTATION_MASK",SWIG_From_int(static_cast< int >(wxAUI_ORIENTATION_MASK)));
   SWIG_Python_SetConstant(d, "AUI_TB_DEFAULT_STYLE",SWIG_From_int(static_cast< int >(wxAUI_TB_DEFAULT_STYLE)));
   SWIG_Python_SetConstant(d, "AUI_TBART_SEPARATOR_SIZE",SWIG_From_int(static_cast< int >(wxAUI_TBART_SEPARATOR_SIZE)));
   SWIG_Python_SetConstant(d, "AUI_TBART_GRIPPER_SIZE",SWIG_From_int(static_cast< int >(wxAUI_TBART_GRIPPER_SIZE)));

@@ -2,7 +2,7 @@
 // Name:        listbox.h
 // Purpose:     interface of wxListBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: listbox.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: listbox.h 66611 2011-01-06 19:52:14Z SJL $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -51,10 +51,10 @@
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_LISTBOX(id, func)}
-        Process a wxEVT_COMMAND_LISTBOX_SELECTED event, when an item on the
+        Process a @c wxEVT_COMMAND_LISTBOX_SELECTED event, when an item on the
         list is selected or the selection changes.
     @event{EVT_LISTBOX_DCLICK(id, func)}
-        Process a wxEVT_COMMAND_LISTBOX_DOUBLECLICKED event, when the listbox
+        Process a @c wxEVT_COMMAND_LISTBOX_DOUBLECLICKED event, when the listbox
         is double-clicked.
     @endEventTable
 

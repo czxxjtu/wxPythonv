@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: combobxc.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: combobxc.cpp 67243 2011-03-19 08:36:23Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -24,8 +24,6 @@
     #include <HIToolbox/HIView.h>
 #endif
 #endif
-
-IMPLEMENT_DYNAMIC_CLASS(wxComboBox, wxControl)
 
 #if TARGET_API_MAC_OSX
 #define USE_HICOMBOBOX 1 //use hi combobox define
@@ -343,7 +341,7 @@ bool wxComboBox::Create(wxWindow *parent, wxWindowID id,
     m_text = NULL;
     m_choice = NULL;
 #if USE_HICOMBOBOX
-    m_macIsUserPane = false;
+    DontCreatePeer();
 #endif
     if ( !wxControl::Create(parent, id, wxDefaultPosition, wxDefaultSize, style ,
                             wxDefaultValidator, name) )

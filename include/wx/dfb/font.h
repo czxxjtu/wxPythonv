@@ -3,7 +3,7 @@
 // Author:      Vaclav Slavik
 // Purpose:     wxFont declaration
 // Created:     2006-08-08
-// RCS-ID:      $Id: font.h 62349 2009-10-09 13:04:59Z VZ $
+// RCS-ID:      $Id: font.h 65670 2010-09-29 13:46:09Z VZ $
 // Copyright:   (c) 2006 REA Elektronik GmbH
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,6 @@ public:
 
     // implement base class pure virtuals
     virtual int GetPointSize() const;
-    virtual wxFontFamily GetFamily() const;
     virtual wxFontStyle GetStyle() const;
     virtual wxFontWeight GetWeight() const;
     virtual wxString GetFaceName() const;
@@ -96,6 +95,8 @@ public:
 protected:
     virtual wxGDIRefData *CreateGDIRefData() const;
     virtual wxGDIRefData *CloneGDIRefData(const wxGDIRefData *data) const;
+
+    virtual wxFontFamily DoGetFamily() const;
 
 private:
     DECLARE_DYNAMIC_CLASS(wxFont)

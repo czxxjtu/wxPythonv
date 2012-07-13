@@ -2,7 +2,7 @@
 // Name:        valgen.h
 // Purpose:     interface of wxGenericValidator
 // Author:      wxWidgets team
-// RCS-ID:      $Id: valgen.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: valgen.h 66714 2011-01-19 10:48:28Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,8 @@
     @library{wxcore}
     @category{validator}
 
-    @see @ref overview_validator, wxValidator, wxTextValidator
+    @see @ref overview_validator, wxValidator, wxTextValidator,
+        wxIntegerValidator, wxFloatingPointValidator
 */
 class wxGenericValidator : public wxValidator
 {

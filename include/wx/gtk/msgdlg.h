@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     2003/02/28
-// RCS-ID:      $Id: msgdlg.h 56795 2008-11-16 18:20:21Z PC $
+// RCS-ID:      $Id: msgdlg.h 65348 2010-08-18 22:48:28Z VZ $
 // Copyright:   (c) Vaclav Slavik, 2003
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 #ifndef _WX_GTK_MSGDLG_H_
 #define _WX_GTK_MSGDLG_H_
 
-class WXDLLIMPEXP_CORE wxMessageDialog : public wxMessageDialogWithCustomLabels
+class WXDLLIMPEXP_CORE wxMessageDialog : public wxMessageDialogBase
 {
 public:
     wxMessageDialog(wxWindow *parent, const wxString& message,

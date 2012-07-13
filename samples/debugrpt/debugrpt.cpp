@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-20
-// RCS-ID:      $Id: debugrpt.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: debugrpt.cpp 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) 2005 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -322,7 +322,7 @@ void MyFrame::OnPaint(wxPaintEvent& WXUNUSED(event))
 
 MyApp::MyApp()
 {
-    // user needs to explicitely enable this
+    // user needs to explicitly enable this
     m_uploadReport = false;
 
     // call this to tell the library to call our OnFatalException()

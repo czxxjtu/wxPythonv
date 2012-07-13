@@ -2,7 +2,7 @@
 // Name:        platinfo.h
 // Purpose:     interface of wxPlatformInfo
 // Author:      wxWidgets team
-// RCS-ID:      $Id: platinfo.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: platinfo.h 66268 2010-11-27 08:38:46Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -90,7 +90,7 @@ enum wxPortId
 
 /**
     The architecture of the operating system
-    (regardless of the build environment of wxWidgets library - see ::wxIsPlatform64bit()
+    (regardless of the build environment of wxWidgets library - see ::wxIsPlatform64Bit()
     documentation for more info).
 */
 enum wxArchitecture
@@ -163,7 +163,7 @@ struct wxLinuxDistributionInfo
     @see ::wxGetOsVersion(), wxIsPlatformLittleEndian(), wxIsPlatform64Bit(),
          wxAppTraits, @ref group_funcmacro_networkuseros
 */
-class wxPlatformInfo : public wxObject
+class wxPlatformInfo 
 {
 public:
 

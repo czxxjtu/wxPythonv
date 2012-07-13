@@ -4,7 +4,7 @@
 // Author:      Chris Breeze
 // Modified by:
 // Created:     21/07/97
-// RCS-ID:      $Id: playerdg.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: playerdg.cpp 66728 2011-01-22 14:38:36Z DS $
 // Copyright:   (c) 1993-1998 Chris Breeze
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -114,7 +114,7 @@ void PlayerSelectionDialog::ButtonCallback(wxCommandEvent& event)
     if (event.GetId() == wxID_OK)
     {
         wxString name = m_textField->GetValue();
-        if (!name.IsNull() && name.Length() > 0)
+        if ( !name.empty() )
         {
             if (name.Contains(wxT('@')))
             {

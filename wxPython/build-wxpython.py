@@ -21,7 +21,29 @@ version3_nodot = version3.replace(".", "")
 
 CPU = os.environ.get('CPU', '')
 
+scriptDir = os.path.abspath(sys.path[0])
+scriptName = os.path.basename(sys.argv[0])
+WXPYDIR = scriptDir
 
+if os.environ.has_key("WXWIN"):
+    WXWIN = os.environ["WXWIN"]
+else:
+    if os.path.exists('../wxWidgets'):
+        WXWIN = '../wxWidgets'  # assumes in parallel SVN tree
+    else:
+        WXWIN = '..'  # assumes wxPython is in a subdir of wxWidgets
+    WXWIN = os.path.abspath(os.path.join(WXPYDIR, WXWIN))
+
+try:
+    # Import the wxWidgets build script
+    wxscript = os.path.join(WXWIN, "build/tools/build-wxwidgets.py")
+    sys.path.insert(0, os.path.dirname(wxscript))
+    wxbuild = __import__('build-wxwidgets')
+except:
+    print "Can't find or import %s/build/tools/build-wxwidgets.py, exiting." % WXWIN
+    sys.exit(1)
+
+    
 def optionCleanCallback(option, opt_str, value, parser):
     if value is None:
         value = "all"
@@ -29,6 +51,13 @@ def optionCleanCallback(option, opt_str, value, parser):
         raise optparse.OptionValueError("Invalid clean option")
     setattr(parser.values, option.dest, value)
     
+    
+    
+# Set some default values for cmd-line options, to help keep the code below
+# somewhat readable.
+defJobs = str(wxbuild.numCPUs())
+defFwPrefix = '/Library/Frameworks'
+defPrefix = '/usr/local'
 
 option_dict = { 
     "clean"         : ("",    
@@ -38,15 +67,23 @@ option_dict = {
                        optionCleanCallback),
     "debug"         : (False, "Build wxPython with debug symbols"),
     "reswig"        : (False, "Allow SWIG to regenerate the wrappers"),
+    "jobs"          : (defJobs, "Number of make jobs to run at one time, if supported. Default: %s" % defJobs),
     "unicode"       : (True, "Build wxPython with unicode support (always on for wx2.9)"),
-    "osx_cocoa"     : (False, "Build the OS X Cocoa port on Mac (experimental)"),
-    "mac_lipo"      : (False, "EXPERIMENTAL: Create a universal binary by merging a PPC and Intel build together."),
-    "mac_framework" : (False, "Build wxWidgets as a Mac framework."),
-    "mac_universal_binary" : (False, "Build Mac version as a universal binary"),
+    "osx_cocoa"     : (False, "Build the OS X Cocoa port on Mac"),
+    "osx_carbon"    : (True,  "Build the Carbon port on Mac (default)"),
     "mac_arch"      : ("", "Build just the specified architecture on Mac"),
+    "mac_framework" : (False, "Build wxWidgets as a Mac framework."),
+    "mac_framework_prefix" 
+                    : (defFwPrefix, "Prefix where the framework should be installed. Default: %s" % defFwPrefix),    
+    "mac_universal_binary" 
+                    : (False, "Build Mac version as a universal binary"),
+    "cairo"         : (False, "Enable dynamicly loading the Cairo lib for wxGraphicsContext on MSW"),
     "force_config"  : (False, "Run configure when building even if the script determines it's not necessary."),
-    "no_config"     : (False, "Turn off configure step on autoconf builds"),
-    "prefix"        : ("/usr/local", "Prefix value to pass to the wx build."),
+    "no_config"     : (False, "Turn off wx configure step on autoconf builds"),
+    "no_wxbuild"    : (False, "Turn off the wx build step (assumes that wx is already "
+                              "built with the options and and in the location expected "
+                              "based on the other flags."),
+    "prefix"        : (defPrefix, "Prefix value to pass to the wx build. Default: %s" % defPrefix),
     "install"       : (False, "Install the built wxPython into installdir or standard location"),
     "installdir"    : ("", "Installation root for wxWidgets, files will go to {installdir}/{prefix}"),
     "build_dir"     : ("", "Directory to store wx build files. (Not used on Windows)"),
@@ -60,7 +97,7 @@ options_changed = True
 old_options = None
 if os.path.exists("build-options.cache"):
     cache_file = open("build-options.cache")
-    old_options = cPickle.load(cache_file)
+    old_options = set(cPickle.load(cache_file))
     cache_file.close()
 
 parser = optparse.OptionParser(usage="usage: %prog [options]", version="%prog 1.0")
@@ -90,12 +127,11 @@ for opt in keys:
         
 options, arguments = parser.parse_args()
 
-# TODO: Instead of a simple compare we should allow for same args in different
-# order to also match.  
-if sys.argv[1:] == old_options:
+# Compare current command line options to the saved set. If they match then we
+# can save some time by skipping parts of the build.
+if set(sys.argv[1:]) == old_options:
     options_changed = False
 print "old_options = %r\nsys.argv = %r" % (old_options, sys.argv[1:]) 
-
 cache_file = open("build-options.cache", "wb")
 cPickle.dump(sys.argv[1:], cache_file)
 cache_file.close()
@@ -130,11 +166,7 @@ def exitIfError(code, msg):
 #---------------------------------------------------------------------------
 
 
-scriptDir = os.path.abspath(sys.path[0])
-scriptName = os.path.basename(sys.argv[0])
-WXPYDIR = scriptDir
-
-build_options = ['--wxpython']
+build_options = ['--wxpython', '--jobs=' + options.jobs]
 wxpy_build_options = []
 
 if os.environ.has_key("SWIG"):
@@ -143,7 +175,7 @@ elif sys.platform.startswith("win"):
     SWIG_BIN = 'C:\\SWIG-1.3.29\\swig.exe'
 else:
     # WARNING: This is may not be the patched version of SWIG if the
-    # user has installed a stock pacakge
+    # user has installed a stock package
     SWIG_BIN = commands.getoutput("which swig")  
     
 if options.reswig:
@@ -157,19 +189,8 @@ if options.reswig:
         wxpy_build_options.append("USE_SWIG=%d" % 0)
         print "WARNING: Unable to find SWIG binary. Not re-SWIGing files."
 
-    
-if os.environ.has_key("WXWIN"):
-    WXWIN = os.environ["WXWIN"]
-else:
-    if os.path.exists('../wxWidgets'):
-        WXWIN = '../wxWidgets'  # assumes in parallel SVN tree
-    else:
-        WXWIN = '..'  # assumes wxPython is subdir
-    WXWIN = os.path.abspath(os.path.join(WXPYDIR, WXWIN))
-    
-
 # Windows extension build stuff
-build_type_ext = "h"
+build_type_ext = ""
 if options.debug:
     build_type_ext = "d"
     
@@ -180,9 +201,9 @@ if options.unicode:
 build_base = 'build'
 if sys.platform.startswith("darwin"):
     if options.osx_cocoa:
-        build_base += '.cocoa'
+        build_base += '/cocoa'
     else:
-        build_base += '.carbon'
+        build_base += '/carbon'
         
 # Clean the wxPython build files and other things created or copied by previous builds.
 # Cleaning of the wxWidgets build files is done below.
@@ -216,6 +237,11 @@ if sys.platform.startswith("win"):
         dllDir = os.path.join(WXWIN, "lib", "vc_dll")
     buildDir = os.path.join(WXWIN, "build", "msw")
     
+    if options.cairo:
+        build_options.append("--cairo")
+        if not os.environ.get("CAIRO_ROOT"):
+            print "WARNING: Expected CAIRO_ROOT set in the environment!"
+
     if options.clean in ['all', 'wx']:    
         deleteIfExists(os.path.join(dllDir, "msw" + dll_type + ""))
         delFiles(glob.glob(os.path.join(dllDir, "wx*" + version2_nodot + dll_type + "*.*")))
@@ -233,19 +259,15 @@ else:
         WXPY_BUILD_DIR = os.path.abspath(options.build_dir)
 
     if sys.platform.startswith("darwin"):
-        port = "osx_carbon"
+        port = "carbon"
         if options.osx_cocoa:
-            port = "osx_cocoa"
-        WXPY_BUILD_DIR = WXPY_BUILD_DIR + "/" + port
+            port = "cocoa"
+        WXPY_BUILD_DIR = os.path.join(WXPY_BUILD_DIR, port)
 
     DESTDIR = options.installdir
     PREFIX = options.prefix
     if options.prefix:
         build_options.append('--prefix=%s' % options.prefix)
-        
-    if options.mac_framework and sys.platform.startswith("darwin"):
-        # TODO:  Don't hard-code this path
-        PREFIX = "/Library/Frameworks/wx.framework/Versions/%s" %  version2
     
     if options.clean in ['all', 'wx']:
         deleteIfExists(WXPY_BUILD_DIR)
@@ -262,7 +284,7 @@ else:
     if  options.mac_arch: 
         build_options.append("--mac_arch=%s" % options.mac_arch)
         wxpy_build_options.append("ARCH=%s" % options.mac_arch)
-        
+
 
 # now that we've done platform setup, start the common build process
 if options.unicode:
@@ -291,8 +313,6 @@ elif ( not sys.platform.startswith("win") and
                      os.path.join(WXWIN, 'wx-config.in'),
                      ]
     blddir = WXPY_BUILD_DIR
-    if options.mac_lipo and sys.platform.startswith("darwin"):
-        blddir += '/bld-i386'
     for dep in dependencies:
         if newer(dep, os.path.join(blddir, "Makefile")):
             break
@@ -309,69 +329,59 @@ if not sys.platform.startswith("win") and options.install:
 
 if options.mac_framework and sys.platform.startswith("darwin"):
     build_options.append("--mac_framework")
-
-if options.mac_lipo and sys.platform.startswith("darwin"):
-    build_options.append("--mac_lipo")
+    build_options.append("--mac_framework_prefix=%s" % options.mac_framework_prefix)
     
+    # We'll automatically add the --install option because for the wxPython
+    # build to be able to use the framework it must be fully constructed.
+    if "--install" not in build_options:
+        build_options.append("--install")
+
+    PREFIX = wxbuild.getPrefixInFramework(options, WXWIN)
+    
+        
 if not sys.platform.startswith("win"):
-    # Change to what will be the wxWidgets build folder
-    # (Note, this needs to be after any testing for file/path existance, etc.
-    # because they may be specified as relative paths.)
-    os.chdir(WXPY_BUILD_DIR)
+    build_options.append('--builddir=%s' % WXPY_BUILD_DIR)
+    
 
 
-try:
-    # Import and run the wxWidgets build script
-    wxscript = os.path.join(WXWIN, "build/tools/build-wxwidgets.py")
-    sys.path.insert(0, os.path.dirname(wxscript))
-    wxbuild = __import__('build-wxwidgets')
-    print 'wxWidgets build options:', build_options
-    wxbuild.main(wxscript, build_options)
-except:
-    print "ERROR: failed building wxWidgets"
-    import traceback
-    traceback.print_exc()
-    sys.exit(1)
+if options.no_wxbuild:
+    print 'Skipping wxWidgets build, assuming it is already done.'
+else:
+    try:
+        print 'wxWidgets build options:', build_options
+        wxbuild.main(wxscript, build_options)
+    except:
+        print "ERROR: failed building wxWidgets"
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
     
 #-----------------------------------------------------------------------
 # wxPython build
 
-def doMacLipoBuild(arch, installDir, build_options, 
-                   cxxcompiler="g++-4.0", cccompiler="gcc-4.0", target="10.4", flags=""):
-    archInstallDir = installDir + "/" + arch
-    old_env = dict(CXX = os.environ.get('CXX'),
-                   CC = os.environ.get('CC'),
-                   MACOSX_DEPLOYMENT_TARGET = os.environ.get('MACOSX_DEPLOYMENT_TARGET'),
-                   )
+
+def macFixupInstallNames2(destprefix, # prefix where the files are currently located
+                          instprefix, # prefix to write into the files
+                          oldprefix   # the prefix to be replaced, defaults to destprefix 
+                         ):
+    print "**** macFixupInstallNames2(%s, %s, %s)" % ( destprefix, instprefix, oldprefix)
+    pwd = os.getcwd()
+    os.chdir(destprefix+'/lib')
+    dylibs = glob.glob('*.dylib')     # ('*[0-9].[0-9].[0-9].[0-9]*.dylib')
+    for lib in dylibs:
+        if not os.path.islink(lib):
+            cmd = 'install_name_tool -id %s/lib/%s     %s/lib/%s' % \
+                                  (instprefix,lib,  destprefix,lib)
+            runCmd(cmd)
+
+            for dep in dylibs:
+                if not os.path.islink(dep):
+                    cmd = 'install_name_tool -change %s/lib/%s   %s/lib/%s   %s/lib/%s' % \
+                                 (oldprefix,dep,    instprefix,dep,    destprefix,lib)
+                    runCmd(cmd)
+    os.chdir(pwd)
     
-    os.environ["CXX"] = "%s -arch %s %s" % (cxxcompiler, arch, flags)
-    os.environ["CC"] = "%s -arch %s %s" % (cccompiler, arch, flags)
-    os.environ["MACOSX_DEPLOYMENT_TARGET"] = target
-    buildRoot = "bld-" + arch
-
-    build_options.append("ARCH=" + arch)
-    build_options.append("BUILD_BASE=bld-" + arch)
-    build = 'build'
-    if options.debug:
-        build += " --debug"
-    build_options.append('WX_CONFIG="%s/bin/wx-config --prefix=%s"' %
-                              (WXPY_INSTALL_DIR, WXPY_INSTALL_DIR))
-        
-    cmd = "%s -u ./setup.py %s %s %s" % \
-        (sys.executable, build, " ".join(build_options), options.extra_setup)
-    exitIfError(runCmd(cmd), "ERROR: failed building wxPython for " + arch)
-
-    cmd = "%s -u ./setup.py install --prefix=%s %s %s" % \
-        (sys.executable, archInstallDir, " ".join(build_options), options.extra_setup)
-    exitIfError(runCmd(cmd), "ERROR: failed installing wxPython for " + arch)
-
-    for key, val in old_env.items():
-        if val:
-            os.environ[key] = val
-        else:
-            del os.environ[key]
-
 
 def macFixDependencyInstallName(destdir, prefix, extension, buildDir):
     print "**** macFixDependencyInstallName(%s, %s, %s, %s)" % (destdir, prefix, extension, buildDir)
@@ -379,12 +389,11 @@ def macFixDependencyInstallName(destdir, prefix, extension, buildDir):
     os.chdir(destdir+prefix+'/lib')
     dylibs = glob.glob('*.dylib')   
     for lib in dylibs:
-        #cmd = 'install_name_tool -change %s/lib/%s %s/lib/%s %s' % \
-        #      (destdir+prefix,lib,  prefix,lib,  extension)
         cmd = 'install_name_tool -change %s/lib/%s %s/lib/%s %s' % \
-              (buildDir,lib,  prefix,lib,  extension)
-        print cmd
-        os.system(cmd)        
+              (destdir+prefix,lib,  prefix,lib,  extension)
+        #cmd = 'install_name_tool -change %s/lib/%s %s/lib/%s %s' % \
+        #      (buildDir,lib,  prefix,lib,  extension)
+        runCmd(cmd)        
     os.chdir(pwd)
     
 
@@ -398,66 +407,74 @@ if options.install:
         install_dir = options.wxpy_installdir
         WXPY_PREFIX = "--prefix=%s" % options.wxpy_installdir
         
-if options.mac_lipo and sys.platform.startswith("darwin"):
-    os.chdir(WXPYDIR)
-    doMacLipoBuild('ppc', install_dir, wxpy_build_options[:])
-    doMacLipoBuild('i386', install_dir, wxpy_build_options[:])
 
-    runCmd("python %s/distrib/scripts/mac/lipo-dir.py %s %s %s" %
-           (WXWIN, install_dir + "/ppc", install_dir + "/i386", install_dir))
+if sys.platform.startswith("win"):
+    # Copy the wxWidgets DLLs to the wxPython package folder
+    dlls = glob.glob(os.path.join(dllDir, "wx*" + version2_nodot + dll_type + "*.dll")) + \
+           glob.glob(os.path.join(dllDir, "wx*" + version3_nodot + dll_type + "*.dll")) 
+
+    # Also copy the cairo DLLs if needed
+    if options.cairo:
+        dlls += glob.glob(os.path.join(os.environ['CAIRO_ROOT'], 'bin', '*.dll'))
+
+    for dll in dlls:
+        shutil.copyfile(dll, os.path.join(WXPYDIR, "wx", os.path.basename(dll)))
+
+
+wxpy_build_options.append("BUILD_BASE=%s" % build_base)
+build_mode = "build_ext --inplace"
+if options.install:
+    build_mode = "build"
+if options.debug:
+    build_mode += " --debug"
+
+        
+if not sys.platform.startswith("win"):
+    if options.install:
+        wxlocation = DESTDIR + PREFIX
+        print '-='*20
+        print 'DESTDIR:', DESTDIR
+        print 'PREFIX:', PREFIX
+        print 'wxlocation:', wxlocation
+        print '-='*20
+        wxpy_build_options.append('WX_CONFIG="%s/bin/wx-config --prefix=%s"' %
+                                  (wxlocation, wxlocation))
+        
+    elif options.mac_framework:
+        wxpy_build_options.append("WX_CONFIG=%s/bin/wx-config" % PREFIX)        
     
-    shutil.rmtree(install_dir + "/ppc")
-    shutil.rmtree(install_dir + "/i386")
+    else:
+        wxpy_build_options.append("WX_CONFIG=%s/wx-config" % WXPY_BUILD_DIR)
 
-else:    
-    if sys.platform.startswith("win"):
-        # Copy the wxWidgets DLLs to the wx Python pacakge folder
-        dlls = glob.glob(os.path.join(dllDir, "wx*" + version2_nodot + dll_type + "*.dll")) + \
-               glob.glob(os.path.join(dllDir, "wx*" + version3_nodot + dll_type + "*.dll")) 
-        for dll in dlls:
-            shutil.copyfile(dll, os.path.join(WXPYDIR, "wx", os.path.basename(dll)))
+os.chdir(WXPYDIR)
+
+
+if options.install and sys.platform.startswith("darwin") and DESTDIR:
+    # Adjust the install_names in the wx libs so we can link with
+    # the wx binaries in their temporary DESTDIR location
+    macFixupInstallNames2(DESTDIR+PREFIX, DESTDIR+PREFIX, PREFIX)
+
+
+command = sys.executable + " -u ./setup.py %s %s %s" % \
+        (build_mode, " ".join(wxpy_build_options), options.extra_setup)
+exitIfError(runCmd(command), "ERROR: failed building wxPython.")
+
+if options.install:
+    command = sys.executable + " -u ./setup.py install %s %s %s --record installed_files.txt" % \
+            (WXPY_PREFIX, " ".join(wxpy_build_options), options.extra_setup)
+    exitIfError(runCmd(command), "ERROR: failed installing wxPython.")
+
+    if sys.platform.startswith("darwin") and DESTDIR:
+        # Now that we are finished with the build fix the ids and
+        # dependency names in the wx libs
+        macFixupInstallNames2(DESTDIR+PREFIX, PREFIX, DESTDIR+PREFIX)
+
+        # and also adjust the dependency names in the wxPython extensions
+        for line in file("installed_files.txt"):
+            line = line.strip()
+            if line.endswith('.so'):
+                macFixDependencyInstallName(DESTDIR, PREFIX, line, WXPY_BUILD_DIR)
                 
-    wxpy_build_options.append("BUILD_BASE=%s" % build_base)
-    build_mode = "build_ext --inplace"
-    if options.install:
-        build_mode = "build"
-    if options.debug:
-        build_mode += " --debug"
-    
-    if not sys.platform.startswith("win"):
-        if options.install:
-            wxlocation = DESTDIR + PREFIX
-            print '-='*20
-            print 'DESTDIR:', DESTDIR
-            print 'PREFIX:', PREFIX
-            print 'wxlocation:', wxlocation
-            print '-='*20
-            wxpy_build_options.append('WX_CONFIG="%s/bin/wx-config --prefix=%s"' %
-                                      (wxlocation, wxlocation))
-        else:
-            wxpy_build_options.append("WX_CONFIG=%s/wx-config" % WXPY_BUILD_DIR)
-    
-    os.chdir(WXPYDIR)
-    command = sys.executable + " -u ./setup.py %s %s %s" % \
-            (build_mode, " ".join(wxpy_build_options), options.extra_setup)
-    exitIfError(runCmd(command), "ERROR: failed building wxPython.")
-
-    if options.install:
-        command = sys.executable + " -u ./setup.py install %s %s %s --record installed_files.txt" % \
-                (WXPY_PREFIX, " ".join(wxpy_build_options), options.extra_setup)
-        exitIfError(runCmd(command), "ERROR: failed installing wxPython.")
-
-        if sys.platform.startswith("darwin") and DESTDIR:
-            # Now that we are finished with the build fix the ids and
-            # names in the wx .dylibs
-            wxbuild.macFixupInstallNames(DESTDIR, PREFIX, WXPY_BUILD_DIR)
-
-            # and also adjust the dependency names in the wxPython extensions
-            for line in file("installed_files.txt"):
-                line = line.strip()
-                if line.endswith('.so'):
-                    macFixDependencyInstallName(DESTDIR, PREFIX, line, WXPY_BUILD_DIR)
-                    
 
         
 # update the language files  TODO: this needs fixed...
@@ -467,11 +484,15 @@ exitIfError(runCmd(command), "ERROR: failed generating language files")
 
 print "------------ BUILD FINISHED ------------"
 print ""
-print "To run the wxPython demo:"
-print ""
-print " - Set your PYTHONPATH variable to %s." % WXPYDIR
-if not sys.platform.startswith("win") and not options.install:
-    print " - Set your (DY)LD_LIBRARY_PATH to %s" % WXPY_BUILD_DIR + "/lib"
+print "To run the wxPython demo you may need to:"
+print " - set your PYTHONPATH variable to %s" % WXPYDIR
+if options.mac_framework:
+    print " - set your DYLD_FRAMEWORK_PATH to %s" % os.path.abspath(options.mac_framework_prefix)
+elif sys.platform.startswith("darwin"):
+    print " - set your DYLD_LIBRARY_PATH to %s" % WXPY_BUILD_DIR + "/lib"
+elif not sys.platform.startswith("win") and not options.install:
+    print " - set your LD_LIBRARY_PATH to %s" % WXPY_BUILD_DIR + "/lib"
+print "\nAnd then:"
 print " - Run python demo/demo.py"
 print ""
 

@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        common/wxexec.cpp
+// Name:        src/common/execcmn.cpp
 // Purpose:     defines wxStreamTempInputBuffer which is used by Unix and MSW
 //              implementations of wxExecute; this file is only used by the
 //              library and never by the user code
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     20.08.02
-// RCS-ID:      $Id: execcmn.cpp 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: execcmn.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2002 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

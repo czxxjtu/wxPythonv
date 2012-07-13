@@ -2,7 +2,7 @@
 // Name:        msgdlg.h
 // Purpose:     interface of wxMessageDialog
 // Author:      wxWidgets team
-// RCS-ID:      $Id: msgdlg.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: msgdlg.h 65465 2010-09-04 09:36:25Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -47,6 +47,11 @@
     @style{wxICON_QUESTION}
         Displays a question mark symbol. This icon is automatically used
         with @c wxYES_NO so it's usually unnecessary to specify it explicitly.
+        This style is not supported for message dialogs under wxMSW when a task
+        dialog is used to implement them (i.e. when running under Windows Vista
+        or later) because <a href="http://msdn.microsoft.com/en-us/library/aa511273.aspx">Microsoft
+        guidelines</a> indicate that no icon should be used for routine
+        confirmations. If it is specified, no icon will be displayed.
     @style{wxICON_INFORMATION}
         Displays an information symbol. This icon is used by default if
         @c wxYES_NO is not given so it is usually unnecessary to specify it
@@ -56,13 +61,16 @@
         just its parent (currently implemented only under MSW and GTK).
     @style{wxCENTRE}
         Centre the message box on its parent or on the screen if parent is not
-        specified (currently only implemented under MSW).
+        specified.
+        Setting this style under MSW makes no differences as the dialog is
+        always centered on the parent.
     @endStyleTable
 
     @library{wxcore}
     @category{cmndlg}
 
     @see @ref overview_cmndlg_msg
+    @see wxRichMessageDialog
 */
 class wxMessageDialog : public wxDialog
 {

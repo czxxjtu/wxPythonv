@@ -3,7 +3,7 @@
 // Purpose:     STC test application
 // Maintainer:  Otto Wyss
 // Created:     2003-09-01
-// RCS-ID:      $Id: stctest.cpp 64726 2010-06-25 08:47:17Z VZ $
+// RCS-ID:      $Id: stctest.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) wxGuide
 // Licence:     wxWindows licence
 //////////////////////////////////////////////////////////////////////////////
@@ -226,7 +226,6 @@ bool App::OnInit () {
     // open application frame
     m_frame->Layout ();
     m_frame->Show (true);
-    SetTopWindow (m_frame);
 
     return true;
 }
@@ -431,7 +430,7 @@ void AppFrame::OnPrintPreview (wxCommandEvent &WXUNUSED(event)) {
         new wxPrintPreview (new EditPrint (m_edit),
                             new EditPrint (m_edit),
                             &printDialogData);
-    if (!preview->Ok()) {
+    if (!preview->IsOk()) {
         delete preview;
         wxMessageBox (_("There was a problem with previewing.\n\
                          Perhaps your current printer is not correctly?"),

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        socket.h
+// Name:        wx/socket.h
 // Purpose:     Socket handling classes
 // Authors:     Guilhem Lavaux, Guillermo Rodriguez Garcia
 // Modified by:
 // Created:     April 1997
-// RCS-ID:      $Id: socket.h 61985 2009-09-21 08:44:35Z VZ $
+// RCS-ID:      $Id: socket.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

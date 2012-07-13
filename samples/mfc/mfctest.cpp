@@ -2,7 +2,7 @@
 // Name:        mfctest.cpp
 // Purpose:     Sample to demonstrate mixing MFC and wxWidgets code
 // Author:      Julian Smart
-// Id:          $Id: mfctest.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: mfctest.cpp 66668 2011-01-12 13:39:24Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@
 //     nmake -f makefile.vc BUILD=debug SHARED=0 DEBUG_RUNTIME_LIBS=0 RUNTIME_LIBS=static all
 //
 //     Unless the run-time library settings match for wxWidgets and MFC, you
-//     will get link errors for symbols such as __mbctype, __argc, and __argv 
+//     will get link errors for symbols such as __mbctype, __argc, and __argv
 //
 // (3) If you see bogus memory leaks within the MSVC IDE on exit, in this
 //     sample or in your own project, you must be using __WXDEBUG__ +
@@ -49,10 +49,18 @@
 //     first: mfc[version][u]d.lib
 //     -  [version] -> 42 or 70 or 80 etc
 //     -  u if using Unicode
-//
-// (4) Unicode builds may produce the linker error "unresolved external symbol _WinMain@16".
-//     MFC requires you to manually add the Unicode entry point to the linker settings,
-//     Entry point symbol -> wWinMainCRTStartup
+
+// Disable deprecation warnings from headers included from stdafx.h for VC8+
+#ifndef _CRT_SECURE_NO_WARNINGS
+    #define _CRT_SECURE_NO_WARNINGS
+#endif
+
+// Also define WINVER to avoid warnings about it being undefined from the
+// platform SDK headers (usually this is not necessary because it is done by wx
+// headers but here we include the system ones before them)
+#ifndef WINVER
+    #define WINVER 0x0600
+#endif
 
 #include "stdafx.h"
 
@@ -127,6 +135,18 @@ DECLARE_APP(MyApp)
 
 // notice use of IMPLEMENT_APP_NO_MAIN() instead of the usual IMPLEMENT_APP!
 IMPLEMENT_APP_NO_MAIN(MyApp)
+
+#ifdef _UNICODE
+// In Unicode build MFC normally requires to manually change the entry point to
+// wWinMainCRTStartup() but to avoid having to modify the project options to do
+// it we provide an adapter for it.
+extern "C" int wWinMainCRTStartup();
+
+int WINAPI WinMain(HINSTANCE, HINSTANCE, char *, int)
+{
+    wWinMainCRTStartup();
+}
+#endif // _UNICODE
 
 CMainWindow::CMainWindow()
 {

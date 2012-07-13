@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: fontdlg.cpp 59725 2009-03-22 12:53:48Z VZ $
+// RCS-ID:      $Id: fontdlg.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,6 @@
     #include "wx/utils.h"
     #include "wx/dialog.h"
     #include "wx/log.h"
-    #include "wx/cmndata.h"
     #include "wx/math.h"
 #endif
 
@@ -69,13 +68,13 @@ int wxFontDialog::ShowModal()
         chooseFontStruct.hwndOwner = GetHwndOf(m_parent);
     chooseFontStruct.lpLogFont = &logFont;
 
-    if ( m_fontData.m_initialFont.Ok() )
+    if ( m_fontData.m_initialFont.IsOk() )
     {
         flags |= CF_INITTOLOGFONTSTRUCT;
         wxFillLogFont(&logFont, &m_fontData.m_initialFont);
     }
 
-    if ( m_fontData.m_fontColour.Ok() )
+    if ( m_fontData.m_fontColour.IsOk() )
     {
         chooseFontStruct.rgbColors = wxColourToRGB(m_fontData.m_fontColour);
     }

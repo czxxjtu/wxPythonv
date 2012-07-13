@@ -2,7 +2,7 @@
 // Name:        html/helpfrm.h
 // Purpose:     interface of wxHtmlHelpFrame
 // Author:      wxWidgets team
-// RCS-ID:      $Id: helpfrm.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: helpfrm.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -59,7 +59,7 @@ public:
     /**
         Sets the help controller associated with the frame.
     */
-    void SetController(wxHtmlHelpController* contoller);
+    void SetController(wxHtmlHelpController* controller);
 
     /**
         Sets the frame's title format.

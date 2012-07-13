@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     17.07.02
-// RCS-ID:      $Id: msgout.cpp 61460 2009-07-18 23:23:39Z VZ $
+// RCS-ID:      $Id: msgout.cpp 66592 2011-01-05 18:27:58Z PC $
 // Copyright:   (c) the wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -118,7 +118,13 @@ void wxMessageOutputBest::Output(const wxString& str)
             return;
     }
 
-    ::MessageBox(NULL, str.t_str(), NULL, MB_ICONINFORMATION | MB_OK);
+    wxString title;
+    if ( wxTheApp )
+        title = wxTheApp->GetAppDisplayName();
+    else // Use some title to avoid default "Error"
+        title = _("Message");
+
+    ::MessageBox(NULL, str.t_str(), title.t_str(), MB_ICONINFORMATION | MB_OK);
 #else // !__WINDOWS__
     // TODO: use the native message box for the other ports too
     wxMessageOutputStderr::Output(str);
@@ -188,6 +194,8 @@ void wxMessageOutputLog::Output(const wxString& str)
 // ----------------------------------------------------------------------------
 
 #if wxUSE_GUI && wxUSE_MSGDLG
+
+extern WXDLLEXPORT_DATA(const char) wxMessageBoxCaptionStr[] = "Message";
 
 void wxMessageOutputMessageBox::Output(const wxString& str)
 {

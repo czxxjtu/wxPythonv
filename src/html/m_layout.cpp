@@ -2,7 +2,7 @@
 // Name:        src/html/m_layout.cpp
 // Purpose:     wxHtml module for basic paragraphs/layout handling
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: m_layout.cpp 63991 2010-04-16 10:43:18Z VS $
+// RCS-ID:      $Id: m_layout.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1999 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -340,7 +340,7 @@ TAG_HANDLER_BEGIN(BODY, "BODY")
                 if ( is )
                 {
                     wxImage image(*is);
-                    if ( image.Ok() )
+                    if ( image.IsOk() )
                         winIface->SetHTMLBackgroundImage(image);
                 }
 

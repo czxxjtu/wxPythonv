@@ -13,13 +13,13 @@
 # Python Code By:
 #
 # Andrea Gavana, @ 23 Dec 2005
-# Latest Revision: 01 Oct 2010, 23.00 GMT
+# Latest Revision: 17 Aug 2011, 15.00 GMT
 #
 # For All Kind Of Problems, Requests Of Enhancements And Bug Reports, Please
 # Write To Me At:
 #
 # andrea.gavana@gmail.com
-# gavana@kpo.kz
+# andrea.gavana@maerskoil.com
 #
 # Or, Obviously, To The wxPython Mailing List!!!
 #
@@ -30,7 +30,7 @@
 Description
 ===========
 
-framemanager is the central module of the AUI class framework.
+`framemanager.py` is the central module of the AUI class framework.
 
 L{AuiManager} manages the panes associated with it for a particular `wx.Frame`, using
 a pane's L{AuiPaneInfo} information to determine each pane's docking and floating
@@ -135,6 +135,7 @@ wxEVT_AUI_PANE_FLOATING = wx.NewEventType()
 wxEVT_AUI_PANE_FLOATED = wx.NewEventType()
 wxEVT_AUI_PANE_DOCKING = wx.NewEventType()
 wxEVT_AUI_PANE_DOCKED = wx.NewEventType()
+wxEVT_AUI_PANE_ACTIVATED = wx.NewEventType()
 wxEVT_AUI_PERSPECTIVE_CHANGED = wx.NewEventType()
 
 EVT_AUI_PANE_BUTTON = wx.PyEventBinder(wxEVT_AUI_PANE_BUTTON, 0)
@@ -161,6 +162,8 @@ EVT_AUI_PANE_DOCKING = wx.PyEventBinder(wxEVT_AUI_PANE_DOCKING, 0)
 """ A pane in `AuiManager` is about to be docked. """
 EVT_AUI_PANE_DOCKED = wx.PyEventBinder(wxEVT_AUI_PANE_DOCKED, 0)
 """ A pane in `AuiManager` has been docked. """
+EVT_AUI_PANE_ACTIVATED = wx.PyEventBinder(wxEVT_AUI_PANE_ACTIVATED, 0)
+""" A pane in `AuiManager` has been activated. """
 EVT_AUI_PERSPECTIVE_CHANGED = wx.PyEventBinder(wxEVT_AUI_PERSPECTIVE_CHANGED, 0)
 """ The layout in `AuiManager` has been changed. """
 
@@ -544,6 +547,7 @@ class AuiPaneInfo(object):
         self.previousDockPos = None
         self.previousDockSize = 0
         self.snapped = 0
+        self.minimize_target = None
         
         self.DefaultPane()
         
@@ -819,7 +823,8 @@ class AuiPaneInfo(object):
         ``AUI_MINIMIZE_POS_LEFT``           0x03 Minimizes the pane on its left tool bar
         ``AUI_MINIMIZE_POS_RIGHT``          0x04 Minimizes the pane on its right tool bar
         ``AUI_MINIMIZE_POS_BOTTOM``         0x05 Minimizes the pane on its bottom tool bar
-        ``AUI_MINIMIZE_POS_MASK``           0x07 Mask to filter the position flags
+        ``AUI_MINIMIZE_POS_TOOLBAR``        0x06 Minimizes the pane on a target L{AuiToolBar}
+        ``AUI_MINIMIZE_POS_MASK``           0x17 Mask to filter the position flags
         ``AUI_MINIMIZE_CAPT_HIDE``           0x0 Hides the caption of the minimized pane
         ``AUI_MINIMIZE_CAPT_SMART``         0x08 Displays the caption in the best rotation (horizontal or clockwise)
         ``AUI_MINIMIZE_CAPT_HORZ``          0x10 Displays the caption horizontally
@@ -831,7 +836,7 @@ class AuiPaneInfo(object):
         ============================== ========= ==============================
         Minimize Mask Flag             Hex Value Description
         ============================== ========= ==============================        
-        ``AUI_MINIMIZE_POS_MASK``           0x07 Filters the position flags
+        ``AUI_MINIMIZE_POS_MASK``           0x17 Filters the position flags
         ``AUI_MINIMIZE_CAPT_MASK``          0x18 Filters the caption flags
         ============================== ========= ==============================
 
@@ -1041,8 +1046,10 @@ class AuiPaneInfo(object):
             ret = self.MinSize1(arg1)
         elif isinstance(arg1, types.TupleType):
             ret = self.MinSize1(wx.Size(*arg1))
-        else:
+        elif isinstance(arg1, types.IntType) and arg2 is not None:
             ret = self.MinSize2(arg1, arg2)
+        else:
+            raise Exception("Invalid argument passed to `MinSize`: arg1=%s, arg2=%s"%(repr(arg1), repr(arg2)))
 
         return ret
 
@@ -1083,8 +1090,10 @@ class AuiPaneInfo(object):
             ret = self.MaxSize1(arg1)
         elif isinstance(arg1, types.TupleType):
             ret = self.MaxSize1(wx.Size(*arg1))
-        else:
+        elif isinstance(arg1, types.IntType) and arg2 is not None:
             ret = self.MaxSize2(arg1, arg2)
+        else:
+            raise Exception("Invalid argument passed to `MaxSize`: arg1=%s, arg2=%s"%(repr(arg1), repr(arg2)))
 
         return ret
     
@@ -1127,8 +1136,10 @@ class AuiPaneInfo(object):
             ret = self.BestSize1(arg1)
         elif isinstance(arg1, types.TupleType):
             ret = self.BestSize1(wx.Size(*arg1))
-        else:
+        elif isinstance(arg1, types.IntType) and arg2 is not None:
             ret = self.BestSize2(arg1, arg2)
+        else:
+            raise Exception("Invalid argument passed to `BestSize`: arg1=%s, arg2=%s"%(repr(arg1), repr(arg2)))
 
         return ret
     
@@ -1213,6 +1224,7 @@ class AuiPaneInfo(object):
         ``AUI_MINIMIZE_POS_LEFT``           0x03 Minimizes the pane on its left tool bar
         ``AUI_MINIMIZE_POS_RIGHT``          0x04 Minimizes the pane on its right tool bar
         ``AUI_MINIMIZE_POS_BOTTOM``         0x05 Minimizes the pane on its bottom tool bar
+        ``AUI_MINIMIZE_POS_TOOLBAR``        0x06 Minimizes the pane on a target L{AuiToolBar}
         ============================== ========= ==============================
 
         The caption of the minimized pane can be displayed in different modes:
@@ -1224,10 +1236,31 @@ class AuiPaneInfo(object):
         ``AUI_MINIMIZE_CAPT_SMART``         0x08 Displays the caption in the best rotation (horizontal in the top and in the bottom tool bar or clockwise in the right and in the left tool bar)
         ``AUI_MINIMIZE_CAPT_HORZ``          0x10 Displays the caption horizontally
         ============================== ========= ==============================
-        
+
+        :note: In order to use the ``AUI_MINIMIZE_POS_TOOLBAR`` flag, the instance of L{AuiPaneInfo}
+         you pass as an input for L{MinimizeTarget} **must** have a real name and not the randomly
+         generated one. Remember to set the L{Name} property of the toolbar pane before calling this method.
         """
         
         self.minimize_mode = mode
+        return self
+    
+
+    def MinimizeTarget(self, toolbarPane):
+        """
+        Minimizes the panes using a L{AuiPaneInfo} as a target. As L{AuiPaneInfo} properties
+        need to be copied back and forth every time the perspective has changed, we
+        only store the toobar **name**.
+
+        :param `toolbarPane`: an instance of L{AuiPaneInfo}, containing a L{AuiToolBar}.
+
+        :note: In order to use this functionality (and with the ``AUI_MINIMIZE_POS_TOOLBAR``
+         flag set), the instance of L{AuiPaneInfo} you pass as an input **must** have a real
+         name and not the randomly generated one. Remember to set the L{Name} property of
+         the toolbar pane before calling this method.
+        """
+
+        self.minimize_target = toolbarPane.name
         return self
     
 
@@ -1669,8 +1702,7 @@ class AuiPaneInfo(object):
                  self.optionFloatable | self.optionMovable | self.optionResizable | \
                  self.optionCaption | self.optionPaneBorder | self.buttonClose
 
-        self.state = state
-        
+        self.state = state        
         return self
     
     
@@ -1699,7 +1731,7 @@ class AuiPaneInfo(object):
      
     def ToolbarPane(self):
         """ Specifies that the pane should adopt the default toolbar pane settings. """
-        
+
         self.DefaultPane()
         state = self.state
         
@@ -2882,6 +2914,7 @@ class AuiFloatingFrame(wx.MiniFrame):
         contained_pane.transparent = pane.transparent
         contained_pane.snapped = pane.snapped
         contained_pane.minimize_mode = pane.minimize_mode
+        contained_pane.minimize_target = pane.minimize_target
 
         return contained_pane
     
@@ -3416,6 +3449,7 @@ def CopyDocksAndPanes2(src_docks, src_panes):
         dest_panes[ii].transparent = src_panes[ii].transparent
         dest_panes[ii].snapped = src_panes[ii].snapped
         dest_panes[ii].minimize_mode = src_panes[ii].minimize_mode
+        dest_panes[ii].minimize_target = src_panes[ii].minimize_target
 
     for ii in xrange(len(dest_docks)):
         dock = dest_docks[ii]
@@ -4470,7 +4504,7 @@ class AuiManager(wx.EvtHandler):
 
     def FireEvent(self, evtType, pane, canVeto=False):
         """
-        Fires one of the ``EVT_AUI_PANE_FLOATED``/``FLOATING``/``DOCKING``/``DOCKED`` event. 
+        Fires one of the ``EVT_AUI_PANE_FLOATED``/``FLOATING``/``DOCKING``/``DOCKED``/``ACTIVATED`` event. 
 
         :param `evtType`: one of the aforementioned events;
         :param `pane`: the L{AuiPaneInfo} instance associated to this event;
@@ -4579,7 +4613,7 @@ class AuiManager(wx.EvtHandler):
         # bug in the library user's application
         already_exists = False
         if pane_info.name != "" and self.GetPane(pane_info.name).IsOk():
-            warnings.warn("A pane with that name already exists in the manager!")
+            warnings.warn("A pane with the name '%s' already exists in the manager!"%pane_info.name)
             already_exists = True
 
         # if the new pane is docked then we should undo maximize
@@ -5011,6 +5045,7 @@ class AuiManager(wx.EvtHandler):
                 window = window.GetParent()
 
             self.RefreshCaptions()
+            self.FireEvent(wxEVT_AUI_PANE_ACTIVATED, window, canVeto=False)
             
 
     def CreateNotebook(self):
@@ -7406,6 +7441,7 @@ class AuiManager(wx.EvtHandler):
         drop.transparent = target.transparent
         drop.snapped = target.snapped
         drop.minimize_mode = target.minimize_mode
+        drop.minimize_target = target.minimize_target
 
         return drop        
 
@@ -8196,7 +8232,7 @@ class AuiManager(wx.EvtHandler):
                       pane.floating_pos, pane.floating_size, pane.best_size,
                       pane.min_size, pane.max_size, pane.caption, pane.name,
                       pane.buttons, pane.rect, pane.icon, pane.notebook_id,
-                      pane.transparent, pane.snapped, pane.minimize_mode])
+                      pane.transparent, pane.snapped, pane.minimize_mode, pane.minimize_target])
 
         return attrs
     
@@ -8231,6 +8267,7 @@ class AuiManager(wx.EvtHandler):
         pane.transparent = attrs[19]
         pane.snapped = attrs[20]
         pane.minimize_mode = attrs[21]
+        pane.minimize_target = attrs[22]
 
         return pane
 
@@ -8303,6 +8340,7 @@ class AuiManager(wx.EvtHandler):
         if self.GetAGWFlags() & AUI_MGR_ALLOW_ACTIVE_PANE:
             ret, self._panes = SetActivePane(self._panes, wnd)
             self.RefreshCaptions()
+            self.FireEvent(wxEVT_AUI_PANE_ACTIVATED, wnd, canVeto=False)
 
 
     def OnFloatingPaneMoved(self, wnd, eventOrPt):
@@ -8428,6 +8466,7 @@ class AuiManager(wx.EvtHandler):
             # set the caption as active
             ret, self._panes = SetActivePane(self._panes, pane_window)
             self.RefreshCaptions()
+            self.FireEvent(wxEVT_AUI_PANE_ACTIVATED, pane_window, canVeto=False)
         
         self._action_part = None
         self._action_pane = paneInfo
@@ -9095,9 +9134,10 @@ class AuiManager(wx.EvtHandler):
         :param `event`: a `wx.MoveEvent` to be processed.
         """
 
+        if event is not None:
+            event.Skip()
+
         if isinstance(self._frame, AuiFloatingFrame) and self._frame.IsShownOnScreen():
-            if event is not None:
-                event.Skip()
             return
 
         docked, hAlign, vAlign, monitor = self._is_docked
@@ -9780,15 +9820,30 @@ class AuiManager(wx.EvtHandler):
             #
             # 3) Hide the minimizing pane 
 
-
             # personalize the toolbar style
+            
             tbStyle = AUI_TB_DEFAULT_STYLE
             posMask = paneInfo.minimize_mode & AUI_MINIMIZE_POS_MASK
             captMask = paneInfo.minimize_mode & AUI_MINIMIZE_CAPT_MASK
             dockDirection = paneInfo.dock_direction
             if captMask != 0:
                 tbStyle |= AUI_TB_TEXT
-            if posMask == AUI_MINIMIZE_POS_SMART:
+
+            if posMask == AUI_MINIMIZE_POS_TOOLBAR:
+                minimize_toolbar = self.GetPane(paneInfo.minimize_target)
+                if not minimize_toolbar.IsOk():
+                    posMask = AUI_MINIMIZE_POS_SMART
+                    if paneInfo.dock_direction in [AUI_DOCK_TOP, AUI_DOCK_BOTTOM]:
+                        tbStyle |= AUI_TB_HORZ_LAYOUT
+
+                    elif paneInfo.dock_direction in [AUI_DOCK_LEFT, AUI_DOCK_RIGHT, AUI_DOCK_CENTER]:
+                        tbStyle |= AUI_TB_VERTICAL
+                        if captMask == AUI_MINIMIZE_CAPT_SMART:
+                            tbStyle |= AUI_TB_CLOCKWISE
+                else:
+                    minimize_toolbar = minimize_toolbar.window
+                    
+            elif posMask == AUI_MINIMIZE_POS_SMART:
                 if paneInfo.dock_direction in [AUI_DOCK_TOP, AUI_DOCK_BOTTOM]:
                     tbStyle |= AUI_TB_HORZ_LAYOUT
 
@@ -9819,17 +9874,29 @@ class AuiManager(wx.EvtHandler):
             # give it the same name as the minimized pane with _min appended
 
             win_rect = paneInfo.window.GetScreenRect()
-            
-            minimize_toolbar = auibar.AuiToolBar(self.GetManagedWindow(), agwStyle=tbStyle)
-            minimize_toolbar.Hide()
-            minimize_toolbar.SetToolBitmapSize(wx.Size(16, 16))
+
+            if posMask != AUI_MINIMIZE_POS_TOOLBAR:
+                minimize_toolbar = auibar.AuiToolBar(self.GetManagedWindow(), agwStyle=tbStyle)
+                minimize_toolbar.Hide()
+                minimize_toolbar.SetToolBitmapSize(wx.Size(16, 16))
 
             if paneInfo.icon and paneInfo.icon.IsOk():
                 restore_bitmap = paneInfo.icon
             else:
                 restore_bitmap = self._art._restore_bitmap
+
+            if posMask == AUI_MINIMIZE_POS_TOOLBAR:
+                xsize, ysize = minimize_toolbar.GetToolBitmapSize()
+                if xsize != restore_bitmap.GetWidth():
+                    img = restore_bitmap.ConvertToImage()
+                    img.Rescale(xsize, ysize, wx.IMAGE_QUALITY_HIGH)
+                    restore_bitmap = img.ConvertToBitmap()
                 
-            minimize_toolbar.AddSimpleTool(ID_RESTORE_FRAME, paneInfo.caption, restore_bitmap, "Restore " + paneInfo.caption)
+            target = None
+            if posMask == AUI_MINIMIZE_POS_TOOLBAR:
+                target = paneInfo.name
+                
+            minimize_toolbar.AddSimpleTool(ID_RESTORE_FRAME, paneInfo.caption, restore_bitmap, "Restore " + paneInfo.caption, target=target)
             minimize_toolbar.SetAuiManager(self)
             minimize_toolbar.Realize()
             toolpanelname = paneInfo.name + "_min"
@@ -9837,29 +9904,31 @@ class AuiManager(wx.EvtHandler):
             if paneInfo.IsMaximized():
                 paneInfo.SetFlag(paneInfo.wasMaximized, True)
 
-            if dockDirection == AUI_DOCK_TOP:
-                self.AddPane(minimize_toolbar, AuiPaneInfo(). \
-                    Name(toolpanelname).Caption(paneInfo.caption). \
-                    ToolbarPane().Top().BottomDockable(False). \
-                    LeftDockable(False).RightDockable(False).DestroyOnClose())
-                
-            elif dockDirection == AUI_DOCK_BOTTOM:
-                self.AddPane(minimize_toolbar, AuiPaneInfo(). \
-                    Name(toolpanelname).Caption(paneInfo.caption). \
-                    ToolbarPane().Bottom().TopDockable(False). \
-                    LeftDockable(False).RightDockable(False).DestroyOnClose())
-                
-            elif dockDirection == AUI_DOCK_LEFT:
-                self.AddPane(minimize_toolbar, AuiPaneInfo(). \
-                    Name(toolpanelname).Caption(paneInfo.caption). \
-                    ToolbarPane().Left().TopDockable(False). \
-                    BottomDockable(False).RightDockable(False).DestroyOnClose())
+            if posMask != AUI_MINIMIZE_POS_TOOLBAR:
 
-            elif dockDirection in [AUI_DOCK_RIGHT, AUI_DOCK_CENTER]:
-                self.AddPane(minimize_toolbar, AuiPaneInfo(). \
-                    Name(toolpanelname).Caption(paneInfo.caption). \
-                    ToolbarPane().Right().TopDockable(False). \
-                    LeftDockable(False).BottomDockable(False).DestroyOnClose())
+                if dockDirection == AUI_DOCK_TOP:
+                    self.AddPane(minimize_toolbar, AuiPaneInfo(). \
+                        Name(toolpanelname).Caption(paneInfo.caption). \
+                        ToolbarPane().Top().BottomDockable(False). \
+                        LeftDockable(False).RightDockable(False).DestroyOnClose())
+                    
+                elif dockDirection == AUI_DOCK_BOTTOM:
+                    self.AddPane(minimize_toolbar, AuiPaneInfo(). \
+                        Name(toolpanelname).Caption(paneInfo.caption). \
+                        ToolbarPane().Bottom().TopDockable(False). \
+                        LeftDockable(False).RightDockable(False).DestroyOnClose())
+                    
+                elif dockDirection == AUI_DOCK_LEFT:
+                    self.AddPane(minimize_toolbar, AuiPaneInfo(). \
+                        Name(toolpanelname).Caption(paneInfo.caption). \
+                        ToolbarPane().Left().TopDockable(False). \
+                        BottomDockable(False).RightDockable(False).DestroyOnClose())
+
+                elif dockDirection in [AUI_DOCK_RIGHT, AUI_DOCK_CENTER]:
+                    self.AddPane(minimize_toolbar, AuiPaneInfo(). \
+                        Name(toolpanelname).Caption(paneInfo.caption). \
+                        ToolbarPane().Right().TopDockable(False). \
+                        LeftDockable(False).BottomDockable(False).DestroyOnClose())
 
             arr = FindDocks(self._docks, paneInfo.dock_direction, paneInfo.dock_layer, paneInfo.dock_row)
 
@@ -9957,11 +10026,17 @@ class AuiManager(wx.EvtHandler):
         """
 
         panename = paneInfo.name
-        panename = panename[0:-4]
+
+        if paneInfo.minimize_mode & AUI_MINIMIZE_POS_TOOLBAR:
+            pane = self.GetPane(panename)
+            hasTarget = True
+        else:
+            panename = panename[0:-4]
+            hasTarget = False
+            
         pane = self.GetPane(panename)
-
         pane.SetFlag(pane.needsRestore, True)
-
+        
         if not pane.IsOk():
             panename = paneInfo.name
             pane = self.GetPane(panename)
@@ -9976,18 +10051,24 @@ class AuiManager(wx.EvtHandler):
             
 
             if pane.HasFlag(pane.wasMaximized):
-
                 self.SavePreviousDockSizes(pane)
                 
-
             self.ShowPane(pane.window, True)
             pane.Show(True)
             self._has_minimized = False
             pane.SetFlag(pane.optionMinimized, False)
-            paneInfo.window.Show(False)
-            self.DetachPane(paneInfo.window)
-            paneInfo.Show(False)
-            paneInfo.Hide()
+
+            if hasTarget:
+                targetName = pane.minimize_target
+                toolbarPane = self.GetPane(targetName)
+                toolbar = toolbarPane.window
+                item = toolbar.FindToolByLabel(pane.caption)
+                toolbar.DeleteTool(item.id)                
+            else:
+                paneInfo.window.Show(False)
+                self.DetachPane(paneInfo.window)
+                paneInfo.Show(False)
+                paneInfo.Hide()
 
             self.Update()
 
@@ -10319,7 +10400,7 @@ class AuiManager_DCP(AuiManager):
     
     def __init__(self, *args, **keys):
 
-        aui.AuiManager.__init__(self, *args, **keys)
+        AuiManager.__init__(self, *args, **keys)
         self.hasDummyPane = False
         
 
@@ -10331,7 +10412,7 @@ class AuiManager_DCP(AuiManager):
 
         self.hasDummyPane = True
         dummy = wx.Panel(self.GetManagedWindow())
-        info = aui.AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
+        info = AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
         self.AddPane(dummy, info)
 
 
@@ -10357,11 +10438,11 @@ class AuiManager_DCP(AuiManager):
         the whole layout at one time.
         """
         
-        aui.AuiManager.Update(self)
+        AuiManager.Update(self)
 
         # check if there's already a center pane (except our dummy pane)
         dummyCenterPane = self.GetPane('dummyCenterPane')
-        haveCenterPane = any((pane != dummyCenterPane) and (pane.dock_direction == aui.AUI_DOCK_CENTER) and
+        haveCenterPane = any((pane != dummyCenterPane) and (pane.dock_direction == AUI_DOCK_CENTER) and
                              not pane.IsFloating() and pane.IsShown() for pane in self.GetAllPanes())
         if haveCenterPane:
             if self.hasDummyPane:

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: accel.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: accel.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ bool wxAcceleratorTable::IsOk() const
 
 int wxAcceleratorTable::GetCommand( wxKeyEvent &event )
 {
-    if (!Ok()) return -1;
+    if (!IsOk()) return -1;
 
     wxAccelList::compatibility_iterator node = M_ACCELDATA->m_accels.GetFirst();
     while (node)

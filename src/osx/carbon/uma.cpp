@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: uma.cpp 61724 2009-08-21 10:41:26Z VZ $
+// RCS-ID:      $Id: uma.cpp 67813 2011-05-31 08:09:18Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     The wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,10 @@ void UMAInsertSubMenuItem( MenuRef menu , const wxString& title, wxFontEncoding 
 void UMASetMenuItemShortcut( MenuRef menu , MenuItemIndex item , wxAcceleratorEntry *entry )
 {
     if ( !entry )
+    {
+        SetMenuItemCommandKey(menu, item, false, 0); 
         return ;
+    }
 
     UInt8 modifiers = 0 ;
     SInt16 key = entry->GetKeyCode() ;

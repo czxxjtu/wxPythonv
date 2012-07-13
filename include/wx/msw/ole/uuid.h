@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        ole/uuid.h
+// Name:        wx/msw/ole/uuid.h
 // Purpose:     encapsulates an UUID with some added helper functions
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     11.07.97
-// RCS-ID:      $Id: uuid.h 55375 2008-08-30 16:30:03Z VZ $
+// RCS-ID:      $Id: uuid.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 //

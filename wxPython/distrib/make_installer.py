@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     30-April-2001
-# RCS-ID:      $Id: make_installer.py 65772 2010-10-05 23:37:22Z RD $
+# RCS-ID:      $Id: make_installer.py 68415 2011-07-25 18:53:22Z RD $
 # Copyright:   (c) 2003 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -39,7 +39,7 @@ ISS_Template = r'''
 AppName = wxPython%(SHORTVER)s-%(PYVER)s
 AppVerName = wxPython %(VERSION)s for Python %(PYTHONVER)s
 OutputBaseFilename = wxPython%(SHORTVER)s-win%(BITS)s-%(VERSION)s-%(PYVER)s
-AppCopyright = Copyright 2010 Total Control Software
+AppCopyright = Copyright 2011 Total Control Software
 DefaultDirName = {code:GetInstallDir|c:\DoNotInstallHere}
 DefaultGroupName = wxPython %(VERSION)s for Python %(PYTHONVER)s
 PrivilegesRequired = %(PRIV)s
@@ -71,6 +71,7 @@ LicenseFile = licence\licence.txt
 
 [Components]
 Name: core;     Description: "wxPython modules and library";              Types: full custom;  Flags: fixed
+Name: cairo;    Description: "Cairo runtime DLLs";                        Types: full
 Name: pthfile;  Description: "Make this install be the default wxPython"; Types: full
 
 ;;------------------------------------------------------------
@@ -81,6 +82,7 @@ Source: "%(WXDIR)s\lib\%(VCDLLDIR)s\wx*%(WXDLLVER)s_*.dll";  DestDir: "{app}\%(P
 %(GDIPLUS)s
 %(CPPDLL)s
 %(MSLU)s
+Source: "%(CAIRO_ROOT)s\bin\*.dll";            DestDir: "{app}\%(PKGDIR)s\wx"; Components: cairo; Flags: replacesameversion
 
 
 Source: "wx\_activex.pyd";                     DestDir: "{app}\%(PKGDIR)s\wx"; Components: core; Flags: comparetimestamp
@@ -113,8 +115,9 @@ Source: "wx\lib\*.idl";                         DestDir: "{app}\%(PKGDIR)s\wx\li
 Source: "wx\lib\*.tlb";                         DestDir: "{app}\%(PKGDIR)s\wx\lib"; Components: core
 Source: "wx\lib\agw\*.py";                      DestDir: "{app}\%(PKGDIR)s\wx\lib\agw"; Components: core
 Source: "wx\lib\agw\aui\*.py";                  DestDir: "{app}\%(PKGDIR)s\wx\lib\agw\aui"; Components: core
+Source: "wx\lib\agw\persist\*.py";              DestDir: "{app}\%(PKGDIR)s\wx\lib\agw\persist"; Components: core
 Source: "wx\lib\agw\ribbon\*.py";               DestDir: "{app}\%(PKGDIR)s\wx\lib\agw\ribbon"; Components: core
-Source: "wx\lib\agw\*.png";                     DestDir: "{app}\%(PKGDIR)s\wx\lib\agw"; Components: core
+;;Source: "wx\lib\agw\*.png";                     DestDir: "{app}\%(PKGDIR)s\wx\lib\agw"; Components: core
 Source: "wx\lib\analogclock\*.py";              DestDir: "{app}\%(PKGDIR)s\wx\lib\analogclock"; Components: core
 Source: "wx\lib\analogclock\lib_setup\*.py";    DestDir: "{app}\%(PKGDIR)s\wx\lib\analogclock\lib_setup"; Components: core
 Source: "wx\lib\art\*.py";                      DestDir: "{app}\%(PKGDIR)s\wx\lib\art"; Components: core
@@ -178,6 +181,7 @@ Source: "wx\tools\Editra\src\extern\pygments\*.py";          DestDir: "{app}\%(P
 Source: "wx\tools\Editra\src\extern\pygments\filters\*.py";    DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\filters"; Components: core
 Source: "wx\tools\Editra\src\extern\pygments\formatters\*.py"; DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\formatters"; Components: core
 Source: "wx\tools\Editra\src\extern\pygments\lexers\*.py";     DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\lexers"; Components: core
+Source: "wx\tools\Editra\src\extern\pygments\styles\*.py";     DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\styles"; Components: core
 Source: "wx\tools\Editra\src\syntax\*.py";                   DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\src\syntax"; Components: core
 Source: "wx\tools\Editra\src\syntax\README";                 DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\src\syntax"; Components: core
 Source: "wx\tools\Editra\styles\*.ess";                      DestDir: "{app}\%(PKGDIR)s\wx\tools\Editra\styles"; Components: core
@@ -250,6 +254,8 @@ Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\*.pyc";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\*.pyo";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\aui\*.pyc";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\aui\*.pyo";
+Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\persist\*.pyc";
+Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\persist\*.pyo";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\ribbon\*.pyc";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\agw\ribbon\*.pyo";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\lib\analogclock\*.pyc";
@@ -308,6 +314,8 @@ Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\syntax\*.pyc";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\syntax\*.pyo";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\*.pyc";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\*.pyo";
+Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\aui\*.pyc";
+Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\aui\*.pyo";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\*.pyc";      
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\*.pyo";      
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\filters\*.pyc"; 
@@ -316,6 +324,8 @@ Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\formatt
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\formatters\*.pyo";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\lexers\*.pyc";    
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\lexers\*.pyo";    
+Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\styles\*.pyc";    
+Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\extern\pygments\styles\*.pyo";    
 
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\autocomp\*.pyc";
 Type: files; Name: "{app}\%(PKGDIR)s\wx\tools\Editra\src\autocomp\*.pyo";
@@ -349,19 +359,19 @@ begin
     (* -------------------------------------------------------------- *)
     (* Figure out what to use as a default installation dir           *)
 
-    if not RegQueryStringValue(HKEY_LOCAL_MACHINE,
+    if not RegQueryStringValue(HKEY_CURRENT_USER,
                                'Software\Python\PythonCore\%(PYTHONVER)s\InstallPath',
                                '', PythonDir) then begin
 
-        if not RegQueryStringValue(HKEY_CURRENT_USER,
+        if not RegQueryStringValue(HKEY_LOCAL_MACHINE,
                                    'Software\Python\PythonCore\%(PYTHONVER)s\InstallPath',
                                    '', PythonDir) then begin
 
-            if not RegQueryStringValue(HKEY_LOCAL_MACHINE,
+            if not RegQueryStringValue(HKEY_CURRENT_USER,
                                        'Software\Wow6432Node\Python\PythonCore\%(PYTHONVER)s\InstallPath',
                                        '', PythonDir) then begin
 
-                if not RegQueryStringValue(HKEY_CURRENT_USER,
+                if not RegQueryStringValue(HKEY_LOCAL_MACHINE,
                                            'Software\Wow6432Node\Python\PythonCore\%(PYTHONVER)s\InstallPath',
                                            '', PythonDir) then begin
 
@@ -451,7 +461,7 @@ ISS_DocDemo_Template = r'''
 AppName = wxPython%(SHORTVER)s-docs-demos
 AppVerName = wxPython Docs and Demos %(VERSION)s
 OutputBaseFilename = wxPython%(SHORTVER)s-win32-docs-demos-%(VERSION)s
-AppCopyright = Copyright 2009 Total Control Software
+AppCopyright = Copyright 2011 Total Control Software
 DefaultDirName = {pf}\wxPython%(SHORTVER)s Docs and Demos
 DefaultGroupName = wxPython%(SHORTVER)s Docs Demos and Tools
 PrivilegesRequired = none
@@ -548,9 +558,9 @@ Source: "docs\screenshots\*.png";           DestDir: "{app}\docs\screenshots";
 
 Source: "samples\doodle\*.py";              DestDir: "{app}\samples\doodle";
 Source: "samples\doodle\*.txt";             DestDir: "{app}\samples\doodle";
-Source: "samples\doodle\*.bat";             DestDir: "{app}\samples\doodle";
+Source: "samples\doodle\*.ico";             DestDir: "{app}\samples\doodle";
+Source: "samples\doodle\*.icns";            DestDir: "{app}\samples\doodle";
 Source: "samples\doodle\sample.ddl";        DestDir: "{app}\samples\doodle";
-Source: "samples\doodle\superdoodle.iss";   DestDir: "{app}\samples\doodle";
 
 Source: "samples\docview\*.py";                DestDir: "{app}\samples\docview";
 Source: "samples\pydocview\*.py";              DestDir: "{app}\samples\pydocview";
@@ -737,7 +747,7 @@ def find_DLLs():
     if os.environ.get('CPU', '') == 'AMD64':
         # Just hard-code it for now until a good solution for finding
         # the right dumpbin can be found...
-        return '291u', sys.version[:3]
+        return '292u', sys.version[:3]
         
     WXDLLVER = PYTHONVER = None
 
@@ -851,6 +861,7 @@ def main():
     LOCALE          = build_locale_string(PKGDIR)
     EDITRA_LOCALE   = build_editra_locale(PKGDIR)
     RTDLL,CPPDLL    = get_runtime_dlls(PYVER, PKGDIR)
+    CAIRO_ROOT      = os.environ["CAIRO_ROOT"]
 
     if os.environ.get('CPU', '') == 'AMD64':
         BITS        = '64'
@@ -879,6 +890,7 @@ Building Win32 installer for wxPython:
     WXDIR      = %(WXDIR)s
     WXPYDIR    = %(WXPYDIR)s
     SYSDIR     = %(SYSDIR)s
+    CAIRO_ROOT = %(CAIRO_ROOT)s
     """ % vars()
 
     if PYTHONVER >= "2.2":

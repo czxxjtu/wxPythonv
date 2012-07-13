@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: emulator.cpp 63951 2010-04-12 11:21:41Z VZ $
+// RCS-ID:      $Id: emulator.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -372,7 +372,7 @@ void wxEmulatorContainer::OnPaint(wxPaintEvent& WXUNUSED(event))
     wxPaintDC dc(this);
 
     wxSize sz = GetClientSize();
-    if (wxGetApp().m_emulatorInfo.m_emulatorBackgroundBitmap.Ok())
+    if (wxGetApp().m_emulatorInfo.m_emulatorBackgroundBitmap.IsOk())
     {
         int deviceWidth = wxGetApp().m_emulatorInfo.m_emulatorDeviceSize.x;
         int deviceHeight = wxGetApp().m_emulatorInfo.m_emulatorDeviceSize.y;

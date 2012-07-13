@@ -8,7 +8,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-July-1997
-// RCS-ID:      $Id: wxPython_int.h 65601 2010-09-23 18:23:18Z RD $
+// RCS-ID:      $Id: wxPython_int.h 66323 2010-12-04 03:26:17Z RD $
 // Copyright:   (c) 1998 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -102,6 +102,8 @@
 #include <wx/generic/datectrl.h>
 #include <wx/filectrl.h>
 #include <wx/notifmsg.h>
+#include <wx/commandlinkbutton.h>
+#include <wx/versioninfo.h>
 
 #ifdef _MSC_VER
 # pragma warning(disable:4800)

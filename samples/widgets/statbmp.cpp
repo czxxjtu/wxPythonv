@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing wxStaticBitmap
 // Author:      Marcin Wojdyr
 // Created:     2008-06-19
-// Id:          $Id: statbmp.cpp 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: statbmp.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 2008 Marcin Wojdyr
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@ void StatBmpWidgetsPage::RecreateWidget()
         return;
 
     wxImage image(filepath);
-    if (! image.Ok() )
+    if (! image.IsOk() )
     {
         wxLogMessage("Reading image from file '%s' failed.", filepath.c_str());
         return;

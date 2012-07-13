@@ -2,7 +2,7 @@
 // Name:        cmdproc.h
 // Purpose:     interface of wxCommandProcessor and wxCommand
 // Author:      wxWidgets team
-// RCS-ID:      $Id: cmdproc.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: cmdproc.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +75,7 @@ public:
           know the ordering of Undos; the user can never Undo at an arbitrary
           position in the command history.
         - Restore the entire document state (perhaps using document
-          transactioning). Potentially very inefficient, but possibly easier to
+          transacting). Potentially very inefficient, but possibly easier to
           code if the user interface and data are complex, and an "inverse
           execute" operation is hard to write. The docview sample uses the
           first method, to remove or restore segments in the drawing.

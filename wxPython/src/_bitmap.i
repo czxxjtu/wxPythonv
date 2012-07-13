@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _bitmap.i 63454 2010-02-10 04:27:25Z RD $
+// RCS-ID:      $Id: _bitmap.i 67458 2011-04-13 18:06:47Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -349,14 +349,14 @@ enum wxBitmapBufferFormat {
                 
                 CHECK_BUFFERSIZE(stride * height);
                 
-                if (depth == 24) {
-                    MAKE_PIXDATA(wxNativePixelData);
+                if (useAlpha && depth == 32) {
+                    MAKE_PIXDATA(wxAlphaPixelData);
                     for (int y=0; y<height; y++) {
                         p.MoveTo(pixData, 0, y);
                         bufptr = (wxUint32*)dataRow;
                         for (int x=0; x<width; x++) {
                             value =
-                                (wxALPHA_OPAQUE << 24) |
+                                (p.Alpha() << 24) |
                                 (p.Red() << 16) |
                                 (p.Green() << 8) |
                                 (p.Blue());
@@ -367,15 +367,15 @@ enum wxBitmapBufferFormat {
                         dataRow += stride;
                     }
                 }
-                if (depth == 32) {
-                    MAKE_PIXDATA(wxAlphaPixelData);
-                    if (useAlpha)
+                else // if (!useAlpha /*depth == 24*/)
+                {
+                    MAKE_PIXDATA(wxNativePixelData);
                     for (int y=0; y<height; y++) {
                         p.MoveTo(pixData, 0, y);
                         bufptr = (wxUint32*)dataRow;
                         for (int x=0; x<width; x++) {
                             value =
-                                (p.Alpha() << 24) |
+                                (wxALPHA_OPAQUE << 24) |
                                 (p.Red() << 16) |
                                 (p.Green() << 8) |
                                 (p.Blue());

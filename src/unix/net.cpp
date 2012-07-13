@@ -1,10 +1,10 @@
 // -*- c++ -*- ///////////////////////////////////////////////////////////////
-// Name:        unix/net.cpp
+// Name:        src/unix/net.cpp
 // Purpose:     Network related wxWindows classes and functions
 // Author:      Karsten Ballüder
 // Modified by:
 // Created:     03.10.99
-// RCS-ID:      $Id: net.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: net.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Karsten Ballüder
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -255,15 +255,15 @@ wxDialUpManagerImpl::SetWellKnownHost(const wxString& hostname, int portno)
 {
    /// does hostname contain a port number?
    wxString port = hostname.After(':');
-   if(port.Length())
-   {
-      m_BeaconHost = hostname.Before(':');
-      m_BeaconPort = atoi(port);
-   }
-   else
+   if(port.empty())
    {
       m_BeaconHost = hostname;
       m_BeaconPort = portno;
+   }
+   else
+   {
+      m_BeaconHost = hostname.Before(':');
+      m_BeaconPort = atoi(port);
    }
 }
 
@@ -319,7 +319,7 @@ wxDialUpManagerImpl::CheckStatusInternal(void)
    // Let's try the ifconfig method first, should be fastest:
    if(m_CanUseIfconfig != 0) // unknown or yes
    {
-      wxASSERT(m_IfconfigPath.length());
+      wxASSERT( !m_IfconfigPath.empty() );
 
       wxString tmpfile = wxFileName::CreateTempFileName("_wxdialuptest");
       wxString cmd = "/bin/sh -c \'";

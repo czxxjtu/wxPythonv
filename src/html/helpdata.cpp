@@ -4,7 +4,7 @@
 // Notes:       Based on htmlhelp.cpp, implementing a monolithic
 //              HTML Help controller class,  by Vaclav Slavik
 // Author:      Harm van der Heijden and Vaclav Slavik
-// RCS-ID:      $Id: helpdata.cpp 63991 2010-04-16 10:43:18Z VS $
+// RCS-ID:      $Id: helpdata.cpp 65881 2010-10-23 14:10:05Z VZ $
 // Copyright:   (c) Harm van der Heijden and Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -475,11 +475,10 @@ void wxHtmlHelpData::SetTempDir(const wxString& path)
         m_tempPath = path;
     else
     {
-        if (wxIsAbsolutePath(path)) m_tempPath = path;
-        else m_tempPath = wxGetCwd() + wxT("/") + path;
+        wxFileName fn(path);
+        fn.MakeAbsolute();
 
-        if (m_tempPath[m_tempPath.length() - 1] != wxT('/'))
-            m_tempPath << wxT('/');
+        m_tempPath = fn.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
     }
 }
 

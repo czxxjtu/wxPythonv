@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     2007-05-16
-// RCS-ID:      $Id: tests.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: tests.cpp 68109 2011-06-30 12:20:29Z VZ $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -88,12 +88,14 @@ public:
         return wxColour();
     }
 
-    virtual wxString ColourToString( const wxColour& col, int index ) const
+    virtual wxString ColourToString( const wxColour& col,
+                                     int index,
+                                     int argFlags = 0 ) const
     {
         if ( index == (int)(m_choices.GetCount()-1) )
             return wxT("");
 
-        return wxColourProperty::ColourToString(col, index);
+        return wxColourProperty::ColourToString(col, index, argFlags);
     }
 
     virtual int GetCustomColourIndex() const
@@ -106,7 +108,7 @@ public:
 void FormMain::AddTestProperties( wxPropertyGridPage* pg )
 {
     pg->Append( new MyColourProperty(wxT("CustomColourProperty"), wxPG_LABEL, *wxGREEN) );
-    pg->GetProperty(wxT("CustomColourProperty"))->SetFlag(wxPG_PROP_AUTO_UNSPECIFIED);
+    pg->GetProperty(wxT("CustomColourProperty"))->SetAutoUnspecified(true);
     pg->SetPropertyEditor( wxT("CustomColourProperty"), wxPGEditor_ComboBox );
 
     pg->SetPropertyHelpString(wxT("CustomColourProperty"),
@@ -616,6 +618,9 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
         dt2.SetYear(dt2.GetYear()-10);
 #endif
 
+        wxColour colWithAlpha(1, 128, 254, 100);
+        wxString colWithAlphaStr(colWithAlpha.GetAsString(wxC2S_CSS_SYNTAX));
+
 #define FLAG_TEST_SET1 (wxCAPTION|wxCLOSE_BOX|wxSYSTEM_MENU|wxRESIZE_BORDER)
 #define FLAG_TEST_SET2 (wxSTAY_ON_TOP|wxCAPTION|wxICONIZE|wxSYSTEM_MENU)
 
@@ -752,6 +757,25 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
             wxLogDebug("Did not match: Car.Convertible=%s", pgman->GetPropertyValueAsString("Car.Convertible").c_str());
             RT_FAILURE();
         }
+
+        // SetPropertyValueString for special cases such as wxColour
+        pgman->SetPropertyValueString("ColourProperty", "(123,4,255)");
+        col << pgman->GetPropertyValue("ColourProperty");
+        if ( col != wxColour(123, 4, 255) )
+            RT_FAILURE();
+        pgman->SetPropertyValueString("ColourProperty", "#FE860B");
+        col << pgman->GetPropertyValue("ColourProperty");
+        if ( col != wxColour(254, 134, 11) )
+            RT_FAILURE();
+
+        pgman->SetPropertyValueString("ColourPropertyWithAlpha",
+                                      "(10, 20, 30, 128)");
+        col << pgman->GetPropertyValue("ColourPropertyWithAlpha");
+        if ( col != wxColour(10, 20, 30, 128) )
+            RT_FAILURE();
+        if ( pgman->GetPropertyValueAsString("ColourPropertyWithAlpha")
+                != "(10,20,30,128)" )
+            RT_FAILURE();
     }
 
     {
@@ -865,6 +889,27 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
         prop->SetAttribute(wxT("Dummy Attribute"), wxVariant());
 
         if ( !prop->GetAttribute(wxT("Dummy Attribute")).IsNull() )
+            RT_FAILURE();
+    }
+
+    {
+        RT_START_TEST(DoubleToString)
+
+        // Locale-specific decimal separator
+        wxString sep = wxString::Format("%g", 1.1)[1];
+
+        wxString s;
+
+        if ( wxPropertyGrid::DoubleToString(s, 123.123, 2, true) !=
+                wxString::Format("123%s12", sep.c_str()) )
+            RT_FAILURE();
+        if ( wxPropertyGrid::DoubleToString(s, -123.123, 4, false) !=
+                wxString::Format("-123%s1230", sep.c_str()) )
+            RT_FAILURE();
+        if ( wxPropertyGrid::DoubleToString(s, -0.02, 1, false) !=
+                wxString::Format("0%s0", sep) )
+            RT_FAILURE();
+        if ( wxPropertyGrid::DoubleToString(s, -0.000123, 3, true) != "0" )
             RT_FAILURE();
     }
 
@@ -1030,13 +1075,17 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
         wxPGProperty* p;
 
         wxPGProperty* origParent =
-            pgman->GetProperty(wxT("Window Styles"))->GetParent();
+            pgman->GetProperty("Window Styles")->GetParent();
 
-        p = pgman->RemoveProperty(wxT("Window Styles"));
+        // For testing purposes, let's set some custom cell colours
+        p = pgman->GetProperty("Window Styles");
+        p->SetCell(2, wxPGCell("style"));
+        p = pgman->RemoveProperty("Window Styles");
         pgman->Refresh();
         pgman->Update();
 
         pgman->AppendIn(origParent, p);
+        wxASSERT( p->GetCell(2).GetText() == "style");
         pgman->Refresh();
         pgman->Update();
     }
@@ -1131,7 +1180,7 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
         InitPanel();
 
         const int trySplitterPos = 50;
-    
+
         int style = wxPG_AUTO_SORT;  // wxPG_SPLITTER_AUTO_CENTER;
         pgman = m_pPropGridManager =
             new wxPropertyGridManager(m_panel, wxID_ANY,
@@ -1345,7 +1394,7 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
             s = wxString::Format(wxT("%i tests failed!!!"), failures);
 #ifdef __WXDEBUG__
         else
-            s = wxString::Format(wxT("All tests were succesfull, but there were %i warnings!"), wxPGGlobalVars->m_warnings);
+            s = wxString::Format(wxT("All tests were successful, but there were %i warnings!"), wxPGGlobalVars->m_warnings);
 #endif
         RT_MSG(s)
         for ( i=0; i<errorMessages.size(); i++ )
@@ -1354,7 +1403,7 @@ bool FormMain::RunTests( bool fullTest, bool interactive )
     }
     else
     {
-        RT_MSG(wxT("All tests succesfull"))
+        RT_MSG(wxT("All tests successfull"))
         retVal = true;
 
         if ( !interactive )

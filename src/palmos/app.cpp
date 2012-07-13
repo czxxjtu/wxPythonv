@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/08/04
-// RCS-ID:      $Id: app.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: app.cpp 67288 2011-03-22 17:15:56Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -104,10 +104,12 @@ void wxGUIAppTraits::AfterChildWaitLoop(void *dataOrig)
 {
 }
 
+#if wxUSE_THREADS
 bool wxGUIAppTraits::DoMessageFromThreadWait()
 {
     return false;
 }
+#endif // wxUSE_THREADS
 
 wxPortId wxGUIAppTraits::GetToolkitVersion(int *majVer, int *minVer) const
 {

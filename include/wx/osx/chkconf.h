@@ -4,7 +4,7 @@
  * Author:      Vadim Zeitlin
  * Modified by:
  * Created:     2005-04-05 (extracted from wx/chkconf.h)
- * RCS-ID:      $Id: chkconf.h 61724 2009-08-21 10:41:26Z VZ $
+ * RCS-ID:      $Id: chkconf.h 67497 2011-04-15 19:18:34Z DS $
  * Copyright:   (c) 2005 Vadim Zeitlin <vadim@wxwidgets.org>
  * Licence:     wxWindows licence
  */
@@ -41,7 +41,8 @@
  * to configure the build otherwise and give error messages
  */
 
-#if !wxUSE_GRAPHICS_CONTEXT || ( defined( wxMAC_USE_CORE_GRAPHICS ) && !wxMAC_USE_CORE_GRAPHICS )
+#if wxUSE_GUI && (!wxUSE_GRAPHICS_CONTEXT || \
+    ( defined( wxMAC_USE_CORE_GRAPHICS ) && !wxMAC_USE_CORE_GRAPHICS ))
 #   error "OS X builds use CoreGraphics in this wx version, you cannot turn back to QuickDraw completely"
 #endif
 
@@ -70,7 +71,9 @@
         #undef wxOSX_USE_COCOA
         #define wxOSX_USE_COCOA 1
     #endif
-    #define wxOSX_USE_CARBON 0
+    #if wxOSX_USE_CARBON
+        #error "Carbon does not support 64bit"
+    #endif
     #define wxOSX_USE_IPHONE 0
 #else
     #ifdef __WXOSX_IPHONE__
@@ -104,4 +107,4 @@
     #include "wx/osx/cocoa/chkconf.h"
 #endif
 
-#endif // _WX_OSX_CHKCONF_H_
+#endif /* _WX_OSX_CHKCONF_H_ */

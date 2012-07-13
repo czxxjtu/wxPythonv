@@ -4,7 +4,7 @@
 // Author:      Ryan Norton
 // Modified by:
 // Created:     2005/02/16
-// RCS-ID:      $Id: combobox.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: combobox.mm 67280 2011-03-22 14:17:38Z DS $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@
 //
 // Impl notes:
 // There is no custom data source because doing so unnecessarily sacrifices
-// some native autocompletion behavior (we would have to make our own -
+// some native autocompletion behaviour (we would have to make our own -
 // the SimpleComboBox sample does so in the developer folder that
 // comes with OSX).  One reason you might want this would be to have
 // only one array or be able to display numbers returned by an NSNumber
@@ -168,7 +168,6 @@ WX_IMPLEMENT_GET_OBJC_CLASS(wxPoserNSComboBox,NSComboBox)
 
 #import <AppKit/NSComboBox.h>
 
-IMPLEMENT_DYNAMIC_CLASS(wxComboBox, wxControl)
 BEGIN_EVENT_TABLE(wxComboBox, wxControl)
 END_EVENT_TABLE()
 WX_IMPLEMENT_COCOA_OWNER(wxComboBox,NSComboBox,NSTextField,NSView)

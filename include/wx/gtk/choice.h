@@ -2,7 +2,7 @@
 // Name:        wx/gtk/choice.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: choice.h 58227 2009-01-19 13:55:27Z VZ $
+// Id:          $Id: choice.h 65818 2010-10-15 23:46:32Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -16,6 +16,8 @@ class WXDLLIMPEXP_FWD_BASE wxArrayString;
 //-----------------------------------------------------------------------------
 // wxChoice
 //-----------------------------------------------------------------------------
+
+class wxGtkCollatedArrayString;
 
 class WXDLLIMPEXP_CORE wxChoice : public wxChoiceBase
 {
@@ -75,8 +77,8 @@ public:
     virtual void SetColumns(int n=1);
     virtual int GetColumns() const;
 
-    virtual void DisableEvents();
-    virtual void EnableEvents();
+    virtual void GTKDisableEvents();
+    virtual void GTKEnableEvents();
 
     static wxVisualAttributes
     GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
@@ -84,7 +86,7 @@ public:
 protected:
     // this array is only used for controls with wxCB_SORT style, so only
     // allocate it if it's needed (hence using pointer)
-    wxSortedArrayString *m_strings;
+    wxGtkCollatedArrayString *m_strings;
 
     // contains the client data for the items
     wxArrayPtrVoid m_clientData;

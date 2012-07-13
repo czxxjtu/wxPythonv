@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: cube.h 51630 2008-02-10 13:26:01Z VZ $
+// RCS-ID:      $Id: cube.h 65904 2010-10-24 22:40:58Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -67,11 +67,15 @@ public:
 
 private:
     void OnPaint(wxPaintEvent& event);
+    void Spin(float xSpin, float ySpin);
     void OnKeyDown(wxKeyEvent& event);
+    void OnSpinTimer(wxTimerEvent& WXUNUSED(event));
 
     // angles of rotation around x- and y- axis
     float m_xangle,
           m_yangle;
+
+    wxTimer m_spinTimer;
 
     DECLARE_EVENT_TABLE()
 };

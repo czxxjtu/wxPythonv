@@ -3,7 +3,7 @@
 // Purpose:     documentation of wxKeyboardState
 // Author:      wxWidgets team
 // Created:     2008-09-19
-// RCS-ID:      $Id: kbdstate.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: kbdstate.h 66210 2010-11-19 07:57:19Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -130,5 +130,12 @@ public:
         Notice that GetModifiers() should usually be used instead of this one.
      */
     bool CmdDown() const;
+
+    
+    void SetControlDown(bool down);
+    void SetShiftDown(bool down);
+    void SetAltDown(bool down);
+    void SetMetaDown(bool down);
+
 };
 

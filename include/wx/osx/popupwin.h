@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:
-// RCS-ID:      $Id: popupwin.h 64943 2010-07-13 13:29:58Z VZ $
+// RCS-ID:      $Id: popupwin.h 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2006 Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ public:
         { (void)Create(parent, flags); }
 
     bool Create(wxWindow *parent, int flags = wxBORDER_NONE);
-    
+
     virtual bool Show(bool show);
 
 protected:

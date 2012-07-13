@@ -2,7 +2,7 @@
 // Name:        gdicmn.h
 // Purpose:     interface of wxRealPoint
 // Author:      wxWidgets team
-// RCS-ID:      $Id: gdicmn.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: gdicmn.h 67279 2011-03-22 14:08:30Z BP $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -266,10 +266,10 @@ public:
         This method is the opposite from Inflate(): Deflate(a, b) is equivalent
         to Inflate(-a, -b). Please refer to Inflate() for full description.
     */
-    void Deflate(wxCoord dx, wxCoord dy);
-    void Deflate(const wxSize& diff);
-    void Deflate(wxCoord diff);
-    wxRect Deflate(wxCoord dx, wxCoord dy) const;
+    wxRect& Deflate(wxCoord dx, wxCoord dy);
+    wxRect& Deflate(const wxSize& diff);
+    wxRect& Deflate(wxCoord diff);
+    wxRect  Deflate(wxCoord dx, wxCoord dy) const;
     //@}
 
     /**
@@ -351,7 +351,7 @@ public:
 
         The left border is moved farther left and the right border is moved
         farther right by @a dx. The upper border is moved farther up and the
-        bottom border is moved farther down by @a dy. (Note the the width and
+        bottom border is moved farther down by @a dy. (Note that the width and
         height of the rectangle thus change by 2*dx and 2*dy, respectively.) If
         one or both of @a dx and @a dy are negative, the opposite happens: the
         rectangle size decreases in the respective direction.
@@ -374,9 +374,9 @@ public:
 
         @see Deflate()
     */
-    void Inflate(wxCoord dx, wxCoord dy);
-    void Inflate(const wxSize& diff);
-    void Inflate(wxCoord diff);
+    wxRect& Inflate(wxCoord dx, wxCoord dy);
+    wxRect& Inflate(const wxSize& diff);
+    wxRect& Inflate(wxCoord diff);
     wxRect Inflate(wxCoord dx, wxCoord dy) const;
     //@}
 
@@ -583,6 +583,49 @@ public:
     wxSize& operator *=(int factor);
     //@}
 
+
+    /**
+        @name Defaults handling.
+
+        Test for and set non-specified wxPoint components.
+
+        Although a wxPoint is always initialized to (0, 0), wxWidgets commonly
+        uses wxDefaultCoord (defined as @c -1) to indicate that a point hasn't
+        been initialized or specified. In particular, ::wxDefaultPosition is
+        used in many places with this meaning.
+     */
+    //@{
+
+    /**
+        Returns @true if neither of the point components is equal to
+        wxDefaultCoord.
+
+        This method is typically used before calling SetDefaults().
+
+        @since 2.9.2
+    */
+    bool IsFullySpecified() const;
+
+    /**
+        Combine this object with another one replacing the uninitialized
+        values.
+
+        It is typically used like this:
+
+        @code
+        if ( !pos.IsFullySpecified() )
+        {
+            pos.SetDefaults(GetDefaultPosition());
+        }
+        @endcode
+
+        @see IsFullySpecified()
+
+        @since 2.9.2
+    */
+    void SetDefaults(const wxPoint& pt);
+    //@}
+
     /**
         x member.
     */
@@ -595,9 +638,9 @@ public:
 };
 
 /**
-    Global istance of a wxPoint initialized with values (-1,-1).
+    Global instance of a wxPoint initialized with values (-1,-1).
 */
-wxPoint wxDefaultPosition;
+const wxPoint wxDefaultPosition;
 
 
 /**
@@ -722,6 +765,12 @@ public:
     */
     wxString FindName(const wxColour& colour) const;
 };
+
+
+/**
+    Global instance of a wxColourDatabase.
+*/
+wxColourDatabase* wxTheColourDatabase;
 
 
 /**
@@ -899,7 +948,7 @@ public:
 /**
     Global instance of a wxSize object initialized to (-1,-1).
 */
-wxSize wxDefaultSize;
+const wxSize wxDefaultSize;
 
 
 

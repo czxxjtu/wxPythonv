@@ -2,7 +2,7 @@
 // Name:        debugrpt.h
 // Purpose:     interface of wxDebugReport*
 // Author:      wxWidgets team
-// RCS-ID:      $Id: debugrpt.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: debugrpt.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -220,9 +220,11 @@ public:
     /**
         Add another file to the report. If @a filename is an absolute path, it
         is copied to a file in the debug report directory with the same name.
-        Otherwise the file should already exist in this directory
-        @a description only exists to be displayed to the user in the report
-        summary shown by wxDebugReportPreview.
+        Otherwise the file will be searched in the temporary directory returned
+        by GetDirectory().
+        
+        The argument @a description only exists to be displayed to the user in 
+        the report summary shown by wxDebugReportPreview.
 
         @see GetDirectory(), AddText()
     */
@@ -251,7 +253,7 @@ public:
     /**
         Retrieves the name (relative to GetDirectory()) and the description of
         the file with the given index. If @a n is greater than or equal to the
-        number of filse, @false is returned.
+        number of files, then @false is returned.
     */
     bool GetFile(size_t n, wxString* name, wxString* desc) const;
 

@@ -4,7 +4,7 @@
  * Author:      William Osborne - minimal working wxPalmOS port
  * Modified by: Yunhui Fu
  * Created:     10/13/04
- * RCS-ID:      $Id: chkconf.h 52227 2008-03-02 00:53:32Z VZ $
+ * RCS-ID:      $Id: chkconf.h 67497 2011-04-15 19:18:34Z DS $
  * Copyright:   (c) William Osborne
  * Licence:     wxWindows licence
  */
@@ -306,8 +306,8 @@
 #undef wxUSE_URL
 #define wxUSE_URL 0
 
-//#undef wxUSE_WCHAR_T
-//#define wxUSE_WCHAR_T 1
+/* #undef wxUSE_WCHAR_T */
+/* #define wxUSE_WCHAR_T 1 */
 
 #undef wxUSE_WIZARDDLG
 #define wxUSE_WIZARDDLG 0

@@ -2,7 +2,7 @@
 // Name:        hashset.h
 // Purpose:     interface of wxHashSet
 // Author:      wxWidgets team
-// RCS-ID:      $Id: hashset.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: hashset.h 66305 2010-12-03 12:39:34Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -11,8 +11,9 @@
 
     This is a simple, type-safe, and reasonably efficient hash set class,
     whose interface is a subset of the interface of STL containers.
-    In particular, the interface is modeled after std::set, and the various,
-    non-standard, std::hash_map.
+
+    The interface is similar to std::tr1::hash_set or std::set classes but
+    notice that, unlike std::set, the contents of a hash set is not sorted.
 
     Example:
     @code

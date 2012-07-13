@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: treectlg.h 64532 2010-06-09 13:55:48Z FM $
+// RCS-ID:      $Id: treectlg.h 65587 2010-09-22 10:06:39Z SJL $
 // Copyright:   (c) 1997,1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -211,6 +211,7 @@ public:
     void OnPaint( wxPaintEvent &event );
     void OnSetFocus( wxFocusEvent &event );
     void OnKillFocus( wxFocusEvent &event );
+    void OnKeyDown( wxKeyEvent &event );
     void OnChar( wxKeyEvent &event );
     void OnMouse( wxMouseEvent &event );
     void OnGetToolTip( wxTreeEvent &event );

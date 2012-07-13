@@ -3,7 +3,7 @@
 // Purpose:     XRC resource for wxSlider
 // Author:      Bob Mitchell
 // Created:     2000/03/21
-// RCS-ID:      $Id: xh_slidr.cpp 56023 2008-10-01 19:54:57Z VS $
+// RCS-ID:      $Id: xh_slidr.cpp 66844 2011-02-05 16:36:30Z VZ $
 // Copyright:   (c) 2000 Bob Mitchell and Verant Interactive
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ wxObject *wxSliderXmlHandler::DoCreateResource()
 
     if( HasParam(wxT("tickfreq")))
     {
-        control->SetTickFreq(GetLong(wxT("tickfreq")), 0);
+        control->SetTickFreq(GetLong(wxT("tickfreq")));
     }
     if( HasParam(wxT("pagesize")))
     {

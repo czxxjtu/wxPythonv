@@ -110,6 +110,7 @@ wx/build
 wx/lib
 wx/lib/agw
 wx/lib/agw/aui
+wx/lib/agw/persist
 wx/lib/agw/ribbon
 wx/lib/analogclock
 wx/lib/analogclock/lib_setup
@@ -235,6 +236,7 @@ wx/tools/Editra/src/extern/pygments
 wx/tools/Editra/src/extern/pygments/filters
 wx/tools/Editra/src/extern/pygments/formatters
 wx/tools/Editra/src/extern/pygments/lexers
+wx/tools/Editra/src/extern/pygments/styles
 wx/tools/Editra/src/syntax
 wx/tools/Editra/styles
 wx/tools/Editra/templates

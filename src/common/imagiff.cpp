@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        src/common/imagiff.h
+// Name:        src/common/imagiff.cpp
 // Purpose:     wxImage handler for Amiga IFF images
 // Author:      Steffen Gutmann, Thomas Meyer
-// RCS-ID:      $Id: imagiff.cpp 64656 2010-06-20 18:18:23Z VZ $
+// RCS-ID:      $Id: imagiff.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Steffen Gutmann, 2002
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ bool wxIFFDecoder::ConvertToImage(wxImage *image) const
     // create the image
     image->Create(GetWidth(), GetHeight());
 
-    if (!image->Ok())
+    if (!image->IsOk())
         return false;
 
     unsigned char *pal = GetPalette();

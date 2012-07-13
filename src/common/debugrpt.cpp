@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     2005-01-17
-// RCS-ID:      $Id: debugrpt.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: debugrpt.cpp 65101 2010-07-25 11:26:04Z FM $
 // Copyright:   (c) 2005 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -268,8 +268,10 @@ wxDebugReport::AddFile(const wxString& filename, const wxString& description)
         // we need to copy the file to the debug report directory: give it the
         // same name there
         name = fn.GetFullName();
-        wxCopyFile(fn.GetFullPath(),
-                   wxFileName(GetDirectory(), name).GetFullPath());
+
+        if (!wxCopyFile(fn.GetFullPath(),
+                        wxFileName(GetDirectory(), name).GetFullPath()))
+           return;
     }
     else // file relative to the report directory
     {

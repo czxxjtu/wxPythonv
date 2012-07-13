@@ -2,7 +2,7 @@
 // Name:        src/gtk1/gauge.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: gauge.cpp 61508 2009-07-23 20:30:22Z VZ $
+// Id:          $Id: gauge.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -19,8 +19,6 @@
 //-----------------------------------------------------------------------------
 // wxGauge
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxGauge, wxControl)
 
 bool wxGauge::Create( wxWindow *parent,
                       wxWindowID id,

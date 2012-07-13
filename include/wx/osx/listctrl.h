@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        listctrl.h
+// Name:        wx/osx/listctrl.h
 // Purpose:     wxListCtrl class
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: listctrl.h 64532 2010-06-09 13:55:48Z FM $
+// RCS-ID:      $Id: listctrl.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -420,7 +420,6 @@ protected:
 private:
   int CalcColumnAutoWidth(int col) const;
 
-  DECLARE_EVENT_TABLE()
 };
 
 #endif

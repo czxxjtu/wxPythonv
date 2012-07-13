@@ -21,8 +21,8 @@ LANGUAGE: Python
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: synextreg.py 65461 2010-09-02 04:09:42Z CJP $"
-__revision__ = "$Revision: 65461 $"
+__svnid__ = "$Id: synextreg.py 67571 2011-04-22 01:10:57Z CJP $"
+__revision__ = "$Revision: 67571 $"
 
 #-----------------------------------------------------------------------------#
 import os
@@ -84,6 +84,8 @@ ID_LANG_AS = _NewId()
 LANG_AS = u'ActionScript'
 ID_LANG_C = _NewId()
 LANG_C = u'C'
+ID_LANG_CILK = _NewId()
+LANG_CILK = u'Cilk'
 ID_LANG_CPP = _NewId()
 LANG_CPP = u'CPP'
 ID_LANG_CSHARP = _NewId()
@@ -318,6 +320,7 @@ EXT_MAP = {
            'boo'                : LANG_BOO,
            'c h'                : LANG_C,
            'ml mli'             : LANG_CAML,
+           'cilk cilkh'         : LANG_CILK,
            'cobra'              : LANG_COBRA,
            'cfm cfc cfml dbm'   : LANG_COLDFUSION,
            'cc c++ cpp cxx hh h++ hpp hxx' : LANG_CPP,
@@ -352,13 +355,13 @@ EXT_MAP = {
            'lsp'                : LANG_NEWLISP,
            'lt'                 : LANG_LOUT,
            'lua'                : LANG_LUA,
-           'mak makefile'       : LANG_MAKE,
+           'mak makefile mk'    : LANG_MAKE,
            'mao mako'           : LANG_MAKO,
            'asm masm'           : LANG_MASM,
            'matlab'             : LANG_MATLAB,
            'mssql'              : LANG_MSSQL,
            'nasm'               : LANG_NASM,
-           'ctl'                : LANG_NONMEM,
+           'ctl nonmem'         : LANG_NONMEM,
            'nsi nsh'            : LANG_NSIS,
            'mm m'               : LANG_OBJC,
            'oct octave'         : LANG_OCTAVE,
@@ -404,12 +407,10 @@ class ExtensionRegister(dict):
 
     """
     instance = None
-    first = True
     config = u'synmap'
     def __init__(self):
         """Initializes the register"""
-        if self.first:
-            self.first = False
+        if not ExtensionRegister.instance:
             self.LoadDefault()
 
     def __new__(cls, *args, **kargs):
@@ -434,6 +435,7 @@ class ExtensionRegister(dict):
         and remove associations from older settings.
         @param i: key to set
         @param y: value to set
+        @throws: TypeError Only accepts list() objects
 
         """
         if not isinstance(y, list):

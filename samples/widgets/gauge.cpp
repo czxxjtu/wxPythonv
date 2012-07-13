@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing wxGauge
 // Author:      Vadim Zeitlin
 // Created:     27.03.01
-// Id:          $Id: gauge.cpp 64940 2010-07-13 13:29:13Z VZ $
+// Id:          $Id: gauge.cpp 65680 2010-09-30 11:44:45Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -303,7 +303,7 @@ void GaugeWidgetsPage::CreateGauge()
                           wxDefaultPosition, wxDefaultSize,
                           flags);
     m_gauge->SetValue(val);
-    
+
     if ( flags & wxGA_VERTICAL )
         m_sizerGauge->Add(m_gauge, 0, wxGROW | wxALL, 5);
     else

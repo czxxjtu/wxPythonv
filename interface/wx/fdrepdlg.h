@@ -2,7 +2,7 @@
 // Name:        fdrepdlg.h
 // Purpose:     interface of wxFindDialogEvent, wxFindReplaceDialog
 // Author:      wxWidgets team
-// RCS-ID:      $Id: fdrepdlg.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: fdrepdlg.h 67384 2011-04-03 20:31:32Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@ class wxFindDialogEvent : public wxCommandEvent
 {
 public:
     /**
-        Constuctor used by wxWidgets only.
+        Constructor used by wxWidgets only.
     */
     wxFindDialogEvent(wxEventType commandType = wxEVT_NULL,
                       int id = 0);
@@ -117,7 +117,7 @@ class wxFindReplaceData : public wxObject
 {
 public:
     /**
-        Constuctor initializes the flags to default value (0).
+        Constructor initializes the flags to default value (0).
     */
     wxFindReplaceData(wxUint32 flags = 0);
 

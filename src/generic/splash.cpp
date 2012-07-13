@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     28/6/2000
-// RCS-ID:      $Id: splash.cpp 60558 2009-05-09 12:22:45Z VZ $
+// RCS-ID:      $Id: splash.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -171,20 +171,20 @@ static void wxDrawSplashBitmap(wxDC& dc, const wxBitmap& bitmap, int WXUNUSED(x)
 void wxSplashScreenWindow::OnPaint(wxPaintEvent& WXUNUSED(event))
 {
     wxPaintDC dc(this);
-    if (m_bitmap.Ok())
+    if (m_bitmap.IsOk())
         wxDrawSplashBitmap(dc, m_bitmap, 0, 0);
 }
 
 void wxSplashScreenWindow::OnEraseBackground(wxEraseEvent& event)
 {
-    if (event.GetDC() && m_bitmap.Ok())
+    if (event.GetDC() && m_bitmap.IsOk())
     {
         wxDrawSplashBitmap(* event.GetDC(), m_bitmap, 0, 0);
     }
     else
     {
         wxClientDC dc(this);
-        if (m_bitmap.Ok())
+        if (m_bitmap.IsOk())
             wxDrawSplashBitmap(dc, m_bitmap, 0, 0);
     }
 }

@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        tooltip.h
+// Name:        wx/tooltip.h
 // Purpose:     wxToolTip base header
 // Author:      Robert Roebling
 // Modified by:
 // Created:
 // Copyright:   (c) Robert Roebling
-// RCS-ID:      $Id: tooltip.h 54125 2008-06-11 19:17:41Z SC $
+// RCS-ID:      $Id: tooltip.h 67254 2011-03-20 00:14:35Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

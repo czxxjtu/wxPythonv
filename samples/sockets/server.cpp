@@ -3,7 +3,7 @@
 // Purpose:     Server for wxSocket demo
 // Author:      Guillermo Rodriguez Garcia <guille@iies.es>
 // Created:     1999/09/19
-// RCS-ID:      $Id: server.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: server.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) 1999 Guillermo Rodriguez Garcia
 //              (c) 2009 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -162,9 +162,8 @@ bool MyApp::OnInit()
   // Create the main application window
   MyFrame *frame = new MyFrame();
 
-  // Show it and tell the application that it's our main window
+  // Show it
   frame->Show(true);
-  SetTopWindow(frame);
 
   // Success
   return true;
@@ -218,8 +217,8 @@ MyFrame::MyFrame() : wxFrame((wxFrame *)NULL, wxID_ANY,
   // Create the socket
   m_server = new wxSocketServer(addr);
 
-  // We use Ok() here to see if the server is really listening
-  if (! m_server->Ok())
+  // We use IsOk() here to see if the server is really listening
+  if (! m_server->IsOk())
   {
     wxLogMessage("Could not listen at the specified port !");
     return;

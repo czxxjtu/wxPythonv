@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        control.h
+// Name:        wx/gtk/control.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: control.h 58194 2009-01-18 12:34:23Z JS $
+// Id:          $Id: control.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -46,15 +46,15 @@ public:
 
     virtual wxVisualAttributes GetDefaultAttributes() const;
 
-    virtual void OnInternalIdle();
-
 protected:
     virtual wxSize DoGetBestSize() const;
     void PostCreation(const wxSize& size);
 
     // sets the label to the given string and also sets it for the given widget
     void GTKSetLabelForLabel(GtkLabel *w, const wxString& label);
+#if wxUSE_MARKUP
     void GTKSetLabelWithMarkupForLabel(GtkLabel *w, const wxString& label);
+#endif // wxUSE_MARKUP
 
     // GtkFrame helpers
     GtkWidget* GTKCreateFrame(const wxString& label);

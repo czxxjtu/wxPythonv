@@ -2,7 +2,7 @@
 // Name:        combo.h
 // Purpose:     interface of wxComboCtrl and wxComboPopup
 // Author:      wxWidgets team
-// RCS-ID:      $Id: combo.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: combo.h 67436 2011-04-12 09:35:04Z JMS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -37,9 +37,40 @@ public:
     virtual bool Create(wxWindow* parent) = 0;
 
     /**
+        You only need to implement this member function if you create
+        your popup class in non-standard way. The default implementation can
+        handle both multiple-inherited popup control (as seen in wxComboCtrl
+        samples) and one allocated separately in heap.
+
+        If you do completely re-implement this function, make sure it calls
+        Destroy() for the popup control and also deletes @a this object
+        (usually as the last thing).
+    */
+    virtual void DestroyPopup();
+
+    /**
         Utility function that hides the popup.
     */
     void Dismiss();
+
+    /**
+        Implement to customize matching of value string to an item container
+        entry.
+        
+        @param item
+            String entered, usually by user or from SetValue() call.
+            
+        @param trueItem
+            When item matches an entry, but the entry's string representation
+            is not exactly the same (case mismatch, for example), then the
+            true item string should be written back to here, if it is not
+            a NULL pointer.
+
+        @remarks
+            Default implementation always return true and does not alter
+            trueItem.
+    */
+    virtual bool FindItem(const wxString& item, wxString* trueItem=NULL);
 
     /**
         The derived class may implement this to return adjusted size for the
@@ -86,7 +117,7 @@ public:
         Useful in conjunction with LazyCreate().
     */
     bool IsCreated() const;
-
+    
     /**
         The derived class may implement this to return @true if it wants to
         delay call to Create() until the popup is shown for the first time. It
@@ -285,7 +316,7 @@ struct wxComboCtrlFeatures
     @style{wxCB_SORT}
            Sorts the entries in the list alphabetically.
     @style{wxTE_PROCESS_ENTER}
-           The control will generate the event wxEVT_COMMAND_TEXT_ENTER
+           The control will generate the event @c wxEVT_COMMAND_TEXT_ENTER
            (otherwise pressing Enter key is either processed internally by the
            control or used for navigation between dialog controls). Windows
            only.
@@ -300,15 +331,15 @@ struct wxComboCtrlFeatures
 
     @beginEventEmissionTable{wxCommandEvent}
     @event{EVT_TEXT(id, func)}
-           Process a wxEVT_COMMAND_TEXT_UPDATED event, when the text changes.
+           Process a @c wxEVT_COMMAND_TEXT_UPDATED event, when the text changes.
     @event{EVT_TEXT_ENTER(id, func)}
-           Process a wxEVT_COMMAND_TEXT_ENTER event, when RETURN is pressed in
+           Process a @c wxEVT_COMMAND_TEXT_ENTER event, when RETURN is pressed in
            the combo control.
     @event{EVT_COMBOBOX_DROPDOWN(id, func)}
-           Process a wxEVT_COMMAND_COMBOBOX_DROPDOWN event, which is generated
+           Process a @c wxEVT_COMMAND_COMBOBOX_DROPDOWN event, which is generated
            when the popup window is shown (drops down).
     @event{EVT_COMBOBOX_CLOSEUP(id, func)}
-           Process a wxEVT_COMMAND_COMBOBOX_CLOSEUP event, which is generated
+           Process a @c wxEVT_COMMAND_COMBOBOX_CLOSEUP event, which is generated
            when the popup window of the combo control disappears (closes up).
            You should avoid adding or deleting items in this event.
     @endEventTable
@@ -320,7 +351,8 @@ struct wxComboCtrlFeatures
     @see wxComboBox, wxChoice, wxOwnerDrawnComboBox, wxComboPopup,
          wxCommandEvent
 */
-class wxComboCtrl : public wxControl
+class wxComboCtrl : public wxControl,
+                    public wxTextEntry
 {
 public:
     /**
@@ -387,6 +419,17 @@ public:
         Copies the selected text to the clipboard and removes the selection.
     */
     virtual void Cut();
+
+    /**
+        Dismisses the popup window.
+
+        Notice that calling this function will generate a
+        @c wxEVT_COMMAND_COMBOBOX_CLOSEUP event.
+
+        @since 2.9.2
+    */
+    virtual void Dismiss();
+
 
     /**
         Enables or disables popup animation, if any, depending on the value of
@@ -523,7 +566,9 @@ public:
 
         @param generateEvent
             Set this to @true in order to generate
-            wxEVT_COMMAND_COMBOBOX_CLOSEUP event.
+            @c wxEVT_COMMAND_COMBOBOX_CLOSEUP event.
+
+        @deprecated Use Dismiss() instead.
     */
     virtual void HidePopup(bool generateEvent=false);
 
@@ -559,6 +604,16 @@ public:
         Pastes text from the clipboard to the text field.
     */
     virtual void Paste();
+
+    /**
+        Shows the popup portion of the combo control.
+
+        Notice that calling this function will generate a
+        @c wxEVT_COMMAND_COMBOBOX_DROPDOWN event.
+
+        @since 2.9.2
+    */
+    virtual void Popup();
 
     /**
         Removes the text between the two positions in the combo control text
@@ -770,12 +825,14 @@ public:
 
     /**
         Same as SetValue(), but also sends wxCommandEvent of type
-        wxEVT_COMMAND_TEXT_UPDATED if @a withEvent is @true.
+        @c wxEVT_COMMAND_TEXT_UPDATED if @a withEvent is @true.
     */
     void SetValueWithEvent(const wxString& value, bool withEvent = true);
 
     /**
         Show the popup.
+
+        @deprecated Use Popup() instead.
     */
     virtual void ShowPopup();
 
@@ -811,7 +868,7 @@ protected:
     /**
         This member function is not normally called in application code.
         Instead, it can be implemented in a derived class to return default
-        wxComboPopup, incase @a popup is @NULL.
+        wxComboPopup, in case @a popup is @NULL.
 
         @note If you have implemented OnButtonClick() to do something else than
               show the popup, then DoSetPopupControl() must always set @a popup

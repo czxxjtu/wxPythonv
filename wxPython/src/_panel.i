@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     24-June-1997
-// RCS-ID:      $Id: _panel.i 65133 2010-07-29 03:31:58Z RD $
+// RCS-ID:      $Id: _panel.i 65979 2010-11-02 02:39:58Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -69,20 +69,6 @@ panel even of there are child windows in the panel. This is only
 rarely needed.", "");
     
 
-#ifdef __WXMSW__
-    // This is a hack to support inheriting of background through child
-    // wxPanel: at least wxNotebook needs this under wxMSW as its background
-    // should apply to its children which are usually wxPanels which normally
-    // don't have a transparent background. Calling this function allows to
-    // change this for the panels which are used as notebook pages.
-    void MSWSetTransparentBackground(bool isTransparent = true);
-    bool HasTransparentBackground();
-#else
-    %extend {
-        void MSWSetTransparentBackground(bool isTransparent = true) {}
-        bool HasTransparentBackground() { return false; }
-    }
-#endif
     
     static wxVisualAttributes
     GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
@@ -210,6 +196,15 @@ public:
     //
     // the base class version just returns true
     virtual bool SendAutoScrollEvents(wxScrollWinEvent& event) const;
+
+
+    DocDeclStr(
+        virtual void , DoPrepareDC( wxDC & dc ),
+        "Call this function to prepare the device context for drawing a
+scrolled image. It sets the device origin according to the current
+scroll position.", "");
+    %pythoncode { PrepareDC = DoPrepareDC }
+
 
     %property(ScaleX, GetScaleX);
     %property(ScaleY, GetScaleY);

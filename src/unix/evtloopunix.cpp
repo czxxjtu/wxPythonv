@@ -3,7 +3,7 @@
 // Purpose:     wxEventLoop implementation
 // Author:      Lukasz Michalski (lm@zork.pl)
 // Created:     2007-05-07
-// RCS-ID:      $Id: evtloopunix.cpp 62475 2009-10-22 11:36:35Z VZ $
+// RCS-ID:      $Id: evtloopunix.cpp 65992 2010-11-02 11:57:19Z VZ $
 // Copyright:   (c) 2006 Zork Lukasz Michalski
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -88,17 +88,14 @@ bool PipeIOHandler::Create()
         return false;
     }
 
-    const int fdRead = GetReadFd();
-
-    int flags = fcntl(fdRead, F_GETFL, 0);
-    if ( flags == -1 || fcntl(fdRead, F_SETFL, flags | O_NONBLOCK) == -1 )
+    if ( !m_pipe.MakeNonBlocking(wxPipe::Read) )
     {
         wxLogSysError(_("Failed to switch wake up pipe to non-blocking mode"));
         return false;
     }
 
     wxLogTrace(TRACE_EVENTS, wxT("Wake up pipe (%d, %d) created"),
-               fdRead, m_pipe[wxPipe::Write]);
+               m_pipe[wxPipe::Read], m_pipe[wxPipe::Write]);
 
     return true;
 }

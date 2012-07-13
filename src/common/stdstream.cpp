@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/stdstream.h
+// Name:        src/common/stdstream.cpp
 // Purpose:     Implementation of std::istream and std::ostream derived
 //              wrappers for wxInputStream and wxOutputStream
 // Author:      Jonathan Liu <net147@gmail.com>
 // Created:     2009-05-02
-// RCS-ID:      $Id: stdstream.cpp 64924 2010-07-12 22:50:51Z VZ $
+// RCS-ID:      $Id: stdstream.cpp 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 2009 Jonathan Liu
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

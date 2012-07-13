@@ -2,7 +2,7 @@
 // Name:        intl.h
 // Purpose:     interface of wxLocale
 // Author:      wxWidgets team
-// RCS-ID:      $Id: intl.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: intl.h 66248 2010-11-23 22:14:18Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -235,7 +235,7 @@ public:
         translate the messages using the message catalogs for this locale.
     */
     wxLocale(const wxString& name,
-             const wxString& short = wxEmptyString,
+             const wxString& shortName = wxEmptyString,
              const wxString& locale = wxEmptyString,
              bool bLoadDefault = true);
 
@@ -459,7 +459,7 @@ public:
             given locale containing the translations of standard wxWidgets messages.
             This parameter would be rarely used in normal circumstances.
     */
-    bool Init(const wxString& name, const wxString& short = wxEmptyString,
+    bool Init(const wxString& name, const wxString& shortName = wxEmptyString,
               const wxString& locale = wxEmptyString, bool bLoadDefault = true);
 
     /**

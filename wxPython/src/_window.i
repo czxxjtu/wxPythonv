@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     24-June-1997
-// RCS-ID:      $Id: _window.i 65250 2010-08-11 02:00:00Z RD $
+// RCS-ID:      $Id: _window.i 68253 2011-07-13 20:23:26Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1516,12 +1516,6 @@ times that Freeze was before the window will be updated.", "");
     
 
     DocDeclStr(
-        virtual void , PrepareDC( wxDC & dc ),
-        "Call this function to prepare the device context for drawing a
-scrolled image. It sets the device origin according to the current
-scroll position.", "");
-
-    DocDeclStr(
         virtual bool , IsDoubleBuffered() const,
         "Returns ``True`` if the window contents is double-buffered by the
 system, i.e. if any drawing done on the window is really done on a
@@ -1869,7 +1863,8 @@ mouse cursor will be used.", "");
 
     
     DocDeclStr(
-        int , GetPopupMenuSelectionFromUser(wxMenu& menu, const wxPoint& pos),
+        int , GetPopupMenuSelectionFromUser(wxMenu& menu,
+                                            const wxPoint& pos=wxDefaultPosition),
         "Simply return the id of the selected item or wxID_NONE without
 generating any events.", "");
     
@@ -1877,6 +1872,12 @@ generating any events.", "");
     DocDeclStr(
         virtual bool , HasMultiplePages() const,
         "", "");
+
+    
+    DocDeclStr(
+        virtual bool, SendIdleEvents(wxIdleEvent& event),
+        "Send idle event to window and all subwindows.  Returns True if more
+idle time is requested.", "");
     
     
     %extend {
@@ -2091,8 +2092,17 @@ window.  Note that the text is actually stored by the current
     DocDeclStr(
         wxToolTip* , GetToolTip() const,
         "get the associated tooltip or None if none", "");
-    
-    // LINK ERROR --> wxString GetToolTipText() const;
+
+    %pythoncode {
+        def GetToolTipString(self):
+            tip = self.GetToolTip()
+            if tip:
+                return tip.GetTip()
+            else:
+                return None
+
+        ToolTipString = property(GetToolTipString, SetToolTipString)
+    }
 #endif
 
 

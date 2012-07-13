@@ -3,7 +3,7 @@
 // Purpose:
 // Author:      Robert Roebling
 // Created:     01/02/97
-// Id:          $Id: combobox.h 64916 2010-07-12 22:50:14Z VZ $
+// Id:          $Id: combobox.h 65324 2010-08-16 17:48:28Z RR $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -100,6 +100,8 @@ public:
     bool IsEmpty() const { return wxItemContainer::IsEmpty(); }
 
     void OnChar( wxKeyEvent &event );
+
+    virtual void SetValue(const wxString& value);
 
     // Standard event handling
     void OnCut(wxCommandEvent& event);

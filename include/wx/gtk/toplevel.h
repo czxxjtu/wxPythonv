@@ -2,7 +2,7 @@
 // Name:        wx/gtk/toplevel.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: toplevel.h 63751 2010-03-23 17:58:03Z PC $
+// Id:          $Id: toplevel.h 67496 2011-04-15 18:31:57Z PC $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -72,6 +72,10 @@ public:
     virtual void SetTitle( const wxString &title );
     virtual wxString GetTitle() const { return m_title; }
 
+    virtual void SetLabel(const wxString& label) { SetTitle( label ); }
+    virtual wxString GetLabel() const            { return GetTitle(); }
+
+
     virtual bool SetTransparent(wxByte alpha);
     virtual bool CanSetTransparent();
 
@@ -113,6 +117,8 @@ public:
     // private gtk_timeout_add result for mimicing wxUSER_ATTENTION_INFO and
     // wxUSER_ATTENTION_ERROR difference, -2 for no hint, -1 for ERROR hint, rest for GtkTimeout handle.
     int m_urgency_hint;
+    // timer for detecting WM with broken _NET_REQUEST_FRAME_EXTENTS handling
+    unsigned m_netFrameExtentsTimerId;
 
     // return the size of the window without WM decorations
     void GTKDoGetSize(int *width, int *height) const;

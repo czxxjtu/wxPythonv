@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/gtk/stabox.h
+// Name:        wx/gtk/statbox.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: statbox.h 62789 2009-12-05 19:57:58Z PC $
+// Id:          $Id: statbox.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

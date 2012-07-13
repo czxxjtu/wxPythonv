@@ -2,7 +2,7 @@
 // Name:        htmllbox.h
 // Purpose:     interface of wxHtmlListBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: htmllbox.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: htmllbox.h 67280 2011-03-22 14:17:38Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +55,7 @@ public:
         (it may also be set or changed later with wxVListBox::SetItemCount).
 
         There are no special styles defined for wxHtmlListBox, in particular the
-        wxListBox styles (with the exception of @c wxLB_MULTIPLE) can not be used here.
+        wxListBox styles (with the exception of @c wxLB_MULTIPLE) cannot be used here.
 
         Returns @true on success or @false if the control couldn't be created
     */
@@ -182,10 +182,10 @@ protected:
 
     @beginEventEmissionTable
     @event{EVT_LISTBOX(id, func)}
-        Process a wxEVT_COMMAND_LISTBOX_SELECTED event, when an item on the list
+        Process a @c wxEVT_COMMAND_LISTBOX_SELECTED event, when an item on the list
         is selected. See wxCommandEvent.
     @event{EVT_LISTBOX_DCLICK(id, func)}
-        Process a wxEVT_COMMAND_LISTBOX_DOUBLECLICKED event, when the listbox is
+        Process a @c wxEVT_COMMAND_LISTBOX_DOUBLECLICKED event, when the listbox is
         double-clicked. See wxCommandEvent.
     @event{EVT_HTML_CELL_CLICKED(id, func)}
         A wxHtmlCell was clicked. See wxHtmlCellEvent.
@@ -201,7 +201,8 @@ protected:
 
     @see wxSimpleHtmlListBox::Create
 */
-class wxSimpleHtmlListBox : public wxHtmlListBox
+class wxSimpleHtmlListBox : public wxHtmlListBox,
+                            public wxItemContainer
 {
 public:
     /**

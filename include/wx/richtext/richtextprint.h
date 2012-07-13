@@ -3,7 +3,7 @@
 // Purpose:     Rich text printing classes
 // Author:      Julian Smart
 // Created:     2006-10-23
-// RCS-ID:      $Id: richtextprint.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: richtextprint.h 67660 2011-05-01 15:58:36Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ private:
 class WXDLLIMPEXP_RICHTEXT wxRichTextPrintout : public wxPrintout
 {
 public:
-    wxRichTextPrintout(const wxString& title = wxT("Printout"));
+    wxRichTextPrintout(const wxString& title = _("Printout"));
     virtual ~wxRichTextPrintout();
 
     /// The buffer to print
@@ -145,6 +145,7 @@ private:
     int                         m_numPages;
     wxArrayInt                  m_pageBreaksStart;
     wxArrayInt                  m_pageBreaksEnd;
+    wxArrayInt                  m_pageYOffsets;
     int                         m_marginLeft, m_marginTop, m_marginRight, m_marginBottom;
 
     wxRichTextHeaderFooterData  m_headerFooterData;
@@ -160,7 +161,7 @@ private:
 class WXDLLIMPEXP_RICHTEXT wxRichTextPrinting : public wxObject
 {
 public:
-    wxRichTextPrinting(const wxString& name = wxT("Printing"), wxWindow *parentWindow = NULL);
+    wxRichTextPrinting(const wxString& name = _("Printing"), wxWindow *parentWindow = NULL);
     virtual ~wxRichTextPrinting();
 
     /// Preview the file or buffer

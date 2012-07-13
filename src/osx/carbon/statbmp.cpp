@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: statbmp.cpp 55419 2008-09-02 16:53:23Z SC $
+// RCS-ID:      $Id: statbmp.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,6 @@
 #ifndef WX_PRECOMP
     #include "wx/dcclient.h"
 #endif
-
-IMPLEMENT_DYNAMIC_CLASS(wxStaticBitmap, wxControl)
 
 /*
  * wxStaticBitmap
@@ -68,7 +66,7 @@ void wxStaticBitmap::OnPaint( wxPaintEvent& WXUNUSED(event) )
     wxPaintDC dc(this);
     PrepareDC(dc);
 
-    if (m_bitmap.Ok())
+    if (m_bitmap.IsOk())
     {
         dc.DrawBitmap( m_bitmap , 0 , 0 , TRUE ) ;
     }
@@ -76,7 +74,7 @@ void wxStaticBitmap::OnPaint( wxPaintEvent& WXUNUSED(event) )
 
 wxSize wxStaticBitmap::DoGetBestSize() const
 {
-    if ( m_bitmap.Ok() )
+    if ( m_bitmap.IsOk() )
         return DoGetSizeFromClientSize( wxSize(m_bitmap.GetWidth(), m_bitmap.GetHeight()) );
 
     // this is completely arbitrary

@@ -2,7 +2,7 @@
 // Name:        statusbr.h
 // Purpose:     interface of wxStatusBar
 // Author:      wxWidgets team
-// RCS-ID:      $Id: statusbr.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: statusbr.h 66257 2010-11-25 00:53:24Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -78,12 +78,19 @@ public:
     It is possible to create controls and other windows on the status bar.
     Position these windows from an OnSize() event handler.
 
+    @remarks
+    Notice that only the first 127 characters of a string will be shown in
+    status bar fields under pre-XP MSW systems (or even under later systems if
+    a proper manifest indicating that the program uses version 6 of common
+    controls library is not used). This is a limitation of the native control
+    on these platforms.
+
     @library{wxcore}
     @category{miscwnd}
 
     @see wxStatusBarPane, wxFrame, @ref page_samples_statbar
 */
-class wxStatusBar : public wxWindow
+class wxStatusBar : public wxControl
 {
 public:
     /**

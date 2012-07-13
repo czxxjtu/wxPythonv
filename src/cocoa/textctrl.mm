@@ -4,7 +4,7 @@
 // Author:      David Elliott
 // Modified by: Mark Oxenham
 // Created:     2003/03/16
-// RCS-ID:      $Id: textctrl.mm 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: textctrl.mm 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 2003 David Elliott
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,6 @@
 
 #include <math.h>
 
-IMPLEMENT_DYNAMIC_CLASS(wxTextCtrl, wxTextCtrlBase)
 BEGIN_EVENT_TABLE(wxTextCtrl, wxTextCtrlBase)
 END_EVENT_TABLE()
 WX_IMPLEMENT_COCOA_OWNER(wxTextCtrl,NSTextField,NSControl,NSView)

@@ -3,7 +3,7 @@
 // Purpose:     wxStaticLine class
 // Author:      Vadim Zeitlin
 // Created:     28.06.99
-// Version:     $Id: statline.cpp 64943 2010-07-13 13:29:58Z VZ $
+// Version:     $Id: statline.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) 1998 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -19,9 +19,6 @@
 #ifndef WX_PRECOMP
     #include "wx/statbox.h"
 #endif
-
-IMPLEMENT_DYNAMIC_CLASS(wxStaticLine, wxControl)
-
 
 bool wxStaticLine::Create( wxWindow *parent,
     wxWindowID id,

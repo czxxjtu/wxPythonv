@@ -4,7 +4,7 @@
 // Author:      Eric Kidd, Vadim Zeitlin
 // Modified by:
 // Created:     10.03.03
-// RCS-ID:      $Id: rawbmp.h 59031 2009-02-19 17:28:37Z PC $
+// RCS-ID:      $Id: rawbmp.h 67384 2011-04-03 20:31:32Z DS $
 // Copyright:   (c) 2002 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -313,9 +313,6 @@ struct wxPixelDataOut<wxImage>
             // the pixel format we use
             typedef wxImagePixelFormat PixelFormat;
 
-            // the type of the pixel components
-            typedef typename PixelFormat::ChannelType ChannelType;
-
             // the pixel data we're working with
             typedef
                 wxPixelDataOut<wxImage>::wxPixelDataIn<PixelFormat> PixelData;
@@ -411,10 +408,10 @@ struct wxPixelDataOut<wxImage>
             // -----------
 
             // access to individual colour components
-            ChannelType& Red() { return m_pRGB[PixelFormat::RED]; }
-            ChannelType& Green() { return m_pRGB[PixelFormat::GREEN]; }
-            ChannelType& Blue() { return m_pRGB[PixelFormat::BLUE]; }
-            ChannelType& Alpha() { return *m_pAlpha; }
+            PixelFormat::ChannelType& Red() { return m_pRGB[PixelFormat::RED]; }
+            PixelFormat::ChannelType& Green() { return m_pRGB[PixelFormat::GREEN]; }
+            PixelFormat::ChannelType& Blue() { return m_pRGB[PixelFormat::BLUE]; }
+            PixelFormat::ChannelType& Alpha() { return *m_pAlpha; }
 
             // address the pixel contents directly (always RGB, without alpha)
             //
@@ -599,7 +596,7 @@ struct wxPixelDataOut<wxBitmap>
             // data access
             // -----------
 
-            // access to invidividual colour components
+            // access to individual colour components
             ChannelType& Red() { return m_ptr[PixelFormat::RED]; }
             ChannelType& Green() { return m_ptr[PixelFormat::GREEN]; }
             ChannelType& Blue() { return m_ptr[PixelFormat::BLUE]; }

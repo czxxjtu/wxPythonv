@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wx/graphdc.h
+// Name:        wx/dcgraph.h
 // Purpose:     graphics context device bridge header
 // Author:      Stefan Csomor
 // Modified by:
 // Created:
 // Copyright:   (c) Stefan Csomor
-// RCS-ID:      $Id: dcgraph.h 62294 2009-10-05 22:56:58Z VZ $
+// RCS-ID:      $Id: dcgraph.h 68934 2011-08-27 23:24:47Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -29,6 +29,8 @@ public:
 #if wxUSE_PRINTING_ARCHITECTURE
     wxGCDC( const wxPrinterDC& dc );
 #endif
+    wxGCDC(wxGraphicsContext* context);
+    
     wxGCDC();
     virtual ~wxGCDC();
 

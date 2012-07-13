@@ -6,6 +6,8 @@ set -o errexit
 
 
 PYVER=$1
+CPU=$2
+
 CHARTYPE=unicode
 
 
@@ -27,10 +29,10 @@ if [ $skipwin != yes ]; then
      echo "Running build script on $WIN_HOST..."
      wxdir=$WIN_BUILD/wxPython-src-$VERSION
      cmd=./do-build-windows
-     ssh $WIN_HOST "cd $WIN_BUILD && $cmd $wxdir $WIN_BUILD $skipclean $VERSION $PYVER $CHARTYPE && rm $cmd"
+     ssh $WIN_HOST "cd $WIN_BUILD && $cmd $wxdir $WIN_BUILD $skipclean $VERSION $PYVER $CHARTYPE $CPU && rm $cmd"
 
      echo "Fetching the results..."
-     scp "$WIN_HOST:$WIN_BUILD/wxPython*-win*"  $STAGING_DIR
+     scp "$WIN_HOST:$WIN_BUILD/wx*-win*"  $STAGING_DIR
      ssh $WIN_HOST "rm $WIN_BUILD/wxPython*-win*"
      ssh $WIN_HOST "rm -rf $WIN_BUILD/*"
 

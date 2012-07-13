@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        dnd.h
+// Name:        wx/gtk/dnd.h
 // Purpose:     declaration of the wxDropTarget class
 // Author:      Robert Roebling
-// RCS-ID:      $Id: dnd.h 62662 2009-11-15 13:39:05Z RR $
+// RCS-ID:      $Id: dnd.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) 1998 Vadim Zeitlin, Robert Roebling
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Sandro Sigala
 // Created:     04/01/98
-// RCS-ID:      $Id: penguin.cpp 64645 2010-06-20 17:42:33Z VZ $
+// RCS-ID:      $Id: penguin.cpp 67681 2011-05-03 16:29:04Z DS $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -223,7 +223,7 @@ void TestGLCanvas::OnEraseBackground(wxEraseEvent& WXUNUSED(event))
 void TestGLCanvas::LoadDXF(const wxString& filename)
 {
     wxFileInputStream stream(filename);
-    if (stream.Ok())
+    if (stream.IsOk())
 #if wxUSE_ZLIB
     {
         if (filename.Right(3).Lower() == wxT(".gz"))

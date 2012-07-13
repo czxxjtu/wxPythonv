@@ -4,7 +4,7 @@
 // Author:      Wlodzimierz ABX Skiba
 // Modified by:
 // Created:     30.08.2004
-// RCS-ID:      $Id: textctrlce.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: textctrlce.cpp 66555 2011-01-04 08:31:53Z SC $
 // Copyright:   (c) Wlodzimierz Skiba
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,12 +42,6 @@
 // ----------------------------------------------------------------------------
 // event tables and other macros
 // ----------------------------------------------------------------------------
-
-#if wxUSE_EXTENDED_RTTI
-// TODO
-#else
-IMPLEMENT_DYNAMIC_CLASS(wxTextCtrl, wxControl)
-#endif
 
 BEGIN_EVENT_TABLE(wxTextCtrl, wxControl)
     EVT_CHAR(wxTextCtrl::OnChar)

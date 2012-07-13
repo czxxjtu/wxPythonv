@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Name:        msw/caret.h
+// Name:        wx/msw/caret.h
 // Purpose:     wxCaret class - the MSW implementation of wxCaret
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     23.05.99
-// RCS-ID:      $Id: caret.h 58757 2009-02-08 11:45:59Z VZ $
+// RCS-ID:      $Id: caret.h 67254 2011-03-20 00:14:35Z DS $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

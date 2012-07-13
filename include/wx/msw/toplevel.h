@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     20.09.01
-// RCS-ID:      $Id: toplevel.h 64101 2010-04-22 11:21:21Z VZ $
+// RCS-ID:      $Id: toplevel.h 65556 2010-09-16 09:05:48Z VS $
 // Copyright:   (c) 2001 SciTech Software, Inc. (www.scitechsoft.com)
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -140,6 +140,8 @@ protected:
     // Top level windows have different freeze semantics on Windows
     virtual void DoFreeze();
     virtual void DoThaw();
+
+    virtual void DoEnable(bool enable);
 
     // helper of SetIcons(): calls gets the icon with the size specified by the
     // given system metrics (SM_C{X|Y}[SM]ICON) from the bundle and sets it
