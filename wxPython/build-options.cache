@@ -1,0 +1,12 @@
+(lp1
+S'--reswig'
+p2
+aS'--unicode'
+p3
+aS'--build_dir=../bld'
+p4
+aS'--prefix=/opt/wx/2.9'
+p5
+aS'--debug'
+p6
+a.
