@@ -4,7 +4,7 @@
 // Author:      Andreas Pflug
 // Modified by:
 // Created:     2005-01-19
-// RCS-ID:      $Id: datectrl.h 67254 2011-03-20 00:14:35Z DS $
+// RCS-ID:      $Id: datectrl.h 70167 2011-12-29 19:28:38Z RD $
 // Copyright:   (c) 2005 Andreas Pflug <pgadmin@pse-consulting.de>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -68,6 +68,10 @@ public:
 
     // overridden base class methods
     virtual bool Destroy();
+
+#ifdef __WXOSX_COCOA__
+    virtual void OSXGenerateEvent(const wxDateTime& dt) {}
+#endif
 
 protected:
     virtual wxSize DoGetBestSize() const;

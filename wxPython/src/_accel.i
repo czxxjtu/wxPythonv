@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     03-July-1997
-// RCS-ID:      $Id: _accel.i 69026 2011-09-08 19:33:52Z RD $
+// RCS-ID:      $Id: _accel.i 70173 2011-12-29 21:08:08Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -169,7 +169,8 @@ const wxAcceleratorTable wxNullAcceleratorTable;
 %pythoncode {
     def GetAccelFromString(label):
         entry = AcceleratorEntry()
-        entry.FromString(label)
+        if '\t' in label:
+            entry.FromString(label)
         return entry
 }
 

@@ -6,7 +6,7 @@
 # Author:       Robin Dunn
 #
 # Created:      A long time ago, in a galaxy far, far away...
-# RCS-ID:       $Id: Main.py 69774 2011-11-17 03:14:50Z RD $
+# RCS-ID:       $Id: Main.py 70189 2011-12-29 23:26:01Z RD $
 # Copyright:    (c) 1999 by Total Control Software
 # Licence:      wxWindows license
 #----------------------------------------------------------------------------
@@ -105,7 +105,6 @@ _treeList = [
         'DVC_TreeCtrl',
         'DVC_CustomRenderer',
         'PenAndBrushStyles',
-        'InfoBar',
         'HTML2_WebView',
         ]),
 

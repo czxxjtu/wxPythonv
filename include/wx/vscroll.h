@@ -236,7 +236,7 @@ protected:
 
 #ifdef __WXMAC__
     // queue mac window update after handling scroll event
-    virtual void UpdateMacScrollWindow() { }
+    virtual void UpdateMacScrollWindow() = 0;
 #endif // __WXMAC__
 
     // change the target window

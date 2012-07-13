@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     15-Feb-2005
-// RCS-ID:      $Id: _datectrl.i 69483 2011-10-20 04:23:32Z RD $
+// RCS-ID:      $Id: _datectrl.i 70172 2011-12-29 21:07:42Z RD $
 // Copyright:   (c) 2005 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -181,14 +181,12 @@ creation.", "");
 };
 
 
-// Disabled for MSW temporarily until some build issues are worked out
-#ifndef __WXMSW__
 
 MustHaveApp(wxDatePickerCtrlGeneric);
 
 %rename(GenericDatePickerCtrl) wxDatePickerCtrlGeneric;
 
-class wxDatePickerCtrlGeneric : public wxDatePickerCtrl
+class wxDatePickerCtrlGeneric : public wxDatePickerCtrlBase
 {
 public:
     %pythonAppend wxDatePickerCtrlGeneric         "self._setOORInfo(self)";
@@ -211,7 +209,7 @@ public:
         "Precreate a GenericDatePickerCtrl for use in 2-phase creation.", "",
         PreGenericDatePickerCtrl);
     
-
+ 
     DocDeclStr(
         bool , Create(wxWindow *parent,
                       wxWindowID id=-1,
@@ -225,8 +223,6 @@ public:
 creation.", "");
     
 };
-
-#endif
 
 //---------------------------------------------------------------------------
 

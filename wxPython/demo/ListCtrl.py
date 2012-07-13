@@ -5,7 +5,7 @@
 # Author:       Robin Dunn & Gary Dumer
 #
 # Created:
-# RCS-ID:       $Id: ListCtrl.py 60068 2009-04-08 03:58:28Z RD $
+# RCS-ID:       $Id: ListCtrl.py 70188 2011-12-29 23:25:41Z RD $
 # Copyright:    (c) 1998 by Total Control Software
 # Licence:      wxWindows license
 #----------------------------------------------------------------------------
@@ -280,6 +280,9 @@ class TestListCtrlPanel(wx.Panel, listmix.ColumnSorterMixin):
         self.log.WriteText("OnColRightClick: %d %s\n" %
                            (event.GetColumn(), (item.GetText(), item.GetAlign(),
                                                 item.GetWidth(), item.GetImage())))
+        if self.list.HasColumnOrderSupport():
+            self.log.WriteText("OnColRightClick: column order: %d\n" %
+                               self.list.GetColumnOrder(event.GetColumn()))
 
     def OnColBeginDrag(self, event):
         self.log.WriteText("OnColBeginDrag\n")
