@@ -2501,6 +2501,30 @@ class CustomTreeCtrl(wx.PyScrolledWindow):
         :param `y`: the height of the bitmap.        
         """
 
+        ############# dhyams hack!!!
+        ############# supply our own checkboxes under Linux, because there are segfaults on SuSe 11.4.  Sigh.
+        ############# the application itself is responsible for setting draw_tree_controls_manually as appropriate.
+        ############# The switch is used, because I do not know specifically which distros of Linux will have this
+        ############# problem.  Perhaps any that use Oxygen for a theme, until that bug gets fixed.
+        try:
+            import appsettings
+            draw_tree_controls_manually = appsettings.get('draw_tree_controls_manually',0)
+            if draw_tree_controls_manually:
+              from baseutil import getresource as _R
+              from baseutil import is_mac
+              if is_mac():
+                 if checked: bmp = wx.Bitmap(_R('custom/widgets/checkbox_checked_osx.png'))
+                 else:       bmp = wx.Bitmap(_R('custom/widgets/checkbox_empty_osx.png'))
+              else:
+                 if checked: bmp = wx.Bitmap(_R('custom/widgets/checkbox_checked.png'))
+                 else:       bmp = wx.Bitmap(_R('custom/widgets/checkbox_empty.png'))
+              return bmp
+              
+        except:
+            pass
+        ### end hack.
+
+
         bmp = wx.EmptyBitmap(x, y)
         mdc = wx.MemoryDC(bmp)
         mask = wx.Colour(0xfe, 0xfe, 0xfe)
