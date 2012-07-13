@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     17-March-2000
-// RCS-ID:      $Id: grid.i 65979 2010-11-02 02:39:58Z RD $
+// RCS-ID:      $Id: grid.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2000 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1648,7 +1648,7 @@ public:
         }
     }
     %pythoncode {
-    asTuple = wx._deprecated(Get, "asTuple is deprecated, use `Get` instead")
+    asTuple = wx.deprecated(Get, "asTuple is deprecated, use `Get` instead")
     def __str__(self):                   return str(self.Get())
     def __repr__(self):                  return 'wxGridCellCoords'+str(self.Get())
     def __len__(self):                   return len(self.Get())

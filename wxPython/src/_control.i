@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _control.i 67560 2011-04-20 22:47:27Z RD $
+// RCS-ID:      $Id: _control.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -444,7 +444,7 @@ text.  Will reset the selection if any.", "");
         "Returns a subset of the value in the text field.", "");
 
     // Just for backwards compatibility
-    %pythoncode { GetString = wx._deprecated(GetRange, "Use `GetRange` instead.") }
+    %pythoncode { GetString = wx.deprecated(GetRange, "Use `GetRange` instead.") }
     
     DocDeclStr(
         bool , IsEmpty() const,

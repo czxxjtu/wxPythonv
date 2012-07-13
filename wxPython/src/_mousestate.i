@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-Feb-2010
-// RCS-ID:      $Id: _mousestate.i 67447 2011-04-13 17:51:40Z RD $
+// RCS-ID:      $Id: _mousestate.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2010 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -60,9 +60,9 @@ public:
     bool ButtonIsDown(wxMouseButton but) const;
 
     %pythoncode {
-        LeftDown = wx._deprecated(LeftIsDown)
-        MiddleDown = wx._deprecated(MiddleIsDown)
-        RightDown = wx._deprecated(RightIsDown)            
+        LeftDown = wx.deprecated(LeftIsDown)
+        MiddleDown = wx.deprecated(MiddleIsDown)
+        RightDown = wx.deprecated(RightIsDown)            
     }
     
     void        SetX(wxCoord x);
@@ -88,8 +88,18 @@ public:
         rightIsDown = property(RightIsDown, SetRightDown)
         aux1IsDown = property(Aux1IsDown, SetAux1Down)
         aux2IsDown = property(Aux2IsDown, SetAux2Down)
+
+        # For 2.8 compatibility
+        m_leftDown = wx.deprecated(leftIsDown)
+        m_middleDown = wx.deprecated(middleIsDown)
+        m_rightDown = wx.deprecated(rightIsDown)
+        m_aux1Down = wx.deprecated(aux1IsDown)
+        m_aux2Down = wx.deprecated(aux2IsDown)
+        m_x = wx.deprecated(x)
+        m_y = wx.deprecated(y)
     }
     %property(Position, GetPosition, doc="See `GetPosition`");
+
 };
 
 

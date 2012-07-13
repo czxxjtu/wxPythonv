@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     9-June-2005
-// RCS-ID:      $Id: _renderer.i 66325 2010-12-04 03:30:23Z RD $
+// RCS-ID:      $Id: _renderer.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2005 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -319,7 +319,7 @@ Only wxCONTROL_SELECTED makes sense in flags here", "");
                                 const wxRect& rect, int flags=0),
             "Draw a native wxRadioButton (just the button image, not the text)", "");
     %pythoncode {
-        DrawRadioButton = wx._deprecated(DrawRadioBitmap,
+        DrawRadioButton = wx.deprecated(DrawRadioBitmap,
             'DrawRadioButton is deprecated, use `DrawRadioBitmap` instead.')
     }
 

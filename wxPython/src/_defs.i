@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     6/24/97
-// RCS-ID:      $Id: _defs.i 67445 2011-04-13 17:50:35Z RD $
+// RCS-ID:      $Id: _defs.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 1998 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -449,7 +449,7 @@ typedef double          wxDouble;
     %pythoncode {
         def base_##Method(*args, **kw):
             return Class.Method(*args, **kw)
-        base_##Method = wx._deprecated(base_##Method,
+        base_##Method = wx.deprecated(base_##Method,
                                        "Please use Class.Method instead.")
     }
 %enddef    

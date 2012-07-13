@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     5-July-2006
-// RCS-ID:      $Id: aui.i 65979 2010-11-02 02:39:58Z RD $
+// RCS-ID:      $Id: aui.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -361,9 +361,9 @@ The following example shows a simple implementation that utilizes
 
     // For backwards compatibility
     %pythoncode {
-         SetFrame = wx._deprecated(SetManagedWindow,
+         SetFrame = wx.deprecated(SetManagedWindow,
                                    "SetFrame is deprecated, use `SetManagedWindow` instead.")
-         GetFrame = wx._deprecated(GetManagedWindow,
+         GetFrame = wx.deprecated(GetManagedWindow,
                                    "GetFrame is deprecated, use `GetManagedWindow` instead.")
     }
 }

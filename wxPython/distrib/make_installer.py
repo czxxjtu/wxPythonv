@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     30-April-2001
-# RCS-ID:      $Id: make_installer.py 68415 2011-07-25 18:53:22Z RD $
+# RCS-ID:      $Id: make_installer.py 69018 2011-09-07 06:10:32Z RD $
 # Copyright:   (c) 2003 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------

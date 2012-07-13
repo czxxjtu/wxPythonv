@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _colour.i 66325 2010-12-04 03:30:23Z RD $
+// RCS-ID:      $Id: _colour.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -275,7 +275,7 @@ is returned if the pixel is invalid (on X, unallocated).", "");
 
 
     %pythoncode {
-        asTuple = wx._deprecated(Get, "asTuple is deprecated, use `Get` instead")
+        asTuple = wx.deprecated(Get, "asTuple is deprecated, use `Get` instead")
         def __str__(self):                  return str(self.Get(True))
 
         %# help() can access the stock colors before they are created,  

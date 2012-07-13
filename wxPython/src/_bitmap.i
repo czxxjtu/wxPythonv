@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _bitmap.i 67458 2011-04-13 18:06:47Z RD $
+// RCS-ID:      $Id: _bitmap.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -971,7 +971,7 @@ public:
     PixelData##_Accessor GetPixels() const;
     %pythoncode {
         def UseAlpha(self): pass
-        UseAlpha = wx._deprecated(UseAlpha)
+        UseAlpha = wx.deprecated(UseAlpha)
     }
 
     %extend {
@@ -1165,7 +1165,7 @@ passed then BLACK is used.
     ~wxMask();
 };
 
-%pythoncode { MaskColour = wx._deprecated(Mask, "wx.MaskColour is deprecated, use `wx.Mask` instead.") }
+%pythoncode { MaskColour = wx.deprecated(Mask, "wx.MaskColour is deprecated, use `wx.Mask` instead.") }
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------

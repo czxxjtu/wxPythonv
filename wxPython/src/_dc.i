@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _dc.i 67821 2011-05-31 20:17:45Z RD $
+// RCS-ID:      $Id: _dc.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1087,8 +1087,8 @@ colour.
         def GetOptimization(self):
             return False
 
-        SetOptimization = wx._deprecated(SetOptimization)
-        GetOptimization = wx._deprecated(GetOptimization)
+        SetOptimization = wx.deprecated(SetOptimization)
+        GetOptimization = wx.deprecated(GetOptimization)
    }
 
     

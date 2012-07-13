@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     11-April-2006
-// RCS-ID:      $Id: _richtextctrl.i 67654 2011-04-30 00:15:08Z RD $
+// RCS-ID:      $Id: _richtextctrl.i 69029 2011-09-09 01:18:32Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,8 @@ DocStr(wxRichTextCtrl,
 "", "");
 
 
-class wxRichTextCtrl : public wxTextCtrlBase,
+class wxRichTextCtrl : public wxControl,
+                       public wxTextCtrlIface,
                        public wxScrollHelper
 {
 public:

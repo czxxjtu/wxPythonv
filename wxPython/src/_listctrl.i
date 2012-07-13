@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _listctrl.i 68058 2011-06-27 19:10:44Z RD $
+// RCS-ID:      $Id: _listctrl.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2002 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -380,8 +380,8 @@ EVT_LIST_COL_END_DRAG      = wx.PyEventBinder(wxEVT_COMMAND_LIST_COL_END_DRAG   
 EVT_LIST_ITEM_FOCUSED      = wx.PyEventBinder(wxEVT_COMMAND_LIST_ITEM_FOCUSED     , 1)
 
 #WXWIN_COMPATIBILITY_2_4
-#EVT_LIST_GET_INFO = wx._deprecated(EVT_LIST_GET_INFO)
-#EVT_LIST_SET_INFO = wx._deprecated(EVT_LIST_SET_INFO)
+#EVT_LIST_GET_INFO = wx.deprecated(EVT_LIST_GET_INFO)
+#EVT_LIST_SET_INFO = wx.deprecated(EVT_LIST_SET_INFO)
 }
 
 //---------------------------------------------------------------------------
@@ -613,11 +613,11 @@ public:
 
     // get the horizontal and vertical components of the item spacing
     wxSize GetItemSpacing() const;
-    %pythoncode { GetItemSpacing = wx._deprecated(GetItemSpacing) }
+    %pythoncode { GetItemSpacing = wx.deprecated(GetItemSpacing) }
 
 #ifndef __WXMSW__
     void SetItemSpacing( int spacing, bool isSmall = false );
-    %pythoncode { SetItemSpacing = wx._deprecated(SetItemSpacing) }
+    %pythoncode { SetItemSpacing = wx.deprecated(SetItemSpacing) }
 #endif
 
     // Gets the number of selected items in the list control

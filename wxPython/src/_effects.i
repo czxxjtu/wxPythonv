@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     18-June-1999
-// RCS-ID:      $Id: _effects.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _effects.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@
     
 // };
 
-// %pythoncode { Effects = wx._deprecated(Effects) }
+// %pythoncode { Effects = wx.deprecated(Effects) }
 
 //---------------------------------------------------------------------------
 

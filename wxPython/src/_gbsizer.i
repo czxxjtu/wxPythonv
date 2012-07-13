@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     05-Nov-2003
-// RCS-ID:      $Id: _gbsizer.i 53376 2008-04-27 04:02:52Z RD $
+// RCS-ID:      $Id: _gbsizer.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ public:
         }
     }
     %pythoncode {
-    asTuple = wx._deprecated(Get, "asTuple is deprecated, use `Get` instead")
+    asTuple = wx.deprecated(Get, "asTuple is deprecated, use `Get` instead")
     def __str__(self):                   return str(self.Get())
     def __repr__(self):                  return 'wx.GBPosition'+str(self.Get())
     def __len__(self):                   return len(self.Get())
@@ -217,7 +217,7 @@ cell in each direction.", "");
         }
     }
     %pythoncode {
-    asTuple = wx._deprecated(Get, "asTuple is deprecated, use `Get` instead")
+    asTuple = wx.deprecated(Get, "asTuple is deprecated, use `Get` instead")
     def __str__(self):                   return str(self.Get())
     def __repr__(self):                  return 'wx.GBSpan'+str(self.Get())
     def __len__(self):                   return len(self.Get())

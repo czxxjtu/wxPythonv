@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-Apr-2002
-// RCS-ID:      $Id: _font.i 68990 2011-09-03 06:13:14Z RD $
+// RCS-ID:      $Id: _font.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2002 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -825,8 +825,8 @@ then for a font belonging to the same family.", "");
     virtual void SetNoAntiAliasing( bool no = true );
     virtual bool GetNoAntiAliasing() const;
     %pythoncode {
-        SetNoAntiAliasing = wx._deprecated(SetNoAntiAliasing)
-        GetNoAntiAliasing = wx._deprecated(GetNoAntiAliasing)
+        SetNoAntiAliasing = wx.deprecated(SetNoAntiAliasing)
+        GetNoAntiAliasing = wx.deprecated(GetNoAntiAliasing)
     }
 
 
@@ -904,7 +904,7 @@ then for a font belonging to the same family.", "");
     
 };
 
-%pythoncode { Font2 = wx._deprecated(FFont, "Use `wx.FFont` instead.") }
+%pythoncode { Font2 = wx.deprecated(FFont, "Use `wx.FFont` instead.") }
 
 //---------------------------------------------------------------------------
 %newgroup

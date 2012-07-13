@@ -3,7 +3,7 @@
 // Purpose:   Region class
 // Author:    Stefan Csomor
 // Created:   Fri Oct 24 10:46:34 MET 1997
-// RCS-ID:    $Id: region.cpp 68530 2011-08-04 22:37:45Z RD $
+// RCS-ID:    $Id: region.cpp 69006 2011-09-06 04:16:52Z RD $
 // Copyright: (c) 1997 Stefan Csomor
 // Licence:   wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     1-Feb-2010
-// RCS-ID:      $Id: _keyboardstate.i 63367 2010-02-03 06:39:07Z RD $
+// RCS-ID:      $Id: _keyboardstate.i 69031 2011-09-09 02:26:43Z RD $
 // Copyright:   (c) 2010 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -94,13 +94,12 @@ normally).", "");
         altDown = property(AltDown, SetAltDown)
         metaDown = property(MetaDown, SetMetaDown)
         cmdDown = property(CmdDown)
+
+        # For 2.8 compatibility
+        m_controlDown = wx.deprecated(controlDown)
+        m_shiftDown = wx.deprecated(shiftDown)
+        m_altDown = wx.deprecated(altDown)
+        m_metaDown = wx.deprecated(metaDown)            
     }
-
-
-public:
-//     bool m_controlDown : 1;
-//     bool m_shiftDown   : 1;
-//     bool m_altDown     : 1;
-//     bool m_metaDown    : 1;
 };
 
