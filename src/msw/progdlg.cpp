@@ -3,7 +3,7 @@
 // Purpose:     wxProgressDialog
 // Author:      Rickard Westerlund
 // Created:     2010-07-22
-// RCS-ID:      $Id: progdlg.cpp 68545 2011-08-04 23:07:08Z RD $
+// RCS-ID:      $Id: progdlg.cpp 69926 2011-12-03 23:52:39Z VZ $
 // Copyright:   (c) 2010 wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -236,6 +236,11 @@ void PerformNotificationUpdates(HWND hwnd,
             body.assign(title, posNL + numNLs, wxString::npos);
             title.erase(posNL);
         }
+        else // A single line
+        {
+            // Don't use title without the body, this doesn't make sense.
+            title.swap(body);
+        }
 
         ::SendMessage( hwnd,
                        TDM_SET_ELEMENT_TEXT,
@@ -302,7 +307,7 @@ wxProgressDialog::wxProgressDialog( const wxString& title,
                                     int maximum,
                                     wxWindow *parent,
                                     int style )
-    : wxGenericProgressDialog(parent, style),
+    : wxGenericProgressDialog(),
       m_taskDialogRunner(NULL),
       m_sharedData(NULL),
       m_message(message),
@@ -311,6 +316,8 @@ wxProgressDialog::wxProgressDialog( const wxString& title,
 #ifdef wxHAS_MSW_TASKDIALOG
     if ( HasNativeTaskDialog() )
     {
+        SetParent(GetParentForModalDialog(parent, GetWindowStyle()));
+        SetPDStyle(style);
         SetMaximum(maximum);
 
         Show();
@@ -516,6 +523,23 @@ void wxProgressDialog::Resume()
         ::BringWindowToTop(hwnd);
     }
 #endif // wxHAS_MSW_TASKDIALOG
+}
+
+WXWidget wxProgressDialog::GetHandle() const 
+{ 
+#ifdef wxHAS_MSW_TASKDIALOG
+    if ( HasNativeTaskDialog() )
+    {
+        HWND hwnd;
+        {
+            wxCriticalSectionLocker locker(m_sharedData->m_cs);
+            m_sharedData->m_state = m_state;
+            hwnd = m_sharedData->m_hwnd;
+        }
+        return hwnd;
+    }
+#endif
+    return wxGenericProgressDialog::GetHandle();
 }
 
 int wxProgressDialog::GetValue() const

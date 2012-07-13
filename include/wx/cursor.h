@@ -5,7 +5,7 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Julian Smart
-// RCS-ID:      $Id: cursor.h 60648 2009-05-16 10:42:48Z FM $
+// RCS-ID:      $Id: cursor.h 69827 2011-11-27 19:49:33Z VZ $
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -62,7 +62,7 @@ public:
     #define wxCURSOR_DEFAULT_TYPE   wxBITMAP_TYPE_MACCURSOR_RESOURCE
     #include "wx/osx/cursor.h"
 #elif defined(__WXCOCOA__)
-    #define wxCURSOR_DEFAULT_TYPE   0
+    #define wxCURSOR_DEFAULT_TYPE   wxBITMAP_TYPE_MACCURSOR_RESOURCE
     #include "wx/cocoa/cursor.h"
 #elif defined(__WXPM__)
     #define wxCURSOR_DEFAULT_TYPE   wxBITMAP_TYPE_CUR_RESOURCE

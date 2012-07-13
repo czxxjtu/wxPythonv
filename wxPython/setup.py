@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     12-Oct-2000
-# RCS-ID:      $Id: setup.py 68061 2011-06-27 19:13:17Z RD $
+# RCS-ID:      $Id: setup.py 69774 2011-11-17 03:14:50Z RD $
 # Copyright:   (c) 2000 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -152,6 +152,8 @@ swig_sources = run_swig(['core.i'], 'src', GENDIR, PKGDIR,
                           'src/_swigtype.i',
                           'src/_headercol.i',
                           'src/_versioninfo.i',
+                          'src/_withimages.i',
+                          'src/_bookctrl.i',
                           ],
                         True)
 
@@ -607,6 +609,25 @@ ext = Extension('_propgrid', swig_sources,
                 **depends
                 )
 wxpExtensions.append(ext)
+
+
+swig_sources = run_swig(['html2.i'], 'src', GENDIR, PKGDIR,
+                        USE_SWIG, swig_force, swig_args, swig_deps)
+if not MONOLITHIC and findLib('webview', libdirs):
+    webviewLib = makeLibName('webview')
+else:
+    webviewLib = []
+ext = Extension('_html2', swig_sources,
+                include_dirs =  includes,
+                define_macros = defines,
+                library_dirs = libdirs,
+                libraries = libs + webviewLib,
+                extra_compile_args = cflags,
+                extra_link_args = lflags,
+                **depends
+                )
+wxpExtensions.append(ext)
+
 
 
 if BUILD_STC:

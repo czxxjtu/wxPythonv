@@ -3,7 +3,7 @@
 // Purpose:     declares wxTextEntry interface defining a simple text entry
 // Author:      Vadim Zeitlin
 // Created:     2007-09-24
-// RCS-ID:      $Id: textentry.h 67511 2011-04-16 17:27:16Z VZ $
+// RCS-ID:      $Id: textentry.h 68918 2011-08-27 14:11:13Z VZ $
 // Copyright:   (c) 2007 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,6 +20,7 @@ class WXDLLIMPEXP_FWD_CORE wxTextCompleter;
 class WXDLLIMPEXP_FWD_CORE wxTextEntryHintData;
 class WXDLLIMPEXP_FWD_CORE wxWindow;
 
+#include "wx/filefn.h"              // for wxFILE and wxDIR only
 #include "wx/gdicmn.h"              // for wxPoint
 
 // ----------------------------------------------------------------------------
@@ -117,7 +118,10 @@ public:
         { return DoAutoCompleteStrings(choices); }
 
     bool AutoCompleteFileNames()
-        { return DoAutoCompleteFileNames(); }
+        { return DoAutoCompleteFileNames(wxFILE); }
+
+    bool AutoCompleteDirectories()
+        { return DoAutoCompleteFileNames(wxDIR); }
 
     // notice that we take ownership of the pointer and will delete it
     //
@@ -230,7 +234,8 @@ protected:
     // the other one(s)
     virtual bool DoAutoCompleteStrings(const wxArrayString& WXUNUSED(choices))
         { return false; }
-    virtual bool DoAutoCompleteFileNames() { return false; }
+    virtual bool DoAutoCompleteFileNames(int WXUNUSED(flags)) // wxFILE | wxDIR
+        { return false; }
     virtual bool DoAutoCompleteCustom(wxTextCompleter *completer);
 
 

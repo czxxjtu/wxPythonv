@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin, Stefan Csomor
 // Modified by:
 // Created:     2006-01-12
-// RCS-ID:      $Id: evtloop.mm 67866 2011-06-06 16:32:41Z SC $
+// RCS-ID:      $Id: evtloop.mm 69949 2011-12-07 23:41:10Z VZ $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -246,9 +246,15 @@ void wxGUIEventLoop::DoRun()
 
 void wxGUIEventLoop::DoStop()
 {
-    [NSApp stop:0];
     // only calling stop: is not enough when called from a runloop-observer,
     // therefore add a dummy event, to make sure the runloop gets another round
+    [NSApp stop:0];
+    WakeUp();
+}
+
+void wxGUIEventLoop::WakeUp()
+{
+    wxMacAutoreleasePool autoreleasepool;
     NSEvent *event = [NSEvent otherEventWithType:NSApplicationDefined 
                                         location:NSMakePoint(0.0, 0.0) 
                                    modifierFlags:0 
@@ -305,7 +311,7 @@ void wxModalEventLoop::DoRun()
 
 void wxModalEventLoop::DoStop()
 {
-    [NSApp stopModal];
+    [NSApp abortModal];
 }
 
 void wxGUIEventLoop::BeginModalSession( wxWindow* modalWindow )
@@ -415,7 +421,8 @@ void wxWindowDisabler::DoDisable(wxWindow *winToSkip)
     }
     
     m_modalEventLoop = (wxEventLoop*)wxEventLoopBase::GetActive();
-    m_modalEventLoop->BeginModalSession(winToSkip);
+    if (m_modalEventLoop)
+        m_modalEventLoop->BeginModalSession(winToSkip);
 }
 
 wxWindowDisabler::~wxWindowDisabler()
@@ -423,7 +430,8 @@ wxWindowDisabler::~wxWindowDisabler()
     if ( !m_disabled )
         return;
     
-    m_modalEventLoop->EndModalSession();
+    if (m_modalEventLoop)
+        m_modalEventLoop->EndModalSession();
     
     wxWindowList::compatibility_iterator node;
     for ( node = wxTopLevelWindows.GetFirst(); node; node = node->GetNext() )

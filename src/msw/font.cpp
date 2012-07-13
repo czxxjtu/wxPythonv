@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: font.cpp 66629 2011-01-07 17:46:54Z SC $
+// RCS-ID:      $Id: font.cpp 69106 2011-09-16 22:44:04Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -279,7 +279,7 @@ protected:
     wxString GetMSWFaceName() const
     {
         ScreenHDC hdc;
-        SelectInHDC selectFont(hdc, m_hFont);
+        SelectInHDC selectFont(hdc, (HFONT)GetHFONT());
 
         UINT otmSize = GetOutlineTextMetrics(hdc, 0, NULL);
         if ( !otmSize )

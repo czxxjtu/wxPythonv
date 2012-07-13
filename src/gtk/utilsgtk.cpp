@@ -2,7 +2,7 @@
 // Name:        src/gtk/utilsgtk.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: utilsgtk.cpp 67546 2011-04-19 05:17:45Z PC $
+// Id:          $Id: utilsgtk.cpp 69851 2011-11-28 05:11:27Z PC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ void wxDisplaySizeMM( int *width, int *height )
 
 void wxGetMousePosition( int* x, int* y )
 {
-    gdk_window_get_pointer( NULL, x, y, NULL );
+    gdk_window_get_pointer(gtk_widget_get_root_window(wxGetRootWindow()), x, y, NULL);
 }
 
 bool wxColourDisplay()
@@ -466,11 +466,11 @@ wxGUIAppTraits::GetStandardCmdLineOptions(wxArrayString& names,
     {
         // since GTK>=2.6, we can use the glib_check_version() symbol...
 
-        // check whether GLib version is greater than 2.6 but also lower than 2.19
+        // check whether GLib version is greater than 2.6 but also lower than 2.31
         // because, as we use the undocumented _GOptionGroup struct, we don't want
-        // to run this code with future versions which might change it (2.19 is the
+        // to run this code with future versions which might change it (2.30 is the
         // latest one at the time of this writing)
-        if (!glib_check_version(2,6,0) && glib_check_version(2,20,0))
+        if (glib_check_version(2,6,0) == NULL && glib_check_version(2,31,0))
         {
             usage << _("The following standard GTK+ options are also supported:\n");
 

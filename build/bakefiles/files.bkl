@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!-- $Id: files.bkl 67931 2011-06-14 13:00:42Z VZ $ -->
+<!-- $Id: files.bkl 69991 2011-12-12 14:01:23Z VZ $ -->
 <makefile>
 
 <!--
@@ -382,6 +382,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/common/tarstrm.cpp
     src/common/textbuf.cpp
     src/common/textfile.cpp
+    src/common/time.cpp
     src/common/timercmn.cpp
     src/common/timerimpl.cpp
     src/common/tokenzr.cpp
@@ -447,6 +448,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/dynload.h
     wx/encconv.h
     wx/event.h
+    wx/eventfilter.h
     wx/evtloop.h
     wx/except.h
     wx/features.h
@@ -526,6 +528,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/textfile.h
     wx/thread.h
     wx/thrimpl.cpp
+    wx/time.h
     wx/timer.h
     wx/tls.h
     wx/tokenzr.h
@@ -789,7 +792,6 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/generic/markuptext.cpp
     src/generic/msgdlgg.cpp
     src/generic/numdlgg.cpp
-    src/generic/panelg.cpp
     src/generic/progdlgg.cpp
     src/generic/printps.cpp
     src/generic/renderg.cpp
@@ -829,6 +831,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/control.h
     wx/ctrlsub.h
     wx/cursor.h
+    wx/custombgwin.h
     wx/dc.h
     wx/dcclient.h
     wx/dcgraph.h
@@ -850,6 +853,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/generic/choicdgg.h
     wx/generic/colrdlgg.h
     wx/generic/combo.h
+    wx/generic/custombgwin.h
     wx/generic/dcpsg.h
     wx/generic/dirctrlg.h
     wx/generic/dragimgg.h
@@ -879,6 +883,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/helphtml.h
     wx/icon.h
     wx/infobar.h
+    wx/itemid.h
     wx/layout.h
     wx/listbox.h
     wx/mdi.h
@@ -920,6 +925,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/valnum.h
     wx/window.h
     wx/windowid.h
+    wx/withimages.h
     wx/wrapsizer.h
     wx/wupdlock.h
 
@@ -996,6 +1002,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/paper.h
     wx/persist.h
     wx/persist/bookctrl.h
+    wx/persist/splitter.h
     wx/persist/toplevel.h
     wx/persist/treebook.h
     wx/persist/window.h
@@ -1090,6 +1097,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/gtk/font.cpp
     src/gtk/sockgtk.cpp
     src/gtk/minifram.cpp
+    src/gtk/nonownedwnd.cpp
     src/gtk/pen.cpp
     src/gtk/popupwin.cpp
     src/gtk/private.cpp
@@ -1127,6 +1135,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/gtk/font.h
     wx/gtk/filehistory.h
     wx/gtk/minifram.h
+    wx/gtk/nonownedwnd.h
     wx/gtk/pen.h
     wx/gtk/popupwin.h
     wx/gtk/private/win_gtk.h
@@ -1683,6 +1692,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/msw/icon.cpp
     src/msw/imaglist.cpp
     src/msw/minifram.cpp
+    src/msw/nonownedwnd.cpp
     src/msw/ole/dataobj.cpp
     src/msw/ole/dropsrc.cpp
     src/msw/ole/droptgt.cpp
@@ -1703,6 +1713,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/msw/window.cpp
 </set>
 <set var="MSW_LOWLEVEL_HDR" hints="files">
+    wx/msw/nonownedwnd.h
     wx/msw/ole/activex.h
     wx/msw/popupwin.h
     wx/msw/uxtheme.h
@@ -1803,6 +1814,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/msw/control.h
     wx/msw/ctrlsub.h
     wx/msw/cursor.h
+    wx/msw/custombgwin.h
     wx/msw/dc.h
     wx/msw/dcclient.h
     wx/msw/dcmemory.h
@@ -2895,6 +2907,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/generic/listctrl.h
     wx/generic/mdig.h
     wx/generic/statusbr.h
+    wx/univ/anybutton.h
     wx/univ/app.h
     wx/univ/bmpbuttn.h
     wx/univ/button.h
@@ -2905,6 +2918,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/univ/colschem.h
     wx/univ/combobox.h
     wx/univ/control.h
+    wx/univ/custombgwin.h
     wx/univ/dialog.h
     wx/univ/frame.h
     wx/univ/gauge.h
@@ -2950,7 +2964,9 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/common/gridcmn.cpp
     src/common/hyperlnkcmn.cpp
     src/common/odcombocmn.cpp
+    src/common/richtooltipcmn.cpp
     src/generic/aboutdlgg.cpp
+    src/generic/bannerwindow.cpp
     src/generic/bmpcboxg.cpp
     src/generic/calctrlg.cpp
     src/generic/commandlinkbuttong.cpp
@@ -2967,21 +2983,26 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/generic/notifmsgg.cpp
     src/generic/odcombo.cpp
     src/generic/propdlg.cpp
+    src/generic/richtooltipg.cpp
     src/generic/sashwin.cpp
     src/generic/splash.cpp
+    src/generic/timectrlg.cpp
     src/generic/tipdlg.cpp
+    src/generic/treelist.cpp
     src/generic/wizard.cpp
 </set>
 
 <set var="ADVANCED_CMN_HDR" hints="files">
     wx/aboutdlg.h
     wx/animate.h
+    wx/bannerwindow.h
     wx/bmpcbox.h
     wx/calctrl.h
     wx/commandlinkbutton.h
     wx/dataview.h
     wx/datectrl.h
     wx/dateevt.h
+    wx/datetimectrl.h
     wx/dcbuffer.h
     wx/dvrenderers.h
     wx/editlbox.h
@@ -3003,6 +3024,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/generic/propdlg.h
     wx/generic/sashwin.h
     wx/generic/splash.h
+    wx/generic/timectrl.h
     wx/generic/wizard.h
     wx/grid.h
     wx/hyperlink.h
@@ -3011,11 +3033,14 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/notifmsg.h
     wx/odcombo.h
     wx/propdlg.h
+    wx/richtooltip.h
     wx/sashwin.h
     wx/sound.h
     wx/splash.h
     wx/taskbar.h
+    wx/timectrl.h
     wx/tipdlg.h
+    wx/treelist.h
     wx/wizard.h
 </set>
 
@@ -3023,6 +3048,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/common/taskbarcmn.cpp
     src/msw/aboutdlg.cpp
     src/msw/notifmsg.cpp
+    src/msw/richtooltip.cpp
     src/msw/sound.cpp
     src/msw/taskbar.cpp
 </set>
@@ -3040,7 +3066,9 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/msw/commandlinkbutton.cpp
     src/msw/datecontrols.cpp
     src/msw/datectrl.cpp
+    src/msw/datetimectrl.cpp
     src/msw/hyperlink.cpp
+    src/msw/timectrl.cpp
 </set>
 <set var="ADVANCED_MSW_NATIVE_HDR" hints="files">
     wx/generic/animate.h
@@ -3048,7 +3076,9 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/msw/commandlinkbutton.h
     wx/msw/calctrl.h
     wx/msw/datectrl.h
+    wx/msw/datetimectrl.h
     wx/msw/hyperlink.h
+    wx/msw/timectrl.h
 </set>
 
 <!-- not built on WindowsCE: -->
@@ -3345,7 +3375,40 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     $(MSW_HTML_HDR)
 </set>
 
+<!-- ====================================================================== -->
+<!--                                wxWEBVIEW                               -->
+<!-- ====================================================================== -->
 
+<set var="WEBVIEW_SRC_PLATFORM">
+    <if cond="TOOLKIT=='MSW'">src/msw/webview_ie.cpp</if>
+    <if cond="PLATFORM_UNIX=='1'">src/gtk/webview_webkit.cpp</if>
+    <if cond="PLATFORM_MACOSX=='1'">src/osx/webview_webkit.mm</if>
+</set>
+<set var="WEBVIEW_SRC" hints="files">
+    $(WEBVIEW_SRC_PLATFORM)
+    src/common/webview.cpp
+    src/common/webviewarchivehandler.cpp
+</set>
+
+<set var="WEBVIEW_HDR_PLATFORM" hints="files">
+    <if cond="TOOLKIT=='MSW'">
+        wx/msw/webviewhistoryitem_ie.h
+        wx/msw/webview_ie.h
+    </if>
+    <if cond="PLATFORM_UNIX=='1'">
+        wx/gtk/webviewhistoryitem_webkit.h
+        wx/gtk/webview_webkit.h
+    </if>
+    <if cond="PLATFORM_MACOSX=='1'">
+        wx/osx/webviewhistoryitem_webkit.h
+        wx/osx/webview_webkit.h
+    </if>
+</set>
+<set var="WEBVIEW_HDR" hints="files">
+    $(WEBVIEW_HDR_PLATFORM)
+    wx/webview.h
+    wx/webviewarchivehandler.h
+</set>
 
 <!-- ====================================================================== -->
 <!--                                wxXRC                                   -->
@@ -3353,6 +3416,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
 
 <set var="XRC_SRC" hints="files">
     src/xrc/xh_animatctrl.cpp
+    src/xrc/xh_bannerwindow.cpp
     src/xrc/xh_bmp.cpp
     src/xrc/xh_bmpcbox.cpp
     src/xrc/xh_bmpbt.cpp
@@ -3408,6 +3472,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     src/xrc/xh_sttxt.cpp
     src/xrc/xh_text.cpp
     src/xrc/xh_tglbtn.cpp
+    src/xrc/xh_timectrl.cpp
     src/xrc/xh_toolb.cpp
     src/xrc/xh_toolbk.cpp
     src/xrc/xh_tree.cpp
@@ -3421,6 +3486,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
 <set var="XRC_HDR" hints="files">
     wx/xrc/xh_all.h
     wx/xrc/xh_animatctrl.h
+    wx/xrc/xh_bannerwindow.h
     wx/xrc/xh_bmpbt.h
     wx/xrc/xh_bmp.h
     wx/xrc/xh_bmpcbox.h
@@ -3475,6 +3541,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
     wx/xrc/xh_sttxt.h
     wx/xrc/xh_text.h
     wx/xrc/xh_tglbtn.h
+    wx/xrc/xh_timectrl.h
     wx/xrc/xh_toolb.h
     wx/xrc/xh_toolbk.h
     wx/xrc/xh_tree.h
@@ -3948,7 +4015,7 @@ IMPORTANT: please read docs/tech/tn0016.txt before modifying this file!
             $(GUI_CORE_HEADERS)
             $(ADVANCED_HDR) $(MEDIA_HDR) $(HTML_HDR)
             $(OPENGL_HDR) $(QA_HDR) $(XRC_HDR) $(AUI_HDR) $(PROPGRID_HDR)
-            $(RIBBON_HDR) $(RICHTEXT_HDR) $(STC_HDR)
+            $(RIBBON_HDR) $(RICHTEXT_HDR) $(STC_HDR) $(WEBVIEW_HDR)
         </if>
     </set>
 

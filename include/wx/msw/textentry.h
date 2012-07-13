@@ -3,7 +3,7 @@
 // Purpose:     wxMSW-specific wxTextEntry implementation
 // Author:      Vadim Zeitlin
 // Created:     2007-09-26
-// RCS-ID:      $Id: textentry.h 67511 2011-04-16 17:27:16Z VZ $
+// RCS-ID:      $Id: textentry.h 68918 2011-08-27 14:11:13Z VZ $
 // Copyright:   (c) 2007 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ protected:
     // wxUSE_OLE as OleInitialize() is not called then
 #if wxUSE_OLE
     virtual bool DoAutoCompleteStrings(const wxArrayString& choices);
-    virtual bool DoAutoCompleteFileNames();
+    virtual bool DoAutoCompleteFileNames(int flags);
     virtual bool DoAutoCompleteCustom(wxTextCompleter *completer);
 #endif // wxUSE_OLE
 

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     11-April-2006
-// RCS-ID:      $Id: richtext.i 65979 2010-11-02 02:39:58Z RD $
+// RCS-ID:      $Id: richtext.i 69251 2011-09-30 18:04:22Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -54,6 +54,7 @@ enum wxTextCtrlHitTestResult;
 %include _richtextctrl.i
 %include _richtexthtml.i
 %include _richtextxml.i
+%include _richtextprint.i
 
 //----------------------------------------------------------------------
 

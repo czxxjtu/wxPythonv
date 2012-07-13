@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: app.cpp 67574 2011-04-22 15:20:11Z SC $
+// RCS-ID:      $Id: app.cpp 69984 2011-12-11 17:03:56Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -130,7 +130,7 @@ pascal OSErr AEHandleGURL( const AppleEvent *event , AppleEvent *reply , SRefCon
 }
 
 
-// AEODoc Calls MacOpenFile on each of the files passed
+// AEODoc Calls MacOpenFiles with all of the files passed
 
 short wxApp::MacHandleAEODoc(const WXEVENTREF event, WXEVENTREF WXUNUSED(reply))
 {
@@ -158,6 +158,7 @@ short wxApp::MacHandleAEODoc(const WXEVENTREF event, WXEVENTREF WXUNUSED(reply))
     wxString fName ;
     FSRef theRef ;
 
+    wxArrayString fileNames;
     for (i = 1; i <= itemsInList; i++)
     {
         AEGetNthPtr(
@@ -165,8 +166,10 @@ short wxApp::MacHandleAEODoc(const WXEVENTREF event, WXEVENTREF WXUNUSED(reply))
             (Ptr)&theRef, sizeof(theRef), &actualSize);
         fName = wxMacFSRefToPath( &theRef ) ;
 
-        MacOpenFile(fName);
+        fileNames.Add(fName);
     }
+
+    MacOpenFiles(fileNames);
 
     return noErr;
 }
@@ -273,6 +276,16 @@ short wxApp::MacHandleAERApp(const WXEVENTREF WXUNUSED(event) , WXEVENTREF WXUNU
 //----------------------------------------------------------------------
 // Support Routines linking the Mac...File Calls to the Document Manager
 //----------------------------------------------------------------------
+
+void wxApp::MacOpenFiles(const wxArrayString & fileNames )
+{
+    size_t i;
+    const size_t fileCount = fileNames.GetCount();
+    for (i = 0; i < fileCount; i++)
+    {
+        MacOpenFile(fileNames[i]);
+    }
+}
 
 void wxApp::MacOpenFile(const wxString & fileName )
 {
@@ -794,7 +807,37 @@ bool wxApp::Initialize(int& argc, wxChar **argv)
         {
             // remove this argument
             --argc;
-            memmove(argv + 1, argv + 2, argc * sizeof(char *));
+            memmove(argv + 1, argv + 2, argc * sizeof(wxChar*));
+        }
+    }
+
+    /*
+     Cocoa supports -Key value options which set the user defaults key "Key"
+     to the value "value"  Some of them are very handy for debugging like
+     -NSShowAllViews YES.  Cocoa picks these up from the real argv so
+     our removal of them from the wx copy of it does not affect Cocoa's
+     ability to see them.
+     
+     We basically just assume that any "-NS" option and its following
+     argument needs to be removed from argv.  We hope that user code does
+     not expect to see -NS options and indeed it's probably a safe bet
+     since most user code accepting options is probably using the
+     double-dash GNU-style syntax.
+     */
+    for(int i=1; i < argc; ++i)
+    {
+        static const wxChar *ARG_NS = wxT("-NS");
+        if( wxStrncmp(argv[i], ARG_NS, wxStrlen(ARG_NS)) == 0 )
+        {
+            // Only eat this option if it has an argument
+            if( (i + 1) < argc )
+            {
+                memmove(argv + i, argv + i + 2, (argc-i-1)*sizeof(wxChar*));
+                argc -= 2;
+                // drop back one position so the next run through the loop
+                // reprocesses the argument at our current index.
+                --i;
+            }
         }
     }
 
@@ -1306,8 +1349,8 @@ CGKeyCode wxCharCodeWXToOSX(wxKeyCode code)
             
         case WXK_SHIFT:       keycode = kVK_Shift; break;
         case WXK_ALT:         keycode = kVK_Option; break;
-        case WXK_CONTROL:     keycode = kVK_Control; break;
-        case WXK_COMMAND:     keycode = kVK_Command; break;
+        case WXK_RAW_CONTROL: keycode = kVK_Control; break;
+        case WXK_CONTROL:     keycode = kVK_Command; break;
             
         case WXK_CAPITAL:     keycode = kVK_CapsLock; break;
         case WXK_END:         keycode = kVK_End; break;
@@ -1517,6 +1560,7 @@ int wxMacKeyCodeToModifier(wxKeyCode key)
     {
     case WXK_START:
     case WXK_MENU:
+    case WXK_COMMAND:
         return cmdKey;
 
     case WXK_SHIFT:
@@ -1528,7 +1572,7 @@ int wxMacKeyCodeToModifier(wxKeyCode key)
     case WXK_ALT:
         return optionKey;
 
-    case WXK_CONTROL:
+    case WXK_RAW_CONTROL:
         return controlKey;
 
     default:
@@ -1557,10 +1601,10 @@ wxMouseState wxGetMouseState()
     ms.SetRightDown( (buttons & 0x02) != 0 );
 
     UInt32 modifiers = GetCurrentKeyModifiers();
-    ms.SetControlDown(modifiers & controlKey);
+    ms.SetRawControlDown(modifiers & controlKey);
     ms.SetShiftDown(modifiers & shiftKey);
     ms.SetAltDown(modifiers & optionKey);
-    ms.SetMetaDown(modifiers & cmdKey);
+    ms.SetControlDown(modifiers & cmdKey);
 
     return ms;
 }
@@ -1602,20 +1646,16 @@ bool wxApp::MacSendCharEvent( wxWindow* focus , long keymessage , long modifiers
 
 #if wxOSX_USE_CARBON
     long keyval = event.m_keyCode ;
-    wxNonOwnedWindow *tlw = focus->MacGetTopLevelWindow() ;
 
-    if (tlw)
     {
-        event.SetEventType( wxEVT_CHAR_HOOK );
-        handled = tlw->HandleWindowEvent( event );
-        if ( handled && event.GetSkipped() )
+        wxKeyEvent eventCharHook(wxEVT_CHAR_HOOK, event);
+        handled = focus->HandleWindowEvent( eventCharHook );
+        if ( handled && eventCharHook.IsNextEventAllowed() )
             handled = false ;
     }
 
     if ( !handled )
     {
-        event.SetEventType( wxEVT_CHAR );
-        event.Skip( false ) ;
         handled = focus->HandleWindowEvent( event ) ;
     }
 
@@ -1753,9 +1793,9 @@ void wxApp::MacCreateKeyEvent( wxKeyEvent& event, wxWindow* focus , long keymess
     }
 
     event.m_shiftDown = modifiers & shiftKey;
-    event.m_controlDown = modifiers & controlKey;
+    event.m_rawControlDown = modifiers & controlKey;
     event.m_altDown = modifiers & optionKey;
-    event.m_metaDown = modifiers & cmdKey;
+    event.m_controlDown = modifiers & cmdKey;
     event.m_keyCode = keyval ;
 #if wxUSE_UNICODE
     event.m_uniChar = uniChar ;

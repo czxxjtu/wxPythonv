@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     2006-10-01
-// RCS-ID:      $Id: richtextformatdlg.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: richtextformatdlg.cpp 68809 2011-08-21 14:08:43Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,6 @@ wxRichTextFormattingDialogFactory* wxRichTextFormattingDialog::ms_FormattingDial
 
 void wxRichTextFormattingDialog::Init()
 {
-    m_imageList = NULL;
     m_styleDefinition = NULL;
     m_styleSheet = NULL;
     m_object = NULL;
@@ -102,7 +101,6 @@ void wxRichTextFormattingDialog::Init()
 
 wxRichTextFormattingDialog::~wxRichTextFormattingDialog()
 {
-    delete m_imageList;
     delete m_styleDefinition;
 }
 

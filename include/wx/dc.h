@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     05/25/99
-// RCS-ID:      $Id: dc.h 68934 2011-08-27 23:24:47Z RD $
+// RCS-ID:      $Id: dc.h 68935 2011-08-27 23:26:53Z RD $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -42,6 +42,10 @@ class WXDLLIMPEXP_FWD_CORE wxScreenDC;
 class WXDLLIMPEXP_FWD_CORE wxMemoryDC;
 class WXDLLIMPEXP_FWD_CORE wxPrinterDC;
 class WXDLLIMPEXP_FWD_CORE wxPrintData;
+
+#if wxUSE_GRAPHICS_CONTEXT
+class WXDLLIMPEXP_FWD_CORE wxGraphicsContext;
+#endif
 
 //  Logical ops
 enum wxRasterOperationMode
@@ -512,6 +516,19 @@ public:
     // this needs to overidden if the axis is inverted
     virtual void SetAxisOrientation(bool xLeftRight, bool yBottomUp);
 
+#ifdef __WXMSW__
+    // Native Windows functions using the underlying HDC don't honour GDI+
+    // transformations which may be applied to it. Using this function we can
+    // transform the coordinates manually before passing them to such functions
+    // (as in e.g. wxRendererMSW code). It doesn't do anything if this is not a
+    // wxGCDC.
+    virtual wxRect MSWApplyGDIPlusTransform(const wxRect& r) const
+    {
+        return r;
+    }
+#endif // __WXMSW__
+
+
     // ---------------------------------------------------------
     // the actual drawing API
 
@@ -626,6 +643,13 @@ public:
 
     virtual int GetResolution() const
         { return -1; }
+
+#if wxUSE_GRAPHICS_CONTEXT
+    virtual wxGraphicsContext* GetGraphicsContext() const
+        { return NULL; }
+    virtual void SetGraphicsContext( wxGraphicsContext* WXUNUSED(ctx) )
+        {}
+#endif
 
 private:
     wxDC       *m_owner;
@@ -1315,6 +1339,17 @@ public:
     // GetTempHDC() also works for wxGCDC (but still not for wxPostScriptDC &c)
     TempHDC GetTempHDC() { return TempHDC(*this); }
 #endif // __WXMSW__
+
+#if wxUSE_GRAPHICS_CONTEXT
+    virtual wxGraphicsContext* GetGraphicsContext() const
+    {
+        return m_pimpl->GetGraphicsContext();
+    }
+    virtual void SetGraphicsContext( wxGraphicsContext* ctx )
+    {
+        m_pimpl->SetGraphicsContext(ctx);
+    }
+#endif
 
 protected:
     // ctor takes ownership of the pointer

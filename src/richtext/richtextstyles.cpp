@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     2005-09-30
-// RCS-ID:      $Id: richtextstyles.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: richtextstyles.cpp 69168 2011-09-20 20:03:42Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -357,7 +357,7 @@ wxRichTextStyleDefinition* wxRichTextStyleSheet::FindStyle(const wxList& list, c
     for (wxList::compatibility_iterator node = list.GetFirst(); node; node = node->GetNext())
     {
         wxRichTextStyleDefinition* def = (wxRichTextStyleDefinition*) node->GetData();
-        if (def->GetName().Lower() == name.Lower())
+        if (def->GetName() == name)
             return def;
     }
 

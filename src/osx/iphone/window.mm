@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     2008-06-20
-// RCS-ID:      $Id: window.mm 67415 2011-04-08 12:16:41Z SC $
+// RCS-ID:      $Id: window.mm 69754 2011-11-14 07:52:33Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -496,11 +496,13 @@ void wxWidgetIPhoneImpl::SetLabel(const wxString& title, wxFontEncoding encoding
         wxCFStringRef cf( title , encoding );
         [m_osxView setTitle:cf.AsNSString() forState:UIControlStateNormal ];
     }
+#if 0 // nonpublic API problems
     else if ( [m_osxView respondsToSelector:@selector(setStringValue:) ] )
     {
         wxCFStringRef cf( title , encoding );
         [m_osxView setStringValue:cf.AsNSString()];
     }
+#endif
 }
 
 

@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     30-April-2001
-# RCS-ID:      $Id: make_installer.py 69018 2011-09-07 06:10:32Z RD $
+# RCS-ID:      $Id: make_installer.py 70140 2011-12-28 02:19:04Z RD $
 # Copyright:   (c) 2003 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -589,6 +589,16 @@ Source: "samples\hangman\*.py";             DestDir: "{app}\samples\hangman";
 
 Source: "samples\mainloop\*.py";            DestDir: "{app}\samples\mainloop";
 
+Source: "samples\pubsub\*.bat";            DestDir: "{app}\samples\pubsub";
+Source: "samples\pubsub\advanced\*.txt";   DestDir: "{app}\samples\advanced";
+Source: "samples\pubsub\advanced\*.py";    DestDir: "{app}\samples\advanced";
+Source: "samples\pubsub\basic_arg1\*.txt";   DestDir: "{app}\samples\basic_arg1";
+Source: "samples\pubsub\basic_arg1\*.py";    DestDir: "{app}\samples\basic_arg1";
+Source: "samples\pubsub\basic_kwargs\*.txt";   DestDir: "{app}\samples\basic_kwargs";
+Source: "samples\pubsub\basic_kwargs\*.py";    DestDir: "{app}\samples\basic_kwargs";
+Source: "samples\pubsub\basic_v1\*.txt";   DestDir: "{app}\samples\basic_v1";
+Source: "samples\pubsub\basic_v1\*.py";    DestDir: "{app}\samples\basic_v1";
+
 Source: "samples\pySketch\*.py";            DestDir: "{app}\samples\pySketch";
 Source: "samples\pySketch\images\*.bmp";    DestDir: "{app}\samples\pySketch\images";
 
@@ -644,7 +654,7 @@ Source: "wx\tools\Editra\pixmaps\editra.ico";   DestDir: "{app}\scripts";
 [Icons]
 Name: "{group}\Run the wxPython DEMO"; Filename: "{app}\demo\demo.pyw";           WorkingDir: "{app}\demo";   IconFilename: "{app}\demo\wxpdemo.ico";
 Name: "{group}\PyCrust";               Filename: "{app}\scripts\pycrust.pyw";     WorkingDir: "c:\";          IconFilename: "{app}\scripts\PyCrust.ico";
-Name: "{group}\Pylices";               Filename: "{app}\scripts\pyslices.pyw";    WorkingDir: "c:\";          IconFilename: "{app}\scripts\PySlices.ico";
+Name: "{group}\PySlices";              Filename: "{app}\scripts\pyslices.pyw";    WorkingDir: "c:\";          IconFilename: "{app}\scripts\PySlices.ico";
 Name: "{group}\PyShell";               Filename: "{app}\scripts\pyshell.pyw";     WorkingDir: "c:\";          IconFilename: "{app}\scripts\PyCrust.ico";
 Name: "{group}\PySlicesShell";         Filename: "{app}\scripts\pysliceshell.pyw";WorkingDir: "c:\";          IconFilename: "{app}\scripts\PySlices.ico";
 Name: "{group}\XRC Resource Editor";   Filename: "{app}\scripts\xrced.pyw";       WorkingDir: "c:\";          IconFilename: "{app}\scripts\xrced.ico";
@@ -687,6 +697,14 @@ Type: files; Name: "{app}\samples\hangman\*.pyo";
 Type: files; Name: "{app}\samples\hangman\*.txt";
 Type: files; Name: "{app}\samples\mainloop\*.pyc";
 Type: files; Name: "{app}\samples\mainloop\*.pyo";
+Type: files; Name: "{app}\samples\pubsub\advanced\*.pyc";
+Type: files; Name: "{app}\samples\pubsub\advanced\*.pyo"; 
+Type: files; Name: "{app}\samples\pubsub\basic_arg1\*.pyc";
+Type: files; Name: "{app}\samples\pubsub\basic_arg1\*.pyo"; 
+Type: files; Name: "{app}\samples\pubsub\basic_kwargs\*.pyc";
+Type: files; Name: "{app}\samples\pubsub\basic_kwargs\*.pyo"; 
+Type: files; Name: "{app}\samples\pubsub\basic_v1\*.pyc";   
+Type: files; Name: "{app}\samples\pubsub\basic_v1\*.pyo";    
 Type: files; Name: "{app}\samples\pySketch\*.pyc";
 Type: files; Name: "{app}\samples\pySketch\*.pyo";
 Type: files; Name: "{app}\samples\simple\*.pyc";
@@ -747,7 +765,7 @@ def find_DLLs():
     if os.environ.get('CPU', '') == 'AMD64':
         # Just hard-code it for now until a good solution for finding
         # the right dumpbin can be found...
-        return '292u', sys.version[:3]
+        return '293u', sys.version[:3]
         
     WXDLLVER = PYTHONVER = None
 

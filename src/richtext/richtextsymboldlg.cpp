@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     10/5/2006 3:11:58 PM
-// RCS-ID:      $Id: richtextsymboldlg.cpp 66680 2011-01-14 11:57:44Z JS $
+// RCS-ID:      $Id: richtextsymboldlg.cpp 69321 2011-10-07 03:51:23Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -535,7 +535,7 @@ bool wxSymbolPickerDialog::TransferDataToWindow()
         m_symbolsCtrl->SetSelection(sel);
     }
 
-    UpdateSymbolDisplay();
+    UpdateSymbolDisplay(true, m_symbol.empty());
 
     m_dontUpdate = false;
 

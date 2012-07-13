@@ -2,7 +2,7 @@
 // Name:        dialog.h
 // Purpose:     interface of wxDialog
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dialog.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: dialog.h 69202 2011-09-27 03:34:29Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -15,6 +15,8 @@ enum wxDialogLayoutAdaptationMode
     wxDIALOG_ADAPTATION_MODE_ENABLED = 1,   ///< Enable this dialog overriding global status.
     wxDIALOG_ADAPTATION_MODE_DISABLED = 2   ///< Disable this dialog overriding global status.
 };
+
+#define wxDEFAULT_DIALOG_STYLE  (wxCAPTION | wxSYSTEM_MENU | wxCLOSE_BOX)
 
 /**
     @class wxDialog
@@ -673,3 +675,13 @@ public:
     virtual bool DoLayoutAdaptation(wxDialog* dialog) = 0;
 };
 
+
+class wxWindowModalDialogEvent  : public wxCommandEvent
+{
+public:
+    wxWindowModalDialogEvent (wxEventType commandType = wxEVT_NULL, int id = 0);
+
+    wxDialog *GetDialog() const;
+    int GetReturnCode() const;
+    virtual wxEvent *Clone() const;
+};

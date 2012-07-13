@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     29/01/98
-// RCS-ID:      $Id: log.cpp 67268 2011-03-21 10:59:59Z VZ $
+// RCS-ID:      $Id: log.cpp 69679 2011-11-05 11:23:54Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -216,12 +216,24 @@ unsigned wxLog::LogLastRepeatIfNeeded()
     {
         wxString msg;
 #if wxUSE_INTL
-        msg.Printf(wxPLURAL("The previous message repeated once.",
-                            "The previous message repeated %lu times.",
-                            gs_prevLog.numRepeated),
-                   gs_prevLog.numRepeated);
+        if ( gs_prevLog.numRepeated == 1 )
+        {
+            // We use a separate message for this case as "repeated 1 time"
+            // looks somewhat strange.
+            msg = _("The previous message repeated once.");
+        }
+        else
+        {
+            // Notice that we still use wxPLURAL() to ensure that multiple
+            // numbers of times are correctly formatted, even though we never
+            // actually use the singular string.
+            msg.Printf(wxPLURAL("The previous message repeated %lu time.",
+                                "The previous message repeated %lu times.",
+                                gs_prevLog.numRepeated),
+                       gs_prevLog.numRepeated);
+        }
 #else
-        msg.Printf(wxS("The previous message was repeated %lu times."),
+        msg.Printf(wxS("The previous message was repeated %lu time(s)."),
                    gs_prevLog.numRepeated);
 #endif
         gs_prevLog.numRepeated = 0;
@@ -240,7 +252,16 @@ wxLog::~wxLog()
     {
         wxMessageOutputDebug().Printf
         (
-            wxS("Last repeated message (\"%s\", %lu times) wasn't output"),
+#if wxUSE_INTL
+            wxPLURAL
+            (
+                "Last repeated message (\"%s\", %lu time) wasn't output",
+                "Last repeated message (\"%s\", %lu times) wasn't output",
+                gs_prevLog.numRepeated
+            ),
+#else
+            wxS("Last repeated message (\"%s\", %lu time(s)) wasn't output"),
+#endif
             gs_prevLog.msg,
             gs_prevLog.numRepeated
         );

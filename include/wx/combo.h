@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     Apr-30-2006
-// RCS-ID:      $Id: combo.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: combo.h 69942 2011-12-07 14:05:11Z VZ $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -560,7 +560,8 @@ protected:
 
     // Standard textctrl positioning routine. Just give it platform-dependant
     // textctrl coordinate adjustment.
-    virtual void PositionTextCtrl( int textCtrlXAdjust, int textCtrlYAdjust );
+    virtual void PositionTextCtrl( int textCtrlXAdjust = 0,
+                                   int textCtrlYAdjust = 0);
 
     // event handlers
     void OnSizeEvent( wxSizeEvent& event );

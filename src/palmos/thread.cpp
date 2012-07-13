@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: thread.cpp 67185 2011-03-14 11:54:32Z VZ $
+// RCS-ID:      $Id: thread.cpp 69883 2011-12-01 14:22:15Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -144,6 +144,11 @@ wxCriticalSection::~wxCriticalSection()
 
 void wxCriticalSection::Enter()
 {
+}
+
+bool wxCriticalSection::TryEnter()
+{
+    return false;
 }
 
 void wxCriticalSection::Leave()

@@ -2,7 +2,7 @@
 // Name:        process.h
 // Purpose:     interface of wxProcess
 // Author:      wxWidgets team
-// RCS-ID:      $Id: process.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: process.h 69545 2011-10-26 05:52:53Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -320,4 +320,7 @@ public:
     */
     int GetPid();
 };
+
+
+wxEventType wxEVT_END_PROCESS;
 

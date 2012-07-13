@@ -2,7 +2,7 @@
 // Name:        collpane.h
 // Purpose:     interface of wxCollapsiblePane
 // Author:      wxWidgets team
-// RCS-ID:      $Id: collpane.h 68974 2011-09-03 01:39:39Z RD $
+// RCS-ID:      $Id: collpane.h 68973 2011-09-03 01:39:02Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

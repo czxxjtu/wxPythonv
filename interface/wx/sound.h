@@ -2,7 +2,7 @@
 // Name:        sound.h
 // Purpose:     interface of wxSound
 // Author:      wxWidgets team
-// RCS-ID:      $Id: sound.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: sound.h 69178 2011-09-21 15:08:02Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -36,6 +36,16 @@ public:
             @true if fileName is a resource, @false if it is a filename.
     */
     wxSound(const wxString& fileName, bool isResource = false);
+
+    /**
+        Constructs a wave object from in-memory data.
+
+        @param size
+            Size of the buffer pointer to by @a data.
+        @param data
+            The buffer containing the sound data in WAV format.
+     */
+    wxSound(size_t size, const void* data);
 
     /**
         Destroys the wxSound object.

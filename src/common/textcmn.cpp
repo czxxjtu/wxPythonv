@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     13.07.99
-// RCS-ID:      $Id: textcmn.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: textcmn.cpp 69244 2011-09-30 15:26:39Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -773,7 +773,7 @@ bool wxTextAttr::BitlistsEqPartial(int valueA, int valueB, int flags)
 {
     int relevantBitsA = valueA & flags;
     int relevantBitsB = valueB & flags;
-    return (relevantBitsA != relevantBitsB);
+    return relevantBitsA == relevantBitsB;
 }
 
 /// Split into paragraph and character styles
@@ -940,12 +940,47 @@ int wxTextCtrlBase::overflow(int c)
 
 bool wxTextCtrlBase::EmulateKeyPress(const wxKeyEvent& event)
 {
+    bool handled = false;
     // we have a native implementation for Win32 and so don't need this one
 #ifndef __WIN32__
     wxChar ch = 0;
     int keycode = event.GetKeyCode();
+    
+    long from, to;
+    GetSelection(&from,&to);
+    long insert = GetInsertionPoint();
+    long last = GetLastPosition();
+    
+    // catch arrow left and right 
+    
     switch ( keycode )
     {
+        case WXK_LEFT:
+            if ( event.ShiftDown() )
+                SetSelection( (from > 0 ? from - 1 : 0) , to );
+            else
+            {
+                if ( from != to )
+                    insert = from;
+                else if ( insert > 0 )
+                    insert -= 1;
+                SetInsertionPoint( insert );
+            }
+            handled = true;
+            break;
+        case WXK_RIGHT:
+            if ( event.ShiftDown() )
+                SetSelection( from, (to < last ? to + 1 : last) );
+            else
+            {
+                if ( from != to )
+                    insert = to;
+                else if ( insert < last )
+                    insert += 1;
+                SetInsertionPoint( insert );
+            }
+            handled = true;
+            break;
         case WXK_NUMPAD0:
         case WXK_NUMPAD1:
         case WXK_NUMPAD2:
@@ -991,6 +1026,7 @@ bool wxTextCtrlBase::EmulateKeyPress(const wxKeyEvent& event)
                 const long pos = GetInsertionPoint();
                 if ( pos < GetLastPosition() )
                     Remove(pos, pos + 1);
+                handled = true;
             }
             break;
 
@@ -1000,6 +1036,7 @@ bool wxTextCtrlBase::EmulateKeyPress(const wxKeyEvent& event)
                 const long pos = GetInsertionPoint();
                 if ( pos > 0 )
                     Remove(pos - 1, pos);
+                handled = true;
             }
             break;
 
@@ -1031,13 +1068,13 @@ bool wxTextCtrlBase::EmulateKeyPress(const wxKeyEvent& event)
     {
         WriteText(ch);
 
-        return true;
+        handled = true;
     }
 #else // __WIN32__
     wxUnusedVar(event);
 #endif // !__WIN32__/__WIN32__
 
-    return false;
+    return handled;
 }
 
 // do the window-specific processing after processing the update event
@@ -1082,6 +1119,19 @@ wxTextAreaBase::HitTest(const wxPoint& WXUNUSED(pt), long * WXUNUSED(pos)) const
 {
     // not implemented
     return wxTE_HT_UNKNOWN;
+}
+
+wxPoint wxTextAreaBase::PositionToCoords(long pos) const
+{
+    wxCHECK_MSG( IsValidPosition(pos), wxDefaultPosition,
+                 wxS("Position argument out of range.") );
+
+    return DoPositionToCoords(pos);
+}
+
+wxPoint wxTextAreaBase::DoPositionToCoords(long WXUNUSED(pos)) const
+{
+    return wxDefaultPosition;
 }
 
 #else // !wxUSE_TEXTCTRL

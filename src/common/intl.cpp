@@ -5,7 +5,7 @@
 // Modified by: Michael N. Filippov <michael@idisys.iae.nsk.su>
 //              (2003/09/30 - PluralForms support)
 // Created:     29/01/98
-// RCS-ID:      $Id: intl.cpp 67405 2011-04-06 14:37:27Z VZ $
+// RCS-ID:      $Id: intl.cpp 68861 2011-08-23 11:04:37Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1442,7 +1442,23 @@ wxString wxLocale::GetInfo(wxLocaleInfo index, wxLocaleCategory cat)
                                      : LOCALE_SDECIMAL,
                                  buf,
                                  WXSIZEOF(buf)) )
+            {
                 str = buf;
+
+                // As we get our decimal point separator from Win32 and not the
+                // CRT there is a possibility of mismatch between them and this
+                // can easily happen if the user code called setlocale()
+                // instead of using wxLocale to change the locale. And this can
+                // result in very strange bugs elsewhere in the code as the
+                // assumptions that formatted strings do use the decimal
+                // separator actually fail, so check for it here.
+                wxASSERT_MSG
+                (
+                    wxString::Format("%.3f", 1.23).find(str) != wxString::npos,
+                    "Decimal separator mismatch -- did you use setlocale()?"
+                    "If so, use wxLocale to change the locale instead."
+                );
+            }
             break;
 
         case wxLOCALE_SHORT_DATE_FMT:

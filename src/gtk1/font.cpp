@@ -2,7 +2,7 @@
 // Name:        src/gtk1/font.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: font.cpp 67681 2011-05-03 16:29:04Z DS $
+// Id:          $Id: font.cpp 69021 2011-09-07 16:57:42Z PC $
 // Copyright:   (c) 1998 Robert Roebling and Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -25,6 +25,7 @@
     #include "wx/settings.h"
     #include "wx/gdicmn.h"
     #include "wx/encinfo.h"
+    #include "wx/crt.h"
 #endif
 
 #include "wx/fontutil.h"

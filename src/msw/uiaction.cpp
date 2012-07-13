@@ -4,7 +4,7 @@
 // Author:      Kevin Ollivier, Steven Lamerton, Vadim Zeitlin
 // Modified by:
 // Created:     2010-03-06
-// RCS-ID:      $Id: uiaction.cpp 67963 2011-06-16 15:13:59Z VZ $
+// RCS-ID:      $Id: uiaction.cpp 69766 2011-11-16 18:27:48Z VZ $
 // Copyright:   (c) Kevin Ollivier
 //              (c) 2010 Steven Lamerton
 //              (c) 2010 Vadim Zeitlin
@@ -14,6 +14,10 @@
 #include "wx/wxprec.h"
 
 #if wxUSE_UIACTIONSIMULATOR
+
+#ifndef WX_PRECOMP
+    #include "wx/msw/private.h"             // For wxGetCursorPosMSW()
+#endif
 
 #include "wx/uiaction.h"
 #include "wx/msw/wrapwin.h"
@@ -49,7 +53,7 @@ DWORD EventTypeForMouseButton(int button, bool isDown)
 bool wxUIActionSimulator::MouseDown(int button)
 {
     POINT p;
-    GetCursorPos(&p);
+    wxGetCursorPosMSW(&p);
     mouse_event(EventTypeForMouseButton(button, true), p.x, p.y, 0, 0);
     return true;
 }
@@ -71,7 +75,7 @@ bool wxUIActionSimulator::MouseMove(long x, long y)
 bool wxUIActionSimulator::MouseUp(int button)
 {
     POINT p;
-    GetCursorPos(&p);
+    wxGetCursorPosMSW(&p);
     mouse_event(EventTypeForMouseButton(button, false), p.x, p.y, 0, 0);
     return true;
 }

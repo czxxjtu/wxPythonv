@@ -2480,143 +2480,145 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 #define SWIGTYPE_p_wxArrayInt swig_types[14]
 #define SWIGTYPE_p_wxArrayString swig_types[15]
 #define SWIGTYPE_p_wxBMPHandler swig_types[16]
-#define SWIGTYPE_p_wxBoxSizer swig_types[17]
-#define SWIGTYPE_p_wxCURHandler swig_types[18]
-#define SWIGTYPE_p_wxChildFocusEvent swig_types[19]
-#define SWIGTYPE_p_wxClientData swig_types[20]
-#define SWIGTYPE_p_wxClipboardTextEvent swig_types[21]
-#define SWIGTYPE_p_wxCloseEvent swig_types[22]
-#define SWIGTYPE_p_wxColour swig_types[23]
-#define SWIGTYPE_p_wxCommandEvent swig_types[24]
-#define SWIGTYPE_p_wxContextMenuEvent swig_types[25]
-#define SWIGTYPE_p_wxControl swig_types[26]
-#define SWIGTYPE_p_wxControlWithItems swig_types[27]
-#define SWIGTYPE_p_wxDC swig_types[28]
-#define SWIGTYPE_p_wxDataFormat swig_types[29]
-#define SWIGTYPE_p_wxDataObject swig_types[30]
-#define SWIGTYPE_p_wxDataViewBitmapRenderer swig_types[31]
-#define SWIGTYPE_p_wxDataViewChoiceByIndexRenderer swig_types[32]
-#define SWIGTYPE_p_wxDataViewChoiceRenderer swig_types[33]
-#define SWIGTYPE_p_wxDataViewColumn swig_types[34]
-#define SWIGTYPE_p_wxDataViewCtrl swig_types[35]
-#define SWIGTYPE_p_wxDataViewCustomRenderer swig_types[36]
-#define SWIGTYPE_p_wxDataViewDateRenderer swig_types[37]
-#define SWIGTYPE_p_wxDataViewEvent swig_types[38]
-#define SWIGTYPE_p_wxDataViewIconText swig_types[39]
-#define SWIGTYPE_p_wxDataViewIconTextRenderer swig_types[40]
-#define SWIGTYPE_p_wxDataViewIndexListModel swig_types[41]
-#define SWIGTYPE_p_wxDataViewItem swig_types[42]
-#define SWIGTYPE_p_wxDataViewItemArray swig_types[43]
-#define SWIGTYPE_p_wxDataViewItemArray_iterator swig_types[44]
-#define SWIGTYPE_p_wxDataViewItemAttr swig_types[45]
-#define SWIGTYPE_p_wxDataViewListCtrl swig_types[46]
-#define SWIGTYPE_p_wxDataViewListStore swig_types[47]
-#define SWIGTYPE_p_wxDataViewModel swig_types[48]
-#define SWIGTYPE_p_wxDataViewModelNotifier swig_types[49]
-#define SWIGTYPE_p_wxDataViewProgressRenderer swig_types[50]
-#define SWIGTYPE_p_wxDataViewRenderer swig_types[51]
-#define SWIGTYPE_p_wxDataViewSpinRenderer swig_types[52]
-#define SWIGTYPE_p_wxDataViewTextRenderer swig_types[53]
-#define SWIGTYPE_p_wxDataViewToggleRenderer swig_types[54]
-#define SWIGTYPE_p_wxDataViewTreeCtrl swig_types[55]
-#define SWIGTYPE_p_wxDataViewTreeStore swig_types[56]
-#define SWIGTYPE_p_wxDataViewTreeStoreContainerNode swig_types[57]
-#define SWIGTYPE_p_wxDataViewTreeStoreNode swig_types[58]
-#define SWIGTYPE_p_wxDataViewTreeStoreNodeList swig_types[59]
-#define SWIGTYPE_p_wxDataViewTreeStoreNodeList_iterator swig_types[60]
-#define SWIGTYPE_p_wxDataViewVirtualListModel swig_types[61]
-#define SWIGTYPE_p_wxDateEvent swig_types[62]
-#define SWIGTYPE_p_wxDisplayChangedEvent swig_types[63]
-#define SWIGTYPE_p_wxDropFilesEvent swig_types[64]
-#define SWIGTYPE_p_wxDuplexMode swig_types[65]
-#define SWIGTYPE_p_wxEraseEvent swig_types[66]
-#define SWIGTYPE_p_wxEvent swig_types[67]
-#define SWIGTYPE_p_wxEventBlocker swig_types[68]
-#define SWIGTYPE_p_wxEvtHandler swig_types[69]
-#define SWIGTYPE_p_wxFSFile swig_types[70]
-#define SWIGTYPE_p_wxFileSystem swig_types[71]
-#define SWIGTYPE_p_wxFlexGridSizer swig_types[72]
-#define SWIGTYPE_p_wxFocusEvent swig_types[73]
-#define SWIGTYPE_p_wxFont swig_types[74]
-#define SWIGTYPE_p_wxGBSizerItem swig_types[75]
-#define SWIGTYPE_p_wxGIFHandler swig_types[76]
-#define SWIGTYPE_p_wxGridBagSizer swig_types[77]
-#define SWIGTYPE_p_wxGridSizer swig_types[78]
-#define SWIGTYPE_p_wxHeaderColumn swig_types[79]
-#define SWIGTYPE_p_wxHeaderColumnSimple swig_types[80]
-#define SWIGTYPE_p_wxICOHandler swig_types[81]
-#define SWIGTYPE_p_wxIcon swig_types[82]
-#define SWIGTYPE_p_wxIconizeEvent swig_types[83]
-#define SWIGTYPE_p_wxIdleEvent swig_types[84]
-#define SWIGTYPE_p_wxImage swig_types[85]
-#define SWIGTYPE_p_wxImageHandler swig_types[86]
-#define SWIGTYPE_p_wxImageList swig_types[87]
-#define SWIGTYPE_p_wxIndividualLayoutConstraint swig_types[88]
-#define SWIGTYPE_p_wxInitDialogEvent swig_types[89]
-#define SWIGTYPE_p_wxJPEGHandler swig_types[90]
-#define SWIGTYPE_p_wxKeyEvent swig_types[91]
-#define SWIGTYPE_p_wxLayoutConstraints swig_types[92]
-#define SWIGTYPE_p_wxMaximizeEvent swig_types[93]
-#define SWIGTYPE_p_wxMenu swig_types[94]
-#define SWIGTYPE_p_wxMenuBar swig_types[95]
-#define SWIGTYPE_p_wxMenuEvent swig_types[96]
-#define SWIGTYPE_p_wxMenuItem swig_types[97]
-#define SWIGTYPE_p_wxMouseCaptureChangedEvent swig_types[98]
-#define SWIGTYPE_p_wxMouseCaptureLostEvent swig_types[99]
-#define SWIGTYPE_p_wxMouseEvent swig_types[100]
-#define SWIGTYPE_p_wxMoveEvent swig_types[101]
-#define SWIGTYPE_p_wxNavigationKeyEvent swig_types[102]
-#define SWIGTYPE_p_wxNcPaintEvent swig_types[103]
-#define SWIGTYPE_p_wxNotifyEvent swig_types[104]
-#define SWIGTYPE_p_wxObject swig_types[105]
-#define SWIGTYPE_p_wxPCXHandler swig_types[106]
-#define SWIGTYPE_p_wxPNGHandler swig_types[107]
-#define SWIGTYPE_p_wxPNMHandler swig_types[108]
-#define SWIGTYPE_p_wxPaintEvent swig_types[109]
-#define SWIGTYPE_p_wxPaletteChangedEvent swig_types[110]
-#define SWIGTYPE_p_wxPaperSize swig_types[111]
-#define SWIGTYPE_p_wxPoint swig_types[112]
-#define SWIGTYPE_p_wxPyApp swig_types[113]
-#define SWIGTYPE_p_wxPyCommandEvent swig_types[114]
-#define SWIGTYPE_p_wxPyDataViewCustomRenderer swig_types[115]
-#define SWIGTYPE_p_wxPyDataViewModel swig_types[116]
-#define SWIGTYPE_p_wxPyDataViewModelNotifier swig_types[117]
-#define SWIGTYPE_p_wxPyEvent swig_types[118]
-#define SWIGTYPE_p_wxPyEvtHandler swig_types[119]
-#define SWIGTYPE_p_wxPyImageHandler swig_types[120]
-#define SWIGTYPE_p_wxPySizer swig_types[121]
-#define SWIGTYPE_p_wxPyValidator swig_types[122]
-#define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[123]
-#define SWIGTYPE_p_wxRect swig_types[124]
-#define SWIGTYPE_p_wxRefCounter swig_types[125]
-#define SWIGTYPE_p_wxScrollEvent swig_types[126]
-#define SWIGTYPE_p_wxScrollWinEvent swig_types[127]
-#define SWIGTYPE_p_wxSetCursorEvent swig_types[128]
-#define SWIGTYPE_p_wxSettableHeaderColumn swig_types[129]
-#define SWIGTYPE_p_wxShowEvent swig_types[130]
-#define SWIGTYPE_p_wxSize swig_types[131]
-#define SWIGTYPE_p_wxSizeEvent swig_types[132]
-#define SWIGTYPE_p_wxSizer swig_types[133]
-#define SWIGTYPE_p_wxSizerItem swig_types[134]
-#define SWIGTYPE_p_wxStaticBoxSizer swig_types[135]
-#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[136]
-#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[137]
-#define SWIGTYPE_p_wxTGAHandler swig_types[138]
-#define SWIGTYPE_p_wxTIFFHandler swig_types[139]
-#define SWIGTYPE_p_wxTextCtrlBase swig_types[140]
-#define SWIGTYPE_p_wxThreadEvent swig_types[141]
-#define SWIGTYPE_p_wxUpdateUIEvent swig_types[142]
-#define SWIGTYPE_p_wxValidator swig_types[143]
-#define SWIGTYPE_p_wxVariant swig_types[144]
-#define SWIGTYPE_p_wxVariantVector swig_types[145]
-#define SWIGTYPE_p_wxVisualAttributes swig_types[146]
-#define SWIGTYPE_p_wxWindow swig_types[147]
-#define SWIGTYPE_p_wxWindowCreateEvent swig_types[148]
-#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[149]
-#define SWIGTYPE_p_wxWrapSizer swig_types[150]
-#define SWIGTYPE_p_wxXPMHandler swig_types[151]
-static swig_type_info *swig_types[153];
-static swig_module_info swig_module = {swig_types, 152, 0, 0, 0, 0};
+#define SWIGTYPE_p_wxBookCtrlBase swig_types[17]
+#define SWIGTYPE_p_wxBookCtrlEvent swig_types[18]
+#define SWIGTYPE_p_wxBoxSizer swig_types[19]
+#define SWIGTYPE_p_wxCURHandler swig_types[20]
+#define SWIGTYPE_p_wxChildFocusEvent swig_types[21]
+#define SWIGTYPE_p_wxClientData swig_types[22]
+#define SWIGTYPE_p_wxClipboardTextEvent swig_types[23]
+#define SWIGTYPE_p_wxCloseEvent swig_types[24]
+#define SWIGTYPE_p_wxColour swig_types[25]
+#define SWIGTYPE_p_wxCommandEvent swig_types[26]
+#define SWIGTYPE_p_wxContextMenuEvent swig_types[27]
+#define SWIGTYPE_p_wxControl swig_types[28]
+#define SWIGTYPE_p_wxControlWithItems swig_types[29]
+#define SWIGTYPE_p_wxDC swig_types[30]
+#define SWIGTYPE_p_wxDataFormat swig_types[31]
+#define SWIGTYPE_p_wxDataObject swig_types[32]
+#define SWIGTYPE_p_wxDataViewBitmapRenderer swig_types[33]
+#define SWIGTYPE_p_wxDataViewChoiceByIndexRenderer swig_types[34]
+#define SWIGTYPE_p_wxDataViewChoiceRenderer swig_types[35]
+#define SWIGTYPE_p_wxDataViewColumn swig_types[36]
+#define SWIGTYPE_p_wxDataViewCtrl swig_types[37]
+#define SWIGTYPE_p_wxDataViewCustomRenderer swig_types[38]
+#define SWIGTYPE_p_wxDataViewDateRenderer swig_types[39]
+#define SWIGTYPE_p_wxDataViewEvent swig_types[40]
+#define SWIGTYPE_p_wxDataViewIconText swig_types[41]
+#define SWIGTYPE_p_wxDataViewIconTextRenderer swig_types[42]
+#define SWIGTYPE_p_wxDataViewIndexListModel swig_types[43]
+#define SWIGTYPE_p_wxDataViewItem swig_types[44]
+#define SWIGTYPE_p_wxDataViewItemArray swig_types[45]
+#define SWIGTYPE_p_wxDataViewItemArray_iterator swig_types[46]
+#define SWIGTYPE_p_wxDataViewItemAttr swig_types[47]
+#define SWIGTYPE_p_wxDataViewListCtrl swig_types[48]
+#define SWIGTYPE_p_wxDataViewListStore swig_types[49]
+#define SWIGTYPE_p_wxDataViewModel swig_types[50]
+#define SWIGTYPE_p_wxDataViewModelNotifier swig_types[51]
+#define SWIGTYPE_p_wxDataViewProgressRenderer swig_types[52]
+#define SWIGTYPE_p_wxDataViewRenderer swig_types[53]
+#define SWIGTYPE_p_wxDataViewSpinRenderer swig_types[54]
+#define SWIGTYPE_p_wxDataViewTextRenderer swig_types[55]
+#define SWIGTYPE_p_wxDataViewToggleRenderer swig_types[56]
+#define SWIGTYPE_p_wxDataViewTreeCtrl swig_types[57]
+#define SWIGTYPE_p_wxDataViewTreeStore swig_types[58]
+#define SWIGTYPE_p_wxDataViewTreeStoreContainerNode swig_types[59]
+#define SWIGTYPE_p_wxDataViewTreeStoreNode swig_types[60]
+#define SWIGTYPE_p_wxDataViewTreeStoreNodeList swig_types[61]
+#define SWIGTYPE_p_wxDataViewTreeStoreNodeList_iterator swig_types[62]
+#define SWIGTYPE_p_wxDataViewVirtualListModel swig_types[63]
+#define SWIGTYPE_p_wxDateEvent swig_types[64]
+#define SWIGTYPE_p_wxDisplayChangedEvent swig_types[65]
+#define SWIGTYPE_p_wxDropFilesEvent swig_types[66]
+#define SWIGTYPE_p_wxDuplexMode swig_types[67]
+#define SWIGTYPE_p_wxEraseEvent swig_types[68]
+#define SWIGTYPE_p_wxEvent swig_types[69]
+#define SWIGTYPE_p_wxEventBlocker swig_types[70]
+#define SWIGTYPE_p_wxEvtHandler swig_types[71]
+#define SWIGTYPE_p_wxFSFile swig_types[72]
+#define SWIGTYPE_p_wxFileSystem swig_types[73]
+#define SWIGTYPE_p_wxFlexGridSizer swig_types[74]
+#define SWIGTYPE_p_wxFocusEvent swig_types[75]
+#define SWIGTYPE_p_wxFont swig_types[76]
+#define SWIGTYPE_p_wxGBSizerItem swig_types[77]
+#define SWIGTYPE_p_wxGIFHandler swig_types[78]
+#define SWIGTYPE_p_wxGridBagSizer swig_types[79]
+#define SWIGTYPE_p_wxGridSizer swig_types[80]
+#define SWIGTYPE_p_wxHeaderColumn swig_types[81]
+#define SWIGTYPE_p_wxHeaderColumnSimple swig_types[82]
+#define SWIGTYPE_p_wxICOHandler swig_types[83]
+#define SWIGTYPE_p_wxIcon swig_types[84]
+#define SWIGTYPE_p_wxIconizeEvent swig_types[85]
+#define SWIGTYPE_p_wxIdleEvent swig_types[86]
+#define SWIGTYPE_p_wxImage swig_types[87]
+#define SWIGTYPE_p_wxImageHandler swig_types[88]
+#define SWIGTYPE_p_wxIndividualLayoutConstraint swig_types[89]
+#define SWIGTYPE_p_wxInitDialogEvent swig_types[90]
+#define SWIGTYPE_p_wxJPEGHandler swig_types[91]
+#define SWIGTYPE_p_wxKeyEvent swig_types[92]
+#define SWIGTYPE_p_wxLayoutConstraints swig_types[93]
+#define SWIGTYPE_p_wxMaximizeEvent swig_types[94]
+#define SWIGTYPE_p_wxMenu swig_types[95]
+#define SWIGTYPE_p_wxMenuBar swig_types[96]
+#define SWIGTYPE_p_wxMenuEvent swig_types[97]
+#define SWIGTYPE_p_wxMenuItem swig_types[98]
+#define SWIGTYPE_p_wxMouseCaptureChangedEvent swig_types[99]
+#define SWIGTYPE_p_wxMouseCaptureLostEvent swig_types[100]
+#define SWIGTYPE_p_wxMouseEvent swig_types[101]
+#define SWIGTYPE_p_wxMoveEvent swig_types[102]
+#define SWIGTYPE_p_wxNavigationKeyEvent swig_types[103]
+#define SWIGTYPE_p_wxNcPaintEvent swig_types[104]
+#define SWIGTYPE_p_wxNotifyEvent swig_types[105]
+#define SWIGTYPE_p_wxObject swig_types[106]
+#define SWIGTYPE_p_wxPCXHandler swig_types[107]
+#define SWIGTYPE_p_wxPNGHandler swig_types[108]
+#define SWIGTYPE_p_wxPNMHandler swig_types[109]
+#define SWIGTYPE_p_wxPaintEvent swig_types[110]
+#define SWIGTYPE_p_wxPaletteChangedEvent swig_types[111]
+#define SWIGTYPE_p_wxPaperSize swig_types[112]
+#define SWIGTYPE_p_wxPoint swig_types[113]
+#define SWIGTYPE_p_wxPyApp swig_types[114]
+#define SWIGTYPE_p_wxPyCommandEvent swig_types[115]
+#define SWIGTYPE_p_wxPyDataViewCustomRenderer swig_types[116]
+#define SWIGTYPE_p_wxPyDataViewModel swig_types[117]
+#define SWIGTYPE_p_wxPyDataViewModelNotifier swig_types[118]
+#define SWIGTYPE_p_wxPyEvent swig_types[119]
+#define SWIGTYPE_p_wxPyEvtHandler swig_types[120]
+#define SWIGTYPE_p_wxPyImageHandler swig_types[121]
+#define SWIGTYPE_p_wxPySizer swig_types[122]
+#define SWIGTYPE_p_wxPyValidator swig_types[123]
+#define SWIGTYPE_p_wxQueryNewPaletteEvent swig_types[124]
+#define SWIGTYPE_p_wxRect swig_types[125]
+#define SWIGTYPE_p_wxRefCounter swig_types[126]
+#define SWIGTYPE_p_wxScrollEvent swig_types[127]
+#define SWIGTYPE_p_wxScrollWinEvent swig_types[128]
+#define SWIGTYPE_p_wxSetCursorEvent swig_types[129]
+#define SWIGTYPE_p_wxSettableHeaderColumn swig_types[130]
+#define SWIGTYPE_p_wxShowEvent swig_types[131]
+#define SWIGTYPE_p_wxSize swig_types[132]
+#define SWIGTYPE_p_wxSizeEvent swig_types[133]
+#define SWIGTYPE_p_wxSizer swig_types[134]
+#define SWIGTYPE_p_wxSizerItem swig_types[135]
+#define SWIGTYPE_p_wxStaticBoxSizer swig_types[136]
+#define SWIGTYPE_p_wxStdDialogButtonSizer swig_types[137]
+#define SWIGTYPE_p_wxSysColourChangedEvent swig_types[138]
+#define SWIGTYPE_p_wxTGAHandler swig_types[139]
+#define SWIGTYPE_p_wxTIFFHandler swig_types[140]
+#define SWIGTYPE_p_wxTextCtrlBase swig_types[141]
+#define SWIGTYPE_p_wxThreadEvent swig_types[142]
+#define SWIGTYPE_p_wxUpdateUIEvent swig_types[143]
+#define SWIGTYPE_p_wxValidator swig_types[144]
+#define SWIGTYPE_p_wxVariant swig_types[145]
+#define SWIGTYPE_p_wxVariantVector swig_types[146]
+#define SWIGTYPE_p_wxVisualAttributes swig_types[147]
+#define SWIGTYPE_p_wxWindow swig_types[148]
+#define SWIGTYPE_p_wxWindowCreateEvent swig_types[149]
+#define SWIGTYPE_p_wxWindowDestroyEvent swig_types[150]
+#define SWIGTYPE_p_wxWithImages swig_types[151]
+#define SWIGTYPE_p_wxWrapSizer swig_types[152]
+#define SWIGTYPE_p_wxXPMHandler swig_types[153]
+static swig_type_info *swig_types[155];
+static swig_module_info swig_module = {swig_types, 154, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -13272,6 +13274,64 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_DataViewCtrl_GetSelectedItemsCount(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_GetSelectedItemsCount" "', expected argument " "1"" of type '" "wxDataViewCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (int)((wxDataViewCtrl const *)arg1)->GetSelectedItemsCount();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewCtrl_HasSelection(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewCtrl, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewCtrl_HasSelection" "', expected argument " "1"" of type '" "wxDataViewCtrl const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewCtrl * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewCtrl const *)arg1)->HasSelection();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_DataViewCtrl_GetSelection(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   wxDataViewCtrl *arg1 = (wxDataViewCtrl *) 0 ;
@@ -14405,6 +14465,74 @@ SWIGINTERN PyObject *_wrap_DataViewEvent_SetValue(PyObject *SWIGUNUSEDPARM(self)
   {
     PyThreadState* __tstate = wxPyBeginAllowThreads();
     (arg1)->SetValue((wxVariant const &)*arg2);
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewEvent_IsEditCancelled(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  wxDataViewEvent *arg1 = (wxDataViewEvent *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewEvent_IsEditCancelled" "', expected argument " "1"" of type '" "wxDataViewEvent const *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewEvent * >(argp1);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    result = (bool)((wxDataViewEvent const *)arg1)->IsEditCancelled();
+    wxPyEndAllowThreads(__tstate);
+    if (PyErr_Occurred()) SWIG_fail;
+  }
+  {
+    resultobj = result ? Py_True : Py_False; Py_INCREF(resultobj);
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_DataViewEvent_SetEditCanceled(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  wxDataViewEvent *arg1 = (wxDataViewEvent *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "editCancelled", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewEvent_SetEditCanceled",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewEvent_SetEditCanceled" "', expected argument " "1"" of type '" "wxDataViewEvent *""'"); 
+  }
+  arg1 = reinterpret_cast< wxDataViewEvent * >(argp1);
+  ecode2 = SWIG_AsVal_bool(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DataViewEvent_SetEditCanceled" "', expected argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  {
+    PyThreadState* __tstate = wxPyBeginAllowThreads();
+    (arg1)->SetEditCanceled(arg2);
     wxPyEndAllowThreads(__tstate);
     if (PyErr_Occurred()) SWIG_fail;
   }
@@ -19125,72 +19253,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DataViewTreeCtrl_SetImageList(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
-  PyObject *resultobj = 0;
-  wxDataViewTreeCtrl *arg1 = (wxDataViewTreeCtrl *) 0 ;
-  wxImageList *arg2 = (wxImageList *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  char *  kwnames[] = {
-    (char *) "self",(char *) "imagelist", NULL 
-  };
-  
-  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:DataViewTreeCtrl_SetImageList",kwnames,&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_wxDataViewTreeCtrl, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewTreeCtrl_SetImageList" "', expected argument " "1"" of type '" "wxDataViewTreeCtrl *""'"); 
-  }
-  arg1 = reinterpret_cast< wxDataViewTreeCtrl * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&arg2), SWIGTYPE_p_wxImageList, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "DataViewTreeCtrl_SetImageList" "', expected argument " "2"" of type '" "wxImageList *""'");
-  }
-  {
-    PyThreadState* __tstate = wxPyBeginAllowThreads();
-    (arg1)->SetImageList(arg2);
-    wxPyEndAllowThreads(__tstate);
-    if (PyErr_Occurred()) SWIG_fail;
-  }
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_DataViewTreeCtrl_GetImageList(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  wxDataViewTreeCtrl *arg1 = (wxDataViewTreeCtrl *) 0 ;
-  wxImageList *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_wxDataViewTreeCtrl, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DataViewTreeCtrl_GetImageList" "', expected argument " "1"" of type '" "wxDataViewTreeCtrl *""'"); 
-  }
-  arg1 = reinterpret_cast< wxDataViewTreeCtrl * >(argp1);
-  {
-    PyThreadState* __tstate = wxPyBeginAllowThreads();
-    result = (wxImageList *)(arg1)->GetImageList();
-    wxPyEndAllowThreads(__tstate);
-    if (PyErr_Occurred()) SWIG_fail;
-  }
-  {
-    resultobj = wxPyMake_wxObject(result, (bool)0); 
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_DataViewTreeCtrl_AppendItem(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
   PyObject *resultobj = 0;
   wxDataViewTreeCtrl *arg1 = (wxDataViewTreeCtrl *) 0 ;
@@ -20562,6 +20624,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewCtrl_GetIndent", (PyCFunction)_wrap_DataViewCtrl_GetIndent, METH_O, NULL},
 	 { (char *)"DataViewCtrl_GetCurrentItem", (PyCFunction)_wrap_DataViewCtrl_GetCurrentItem, METH_O, NULL},
 	 { (char *)"DataViewCtrl_SetCurrentItem", (PyCFunction) _wrap_DataViewCtrl_SetCurrentItem, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewCtrl_GetSelectedItemsCount", (PyCFunction)_wrap_DataViewCtrl_GetSelectedItemsCount, METH_O, NULL},
+	 { (char *)"DataViewCtrl_HasSelection", (PyCFunction)_wrap_DataViewCtrl_HasSelection, METH_O, NULL},
 	 { (char *)"DataViewCtrl_GetSelection", (PyCFunction)_wrap_DataViewCtrl_GetSelection, METH_O, NULL},
 	 { (char *)"DataViewCtrl_GetSelections", (PyCFunction)_wrap_DataViewCtrl_GetSelections, METH_O, NULL},
 	 { (char *)"DataViewCtrl_SetSelections", (PyCFunction) _wrap_DataViewCtrl_SetSelections, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -20593,6 +20657,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewEvent_SetModel", (PyCFunction) _wrap_DataViewEvent_SetModel, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewEvent_GetValue", (PyCFunction)_wrap_DataViewEvent_GetValue, METH_O, NULL},
 	 { (char *)"DataViewEvent_SetValue", (PyCFunction) _wrap_DataViewEvent_SetValue, METH_VARARGS | METH_KEYWORDS, NULL},
+	 { (char *)"DataViewEvent_IsEditCancelled", (PyCFunction)_wrap_DataViewEvent_IsEditCancelled, METH_O, NULL},
+	 { (char *)"DataViewEvent_SetEditCanceled", (PyCFunction) _wrap_DataViewEvent_SetEditCanceled, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewEvent_SetDataViewColumn", (PyCFunction) _wrap_DataViewEvent_SetDataViewColumn, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewEvent_GetDataViewColumn", (PyCFunction)_wrap_DataViewEvent_GetDataViewColumn, METH_O, NULL},
 	 { (char *)"DataViewEvent_GetPosition", (PyCFunction)_wrap_DataViewEvent_GetPosition, METH_O, NULL},
@@ -20705,8 +20771,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DataViewTreeCtrl_Create", (PyCFunction) _wrap_DataViewTreeCtrl_Create, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewTreeCtrl_GetStore", (PyCFunction)_wrap_DataViewTreeCtrl_GetStore, METH_O, NULL},
 	 { (char *)"DataViewTreeCtrl_IsContainer", (PyCFunction) _wrap_DataViewTreeCtrl_IsContainer, METH_VARARGS | METH_KEYWORDS, NULL},
-	 { (char *)"DataViewTreeCtrl_SetImageList", (PyCFunction) _wrap_DataViewTreeCtrl_SetImageList, METH_VARARGS | METH_KEYWORDS, NULL},
-	 { (char *)"DataViewTreeCtrl_GetImageList", (PyCFunction)_wrap_DataViewTreeCtrl_GetImageList, METH_O, NULL},
 	 { (char *)"DataViewTreeCtrl_AppendItem", (PyCFunction) _wrap_DataViewTreeCtrl_AppendItem, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewTreeCtrl_PrependItem", (PyCFunction) _wrap_DataViewTreeCtrl_PrependItem, METH_VARARGS | METH_KEYWORDS, NULL},
 	 { (char *)"DataViewTreeCtrl_InsertItem", (PyCFunction) _wrap_DataViewTreeCtrl_InsertItem, METH_VARARGS | METH_KEYWORDS, NULL},
@@ -20757,6 +20821,9 @@ static void *_p_wxInitDialogEventTo_p_wxEvent(void *x) {
 }
 static void *_p_wxScrollEventTo_p_wxEvent(void *x) {
     return (void *)((wxEvent *) (wxCommandEvent *) ((wxScrollEvent *) x));
+}
+static void *_p_wxBookCtrlEventTo_p_wxEvent(void *x) {
+    return (void *)((wxEvent *) (wxCommandEvent *)(wxNotifyEvent *) ((wxBookCtrlEvent *) x));
 }
 static void *_p_wxNotifyEventTo_p_wxEvent(void *x) {
     return (void *)((wxEvent *) (wxCommandEvent *) ((wxNotifyEvent *) x));
@@ -20884,6 +20951,9 @@ static void *_p_wxControlWithItemsTo_p_wxControl(void *x) {
 static void *_p_wxTextCtrlBaseTo_p_wxControl(void *x) {
     return (void *)((wxControl *)  ((wxTextCtrlBase *) x));
 }
+static void *_p_wxBookCtrlBaseTo_p_wxControl(void *x) {
+    return (void *)((wxControl *)  ((wxBookCtrlBase *) x));
+}
 static void *_p_wxDataViewTreeCtrlTo_p_wxControl(void *x) {
     return (void *)((wxControl *) (wxDataViewCtrl *) ((wxDataViewTreeCtrl *) x));
 }
@@ -20941,6 +21011,9 @@ static void *_p_wxHeaderColumnSimpleTo_p_wxSettableHeaderColumn(void *x) {
 static void *_p_wxDataViewColumnTo_p_wxSettableHeaderColumn(void *x) {
     return (void *)((wxSettableHeaderColumn *)  ((wxDataViewColumn *) x));
 }
+static void *_p_wxBookCtrlEventTo_p_wxNotifyEvent(void *x) {
+    return (void *)((wxNotifyEvent *)  ((wxBookCtrlEvent *) x));
+}
 static void *_p_wxDataViewEventTo_p_wxNotifyEvent(void *x) {
     return (void *)((wxNotifyEvent *)  ((wxDataViewEvent *) x));
 }
@@ -20953,11 +21026,11 @@ static void *_p_wxDataViewTreeCtrlTo_p_wxDataViewCtrl(void *x) {
 static void *_p_wxEventBlockerTo_p_wxEvtHandler(void *x) {
     return (void *)((wxEvtHandler *)  ((wxEventBlocker *) x));
 }
-static void *_p_wxDataViewTreeCtrlTo_p_wxEvtHandler(void *x) {
-    return (void *)((wxEvtHandler *) (wxWindow *)(wxControl *)(wxDataViewCtrl *) ((wxDataViewTreeCtrl *) x));
-}
 static void *_p_wxDataViewListCtrlTo_p_wxEvtHandler(void *x) {
     return (void *)((wxEvtHandler *) (wxWindow *)(wxControl *)(wxDataViewCtrl *) ((wxDataViewListCtrl *) x));
+}
+static void *_p_wxDataViewTreeCtrlTo_p_wxEvtHandler(void *x) {
+    return (void *)((wxEvtHandler *) (wxWindow *)(wxControl *)(wxDataViewCtrl *) ((wxDataViewTreeCtrl *) x));
 }
 static void *_p_wxPyValidatorTo_p_wxEvtHandler(void *x) {
     return (void *)((wxEvtHandler *) (wxValidator *) ((wxPyValidator *) x));
@@ -20976,6 +21049,9 @@ static void *_p_wxControlWithItemsTo_p_wxEvtHandler(void *x) {
 }
 static void *_p_wxPyEvtHandlerTo_p_wxEvtHandler(void *x) {
     return (void *)((wxEvtHandler *)  ((wxPyEvtHandler *) x));
+}
+static void *_p_wxBookCtrlBaseTo_p_wxEvtHandler(void *x) {
+    return (void *)((wxEvtHandler *) (wxWindow *)(wxControl *) ((wxBookCtrlBase *) x));
 }
 static void *_p_wxTextCtrlBaseTo_p_wxEvtHandler(void *x) {
     return (void *)((wxEvtHandler *) (wxWindow *)(wxControl *) ((wxTextCtrlBase *) x));
@@ -21048,6 +21124,9 @@ static void *_p_wxSizerItemTo_p_wxObject(void *x) {
 }
 static void *_p_wxGBSizerItemTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxSizerItem *) ((wxGBSizerItem *) x));
+}
+static void *_p_wxBookCtrlEventTo_p_wxObject(void *x) {
+    return (void *)((wxObject *) (wxEvent *)(wxCommandEvent *)(wxNotifyEvent *) ((wxBookCtrlEvent *) x));
 }
 static void *_p_wxScrollEventTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvent *)(wxCommandEvent *) ((wxScrollEvent *) x));
@@ -21171,6 +21250,9 @@ static void *_p_wxSizeEventTo_p_wxObject(void *x) {
 }
 static void *_p_wxMoveEventTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvent *) ((wxMoveEvent *) x));
+}
+static void *_p_wxBookCtrlBaseTo_p_wxObject(void *x) {
+    return (void *)((wxObject *) (wxEvtHandler *)(wxWindow *)(wxControl *) ((wxBookCtrlBase *) x));
 }
 static void *_p_wxTextCtrlBaseTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvtHandler *)(wxWindow *)(wxControl *) ((wxTextCtrlBase *) x));
@@ -21340,6 +21422,12 @@ static void *_p_wxPyValidatorTo_p_wxObject(void *x) {
 static void *_p_wxValidatorTo_p_wxObject(void *x) {
     return (void *)((wxObject *) (wxEvtHandler *) ((wxValidator *) x));
 }
+static void *_p_wxBookCtrlBaseTo_p_wxWithImages(void *x) {
+    return (void *)((wxWithImages *)  ((wxBookCtrlBase *) x));
+}
+static void *_p_wxDataViewTreeCtrlTo_p_wxWithImages(void *x) {
+    return (void *)((wxWithImages *)  ((wxDataViewTreeCtrl *) x));
+}
 static void *_p_wxDataViewListCtrlTo_p_wxWindow(void *x) {
     return (void *)((wxWindow *) (wxControl *)(wxDataViewCtrl *) ((wxDataViewListCtrl *) x));
 }
@@ -21351,6 +21439,9 @@ static void *_p_wxControlWithItemsTo_p_wxWindow(void *x) {
 }
 static void *_p_wxTextCtrlBaseTo_p_wxWindow(void *x) {
     return (void *)((wxWindow *) (wxControl *) ((wxTextCtrlBase *) x));
+}
+static void *_p_wxBookCtrlBaseTo_p_wxWindow(void *x) {
+    return (void *)((wxWindow *) (wxControl *) ((wxBookCtrlBase *) x));
 }
 static void *_p_wxMenuBarTo_p_wxWindow(void *x) {
     return (void *)((wxWindow *)  ((wxMenuBar *) x));
@@ -21372,6 +21463,9 @@ static void *_p_wxWindowCreateEventTo_p_wxCommandEvent(void *x) {
 }
 static void *_p_wxDateEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *)  ((wxDateEvent *) x));
+}
+static void *_p_wxBookCtrlEventTo_p_wxCommandEvent(void *x) {
+    return (void *)((wxCommandEvent *) (wxNotifyEvent *) ((wxBookCtrlEvent *) x));
 }
 static void *_p_wxDataViewEventTo_p_wxCommandEvent(void *x) {
     return (void *)((wxCommandEvent *) (wxNotifyEvent *) ((wxDataViewEvent *) x));
@@ -21420,6 +21514,7 @@ static swig_type_info _swigt__p_wxChildFocusEvent = {"_p_wxChildFocusEvent", 0, 
 static swig_type_info _swigt__p_wxScrollEvent = {"_p_wxScrollEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxWindowCreateEvent = {"_p_wxWindowCreateEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxDateEvent = {"_p_wxDateEvent", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxBookCtrlEvent = {"_p_wxBookCtrlEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxUpdateUIEvent = {"_p_wxUpdateUIEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxClipboardTextEvent = {"_p_wxClipboardTextEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxWindowDestroyEvent = {"_p_wxWindowDestroyEvent", 0, 0, 0, 0, 0};
@@ -21428,6 +21523,7 @@ static swig_type_info _swigt__p_wxPyCommandEvent = {"_p_wxPyCommandEvent", 0, 0,
 static swig_type_info _swigt__p_wxControl = {"_p_wxControl", "wxControl *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxControlWithItems = {"_p_wxControlWithItems", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxTextCtrlBase = {"_p_wxTextCtrlBase", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxBookCtrlBase = {"_p_wxBookCtrlBase", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxDC = {"_p_wxDC", "wxDC *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxDataFormat = {"_p_wxDataFormat", "wxDataFormat *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxDataObject = {"_p_wxDataObject", "wxDataObject *", 0, 0, (void*)0, 0};
@@ -21486,8 +21582,8 @@ static swig_type_info _swigt__p_wxDisplayChangedEvent = {"_p_wxDisplayChangedEve
 static swig_type_info _swigt__p_wxMouseCaptureChangedEvent = {"_p_wxMouseCaptureChangedEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxSysColourChangedEvent = {"_p_wxSysColourChangedEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxThreadEvent = {"_p_wxThreadEvent", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_wxDropFilesEvent = {"_p_wxDropFilesEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxFocusEvent = {"_p_wxFocusEvent", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxDropFilesEvent = {"_p_wxDropFilesEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxShowEvent = {"_p_wxShowEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxNavigationKeyEvent = {"_p_wxNavigationKeyEvent", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxKeyEvent = {"_p_wxKeyEvent", 0, 0, 0, 0, 0};
@@ -21503,7 +21599,6 @@ static swig_type_info _swigt__p_wxFont = {"_p_wxFont", "wxFont *", 0, 0, (void*)
 static swig_type_info _swigt__p_wxHeaderColumn = {"_p_wxHeaderColumn", "wxHeaderColumn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxHeaderColumnSimple = {"_p_wxHeaderColumnSimple", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxIcon = {"_p_wxIcon", "wxIcon *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_wxImageList = {"_p_wxImageList", "wxImageList *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxNotifyEvent = {"_p_wxNotifyEvent", "wxNotifyEvent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxObject = {"_p_wxObject", "wxObject *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxLayoutConstraints = {"_p_wxLayoutConstraints", 0, 0, 0, 0, 0};
@@ -21519,9 +21614,9 @@ static swig_type_info _swigt__p_wxGridSizer = {"_p_wxGridSizer", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxFSFile = {"_p_wxFSFile", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxPySizer = {"_p_wxPySizer", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxMenuItem = {"_p_wxMenuItem", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_wxXPMHandler = {"_p_wxXPMHandler", 0, 0, 0, 0, 0};
-static swig_type_info _swigt__p_wxTIFFHandler = {"_p_wxTIFFHandler", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxTGAHandler = {"_p_wxTGAHandler", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxTIFFHandler = {"_p_wxTIFFHandler", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_wxXPMHandler = {"_p_wxXPMHandler", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxImageHandler = {"_p_wxImageHandler", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxPyImageHandler = {"_p_wxPyImageHandler", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_wxBMPHandler = {"_p_wxBMPHandler", 0, 0, 0, 0, 0};
@@ -21552,6 +21647,7 @@ static swig_type_info _swigt__p_wxVariant = {"_p_wxVariant", "wxVariant *", 0, 0
 static swig_type_info _swigt__p_wxVariantVector = {"_p_wxVariantVector", "wxVariantVector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxVisualAttributes = {"_p_wxVisualAttributes", "wxVisualAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_wxWindow = {"_p_wxWindow", "wxWindow *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_wxWithImages = {"_p_wxWithImages", "wxWithImages *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_PyDataViewIndexListModel,
@@ -21571,6 +21667,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxArrayInt,
   &_swigt__p_wxArrayString,
   &_swigt__p_wxBMPHandler,
+  &_swigt__p_wxBookCtrlBase,
+  &_swigt__p_wxBookCtrlEvent,
   &_swigt__p_wxBoxSizer,
   &_swigt__p_wxCURHandler,
   &_swigt__p_wxChildFocusEvent,
@@ -21641,7 +21739,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxIdleEvent,
   &_swigt__p_wxImage,
   &_swigt__p_wxImageHandler,
-  &_swigt__p_wxImageList,
   &_swigt__p_wxIndividualLayoutConstraint,
   &_swigt__p_wxInitDialogEvent,
   &_swigt__p_wxJPEGHandler,
@@ -21704,6 +21801,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_wxWindow,
   &_swigt__p_wxWindowCreateEvent,
   &_swigt__p_wxWindowDestroyEvent,
+  &_swigt__p_wxWithImages,
   &_swigt__p_wxWrapSizer,
   &_swigt__p_wxXPMHandler,
 };
@@ -21727,15 +21825,17 @@ static swig_cast_info _swigc__p_wxChildFocusEvent[] = {{&_swigt__p_wxChildFocusE
 static swig_cast_info _swigc__p_wxScrollEvent[] = {{&_swigt__p_wxScrollEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWindowCreateEvent[] = {{&_swigt__p_wxWindowCreateEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDateEvent[] = {{&_swigt__p_wxDateEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxBookCtrlEvent[] = {{&_swigt__p_wxBookCtrlEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxUpdateUIEvent[] = {{&_swigt__p_wxUpdateUIEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxClipboardTextEvent[] = {{&_swigt__p_wxClipboardTextEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWindowDestroyEvent[] = {{&_swigt__p_wxWindowDestroyEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxContextMenuEvent[] = {{&_swigt__p_wxContextMenuEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyCommandEvent[] = {{&_swigt__p_wxPyCommandEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxCommandEvent[] = {  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxCommandEvent, 0, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxCommandEvent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxCommandEvent[] = {  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxBookCtrlEvent, _p_wxBookCtrlEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxCommandEvent, 0, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxCommandEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxCommandEvent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxControlWithItems[] = {{&_swigt__p_wxControlWithItems, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxTextCtrlBase[] = {{&_swigt__p_wxTextCtrlBase, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxControl[] = {  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxControl, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxControl, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxControl, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxControl, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxBookCtrlBase[] = {{&_swigt__p_wxBookCtrlBase, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxControl[] = {  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxControl, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxControl, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxControl, 0, 0},  {&_swigt__p_wxBookCtrlBase, _p_wxBookCtrlBaseTo_p_wxControl, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxControl, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxControl, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDC[] = {  {&_swigt__p_wxDC, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataFormat[] = {  {&_swigt__p_wxDataFormat, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxDataObject[] = {  {&_swigt__p_wxDataObject, 0, 0, 0},{0, 0, 0, 0}};
@@ -21793,26 +21893,25 @@ static swig_cast_info _swigc__p_wxDisplayChangedEvent[] = {{&_swigt__p_wxDisplay
 static swig_cast_info _swigc__p_wxMouseCaptureChangedEvent[] = {{&_swigt__p_wxMouseCaptureChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSysColourChangedEvent[] = {{&_swigt__p_wxSysColourChangedEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxThreadEvent[] = {{&_swigt__p_wxThreadEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxDropFilesEvent[] = {{&_swigt__p_wxDropFilesEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxFocusEvent[] = {{&_swigt__p_wxFocusEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxDropFilesEvent[] = {{&_swigt__p_wxDropFilesEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxShowEvent[] = {{&_swigt__p_wxShowEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxNavigationKeyEvent[] = {{&_swigt__p_wxNavigationKeyEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxKeyEvent[] = {{&_swigt__p_wxKeyEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxScrollWinEvent[] = {{&_swigt__p_wxScrollWinEvent, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxEvent[] = {  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMenuEvent, _p_wxMenuEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxCloseEvent, _p_wxCloseEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMouseEvent, _p_wxMouseEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxEraseEvent, _p_wxEraseEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxSetCursorEvent, _p_wxSetCursorEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxInitDialogEvent, _p_wxInitDialogEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPyEvent, _p_wxPyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMouseCaptureLostEvent, _p_wxMouseCaptureLostEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxEvent, 0, 0, 0},  {&_swigt__p_wxQueryNewPaletteEvent, _p_wxQueryNewPaletteEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMaximizeEvent, _p_wxMaximizeEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxIconizeEvent, _p_wxIconizeEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxActivateEvent, _p_wxActivateEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxSizeEvent, _p_wxSizeEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMoveEvent, _p_wxMoveEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxIdleEvent, _p_wxIdleEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPaintEvent, _p_wxPaintEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxNcPaintEvent, _p_wxNcPaintEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPaletteChangedEvent, _p_wxPaletteChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDisplayChangedEvent, _p_wxDisplayChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMouseCaptureChangedEvent, _p_wxMouseCaptureChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxSysColourChangedEvent, _p_wxSysColourChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxThreadEvent, _p_wxThreadEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDropFilesEvent, _p_wxDropFilesEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxFocusEvent, _p_wxFocusEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxShowEvent, _p_wxShowEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxCommandEvent, _p_wxCommandEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxNavigationKeyEvent, _p_wxNavigationKeyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxKeyEvent, _p_wxKeyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxScrollWinEvent, _p_wxScrollWinEventTo_p_wxEvent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxEvent[] = {  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMenuEvent, _p_wxMenuEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxCloseEvent, _p_wxCloseEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMouseEvent, _p_wxMouseEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxEraseEvent, _p_wxEraseEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxSetCursorEvent, _p_wxSetCursorEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxInitDialogEvent, _p_wxInitDialogEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxBookCtrlEvent, _p_wxBookCtrlEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPyEvent, _p_wxPyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMouseCaptureLostEvent, _p_wxMouseCaptureLostEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxEvent, 0, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxQueryNewPaletteEvent, _p_wxQueryNewPaletteEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMaximizeEvent, _p_wxMaximizeEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxIconizeEvent, _p_wxIconizeEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxActivateEvent, _p_wxActivateEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxSizeEvent, _p_wxSizeEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMoveEvent, _p_wxMoveEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxIdleEvent, _p_wxIdleEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPaintEvent, _p_wxPaintEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxNcPaintEvent, _p_wxNcPaintEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPaletteChangedEvent, _p_wxPaletteChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDisplayChangedEvent, _p_wxDisplayChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxMouseCaptureChangedEvent, _p_wxMouseCaptureChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxSysColourChangedEvent, _p_wxSysColourChangedEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxThreadEvent, _p_wxThreadEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxFocusEvent, _p_wxFocusEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDropFilesEvent, _p_wxDropFilesEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxShowEvent, _p_wxShowEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxCommandEvent, _p_wxCommandEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxNavigationKeyEvent, _p_wxNavigationKeyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxKeyEvent, _p_wxKeyEventTo_p_wxEvent, 0, 0},  {&_swigt__p_wxScrollWinEvent, _p_wxScrollWinEventTo_p_wxEvent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxEventBlocker[] = {{&_swigt__p_wxEventBlocker, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxMenu[] = {{&_swigt__p_wxMenu, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyValidator[] = {{&_swigt__p_wxPyValidator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyEvtHandler[] = {{&_swigt__p_wxPyEvtHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxMenuBar[] = {{&_swigt__p_wxMenuBar, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyApp[] = {{&_swigt__p_wxPyApp, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxEvtHandler[] = {  {&_swigt__p_wxEventBlocker, _p_wxEventBlockerTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxMenu, _p_wxMenuTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyValidator, _p_wxPyValidatorTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxValidator, _p_wxValidatorTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxWindow, _p_wxWindowTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyEvtHandler, _p_wxPyEvtHandlerTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxEvtHandler, 0, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyApp, _p_wxPyAppTo_p_wxEvtHandler, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxEvtHandler[] = {  {&_swigt__p_wxEventBlocker, _p_wxEventBlockerTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxMenu, _p_wxMenuTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyValidator, _p_wxPyValidatorTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxValidator, _p_wxValidatorTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxWindow, _p_wxWindowTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxEvtHandler, 0, 0, 0},  {&_swigt__p_wxPyEvtHandler, _p_wxPyEvtHandlerTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxBookCtrlBase, _p_wxBookCtrlBaseTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxEvtHandler, 0, 0},  {&_swigt__p_wxPyApp, _p_wxPyAppTo_p_wxEvtHandler, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxFont[] = {  {&_swigt__p_wxFont, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxHeaderColumnSimple[] = {{&_swigt__p_wxHeaderColumnSimple, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxHeaderColumn[] = {  {&_swigt__p_wxHeaderColumn, 0, 0, 0},  {&_swigt__p_wxSettableHeaderColumn, _p_wxSettableHeaderColumnTo_p_wxHeaderColumn, 0, 0},  {&_swigt__p_wxHeaderColumnSimple, _p_wxHeaderColumnSimpleTo_p_wxHeaderColumn, 0, 0},  {&_swigt__p_wxDataViewColumn, _p_wxDataViewColumnTo_p_wxHeaderColumn, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxIcon[] = {  {&_swigt__p_wxIcon, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxImageList[] = {  {&_swigt__p_wxImageList, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxNotifyEvent[] = {  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxNotifyEvent, 0, 0},  {&_swigt__p_wxNotifyEvent, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxNotifyEvent[] = {  {&_swigt__p_wxBookCtrlEvent, _p_wxBookCtrlEventTo_p_wxNotifyEvent, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxNotifyEvent, 0, 0},  {&_swigt__p_wxNotifyEvent, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxLayoutConstraints[] = {{&_swigt__p_wxLayoutConstraints, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxSizerItem[] = {{&_swigt__p_wxSizerItem, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxGBSizerItem[] = {{&_swigt__p_wxGBSizerItem, 0, 0, 0},{0, 0, 0, 0}};
@@ -21826,9 +21925,9 @@ static swig_cast_info _swigc__p_wxGridSizer[] = {{&_swigt__p_wxGridSizer, 0, 0, 
 static swig_cast_info _swigc__p_wxFSFile[] = {{&_swigt__p_wxFSFile, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPySizer[] = {{&_swigt__p_wxPySizer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxMenuItem[] = {{&_swigt__p_wxMenuItem, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxXPMHandler[] = {{&_swigt__p_wxXPMHandler, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxTIFFHandler[] = {{&_swigt__p_wxTIFFHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxTGAHandler[] = {{&_swigt__p_wxTGAHandler, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxTIFFHandler[] = {{&_swigt__p_wxTIFFHandler, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxXPMHandler[] = {{&_swigt__p_wxXPMHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxImageHandler[] = {{&_swigt__p_wxImageHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyImageHandler[] = {{&_swigt__p_wxPyImageHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxBMPHandler[] = {{&_swigt__p_wxBMPHandler, 0, 0, 0},{0, 0, 0, 0}};
@@ -21845,7 +21944,7 @@ static swig_cast_info _swigc__p_wxAcceleratorTable[] = {{&_swigt__p_wxAccelerato
 static swig_cast_info _swigc__p_wxImage[] = {{&_swigt__p_wxImage, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxFileSystem[] = {{&_swigt__p_wxFileSystem, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxWrapSizer[] = {{&_swigt__p_wxWrapSizer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxObject[] = {  {&_swigt__p_wxLayoutConstraints, _p_wxLayoutConstraintsTo_p_wxObject, 0, 0},  {&_swigt__p_wxEventBlocker, _p_wxEventBlockerTo_p_wxObject, 0, 0},  {&_swigt__p_wxSizerItem, _p_wxSizerItemTo_p_wxObject, 0, 0},  {&_swigt__p_wxGBSizerItem, _p_wxGBSizerItemTo_p_wxObject, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxIndividualLayoutConstraint, _p_wxIndividualLayoutConstraintTo_p_wxObject, 0, 0},  {&_swigt__p_wxSizer, _p_wxSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxBoxSizer, _p_wxBoxSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxStaticBoxSizer, _p_wxStaticBoxSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxGridBagSizer, _p_wxGridBagSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxObject, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenu, _p_wxMenuTo_p_wxObject, 0, 0},  {&_swigt__p_wxEvent, _p_wxEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxFlexGridSizer, _p_wxFlexGridSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxGridSizer, _p_wxGridSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxInitDialogEvent, _p_wxInitDialogEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxObject, 0, 0},  {&_swigt__p_wxPaintEvent, _p_wxPaintEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxNcPaintEvent, _p_wxNcPaintEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPaletteChangedEvent, _p_wxPaletteChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDisplayChangedEvent, _p_wxDisplayChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMouseCaptureChangedEvent, _p_wxMouseCaptureChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxSysColourChangedEvent, _p_wxSysColourChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxThreadEvent, _p_wxThreadEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxObject, 0, 0},  {&_swigt__p_wxSetCursorEvent, _p_wxSetCursorEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxFSFile, _p_wxFSFileTo_p_wxObject, 0, 0},  {&_swigt__p_wxPySizer, _p_wxPySizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewIconText, _p_wxDataViewIconTextTo_p_wxObject, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyEvent, _p_wxPyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxShowEvent, _p_wxShowEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenuItem, _p_wxMenuItemTo_p_wxObject, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxIdleEvent, _p_wxIdleEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMoveEvent, _p_wxMoveEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxSizeEvent, _p_wxSizeEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxActivateEvent, _p_wxActivateEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxIconizeEvent, _p_wxIconizeEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMaximizeEvent, _p_wxMaximizeEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxQueryNewPaletteEvent, _p_wxQueryNewPaletteEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxObject, 0, 0},  {&_swigt__p_wxXPMHandler, _p_wxXPMHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxTIFFHandler, _p_wxTIFFHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxTGAHandler, _p_wxTGAHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxEvtHandler, _p_wxEvtHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyEvtHandler, _p_wxPyEvtHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxMouseCaptureLostEvent, _p_wxMouseCaptureLostEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxImageHandler, _p_wxImageHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyImageHandler, _p_wxPyImageHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxBMPHandler, _p_wxBMPHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxICOHandler, _p_wxICOHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxCURHandler, _p_wxCURHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxANIHandler, _p_wxANIHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPNGHandler, _p_wxPNGHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxGIFHandler, _p_wxGIFHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPCXHandler, _p_wxPCXHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxJPEGHandler, _p_wxJPEGHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPNMHandler, _p_wxPNMHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxStdDialogButtonSizer, _p_wxStdDialogButtonSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxAcceleratorTable, _p_wxAcceleratorTableTo_p_wxObject, 0, 0},  {&_swigt__p_wxImage, _p_wxImageTo_p_wxObject, 0, 0},  {&_swigt__p_wxScrollWinEvent, _p_wxScrollWinEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewProgressRenderer, _p_wxDataViewProgressRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewToggleRenderer, _p_wxDataViewToggleRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewIconTextRenderer, _p_wxDataViewIconTextRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewBitmapRenderer, _p_wxDataViewBitmapRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewTextRenderer, _p_wxDataViewTextRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewRenderer, _p_wxDataViewRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewSpinRenderer, _p_wxDataViewSpinRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewCustomRenderer, _p_wxDataViewCustomRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewChoiceRenderer, _p_wxDataViewChoiceRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewChoiceByIndexRenderer, _p_wxDataViewChoiceByIndexRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyDataViewCustomRenderer, _p_wxPyDataViewCustomRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewDateRenderer, _p_wxDataViewDateRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxObject, 0, 0, 0},  {&_swigt__p_wxKeyEvent, _p_wxKeyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxNavigationKeyEvent, _p_wxNavigationKeyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWindow, _p_wxWindowTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxObject, 0, 0},  {&_swigt__p_wxFileSystem, _p_wxFileSystemTo_p_wxObject, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenuEvent, _p_wxMenuEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyApp, _p_wxPyAppTo_p_wxObject, 0, 0},  {&_swigt__p_wxCloseEvent, _p_wxCloseEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMouseEvent, _p_wxMouseEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxEraseEvent, _p_wxEraseEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxCommandEvent, _p_wxCommandEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWrapSizer, _p_wxWrapSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxDropFilesEvent, _p_wxDropFilesEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxFocusEvent, _p_wxFocusEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyValidator, _p_wxPyValidatorTo_p_wxObject, 0, 0},  {&_swigt__p_wxValidator, _p_wxValidatorTo_p_wxObject, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxObject[] = {  {&_swigt__p_wxLayoutConstraints, _p_wxLayoutConstraintsTo_p_wxObject, 0, 0},  {&_swigt__p_wxEventBlocker, _p_wxEventBlockerTo_p_wxObject, 0, 0},  {&_swigt__p_wxSizerItem, _p_wxSizerItemTo_p_wxObject, 0, 0},  {&_swigt__p_wxGBSizerItem, _p_wxGBSizerItemTo_p_wxObject, 0, 0},  {&_swigt__p_wxBookCtrlEvent, _p_wxBookCtrlEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxScrollEvent, _p_wxScrollEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxIndividualLayoutConstraint, _p_wxIndividualLayoutConstraintTo_p_wxObject, 0, 0},  {&_swigt__p_wxSizer, _p_wxSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxBoxSizer, _p_wxBoxSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxStaticBoxSizer, _p_wxStaticBoxSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxGridBagSizer, _p_wxGridBagSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxObject, 0, 0},  {&_swigt__p_wxUpdateUIEvent, _p_wxUpdateUIEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenu, _p_wxMenuTo_p_wxObject, 0, 0},  {&_swigt__p_wxEvent, _p_wxEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxFlexGridSizer, _p_wxFlexGridSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxGridSizer, _p_wxGridSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxInitDialogEvent, _p_wxInitDialogEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxObject, 0, 0},  {&_swigt__p_wxPaintEvent, _p_wxPaintEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxNcPaintEvent, _p_wxNcPaintEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxClipboardTextEvent, _p_wxClipboardTextEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPaletteChangedEvent, _p_wxPaletteChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDisplayChangedEvent, _p_wxDisplayChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMouseCaptureChangedEvent, _p_wxMouseCaptureChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxSysColourChangedEvent, _p_wxSysColourChangedEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxThreadEvent, _p_wxThreadEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxObject, 0, 0},  {&_swigt__p_wxSetCursorEvent, _p_wxSetCursorEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxFSFile, _p_wxFSFileTo_p_wxObject, 0, 0},  {&_swigt__p_wxPySizer, _p_wxPySizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewIconText, _p_wxDataViewIconTextTo_p_wxObject, 0, 0},  {&_swigt__p_wxNotifyEvent, _p_wxNotifyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyEvent, _p_wxPyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxShowEvent, _p_wxShowEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewEvent, _p_wxDataViewEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenuItem, _p_wxMenuItemTo_p_wxObject, 0, 0},  {&_swigt__p_wxWindowCreateEvent, _p_wxWindowCreateEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDateEvent, _p_wxDateEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxIdleEvent, _p_wxIdleEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMoveEvent, _p_wxMoveEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxSizeEvent, _p_wxSizeEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxActivateEvent, _p_wxActivateEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxIconizeEvent, _p_wxIconizeEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMaximizeEvent, _p_wxMaximizeEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxQueryNewPaletteEvent, _p_wxQueryNewPaletteEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxBookCtrlBase, _p_wxBookCtrlBaseTo_p_wxObject, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxObject, 0, 0},  {&_swigt__p_wxTGAHandler, _p_wxTGAHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxEvtHandler, _p_wxEvtHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyEvtHandler, _p_wxPyEvtHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxMouseCaptureLostEvent, _p_wxMouseCaptureLostEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxTIFFHandler, _p_wxTIFFHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxXPMHandler, _p_wxXPMHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxImageHandler, _p_wxImageHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyImageHandler, _p_wxPyImageHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxBMPHandler, _p_wxBMPHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxICOHandler, _p_wxICOHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxCURHandler, _p_wxCURHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxANIHandler, _p_wxANIHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPNGHandler, _p_wxPNGHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxGIFHandler, _p_wxGIFHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPCXHandler, _p_wxPCXHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxJPEGHandler, _p_wxJPEGHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxPNMHandler, _p_wxPNMHandlerTo_p_wxObject, 0, 0},  {&_swigt__p_wxStdDialogButtonSizer, _p_wxStdDialogButtonSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxAcceleratorTable, _p_wxAcceleratorTableTo_p_wxObject, 0, 0},  {&_swigt__p_wxImage, _p_wxImageTo_p_wxObject, 0, 0},  {&_swigt__p_wxScrollWinEvent, _p_wxScrollWinEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewIconTextRenderer, _p_wxDataViewIconTextRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewBitmapRenderer, _p_wxDataViewBitmapRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewTextRenderer, _p_wxDataViewTextRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewRenderer, _p_wxDataViewRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewToggleRenderer, _p_wxDataViewToggleRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewProgressRenderer, _p_wxDataViewProgressRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewSpinRenderer, _p_wxDataViewSpinRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewCustomRenderer, _p_wxDataViewCustomRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewChoiceRenderer, _p_wxDataViewChoiceRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewChoiceByIndexRenderer, _p_wxDataViewChoiceByIndexRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyDataViewCustomRenderer, _p_wxPyDataViewCustomRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxDataViewDateRenderer, _p_wxDataViewDateRendererTo_p_wxObject, 0, 0},  {&_swigt__p_wxObject, 0, 0, 0},  {&_swigt__p_wxKeyEvent, _p_wxKeyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxNavigationKeyEvent, _p_wxNavigationKeyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWindowDestroyEvent, _p_wxWindowDestroyEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWindow, _p_wxWindowTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxObject, 0, 0},  {&_swigt__p_wxFileSystem, _p_wxFileSystemTo_p_wxObject, 0, 0},  {&_swigt__p_wxContextMenuEvent, _p_wxContextMenuEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMenuEvent, _p_wxMenuEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyApp, _p_wxPyAppTo_p_wxObject, 0, 0},  {&_swigt__p_wxCloseEvent, _p_wxCloseEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxMouseEvent, _p_wxMouseEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxEraseEvent, _p_wxEraseEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyCommandEvent, _p_wxPyCommandEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxCommandEvent, _p_wxCommandEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxWrapSizer, _p_wxWrapSizerTo_p_wxObject, 0, 0},  {&_swigt__p_wxDropFilesEvent, _p_wxDropFilesEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxChildFocusEvent, _p_wxChildFocusEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxFocusEvent, _p_wxFocusEventTo_p_wxObject, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxObject, 0, 0},  {&_swigt__p_wxPyValidator, _p_wxPyValidatorTo_p_wxObject, 0, 0},  {&_swigt__p_wxValidator, _p_wxValidatorTo_p_wxObject, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPaperSize[] = {  {&_swigt__p_wxPaperSize, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPoint[] = {  {&_swigt__p_wxPoint, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxPyDataViewCustomRenderer[] = {  {&_swigt__p_wxPyDataViewCustomRenderer, 0, 0, 0},{0, 0, 0, 0}};
@@ -21859,7 +21958,8 @@ static swig_cast_info _swigc__p_wxValidator[] = {  {&_swigt__p_wxValidator, 0, 0
 static swig_cast_info _swigc__p_wxVariant[] = {  {&_swigt__p_wxVariant, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxVariantVector[] = {  {&_swigt__p_wxVariantVector, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_wxVisualAttributes[] = {  {&_swigt__p_wxVisualAttributes, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wxWindow[] = {  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxWindow, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxWindow, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxWindow, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxWindow, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxWindow, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxWindow[] = {  {&_swigt__p_wxDataViewListCtrl, _p_wxDataViewListCtrlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxControl, _p_wxControlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxWindow, 0, 0, 0},  {&_swigt__p_wxControlWithItems, _p_wxControlWithItemsTo_p_wxWindow, 0, 0},  {&_swigt__p_wxTextCtrlBase, _p_wxTextCtrlBaseTo_p_wxWindow, 0, 0},  {&_swigt__p_wxBookCtrlBase, _p_wxBookCtrlBaseTo_p_wxWindow, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxWindow, 0, 0},  {&_swigt__p_wxMenuBar, _p_wxMenuBarTo_p_wxWindow, 0, 0},  {&_swigt__p_wxDataViewCtrl, _p_wxDataViewCtrlTo_p_wxWindow, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_wxWithImages[] = {  {&_swigt__p_wxWithImages, 0, 0, 0},  {&_swigt__p_wxBookCtrlBase, _p_wxBookCtrlBaseTo_p_wxWithImages, 0, 0},  {&_swigt__p_wxDataViewTreeCtrl, _p_wxDataViewTreeCtrlTo_p_wxWithImages, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_PyDataViewIndexListModel,
@@ -21879,6 +21979,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxArrayInt,
   _swigc__p_wxArrayString,
   _swigc__p_wxBMPHandler,
+  _swigc__p_wxBookCtrlBase,
+  _swigc__p_wxBookCtrlEvent,
   _swigc__p_wxBoxSizer,
   _swigc__p_wxCURHandler,
   _swigc__p_wxChildFocusEvent,
@@ -21949,7 +22051,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxIdleEvent,
   _swigc__p_wxImage,
   _swigc__p_wxImageHandler,
-  _swigc__p_wxImageList,
   _swigc__p_wxIndividualLayoutConstraint,
   _swigc__p_wxInitDialogEvent,
   _swigc__p_wxJPEGHandler,
@@ -22012,6 +22113,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_wxWindow,
   _swigc__p_wxWindowCreateEvent,
   _swigc__p_wxWindowDestroyEvent,
+  _swigc__p_wxWithImages,
   _swigc__p_wxWrapSizer,
   _swigc__p_wxXPMHandler,
 };

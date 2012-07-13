@@ -2,7 +2,7 @@
 // Name:        icon.h
 // Purpose:     interface of wxIcon
 // Author:      wxWidgets team
-// RCS-ID:      $Id: icon.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: icon.h 69776 2011-11-17 03:20:25Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@
     @see @ref overview_bitmap, @ref overview_bitmap_supportedformats,
          wxDC::DrawIcon, wxCursor
 */
-class wxIcon : public wxBitmap
+class wxIcon : public wxGDIObject
 {
 public:
     /**

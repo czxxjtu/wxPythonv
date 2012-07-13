@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     11-April-2006
-// RCS-ID:      $Id: _richtextctrl.i 69029 2011-09-09 01:18:32Z RD $
+// RCS-ID:      $Id: _richtextctrl.i 69712 2011-11-08 18:05:56Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -967,6 +967,8 @@ of interest.
         virtual bool , IsSelectionUnderlined(),
         "Is all of the selection underlined?", "");
 
+        virtual bool DoesSelectionHaveTextEffectFlag(int flag);
+
 
     DocDeclStr(
         virtual bool , IsSelectionAligned(wxTextAttrAlignment alignment),
@@ -987,6 +989,7 @@ of interest.
         virtual bool , ApplyUnderlineToSelection(),
         "Apply underline to the selection", "");
 
+    virtual bool ApplyTextEffectToSelection(int flags);
 
     DocDeclStr(
         virtual bool , ApplyAlignmentToSelection(wxTextAttrAlignment alignment),

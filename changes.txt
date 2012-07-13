@@ -184,9 +184,13 @@ Changes in behaviour not resulting in compilation errors, please read this!
   wxAutomationInstance_SilentIfNone flag to prevent the error message if no
   currently running instances of this object are available.
 
-- Signatures of wxDataViewCustomRenderer::Activate(), LeftClick() and
-  StartDrag() virtual methods changed.  You will need to change them in your
-  derived renderer class too if you override them.
+- Signature of wxDataViewCustomRenderer::StartDrag() virtual method changed.
+  You will need to change it in your derived renderer class too if you override
+  it.
+
+- wxDataViewCustomRenderer::Activate() and LeftClick() were replaced with the
+  new ActivateCell() method. You will need to change it in your derived
+  renderer class accordingly.
 
 - wxThread::Wait() and wxThread::Delete() used to dispatch the events while
   waiting for the thread to exit in wxMSW. They still do it in default build
@@ -198,6 +202,10 @@ Changes in behaviour not resulting in compilation errors, please read this!
 - wxEVT_CHAR_HOOK events are not generated any more if the mouse is captured to
   prevent the parent wxTopLevelWindow from interfering with the keyboard
   handling of the window that captured the mouse.
+
+- wxDataViewCtrl::GetSelection() now returns invalid item in all ports (this
+  behaved differently in wxMSW and wxGTK/wxOSX before) if more than one item
+  is selected in a control with wxDV_MULTIPLE style.
 
 
 Changes in behaviour which may result in compilation errors
@@ -333,6 +341,9 @@ Changes in behaviour which may result in compilation errors
 
 - wxST_MARKUP doesn't exist any more, use wxControl::SetLabelMarkup() instead.
 
+- wxComboBox::IsEmpty(), which was previously available in some ports (but not
+  wxMSW), doesn't exist any more, use either IsListEmpty() or IsTextEmpty().
+
 
 Deprecated methods and their replacements
 -----------------------------------------
@@ -434,7 +445,88 @@ Major new features in this release
   was added.
 
 
-2.9.2:
+2.9.3: (released 2011-12-14)
+------
+
+INCOMPATIBLE CHANGES SINCE 2.9.2
+
+- wxPanel::SetBackgroundBitmap() was removed, derive your class from
+  wxCustomBackgroundWindow and use its method with the same name instead.
+
+All:
+
+- Fix parsing of negated long options in wxCmdLineParser (roed_bis).
+- Fix crash in wxArray::insert() overload taking iterator range (wsu).
+- Added wxEventFilter class and wxEvtHandler::{Add,Remove}Filter().
+- Added convenient wxCmdLineParser::AddLong{Option,Switch}() wrappers.
+- Added wxStopWatch::TimeInMicro() and wxGetUTCTimeUSec() and improved
+  wxStopWatch precision.
+- Made wxGetLocalTimeMillis() really return local time, added
+  wxGetUTCTimeMillis() returning what this function used to return.
+- Added wxCriticalSection::TryEnter() (Catalin Raceanu).
+- Add support for OpenBSD to wxDialUpManager (brad0).
+- Added wxEXEC_HIDE_CONSOLE flag.
+
+All (GUI):
+
+- Added wxWebView library (Steven Lamerton & Auria, GSoC 2011 project).
+- Added wxTreeListCtrl class.
+- Added wxTimePickerCtrl class.
+- Added wxRichToolTip class.
+- Added documented, public wxNavigationEnabled<> class.
+- Added wxTextCtrl::PositionToCoords() (Navaneeth).
+- Added support for wxHELP button to wxMessageDialog.
+- Added wxBannerWindow class.
+- Allow setting window shape to arbitrary wxGraphicsPath.
+- Added wxTextEntry::AutoCompleteDirectories().
+- Support float, double and file name values in wxGenericValidator (troelsk).
+- Add support for custom numeric formats to wxGrid (Kinaou Hervé).
+- Fix keyboard navigation in wxGrid with hidden columns (ivan_14_32).
+- Add wxDataViewEvent::IsEditCancelled() (Allonii).
+- Send EVT_DATAVIEW_ITEM_CONTEXT_MENU events even when not clicking on an item.
+- Allow marking wxTreeBook nodes to expand initially in XRC (RedTide).
+- Added customizable wxDocManager::OnMRUFileNotExist() virtual method.
+- Fix stock labels when not using mnemonics for Chinese (cw.ahbong).
+- Added wxComboBox::IsListEmpty() and IsTextEmpty().
+- Added wxDataViewCtrl::GetSelectedItemsCount() and HasSelection().
+- Added wxFLP_SMALL and wxDIRP_SMALL styles.
+- Added support for saving alpha with TIFF images.
+- Added wxPersistentSplitter.
+- Derive wxAuiNotebook from wxBookCtrlBase (Steven Lamerton).
+- Fix tooltips in wxSearchCtrl and other composite controls (Catalin Raceanu).
+- Allow converting to and from wxGraphicsBitmap and wxImage directly.
+- Allow wxGraphicsFont creation without passing by wxFont.
+- Added wxDataViewCustomRenderer::ActivateCell().
+- Add "checked" property for toolbar tool elements in XRC.
+- Allow customization of the locations where persistent settings are stored.
+- Restore support for reusing ids more than 254 times (Armel Asselin).
+- Added wxIMAGE_OPTION_ORIGINAL_{WIDTH,HEIGHT} (Catalin Raceanu).
+
+OSX:
+
+- Implement wxRegion::Equal() (Dr.Acula).
+- Implement wxFileType::GetOpenCommand().
+- wxGetOsVersion() now returns more sensible version numbers, e.g. 10 and 6
+  for OS X 10.6.
+- Added wxApp::MacOpenFiles and deprecated wxApp::MacOpenFile.
+- Implement wxEVT_CHAR_HOOK event generation in wxOSX/Cocoa.
+- Implemented wxComboBox::Popup() and Dismiss() in wxOSX/Cocoa (joostn).
+
+GTK:
+
+- Generate events for two auxiliary mouse buttons in wxGTK (Marcin Wojdyr).
+- Fix conflict between wxDIALOG_NO_PARENT and wxICON_EXCLAMATION (David Hart).
+
+MSW:
+
+- Added wxGCDC(wxEnhMetaFileDC) ctor (Marcin Wojdyr).
+- Added wxTopLevelWindow::MSWGetSystemMenu().
+- Multiline text controls no longer select all content when gaining focus from
+  the keyboard.
+- Implement wxStackWalker for x86-64 (Artur Bać).
+
+
+2.9.2: (released 2011-07-05)
 ------
 
 All:

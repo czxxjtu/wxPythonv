@@ -2,7 +2,7 @@
 // Name:        src/gtk1/notebook.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: notebook.cpp 67280 2011-03-22 14:17:38Z DS $
+// Id:          $Id: notebook.cpp 68857 2011-08-23 03:08:01Z DS $
 // Copyright:   (c) 1998 Robert Roebling, Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -289,7 +289,6 @@ void wxNotebook::Init()
     m_padding = 0;
     m_inSwitchPage = false;
 
-    m_imageList = NULL;
     m_themeEnabled = true;
 }
 
@@ -511,10 +510,10 @@ bool wxNotebook::SetPageImage( size_t page, int image )
     }
 
     /* Only cases 3) and 4) left */
-    wxASSERT( m_imageList != NULL ); /* Just in case */
+    wxASSERT( HasImageList() ); /* Just in case */
 
     /* Construct the new pixmap */
-    const wxBitmap *bmp = m_imageList->GetBitmapPtr(image);
+    const wxBitmap *bmp = GetImageList()->GetBitmapPtr(image);
     GdkPixmap *pixmap = bmp->GetPixmap();
     GdkBitmap *mask = NULL;
     if ( bmp->GetMask() )
@@ -680,9 +679,9 @@ bool wxNotebook::InsertPage( size_t position,
 
     if (imageId != -1)
     {
-        wxASSERT( m_imageList != NULL );
+        wxASSERT( HasImageList() );
 
-        const wxBitmap *bmp = m_imageList->GetBitmapPtr(imageId);
+        const wxBitmap *bmp = GetImageList()->GetBitmapPtr(imageId);
         GdkPixmap *pixmap = bmp->GetPixmap();
         GdkBitmap *mask = NULL;
         if ( bmp->GetMask() )

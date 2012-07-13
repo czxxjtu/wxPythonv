@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     03/02/99
-// RCS-ID:      $Id: textimpl.h 67254 2011-03-20 00:14:35Z DS $
+// RCS-ID:      $Id: textimpl.h 69948 2011-12-07 23:41:06Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -105,6 +105,9 @@ public :
     virtual wxString GetStringAtIndex(int pos) const;
 
     virtual int FindString(const wxString& text) const;
+    virtual void Popup();
+    virtual void Dismiss();
+
 private:
     NSComboBox* m_comboBox;
 };

@@ -4,7 +4,7 @@
 // Author:      Guilhem Lavaux, Vadim Zeitlin
 // Modified by:
 // Created:     06/16/98
-// RCS-ID:      $Id: thread.cpp 68076 2011-06-28 17:24:37Z VS $
+// RCS-ID:      $Id: thread.cpp 68757 2011-08-17 10:35:29Z VZ $
 // Copyright:   (c) 1998-2009 wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -479,7 +479,7 @@ MyFrame::DoLogRecord(wxLogLevel level,
         wxDateTime(info.timestamp).FormatISOTime(),
         info.threadId == wxThread::GetMainId()
             ? wxString("main")
-            : wxString::Format("%x", info.threadId),
+            : wxString::Format("%lx", info.threadId),
         msg + "\n"
     );
 }

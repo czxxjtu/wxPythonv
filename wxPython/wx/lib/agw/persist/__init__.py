@@ -6,6 +6,7 @@ Persistent objects are simply the objects which automatically save their state
 when they are destroyed and restore it when they are recreated, even during
 another program invocation.
 
+
 .. _persistent-overview:
 
 Persistent Object Overview
@@ -44,7 +45,7 @@ following classes are supported:
   L{labelbook.FlatImageBook};
 * wx.CheckBox;
 * wx.ListBox, wx.VListBox, wx.HtmlListBox, wx.SimpleHtmlListBox, wx.gizmos.EditableListBox;
-* wx.ListCtrl, wx.ListView;
+* wx.ListCtrl, wx.ListView, L{ultimatelistctrl.UltimateListCtrl};
 * wx.CheckListBox;
 * wx.Choice, wx.ComboBox, wx.combo.OwnerDrawnComboBox;
 * wx.RadioBox;
@@ -168,10 +169,10 @@ TODOs
 License And Version
 ===================
 
-PersistentObjects library is distributed under the wxPython license. 
+`PersistentObjects` library is distributed under the wxPython license. 
 
-Latest revision: Andrea Gavana @ 17 Aug 2011, 15.00 GMT
-Version 0.2. 
+Latest revision: Andrea Gavana @ 24 Oct 2011, 21.00 GMT
+Version 0.4. 
 
 """
 
@@ -182,4 +183,3 @@ __date__ = "16 November 2009"
 from persist_constants import *
 from persistencemanager import *
 from persist_handlers import *
-

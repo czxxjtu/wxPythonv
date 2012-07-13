@@ -3,7 +3,7 @@
 // Purpose:     generic implementation of wxListCtrl
 // Author:      Robert Roebling
 //              Vadim Zeitlin (virtual list control support)
-// Id:          $Id: listctrl.cpp 68500 2011-08-02 20:43:42Z RD $
+// Id:          $Id: listctrl.cpp 69955 2011-12-08 14:15:55Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1462,6 +1462,12 @@ bool wxListTextCtrlWrapper::AcceptChanges()
 
 void wxListTextCtrlWrapper::OnChar( wxKeyEvent &event )
 {
+    if ( !CheckForEndEditKey(event) )
+        event.Skip();
+}
+
+bool wxListTextCtrlWrapper::CheckForEndEditKey(const wxKeyEvent& event)
+{
     switch ( event.m_keyCode )
     {
         case WXK_RETURN:
@@ -1473,8 +1479,10 @@ void wxListTextCtrlWrapper::OnChar( wxKeyEvent &event )
             break;
 
         default:
-            event.Skip();
+            return false;
     }
+
+    return true;
 }
 
 void wxListTextCtrlWrapper::OnKeyUp( wxKeyEvent &event )
@@ -1518,6 +1526,7 @@ void wxListTextCtrlWrapper::OnKillFocus( wxFocusEvent &event )
 BEGIN_EVENT_TABLE(wxListMainWindow, wxWindow)
   EVT_PAINT          (wxListMainWindow::OnPaint)
   EVT_MOUSE_EVENTS   (wxListMainWindow::OnMouse)
+  EVT_CHAR_HOOK      (wxListMainWindow::OnCharHook)
   EVT_CHAR           (wxListMainWindow::OnChar)
   EVT_KEY_DOWN       (wxListMainWindow::OnKeyDown)
   EVT_KEY_UP         (wxListMainWindow::OnKeyUp)
@@ -2709,6 +2718,22 @@ void wxListMainWindow::OnKeyUp( wxKeyEvent &event )
     wxKeyEvent ke(event);
     if (parent->GetEventHandler()->ProcessEvent( ke ))
         return;
+
+    event.Skip();
+}
+
+void wxListMainWindow::OnCharHook( wxKeyEvent &event )
+{
+    if ( m_textctrlWrapper )
+    {
+        // When an in-place editor is active we should ensure that it always
+        // gets the key events that are special to it.
+        if ( m_textctrlWrapper->CheckForEndEditKey(event) )
+        {
+            // Skip the call to wxEvent::Skip() below.
+            return;
+        }
+    }
 
     event.Skip();
 }
@@ -4027,14 +4052,14 @@ void wxListMainWindow::InsertItem( wxListItem &item )
     wxListLineData *line = new wxListLineData(this);
 
     line->SetItem( item.m_col, item );
-    if ( item.m_mask & wxLIST_MASK_IMAGE && item.GetImage() != -1)
+    if ( item.m_mask & wxLIST_MASK_IMAGE )
     {
         // Reset the buffered height if it's not big enough for the new image.
-        if (m_small_image_list)
+        int image = item.GetImage();
+        if ( m_small_image_list && image != -1 && InReportView() )
         {
             int imageWidth, imageHeight;
-            m_small_image_list->GetSize(item.GetImage(),
-                                        imageWidth, imageHeight);
+            m_small_image_list->GetSize(image, imageWidth, imageHeight);
 
             if ( imageHeight > m_lineHeight )
                 m_lineHeight = 0;
@@ -4794,6 +4819,10 @@ bool wxGenericListCtrl::DeleteColumn( int col )
 
     // if we don't have the header any longer, we need to relayout the window
     // if ( !GetColumnCount() )
+
+
+    // Ensure that the non-existent columns are really removed from display.
+    Refresh();
 
     return true;
 }

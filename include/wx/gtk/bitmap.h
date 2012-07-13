@@ -2,7 +2,7 @@
 // Name:        wx/gtk/bitmap.h
 // Purpose:
 // Author:      Robert Roebling
-// RCS-ID:      $Id: bitmap.h 63774 2010-03-28 23:20:49Z VZ $
+// RCS-ID:      $Id: bitmap.h 69020 2011-09-07 16:56:50Z PC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -30,8 +30,8 @@ public:
     virtual ~wxMask();
 
     // implementation
-    GdkBitmap   *m_bitmap;
-    GdkBitmap *GetBitmap() const;
+    GdkPixmap* m_bitmap;
+    GdkPixmap* GetBitmap() const;
 
 protected:
     virtual void FreeData();

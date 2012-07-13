@@ -3,7 +3,7 @@
 // Purpose:     TextCtrl wxWidgets sample
 // Author:      Robert Roebling
 // Modified by:
-// RCS-ID:      $Id: text.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: text.cpp 68450 2011-07-29 15:11:54Z VZ $
 // Copyright:   (c) Robert Roebling, Julian Smart, Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -128,6 +128,7 @@ public:
     void DoSelectText();
     void DoMoveToEndOfText();
     void DoMoveToEndOfEntry();
+    void DoGetWindowCoordinates();
 
     // return true if currently text control has any selection
     bool HasSelection() const
@@ -217,6 +218,10 @@ public:
 
     void OnMoveToEndOfText( wxCommandEvent& WXUNUSED(event) )
         { m_panel->DoMoveToEndOfText(); }
+
+    void OnGetWindowCoordinates( wxCommandEvent& WXUNUSED(event) )
+        { m_panel->DoGetWindowCoordinates(); }
+
     void OnMoveToEndOfEntry( wxCommandEvent& WXUNUSED(event) )
         { m_panel->DoMoveToEndOfEntry(); }
 
@@ -415,6 +420,7 @@ enum
     TEXT_ADD_FREEZE,
     TEXT_ADD_LINE,
     TEXT_MOVE_ENDTEXT,
+    TEXT_GET_WINDOW_COORD,
     TEXT_MOVE_ENDENTRY,
     TEXT_SET_EDITABLE,
     TEXT_SET_ENABLED,
@@ -513,6 +519,7 @@ bool MyApp::OnInit()
     menuText->Append(TEXT_LINE_UP, wxT("Scroll text one line up"));
     menuText->Append(TEXT_PAGE_DOWN, wxT("Scroll text one page down"));
     menuText->Append(TEXT_PAGE_UP, wxT("Scroll text one page up"));
+    menuText->Append(TEXT_GET_WINDOW_COORD, wxT("Get window coordinates"));
     menuText->AppendSeparator();
     menuText->Append(TEXT_GET_LINE, wxT("Get the text of a line of the tabbed multiline"));
     menuText->Append(TEXT_GET_LINELENGTH, wxT("Get the length of a line of the tabbed multiline"));
@@ -733,10 +740,27 @@ static wxString GetMouseEventDesc(const wxMouseEvent& ev)
         dbl = ev.RightDClick();
         up = ev.RightUp();
     }
+    else if ( ev.Aux1Down() || ev.Aux1Up() || ev.Aux1DClick() )
+    {
+        button = wxT("Aux1");
+        dbl = ev.Aux1DClick();
+        up = ev.Aux1Up();
+    }
+    else if ( ev.Aux2Down() || ev.Aux2Up() || ev.Aux2DClick() )
+    {
+        button = wxT("Aux2");
+        dbl = ev.Aux2DClick();
+        up = ev.Aux2Up();
+    }
+    else if ( ev.GetWheelRotation() )
+    {
+        return wxString::Format("Wheel rotation %+d", ev.GetWheelRotation());
+    }
     else
     {
         return wxT("Unknown mouse event");
     }
+    wxASSERT(!(dbl && up));
 
     return wxString::Format(wxT("%s mouse button %s"),
                             button.c_str(),
@@ -780,6 +804,8 @@ void MyTextCtrl::OnMouseEvent(wxMouseEvent& ev)
             << GetChar( ev.LeftIsDown(), wxT('1') )
             << GetChar( ev.MiddleIsDown(), wxT('2') )
             << GetChar( ev.RightIsDown(), wxT('3') )
+            << GetChar( ev.Aux1IsDown(), wxT('x') )
+            << GetChar( ev.Aux2IsDown(), wxT('X') )
             << GetChar( ev.ControlDown(), wxT('C') )
             << GetChar( ev.AltDown(), wxT('A') )
             << GetChar( ev.ShiftDown(), wxT('S') )
@@ -1299,6 +1325,18 @@ void MyPanel::DoMoveToEndOfText()
     m_multitext->SetFocus();
 }
 
+void MyPanel::DoGetWindowCoordinates()
+{
+    wxTextCtrl * const text = GetFocusedText();
+
+    const wxPoint pt0 = text->PositionToCoords(0);
+    const wxPoint ptCur = text->PositionToCoords(text->GetInsertionPoint());
+    *m_log << "Current position coordinates: "
+              "(" << ptCur.x << ", "  << ptCur.y << "), "
+              "first position coordinates: "
+              "(" << pt0.x << ", "  << pt0.y << ")\n";
+}
+
 void MyPanel::DoMoveToEndOfEntry()
 {
     m_text->SetInsertionPointEnd();
@@ -1361,6 +1399,7 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(TEXT_ADD_FREEZE,         MyFrame::OnAddTextFreeze)
     EVT_MENU(TEXT_ADD_LINE,           MyFrame::OnAddTextLine)
     EVT_MENU(TEXT_MOVE_ENDTEXT,       MyFrame::OnMoveToEndOfText)
+    EVT_MENU(TEXT_GET_WINDOW_COORD,   MyFrame::OnGetWindowCoordinates)
     EVT_MENU(TEXT_MOVE_ENDENTRY,      MyFrame::OnMoveToEndOfEntry)
 
     EVT_MENU(TEXT_SET_EDITABLE,       MyFrame::OnSetEditable)

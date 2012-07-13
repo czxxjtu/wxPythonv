@@ -2,7 +2,7 @@
 // Name:        spinctrl.h
 // Purpose:     interface of wxSpinCtrl
 // Author:      wxWidgets team
-// RCS-ID:      $Id: spinctrl.h 66788 2011-01-27 13:27:14Z VZ $
+// RCS-ID:      $Id: spinctrl.h 69644 2011-11-02 20:22:29Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -327,3 +327,6 @@ public:
     */
     void SetValue(double value);
 };
+
+wxEventType wxEVT_COMMAND_SPINCTRL_UPDATED;
+wxEventType wxEVT_COMMAND_SPINCTRLDOUBLE_UPDATED;

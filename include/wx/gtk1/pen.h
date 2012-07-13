@@ -2,7 +2,7 @@
 // Name:        wx/gtk1/pen.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: pen.h 54273 2008-06-17 17:28:26Z VZ $
+// Id:          $Id: pen.h 69020 2011-09-07 16:56:50Z PC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -23,9 +23,9 @@
 class WXDLLIMPEXP_FWD_CORE wxPen;
 
 #if defined(__WXGTK127__)
-typedef    gint8 wxGTKDash;
+typedef signed char wxGTKDash;
 #else
-typedef    gchar wxGTKDash;
+typedef char wxGTKDash;
 #endif
 
 //-----------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 // Name:        combobox.h
 // Purpose:     interface of wxComboBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: combobox.h 66611 2011-01-06 19:52:14Z SJL $
+// RCS-ID:      $Id: combobox.h 69948 2011-12-07 23:41:06Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -225,6 +225,39 @@ public:
     virtual long GetInsertionPoint() const;
 
     /**
+        IsEmpty() is not available in this class.
+
+        This method is documented here only to notice that it can't be used
+        with this class because of the ambiguity between the methods with the
+        same name inherited from wxItemContainer and wxTextEntry base classes.
+
+        Because of this, any attempt to call it results in a compilation error
+        and you should use either IsListEmpty() or IsTextEmpty() depending on
+        what exactly do you want to test.
+     */
+    bool IsEmpty() const;
+
+    /**
+        Returns true if the list of combobox choices is empty.
+
+        Use this method instead of (not available in this class) IsEmpty() to
+        test if the list of items is empty.
+
+        @since 2.9.3
+     */
+    bool IsListEmpty() const;
+
+    /**
+        Returns true if the text of the combobox is empty.
+
+        Use this method instead of (not available in this class) IsEmpty() to
+        test if the text currently entered into the combobox is empty.
+
+        @since 2.9.3
+     */
+    bool IsTextEmpty() const;
+
+    /**
         Same as wxTextEntry::SetSelection().
 
         @beginWxPythonOnly
@@ -252,10 +285,11 @@ public:
     /**
         Shows the list box portion of the combo box.
 
-        Currently only implemented in wxMSW and wxGTK.
+        Currently this method is implemented in wxMSW, wxGTK and wxOSX/Cocoa.
 
         Notice that calling this function will generate a
-        @c wxEVT_COMMAND_COMBOBOX_DROPDOWN event.
+        @c wxEVT_COMMAND_COMBOBOX_DROPDOWN event except under wxOSX where
+        generation of this event is not supported at all.
 
         @since 2.9.1
     */
@@ -264,13 +298,25 @@ public:
     /**
         Hides the list box portion of the combo box.
 
-        Currently only implemented in wxMSW and wxGTK.
+        Currently this method is implemented in wxMSW, wxGTK and wxOSX/Cocoa.
 
         Notice that calling this function will generate a
-        @c wxEVT_COMMAND_COMBOBOX_CLOSEUP event.
+        @c wxEVT_COMMAND_COMBOBOX_CLOSEUP event except under wxOSX where
+        generation of this event is not supported at all.
 
         @since 2.9.1
     */
     virtual void Dismiss();
+
+    virtual int GetSelection() const;
+    virtual void GetSelection(long *from, long *to) const;
+    virtual void SetSelection(int n);
+    virtual void SetSelection(long from, long to);
+    virtual int FindString(const wxString& s, bool bCase = false) const;
+    virtual wxString GetString(unsigned int n) const;
+    virtual wxString GetStringSelection() const;
+    virtual void SetString(unsigned int n, const wxString& s);
+
+    virtual unsigned int GetCount() const;
 };
 

@@ -6,7 +6,7 @@
 # Author:       Robin Dunn
 #
 # Created:      A long time ago, in a galaxy far, far away...
-# RCS-ID:       $Id: Main.py 68885 2011-08-25 18:43:59Z RD $
+# RCS-ID:       $Id: Main.py 69774 2011-11-17 03:14:50Z RD $
 # Copyright:    (c) 1999 by Total Control Software
 # Licence:      wxWindows license
 #----------------------------------------------------------------------------
@@ -89,12 +89,24 @@ _demoPngs = ["overview", "recent", "frame", "dialog", "moredialog", "core",
 _treeList = [
     # new stuff
     ('Recent Additions/Updates', [
+        'PropertyGrid',
+        'SystemSettings',
+        'GridLabelRenderer',
+        'InfoBar',
+        'WrapSizer',
         'UIActionSimulator',
+        'GraphicsGradient',
         'PDFViewer',
         'ItemsPicker',
         'CommandLinkButton',
+        'DVC_DataViewModel',
+        'DVC_IndexListModel',
+        'DVC_ListCtrl',
+        'DVC_TreeCtrl',
         'DVC_CustomRenderer',
         'PenAndBrushStyles',
+        'InfoBar',
+        'HTML2_WebView',
         ]),
 
     # managed windows == things with a (optional) caption you can close
@@ -225,6 +237,7 @@ _treeList = [
         'FloatBar',  
         'FloatCanvas',
         'HtmlWindow',
+        'HTML2_WebView',
         'InfoBar',
         'IntCtrl',
         'MVCTree',   
@@ -646,7 +659,7 @@ class InternetThread(Thread):
                 return
             
             wx.CallAfter(self.notifyWindow.LoadDocumentation, data)
-        except IOError, e:
+        except (IOError, urllib2.HTTPError):
             # Unable to get to the internet
             t, v = sys.exc_info()[:2]
             message = traceback.format_exception_only(t, v)
@@ -656,8 +669,6 @@ class InternetThread(Thread):
             t, v = sys.exc_info()[:2]
             message = traceback.format_exception_only(t, v)
             wx.CallAfter(self.notifyWindow.StopDownload, message)
-
-        return
 
 
 #---------------------------------------------------------------------------
@@ -1539,6 +1550,21 @@ class DemoErrorPanel(wx.Panel):
 
 #---------------------------------------------------------------------------
 
+class MainPanel(wx.Panel):
+    """
+    Just a simple derived panel where we override Freeze and Thaw to work
+    around an issue on wxGTK.
+    """
+    def Freeze(self):
+        if not 'wxGTK' in wx.PlatformInfo:
+            return super(MainPanel, self).Freeze()
+                         
+    def Thaw(self):
+        if not 'wxGTK' in wx.PlatformInfo:
+            return super(MainPanel, self).Thaw()
+                         
+#---------------------------------------------------------------------------
+
 class DemoTaskBarIcon(wx.TaskBarIcon):
     TBMENU_RESTORE = wx.NewId()
     TBMENU_CLOSE   = wx.NewId()
@@ -1632,10 +1658,7 @@ class wxPythonDemo(wx.Frame):
 
         self.SetMinSize((640,480))
 
-        # Use a panel under the AUI panes in order to work around a
-        # bug on PPC Macs
-        pnl = wx.Panel(self)
-        self.pnl = pnl
+        self.pnl = pnl = MainPanel(self)
         
         self.mgr = wx.aui.AuiManager()
         self.mgr.SetManagedWindow(pnl)
@@ -1819,7 +1842,7 @@ class wxPythonDemo(wx.Frame):
         self.mgr.AddPane(leftPanel,
                          wx.aui.AuiPaneInfo().
                          Left().Layer(2).BestSize((240, -1)).
-                         MinSize((160, -1)).
+                         MinSize((240, -1)).
                          Floatable(self.allowAuiFloating).FloatingSize((240, 700)).
                          Caption("wxPython Demos").
                          CloseButton(False).
@@ -1827,7 +1850,7 @@ class wxPythonDemo(wx.Frame):
         self.mgr.AddPane(self.log,
                          wx.aui.AuiPaneInfo().
                          Bottom().BestSize((-1, 150)).
-                         MinSize((-1, 60)).
+                         MinSize((-1, 140)).
                          Floatable(self.allowAuiFloating).FloatingSize((500, 160)).
                          Caption("Demo Log Messages").
                          CloseButton(False).
@@ -2385,6 +2408,10 @@ class wxPythonDemo(wx.Frame):
         text = self.curOverview
         text += "<br><p><b>Checking for documentation on the wxWidgets website, please stand by...</b><br>"
 
+        lead = text[:6]
+        if lead != '<html>' and lead != '<HTML>':
+            text = '<br>'.join(text.split('\n'))
+
         self.ovr.SetPage(text)
 
         self.downloadTimer.Start(100)
@@ -2405,6 +2432,7 @@ class wxPythonDemo(wx.Frame):
         if error:
             if self.sendDownloadError:
                 self.log.write("Warning: problems in downloading documentation from the wxWidgets website.\n")
+                self.log.write("Error message from the documentation downloader was:\n")
                 self.log.write("\n".join(error))
                 self.sendDownloadError = False
 
@@ -2418,21 +2446,22 @@ class wxPythonDemo(wx.Frame):
         self.Reposition()
 
         text = self.curOverview
+
+        lead = text[:6]
+        if lead != '<html>' and lead != '<HTML>':
+            text = '<br>'.join(text.split('\n'))
+        
         self.ovr.SetPage(text)
 
     #---------------------------------------------
 
     def LoadDocumentation(self, data):
-        import time
-        start = time.time()
         
         text = self.curOverview
         addHtml = False
         
         if '<html>' not in text and '<HTML>' not in text:
             text = '<br>'.join(text.split('\n'))
-            text = "<html>\n<body>\n" + text
-            addHtml = True
 
         styles, events, extra, appearance = data
 
@@ -2445,9 +2474,6 @@ class wxPythonDemo(wx.Frame):
 
             headers = (names == "Events" and [2] or [3])[0]
             text += "<p>" + FormatDocs(names, values, headers)
-
-        if addHtml:
-            text += "\n</body>\n</html>\n"
 
         item = self.tree.GetSelection()
         itemText = self.tree.GetItemText(item)

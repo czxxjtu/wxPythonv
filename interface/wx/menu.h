@@ -2,7 +2,7 @@
 // Name:        menu.h
 // Purpose:     interface of wxMenuBar
 // Author:      wxWidgets team
-// RCS-ID:      $Id: menu.h 68974 2011-09-03 01:39:39Z RD $
+// RCS-ID:      $Id: menu.h 69491 2011-10-21 07:56:01Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -135,7 +135,7 @@ public:
         context it returns a 2-element list (item, submenu).
         @endWxPerlOnly
     */
-    virtual wxMenuItem* FindItem(int id, wxMenu* menu = NULL) const;
+    virtual wxMenuItem* FindItem(int id, wxMenu** menu = NULL) const;
 
     /**
         Returns the index of the menu with the given @a title or @c wxNOT_FOUND if no
@@ -373,6 +373,33 @@ public:
         @remarks Use only after the menubar has been associated with a frame.
     */
     virtual void SetMenuLabel(size_t pos, const wxString& label);
+    
+    /**        
+        Enables you to set the global menubar on Mac, that is, the menubar displayed
+        when the app is running without any frames open.
+        
+        @param menubar
+            The menubar to set.
+            
+        @remarks Only exists on Mac, other platforms do not have this method. 
+    */
+    static void MacSetCommonMenuBar(wxMenuBar* menubar);
+    
+    /**        
+        Enables you to get the global menubar on Mac, that is, the menubar displayed
+        when the app is running without any frames open.
+        
+        @return The global menubar.
+            
+        @remarks Only exists on Mac, other platforms do not have this method. 
+    */
+    static wxMenuBar* MacGetCommonMenuBar();
+
+    wxFrame *GetFrame() const;
+    bool IsAttached() const;
+    virtual void Attach(wxFrame *frame);
+    virtual void Detach();
+
 };
 
 
@@ -799,7 +826,7 @@ public:
 
         @see Append(), Prepend()
     */
-    wxMenuItem* Insert(size_t pos, wxMenuItem* item);
+    wxMenuItem* Insert(size_t pos, wxMenuItem* menuItem);
 
     /**
         Inserts the given @a item before the position @a pos.
@@ -972,5 +999,18 @@ public:
         but the application may call it at other times if required.
     */
     void UpdateUI(wxEvtHandler* source = NULL);
+
+    
+    void SetInvokingWindow(wxWindow *win);
+    wxWindow *GetInvokingWindow() const;
+    wxWindow *GetWindow() const;
+    long GetStyle() const;
+    void SetParent(wxMenu *parent);
+    wxMenu *GetParent() const;
+
+    virtual void Attach(wxMenuBar *menubar);
+    virtual void Detach();
+    bool IsAttached() const;
+
 };
 

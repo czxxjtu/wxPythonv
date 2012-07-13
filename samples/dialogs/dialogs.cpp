@@ -3,7 +3,7 @@
 // Purpose:     Common dialogs demo
 // Author:      Julian Smart, Vadim Zeitlin, ABX
 // Created:     04/01/98
-// RCS-ID:      $Id: dialogs.cpp 67179 2011-03-13 13:33:12Z VZ $
+// RCS-ID:      $Id: dialogs.cpp 69463 2011-10-18 21:57:02Z VZ $
 // Copyright:   (c) Julian Smart
 //              (c) 2004 ABX
 //              (c) Vadim Zeitlin
@@ -256,6 +256,10 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(DIALOGS_NOTIFY_SHOW,                   MyFrame::OnNotifMsgShow)
     EVT_MENU(DIALOGS_NOTIFY_HIDE,                   MyFrame::OnNotifMsgHide)
 #endif // wxUSE_NOTIFICATION_MESSAGE
+
+#if wxUSE_RICHTOOLTIP
+    EVT_MENU(DIALOGS_RICHTIP_DIALOG,                MyFrame::OnRichTipDialog)
+#endif // wxUSE_RICHTOOLTIP
 
     EVT_MENU(wxID_EXIT,                             MyFrame::OnExit)
 END_EVENT_TABLE()
@@ -527,6 +531,11 @@ bool MyApp::OnInit()
 #endif // wxUSE_NOTIFICATION_MESSAGE
     menuDlg->AppendSubMenu(menuNotif, "&User notifications");
 
+#if wxUSE_RICHTOOLTIP
+    menuDlg->Append(DIALOGS_RICHTIP_DIALOG, "Rich &tooltip dialog...\tCtrl-H");
+    menuDlg->AppendSeparator();
+#endif // wxUSE_RICHTOOLTIP
+
     menuDlg->Append(DIALOGS_STANDARD_BUTTON_SIZER_DIALOG, wxT("&Standard Buttons Sizer Dialog"));
     menuDlg->Append(DIALOGS_TEST_DEFAULT_ACTION, wxT("&Test dialog default action"));
 
@@ -648,6 +657,24 @@ MyFrame::MyFrame(const wxString& title)
     // covers our entire client area to avoid jarring colour jumps
     SetOwnBackgroundColour(m_canvas->GetBackgroundColour());
 #endif // wxUSE_INFOBAR
+
+#ifdef __WXMSW__
+    // Test MSW-specific function allowing to access the "system" menu.
+    wxMenu * const menu = MSWGetSystemMenu();
+    if ( menu )
+    {
+        menu->AppendSeparator();
+
+        // The ids of the menu commands in MSW system menu must be multiple of
+        // 16 so we can't use DIALOGS_ABOUTDLG_SIMPLE here because it might not
+        // satisfy this condition and need to define and connect a separate id.
+        static const int DIALOGS_SYSTEM_ABOUT = 0x4010;
+
+        menu->Append(DIALOGS_SYSTEM_ABOUT, "&About...");
+        Connect(DIALOGS_SYSTEM_ABOUT, wxEVT_COMMAND_MENU_SELECTED,
+                wxCommandEventHandler(MyFrame::ShowSimpleAboutDialog));
+    }
+#endif // __WXMSW__
 }
 
 MyFrame::~MyFrame()
@@ -1759,6 +1786,219 @@ void MyFrame::OnNotifMsgHide(wxCommandEvent& WXUNUSED(event))
 
 #endif // wxUSE_NOTIFICATION_MESSAGE
 
+#if wxUSE_RICHTOOLTIP
+
+#include "wx/richtooltip.h"
+
+#include "tip.xpm"
+
+class RichTipDialog : public wxDialog
+{
+public:
+    RichTipDialog(wxWindow* parent)
+        : wxDialog(parent, wxID_ANY, "wxRichToolTip Test",
+                   wxDefaultPosition, wxDefaultSize,
+                   wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER)
+    {
+        // Create the controls.
+        m_textTitle = new wxTextCtrl(this, wxID_ANY, "Tooltip title");
+        m_textBody = new wxTextCtrl(this, wxID_ANY, "Main tooltip text\n"
+                                                    "possibly on several\n"
+                                                    "lines.",
+                                    wxDefaultPosition, wxDefaultSize,
+                                    wxTE_MULTILINE);
+        wxButton* btnShowText = new wxButton(this, wxID_ANY, "Show for &text");
+        wxButton* btnShowBtn = new wxButton(this, wxID_ANY, "Show for &button");
+
+        const wxString icons[] =
+        {
+            "&None",
+            "&Information",
+            "&Warning",
+            "&Error",
+            "&Custom"
+        };
+        wxCOMPILE_TIME_ASSERT( WXSIZEOF(icons) == Icon_Max, IconMismatch );
+        m_icons = new wxRadioBox(this, wxID_ANY, "&Icon choice:",
+                                 wxDefaultPosition, wxDefaultSize,
+                                 WXSIZEOF(icons), icons,
+                                 1, wxRA_SPECIFY_ROWS);
+        m_icons->SetSelection(Icon_Info);
+
+        const wxString tipKinds[] =
+        {
+            "&None", "Top left", "Top", "Top right",
+            "Bottom left", "Bottom", "Bottom right", "&Auto"
+        };
+        m_tipKinds = new wxRadioBox(this, wxID_ANY, "Tip &kind:",
+                                    wxDefaultPosition, wxDefaultSize,
+                                    WXSIZEOF(tipKinds), tipKinds,
+                                    4, wxRA_SPECIFY_COLS);
+        m_tipKinds->SetSelection(wxTipKind_Auto);
+
+        const wxString bgStyles[] =
+        {
+            "&Default", "&Solid", "&Gradient",
+        };
+        wxCOMPILE_TIME_ASSERT( WXSIZEOF(bgStyles) == Bg_Max, BgMismatch );
+        m_bgStyles = new wxRadioBox(this, wxID_ANY, "Background style:",
+                                    wxDefaultPosition, wxDefaultSize,
+                                    WXSIZEOF(bgStyles), bgStyles,
+                                    1, wxRA_SPECIFY_ROWS);
+
+        const wxString timeouts[] = { "&None", "&Default", "&3 seconds" };
+        wxCOMPILE_TIME_ASSERT( WXSIZEOF(timeouts) == Timeout_Max, TmMismatch );
+        m_timeouts = new wxRadioBox(this, wxID_ANY, "Timeout:",
+                                    wxDefaultPosition, wxDefaultSize,
+                                    WXSIZEOF(timeouts), timeouts,
+                                    1, wxRA_SPECIFY_ROWS);
+        m_timeouts->SetSelection(Timeout_Default);
+
+        // Lay them out.
+        m_textBody->SetMinSize(wxSize(300, 200));
+
+        wxBoxSizer* const sizer = new wxBoxSizer(wxVERTICAL);
+        sizer->Add(m_textTitle, wxSizerFlags().Expand().Border());
+        sizer->Add(m_textBody, wxSizerFlags(1).Expand().Border());
+        sizer->Add(m_icons, wxSizerFlags().Expand().Border());
+        sizer->Add(m_tipKinds, wxSizerFlags().Centre().Border());
+        sizer->Add(m_bgStyles, wxSizerFlags().Centre().Border());
+        sizer->Add(m_timeouts, wxSizerFlags().Centre().Border());
+        wxBoxSizer* const sizerBtns = new wxBoxSizer(wxHORIZONTAL);
+        sizerBtns->Add(btnShowText, wxSizerFlags().Border(wxRIGHT));
+        sizerBtns->Add(btnShowBtn, wxSizerFlags().Border(wxLEFT));
+        sizer->Add(sizerBtns, wxSizerFlags().Centre().Border());
+        sizer->Add(CreateStdDialogButtonSizer(wxOK),
+                   wxSizerFlags().Expand().Border());
+        SetSizerAndFit(sizer);
+
+
+        // And connect the event handlers.
+        btnShowText->Connect
+                     (
+                        wxEVT_COMMAND_BUTTON_CLICKED,
+                        wxCommandEventHandler(RichTipDialog::OnShowTipForText),
+                        NULL,
+                        this
+                     );
+
+        btnShowBtn->Connect
+                    (
+                        wxEVT_COMMAND_BUTTON_CLICKED,
+                        wxCommandEventHandler(RichTipDialog::OnShowTipForBtn),
+                        NULL,
+                        this
+                    );
+    }
+
+private:
+    enum
+    {
+        Icon_None,
+        Icon_Info,
+        Icon_Warning,
+        Icon_Error,
+        Icon_Custom,
+        Icon_Max
+    };
+
+    enum
+    {
+        Bg_Default,
+        Bg_Solid,
+        Bg_Gradient,
+        Bg_Max
+    };
+
+    enum
+    {
+        Timeout_None,
+        Timeout_Default,
+        Timeout_3sec,
+        Timeout_Max
+    };
+
+
+    void OnShowTipForText(wxCommandEvent& WXUNUSED(event))
+    {
+        DoShowTip(m_textTitle);
+    }
+
+    void OnShowTipForBtn(wxCommandEvent& WXUNUSED(event))
+    {
+        DoShowTip(FindWindow(wxID_OK));
+    }
+
+    void DoShowTip(wxWindow* win)
+    {
+        wxRichToolTip tip(m_textTitle->GetValue(), m_textBody->GetValue());
+        const int iconSel = m_icons->GetSelection();
+        if ( iconSel == Icon_Custom )
+        {
+            tip.SetIcon(tip_xpm);
+        }
+        else // Use a standard icon.
+        {
+            static const int stdIcons[] =
+            {
+                wxICON_NONE,
+                wxICON_INFORMATION,
+                wxICON_WARNING,
+                wxICON_ERROR,
+            };
+
+            tip.SetIcon(stdIcons[iconSel]);
+        }
+
+        switch ( m_bgStyles->GetSelection() )
+        {
+            case Bg_Default:
+                break;
+
+            case Bg_Solid:
+                tip.SetBackgroundColour(*wxLIGHT_GREY);
+                break;
+
+            case Bg_Gradient:
+                tip.SetBackgroundColour(*wxWHITE, wxColour(0xe4, 0xe5, 0xf0));
+                break;
+        }
+
+        switch ( m_timeouts->GetSelection() )
+        {
+            case Timeout_None:
+                tip.SetTimeout(0);
+                break;
+
+            case Timeout_Default:
+                break;
+
+            case Timeout_3sec:
+                tip.SetTimeout(3000);
+                break;
+        }
+
+        tip.SetTipKind(static_cast<wxTipKind>(m_tipKinds->GetSelection()));
+
+        tip.ShowFor(win);
+    }
+
+    wxTextCtrl* m_textTitle;
+    wxTextCtrl* m_textBody;
+    wxRadioBox* m_icons;
+    wxRadioBox* m_tipKinds;
+    wxRadioBox* m_bgStyles;
+    wxRadioBox* m_timeouts;
+};
+
+void MyFrame::OnRichTipDialog(wxCommandEvent& WXUNUSED(event))
+{
+    RichTipDialog dialog(this);
+    dialog.ShowModal();
+}
+
+#endif // wxUSE_RICHTOOLTIP
+
 void MyFrame::OnStandardButtonsSizerDialog(wxCommandEvent& WXUNUSED(event))
 {
     StdButtonSizerDialog  dialog(this);
@@ -1769,10 +2009,15 @@ void MyFrame::OnStandardButtonsSizerDialog(wxCommandEvent& WXUNUSED(event))
 
 #define ID_CATCH_LISTBOX_DCLICK 100
 #define ID_LISTBOX              101
+#define ID_DISABLE_OK           102
+#define ID_DISABLE_CANCEL       103
 
 BEGIN_EVENT_TABLE(TestDefaultActionDialog, wxDialog)
     EVT_CHECKBOX(ID_CATCH_LISTBOX_DCLICK,    TestDefaultActionDialog::OnCatchListBoxDClick)
+    EVT_CHECKBOX(ID_DISABLE_OK,              TestDefaultActionDialog::OnDisableOK)
+    EVT_CHECKBOX(ID_DISABLE_CANCEL,          TestDefaultActionDialog::OnDisableCancel)
     EVT_LISTBOX_DCLICK(ID_LISTBOX,           TestDefaultActionDialog::OnListBoxDClick)
+    EVT_TEXT_ENTER(wxID_ANY,                 TestDefaultActionDialog::OnTextEnter)
 END_EVENT_TABLE()
 
 TestDefaultActionDialog::TestDefaultActionDialog( wxWindow *parent ) :
@@ -1801,6 +2046,9 @@ TestDefaultActionDialog::TestDefaultActionDialog( wxWindow *parent ) :
     grid_sizer->Add( new wxTextCtrl( this, -1, "", wxDefaultPosition, wxSize(80,-1), wxTE_PROCESS_ENTER ), 0, wxALIGN_CENTRE_VERTICAL );
     grid_sizer->Add( new wxStaticText( this, -1, "wxTextCtrl with wxTE_PROCESS_ENTER" ), 0, wxALIGN_CENTRE_VERTICAL );
 
+    grid_sizer->Add( new wxCheckBox(this, ID_DISABLE_OK, "Disable \"OK\""), 0, wxALIGN_CENTRE_VERTICAL );
+    grid_sizer->Add( new wxCheckBox(this, ID_DISABLE_CANCEL, "Disable \"Cancel\""), 0, wxALIGN_CENTRE_VERTICAL );
+
     main_sizer->Add( grid_sizer, 0, wxALL, 10 );
 
     wxSizer *button_sizer = CreateSeparatedButtonSizer( wxOK|wxCANCEL );
@@ -1808,6 +2056,16 @@ TestDefaultActionDialog::TestDefaultActionDialog( wxWindow *parent ) :
         main_sizer->Add( button_sizer, 0, wxALL|wxGROW, 5 );
 
     SetSizerAndFit( main_sizer );
+}
+
+void TestDefaultActionDialog::OnDisableOK(wxCommandEvent& event)
+{
+    FindWindow(wxID_OK)->Enable(!event.IsChecked());
+}
+
+void TestDefaultActionDialog::OnDisableCancel(wxCommandEvent& event)
+{
+    FindWindow(wxID_CANCEL)->Enable(!event.IsChecked());
 }
 
 void TestDefaultActionDialog::OnListBoxDClick(wxCommandEvent& event)
@@ -1818,6 +2076,11 @@ void TestDefaultActionDialog::OnListBoxDClick(wxCommandEvent& event)
 void TestDefaultActionDialog::OnCatchListBoxDClick(wxCommandEvent& WXUNUSED(event))
 {
     m_catchListBoxDClick = !m_catchListBoxDClick;
+}
+
+void TestDefaultActionDialog::OnTextEnter(wxCommandEvent& event)
+{
+    wxLogMessage("Text \"%s\" entered.", event.GetString());
 }
 
 void MyFrame::OnTestDefaultActionDialog(wxCommandEvent& WXUNUSED(event))
@@ -2646,6 +2909,7 @@ const TestMessageBoxDialog::BtnInfo TestMessageBoxDialog::ms_btnInfo[] =
     { wxNO,     "&No"     },
     { wxOK,     "&Ok"     },
     { wxCANCEL, "&Cancel" },
+    { wxHELP,   "&Help"   },
 };
 
 BEGIN_EVENT_TABLE(TestMessageBoxDialog, wxDialog)
@@ -2866,6 +3130,11 @@ void TestMessageBoxDialog::PrepareMessageDialog(wxMessageDialogBase &dlg)
             dlg.SetOKLabel(m_labels[Btn_Ok]->GetValue());
         }
     }
+
+    if ( style & wxHELP )
+    {
+        dlg.SetHelpLabel(m_labels[Btn_Help]->GetValue());
+    }
 }
 
 void TestMessageBoxDialog::OnApply(wxCommandEvent& WXUNUSED(event))
@@ -2873,7 +3142,34 @@ void TestMessageBoxDialog::OnApply(wxCommandEvent& WXUNUSED(event))
     wxMessageDialog dlg(this, GetMessage(), "Test Message Box", GetStyle());
     PrepareMessageDialog(dlg);
 
-    dlg.ShowModal();
+    wxString btnName;
+    switch ( dlg.ShowModal() )
+    {
+        case wxID_OK:
+            btnName = "OK";
+            break;
+
+        case wxID_CANCEL:
+            // Avoid the extra message box if the dialog was cancelled.
+            return;
+
+        case wxID_YES:
+            btnName = "Yes";
+            break;
+
+        case wxID_NO:
+            btnName = "No";
+            break;
+
+        case wxID_HELP:
+            btnName = "Help";
+            break;
+
+        default:
+            btnName = "Unknown";
+    }
+
+    wxLogMessage("Dialog was closed with the \"%s\" button.", btnName);
 }
 
 void TestMessageBoxDialog::OnClose(wxCommandEvent& WXUNUSED(event))

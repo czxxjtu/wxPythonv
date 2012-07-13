@@ -2,7 +2,7 @@
 // Name:        tglbtn.h
 // Purpose:     interface of wxBitmapToggleButton, wxToggleButton
 // Author:      wxWidgets team
-// RCS-ID:      $Id: tglbtn.h 65706 2010-10-01 13:05:36Z VZ $
+// RCS-ID:      $Id: tglbtn.h 69659 2011-11-04 03:38:09Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@
 
     @see wxCheckBox, wxButton, wxBitmapToggleButton
 */
-class wxToggleButton : public wxControl
+class wxToggleButton : public wxAnyButton
 {
 public:
     /**
@@ -126,7 +126,7 @@ public:
     @category{ctrl}
     @appearance{bitmaptogglebutton.png}
 */
-class wxBitmapToggleButton : public wxControl
+class wxBitmapToggleButton : public wxToggleButton
 {
 public:
     /**

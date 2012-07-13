@@ -3,7 +3,7 @@
 // Purpose:     XML resources
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xmlres.h 66219 2010-11-20 23:53:34Z VZ $
+// RCS-ID:      $Id: xmlres.h 68839 2011-08-22 12:18:49Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -557,6 +557,9 @@ protected:
     // Gets a dimension (may be in dialog units).
     wxCoord GetDimension(const wxString& param, wxCoord defaultv = 0,
                          wxWindow *windowToUse = NULL);
+
+    // Gets a direction, complains if the value is invalid.
+    wxDirection GetDirection(const wxString& param, wxDirection dir = wxLEFT);
 
     // Gets a bitmap.
     wxBitmap GetBitmap(const wxString& param = wxT("bitmap"),

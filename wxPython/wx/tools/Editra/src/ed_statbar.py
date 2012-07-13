@@ -15,8 +15,8 @@ messages from ed_msg to display progress of different actions.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_statbar.py 68356 2011-07-24 20:20:53Z CJP $"
-__revision__ = "$Revision: 68356 $"
+__svnid__ = "$Id: ed_statbar.py 69063 2011-09-11 18:19:32Z CJP $"
+__revision__ = "$Revision: 69063 $"
 
 #--------------------------------------------------------------------------#
 # Imports
@@ -150,7 +150,7 @@ class EdStatBar(ProgressStatusBar):
 
     def GetMainWindow(self):
         """Method required for L{ed_msg.mwcontext}"""
-        return self.GetParent()
+        return self.TopLevelParent
 
     def OnExpireMessage(self, evt):
         """Handle Expiring the status message when the oneshot timer

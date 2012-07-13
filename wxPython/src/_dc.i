@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _dc.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _dc.i 69711 2011-11-08 18:04:04Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1415,8 +1415,6 @@ supported.", "");
     %property(PPI, GetPPI, doc="See `GetPPI`");
     %property(PartialTextExtents, GetPartialTextExtents, doc="See `GetPartialTextExtents`");
     %property(Pen, GetPen, SetPen, doc="See `GetPen` and `SetPen`");
-    %property(Pixel, GetPixel, doc="See `GetPixel`");
-    %property(PixelPoint, GetPixelPoint, doc="See `GetPixelPoint`");
     %property(Size, GetSize, doc="See `GetSize`");
     %property(SizeMM, GetSizeMM, doc="See `GetSizeMM`");
     %property(TextBackground, GetTextBackground, SetTextBackground, doc="See `GetTextBackground` and `SetTextBackground`");
@@ -1955,6 +1953,28 @@ on the wx.MirrorDC will appear on the *dc*, and will be mirrored if
 #include <wx/dcps.h>
 %}
 
+%{
+#if !wxUSE_POSTSCRIPT
+class wxPostScriptDC : public wxDC
+{
+public:
+    wxPostScriptDC()
+        : wxDC(NULL)
+    {
+        PyErr_SetString(PyExc_NotImplementedError,
+                        "wx.PostScriptDC is not available on this platform.");
+    };
+
+    wxPostScriptDC(const wxPrintData&)
+        : wxDC(NULL)
+    {
+        PyErr_SetString(PyExc_NotImplementedError,
+                        "wx.PostScriptDC is not available on this platform.");
+    };
+};
+#endif
+%}
+
 MustHaveApp(wxPostScriptDC);
 
 DocStr(wxPostScriptDC,
@@ -1967,19 +1987,6 @@ public:
         "Constructs a PostScript printer device context from a `wx.PrintData`
 object.", "");
 
-//     wxPrintData& GetPrintData();
-//     void SetPrintData(const wxPrintData& data);
-
-//     DocDeclStr(
-//         static void , SetResolution(int ppi),
-//         "Set resolution (in pixels per inch) that will be used in PostScript
-// output. Default is 720ppi.", "");
-    
-//     DocDeclStr(
-//         static int , GetResolution(),
-//         "Return resolution used in PostScript output.", "");
-
-//     %property(PrintData, GetPrintData, SetPrintData, doc="See `GetPrintData` and `SetPrintData`");
 };
 
 //---------------------------------------------------------------------------

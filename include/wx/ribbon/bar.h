@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-05-23
-// RCS-ID:      $Id: bar.h 66612 2011-01-06 22:02:07Z VZ $
+// RCS-ID:      $Id: bar.h 69559 2011-10-27 21:10:30Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ enum wxRibbonBarOption
     wxRIBBON_BAR_FOLDBAR_STYLE =  wxRIBBON_BAR_FLOW_VERTICAL
                                 | wxRIBBON_BAR_SHOW_PAGE_ICONS
                                 | wxRIBBON_BAR_SHOW_PANEL_EXT_BUTTONS
-                                | wxRIBBON_BAR_SHOW_PANEL_MINIMISE_BUTTONS,
+                                | wxRIBBON_BAR_SHOW_PANEL_MINIMISE_BUTTONS
 };
 
 class WXDLLIMPEXP_RIBBON wxRibbonBarEvent : public wxNotifyEvent

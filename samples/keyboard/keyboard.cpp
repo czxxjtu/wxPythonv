@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by: Marcin Wojdyr
 // Created:     07.04.02
-// RCS-ID:      $Id: keyboard.cpp 65524 2010-09-11 10:18:57Z VZ $
+// RCS-ID:      $Id: keyboard.cpp 69889 2011-12-02 00:50:12Z VZ $
 // Copyright:   (c) 2002 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -41,18 +41,32 @@ private:
         { m_logText->AppendText("Test accelerator \"Esc\" used.\n"); }
 
     void OnClear(wxCommandEvent& WXUNUSED(event)) { m_logText->Clear(); }
-    void OnSkip(wxCommandEvent& event) { m_skip = event.IsChecked(); }
+    void OnSkipDown(wxCommandEvent& event) { m_skipDown = event.IsChecked(); }
+    void OnSkipHook(wxCommandEvent& event) { m_skipHook = event.IsChecked(); }
 
-    void OnKeyDown(wxKeyEvent& event) { LogEvent("KeyDown", event); }
+    void OnKeyDown(wxKeyEvent& event)
+    {
+        LogEvent("KeyDown", event);
+        if ( m_skipDown )
+            event.Skip();
+    }
     void OnKeyUp(wxKeyEvent& event) { LogEvent("KeyUp", event); }
     void OnChar(wxKeyEvent& event) { LogEvent("Char", event); }
+    void OnCharHook(wxKeyEvent& event)
+    {
+        LogEvent("Hook", event);
+        if ( m_skipHook )
+            event.Skip();
+    }
+
     void OnPaintInputWin(wxPaintEvent& event);
 
     void LogEvent(const wxString& name, wxKeyEvent& event);
 
     wxTextCtrl *m_logText;
     wxWindow *m_inputWin;
-    bool m_skip;
+    bool m_skipHook,
+         m_skipDown;
 };
 
 
@@ -87,7 +101,8 @@ IMPLEMENT_APP(MyApp)
 MyFrame::MyFrame(const wxString& title)
        : wxFrame(NULL, wxID_ANY, title),
          m_inputWin(NULL),
-         m_skip(true)
+         m_skipHook(true),
+         m_skipDown(true)
 {
     SetIcon(wxICON(sample));
 
@@ -96,7 +111,8 @@ MyFrame::MyFrame(const wxString& title)
     {
         QuitID = wxID_EXIT,
         ClearID = wxID_CLEAR,
-        SkipID = 100,
+        SkipHook = 100,
+        SkipDown,
         TestAccelA,
         TestAccelCtrlA,
         TestAccelEsc
@@ -113,8 +129,14 @@ MyFrame::MyFrame(const wxString& title)
     menuFile->Append(TestAccelEsc, "Test accelerator &3\tEsc");
     menuFile->AppendSeparator();
 
-    menuFile->AppendCheckItem(SkipID, "Call event.&Skip()\tCtrl-S");
-    menuFile->Check(SkipID, true);
+    menuFile->AppendCheckItem(SkipHook, "Skip CHAR_HOOK event",
+        "Not skipping this event disables both KEY_DOWN and CHAR events"
+    );
+    menuFile->Check(SkipHook, true);
+    menuFile->AppendCheckItem(SkipDown, "Skip KEY_DOWN event",
+        "Not skipping this event disables CHAR event generation"
+    );
+    menuFile->Check(SkipDown, true);
     menuFile->AppendSeparator();
 
     menuFile->Append(QuitID, "E&xit\tAlt-X", "Quit this program");
@@ -132,7 +154,7 @@ MyFrame::MyFrame(const wxString& title)
     SetMenuBar(menuBar);
 
     m_inputWin = new wxWindow(this, wxID_ANY, wxDefaultPosition, wxSize(-1, 50),
-                              wxRAISED_BORDER),
+                              wxRAISED_BORDER);
     m_inputWin->SetBackgroundColour(*wxBLUE);
 
     wxTextCtrl *headerText = new wxTextCtrl(this, wxID_ANY, "",
@@ -175,8 +197,10 @@ MyFrame::MyFrame(const wxString& title)
     Connect(ClearID, wxEVT_COMMAND_MENU_SELECTED,
             wxCommandEventHandler(MyFrame::OnClear));
 
-    Connect(SkipID, wxEVT_COMMAND_MENU_SELECTED,
-            wxCommandEventHandler(MyFrame::OnSkip));
+    Connect(SkipHook, wxEVT_COMMAND_MENU_SELECTED,
+            wxCommandEventHandler(MyFrame::OnSkipHook));
+    Connect(SkipDown, wxEVT_COMMAND_MENU_SELECTED,
+            wxCommandEventHandler(MyFrame::OnSkipDown));
 
     Connect(TestAccelA, wxEVT_COMMAND_MENU_SELECTED,
             wxCommandEventHandler(MyFrame::OnTestAccelA));
@@ -197,6 +221,13 @@ MyFrame::MyFrame(const wxString& title)
     m_inputWin->Connect(wxEVT_PAINT,
                         wxPaintEventHandler(MyFrame::OnPaintInputWin),
                         NULL, this);
+
+    // notice that we don't connect OnCharHook() to the input window, unlike
+    // the usual key events this one is propagated upwards
+    Connect(wxEVT_CHAR_HOOK, wxKeyEventHandler(MyFrame::OnCharHook));
+
+    // status bar is useful for showing the menu items help strings
+    CreateStatusBar();
 
     // and show itself (the frames, unlike simple controls, are not shown when
     // created initially)
@@ -338,7 +369,9 @@ const char* GetVirtualKeyCodeName(int keycode)
 
         WXK_(WINDOWS_LEFT)
         WXK_(WINDOWS_RIGHT)
-        WXK_(COMMAND)
+#ifdef __WXOSX__
+        WXK_(RAW_CONTROL)
+#endif
 #undef WXK_
 
     default:
@@ -402,9 +435,6 @@ void MyFrame::LogEvent(const wxString& name, wxKeyEvent& event)
                );
 
     m_logText->AppendText(msg);
-
-    if ( m_skip )
-        event.Skip();
 }
 
 

@@ -2,7 +2,7 @@
 // Name:        src/gtk/mdi.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: mdi.cpp 67326 2011-03-28 06:27:49Z PC $
+// Id:          $Id: mdi.cpp 69528 2011-10-25 16:56:57Z PC $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -292,6 +292,12 @@ wxMDIChildFrame::~wxMDIChildFrame()
     // wxMDIClientWindow does not get redrawn properly after last child is removed
     if (m_parent && m_parent->GetChildren().size() <= 1)
         gtk_widget_queue_draw(m_parent->m_widget);
+}
+
+void wxMDIChildFrame::GTKHandleRealized()
+{
+    // since m_widget is not a GtkWindow, must bypass wxTopLevelWindowGTK
+    wxTopLevelWindowBase::GTKHandleRealized();
 }
 
 void wxMDIChildFrame::SetMenuBar( wxMenuBar *menu_bar )

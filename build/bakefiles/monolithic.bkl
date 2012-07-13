@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
-<!-- $Id: monolithic.bkl 65089 2010-07-25 00:18:57Z VZ $ -->
+<!-- $Id: monolithic.bkl 69049 2011-09-10 18:09:12Z SJL $ -->
 <makefile>
 
     <set var="MONOLIB_GUI_SRC">
         <if cond="USE_GUI=='1'">
-            $(CORE_SRC) $(ADVANCED_SRC) $(MEDIA_SRC) $(HTML_SRC) $(QA_SRC)
-            $(XRC_SRC) $(AUI_SRC) $(PROPGRID_SRC) $(RIBBON_SRC) $(RICHTEXT_SRC)
-            $(STC_SRC)
+            $(CORE_SRC) $(ADVANCED_SRC) $(MEDIA_SRC) $(HTML_SRC) $(WEBVIEW_SRC)
+            $(QA_SRC) $(XRC_SRC) $(AUI_SRC) $(PROPGRID_SRC) $(RIBBON_SRC)
+            $(RICHTEXT_SRC) $(STC_SRC)
         </if>
     </set>
     <set var="MONOLIB_SRC">

@@ -2,7 +2,7 @@
 // Name:        wx/defs.h
 // Purpose:     interface of global functions
 // Author:      wxWidgets team
-// RCS-ID:      $Id: defs.h 68974 2011-09-03 01:39:39Z RD $
+// RCS-ID:      $Id: defs.h 69842 2011-11-27 19:50:45Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -143,6 +143,28 @@ enum wxBorder
     /*  a mask to extract border style from the combination of flags */
     wxBORDER_MASK   = 0x1f200000
 };
+
+/*  ---------------------------------------------------------------------------- */
+/*  Possible SetSize flags */
+/*  ---------------------------------------------------------------------------- */
+
+/*  Use internally-calculated width if -1 */
+#define wxSIZE_AUTO_WIDTH       0x0001
+/*  Use internally-calculated height if -1 */
+#define wxSIZE_AUTO_HEIGHT      0x0002
+/*  Use internally-calculated width and height if each is -1 */
+#define wxSIZE_AUTO             (wxSIZE_AUTO_WIDTH|wxSIZE_AUTO_HEIGHT)
+/*  Ignore missing (-1) dimensions (use existing). */
+/*  For readability only: test for wxSIZE_AUTO_WIDTH/HEIGHT in code. */
+#define wxSIZE_USE_EXISTING     0x0000
+/*  Allow -1 as a valid position */
+#define wxSIZE_ALLOW_MINUS_ONE  0x0004
+/*  Don't do parent client adjustments (for implementation only) */
+#define wxSIZE_NO_ADJUSTMENTS   0x0008
+/*  Change the window position even if it seems to be already correct */
+#define wxSIZE_FORCE            0x0010
+/*  Emit size event even if size didn't change */
+#define wxSIZE_FORCE_EVENT      0x0020
 
 /*  ---------------------------------------------------------------------------- */
 /*  Window style flags */
@@ -457,17 +479,21 @@ enum wxBorder
 #define wxICON_STOP             wxICON_HAND
 #define wxICON_ASTERISK         wxICON_INFORMATION
 
-#define  wxFORWARD              0x00001000
-#define  wxBACKWARD             0x00002000
-#define  wxRESET                0x00004000
-#define  wxHELP                 0x00008000
-#define  wxMORE                 0x00010000
-#define  wxSETUP                0x00020000
+#define wxHELP                  0x00001000
+#define wxFORWARD               0x00002000
+#define wxBACKWARD              0x00004000
+#define wxRESET                 0x00008000
+#define wxMORE                  0x00010000
+#define wxSETUP                 0x00020000
 #define wxICON_NONE             0x00040000
 
 #define wxICON_MASK \
     (wxICON_EXCLAMATION|wxICON_HAND|wxICON_QUESTION|wxICON_INFORMATION|wxICON_NONE)
 
+
+/*  symbolic constant used by all Find()-like functions returning positive */
+/*  integer on success as failure indicator */
+#define wxNOT_FOUND       (-1)
 
 /**
     Background styles.
@@ -517,7 +543,14 @@ enum wxBackgroundStyle
         EVT_ERASE_BACKGROUND event will not be generated at all for windows
         with this style.
      */
-    wxBG_STYLE_PAINT
+    wxBG_STYLE_PAINT,
+    
+    /* this style is deprecated and doesn't do anything, don't use */
+    wxBG_STYLE_COLOUR,
+
+    /* this is a Mac-only style, don't use in portable code */
+    wxBG_STYLE_TRANSPARENT,
+
 };
 
 
@@ -526,9 +559,8 @@ enum wxBackgroundStyle
 
     Notice that some, but @em not all, of these IDs are also stock IDs, i.e.
     you can use them for the button or menu items without specifying the label
-    which will be provided by the underlying platform itself. See @ref "the
-    list of stock items" for the subset of standard IDs which are stock IDs as
-    well.
+    which will be provided by the underlying platform itself. See @ref page_stockitems "the
+    list of stock items" for the subset of standard IDs which are stock IDs as well.
 */
 enum wxStandardID
 {
@@ -977,20 +1009,19 @@ enum wxKeyModifier
 {
     wxMOD_NONE      = 0x0000,
     wxMOD_ALT       = 0x0001,
+    /** Ctlr Key, corresponds to Command key on OS X */
     wxMOD_CONTROL   = 0x0002,
     wxMOD_ALTGR     = wxMOD_ALT | wxMOD_CONTROL,
     wxMOD_SHIFT     = 0x0004,
     wxMOD_META      = 0x0008,
     wxMOD_WIN       = wxMOD_META,
-
-    /**
-        Notice that @c wxMOD_CMD should be used instead of @c wxMOD_CONTROL
-        in portable code to account for the fact that although
-        @c Control modifier exists under Mac OS, it is not used for the same
-        purpose as under Windows or Unix there while the special Mac-specific
-        @c Command modifier is used in exactly the same way.
-    */
-    wxMOD_CMD       = wxMOD_META,
+    
+    /** used to describe the true Ctrl Key under OSX, 
+    identic to @c wxMOD_CONTROL on other platforms */
+    wxMOD_RAW_CONTROL,
+    
+    /** deprecated, identic to @c wxMOD_CONTROL on all platforms */
+    wxMOD_CMD       = wxMOD_CONTROL,
     wxMOD_ALL       = 0xffff
 };
 

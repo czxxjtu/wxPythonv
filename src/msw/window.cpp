@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: VZ on 13.05.99: no more Default(), MSWOnXXX() reorganisation
 // Created:     04/01/98
-// RCS-ID:      $Id: window.cpp 67973 2011-06-17 21:53:32Z VZ $
+// RCS-ID:      $Id: window.cpp 69984 2011-12-11 17:03:56Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -111,10 +111,6 @@
 
 #ifdef __WIN32__
     #include <windowsx.h>
-#endif
-
-#if !defined __WXWINCE__ && !defined NEED_PBT_H
-    #include <pbt.h>
 #endif
 
 #if defined(__WXWINCE__)
@@ -321,20 +317,23 @@ static void EnsureParentHasControlParentStyle(wxWindow *parent)
 
 #endif // !__WXWINCE__
 
-#ifdef __WXWINCE__
-// On Windows CE, GetCursorPos can return an error, so use this function
-// instead
-bool GetCursorPosWinCE(POINT* pt)
+// GetCursorPos can return an error, so use this function
+// instead.
+// Error originally observed with WinCE, but later using Remote Desktop
+// to connect to XP.
+void wxGetCursorPosMSW(POINT* pt)
 {
     if (!GetCursorPos(pt))
     {
-        DWORD pos = GetMessagePos();
-        pt->x = LOWORD(pos);
-        pt->y = HIWORD(pos);
-    }
-    return true;
-}
+#ifdef __WXWINCE__
+        wxLogLastError(wxT("GetCursorPos"));
 #endif
+        DWORD pos = GetMessagePos();
+        // the coordinates may be negative in multi-monitor systems
+        pt->x = GET_X_LPARAM(pos);
+        pt->y = GET_Y_LPARAM(pos);
+    }
+}
 
 // ---------------------------------------------------------------------------
 // event tables
@@ -829,6 +828,7 @@ bool wxWindowMSW::SetFont(const wxFont& font)
 
     return true;
 }
+
 bool wxWindowMSW::SetCursor(const wxCursor& cursor)
 {
     if ( !wxWindowBase::SetCursor(cursor) )
@@ -838,7 +838,10 @@ bool wxWindowMSW::SetCursor(const wxCursor& cursor)
     }
 
     // don't "overwrite" busy cursor
-    if ( m_cursor.IsOk() && !wxIsBusy() )
+    if ( wxIsBusy() )
+        return true;
+
+    if ( m_cursor.IsOk() )
     {
         // normally we should change the cursor only if it's over this window
         // but we should do it always if we capture the mouse currently
@@ -848,11 +851,7 @@ bool wxWindowMSW::SetCursor(const wxCursor& cursor)
             HWND hWnd = GetHwnd();
 
             POINT point;
-#ifdef __WXWINCE__
-            ::GetCursorPosWinCE(&point);
-#else
-            ::GetCursorPos(&point);
-#endif
+            ::wxGetCursorPosMSW(&point);
 
             RECT rect = wxGetWindowRect(hWnd);
 
@@ -864,6 +863,22 @@ bool wxWindowMSW::SetCursor(const wxCursor& cursor)
             ::SetCursor(GetHcursorOf(m_cursor));
         }
         //else: will be set later when the mouse enters this window
+    }
+    else // Invalid cursor: this means reset to the default one.
+    {
+        // To revert to the correct cursor we need to find the window currently
+        // under the cursor and ask it to set its cursor itself as only it
+        // knows what it is.
+        POINT pt;
+        wxGetCursorPosMSW(&pt);
+
+        const wxWindowMSW* win = wxFindWindowAtPoint(wxPoint(pt.x, pt.y));
+        if ( !win )
+            win = this;
+
+        ::SendMessage(GetHwndOf(win), WM_SETCURSOR,
+                      (WPARAM)GetHwndOf(win),
+                      MAKELPARAM(HTCLIENT, WM_MOUSEMOVE));
     }
 
     return true;
@@ -1493,11 +1508,7 @@ bool wxWindowMSW::IsMouseInWindow() const
 {
     // get the mouse position
     POINT pt;
-#ifdef __WXWINCE__
-    ::GetCursorPosWinCE(&pt);
-#else
-    ::GetCursorPos(&pt);
-#endif
+    wxGetCursorPosMSW(&pt);
 
     // find the window which currently has the cursor and go up the window
     // chain until we find this window - or exhaust it
@@ -2379,8 +2390,6 @@ bool wxWindowMSW::MSWProcessMessage(WXMSG* pMsg)
                                 // emulate the button click
                                 btn = wxFindWinFromHandle(msg->hwnd);
                             }
-
-                            bProcess = false;
                         }
                         else // not a button itself, do we have default button?
                         {
@@ -2439,6 +2448,13 @@ bool wxWindowMSW::MSWProcessMessage(WXMSG* pMsg)
                             btn->MSWCommand(BN_CLICKED, 0 /* unused */);
                             return true;
                         }
+
+                        // This "Return" key press won't be actually used for
+                        // navigation so don't generate wxNavigationKeyEvent
+                        // for it but still pass it to IsDialogMessage() as it
+                        // may handle it in some other way (e.g. by playing the
+                        // default error sound).
+                        bProcess = false;
 
 #endif // wxUSE_BUTTON
 
@@ -2699,7 +2715,11 @@ LRESULT WXDLLEXPORT APIENTRY _EXPORT wxWndProc(HWND hWnd, UINT message, WPARAM w
     return rc;
 }
 
-WXLRESULT wxWindowMSW::MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam)
+bool
+wxWindowMSW::MSWHandleMessage(WXLRESULT *result,
+                              WXUINT message,
+                              WXWPARAM wParam,
+                              WXLPARAM lParam)
 {
     // did we process the message?
     bool processed = false;
@@ -3129,6 +3149,7 @@ WXLRESULT wxWindowMSW::MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM l
                     case VK_OEM_5:
                     case VK_OEM_6:
                     case VK_OEM_7:
+                    case VK_OEM_102:
                     case VK_OEM_PLUS:
                     case VK_OEM_COMMA:
                     case VK_OEM_MINUS:
@@ -3579,15 +3600,26 @@ WXLRESULT wxWindowMSW::MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM l
     }
 
     if ( !processed )
+        return false;
+
+    *result = rc.result;
+
+    return true;
+}
+
+WXLRESULT wxWindowMSW::MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam)
+{
+    WXLRESULT result;
+    if ( !MSWHandleMessage(&result, message, wParam, lParam) )
     {
 #if wxDEBUG_LEVEL >= 2
         wxLogTrace("winmsg", wxT("Forwarding %s to DefWindowProc."),
                    wxGetMessageName(message));
 #endif // wxDEBUG_LEVEL >= 2
-        rc.result = MSWDefWindowProc(message, wParam, lParam);
+        result = MSWDefWindowProc(message, wParam, lParam);
     }
 
-    return rc.result;
+    return result;
 }
 
 // ----------------------------------------------------------------------------
@@ -4160,14 +4192,7 @@ bool wxWindowMSW::HandleSetCursor(WXHWND WXUNUSED(hWnd),
         // first ask the user code - it may wish to set the cursor in some very
         // specific way (for example, depending on the current position)
         POINT pt;
-#ifdef __WXWINCE__
-        if ( !::GetCursorPosWinCE(&pt))
-#else
-        if ( !::GetCursorPos(&pt) )
-#endif
-        {
-            wxLogLastError(wxT("GetCursorPos"));
-        }
+        wxGetCursorPosMSW(&pt);
 
         int x = pt.x,
             y = pt.y;
@@ -5584,14 +5609,7 @@ void wxWindowMSW::GenerateMouseLeave()
         state |= MK_RBUTTON;
 
     POINT pt;
-#ifdef __WXWINCE__
-    if ( !::GetCursorPosWinCE(&pt) )
-#else
-    if ( !::GetCursorPos(&pt) )
-#endif
-    {
-        wxLogLastError(wxT("GetCursorPos"));
-    }
+    wxGetCursorPosMSW(&pt);
 
     // we need to have client coordinates here for symmetry with
     // wxEVT_ENTER_WINDOW
@@ -6217,6 +6235,7 @@ int VKToWX(WXWORD vk, WXLPARAM lParam, wchar_t *uc)
         case VK_OEM_5:
         case VK_OEM_6:
         case VK_OEM_7:
+        case VK_OEM_102:
             // MapVirtualKey() returns 0 if it fails to convert the virtual
             // key which nicely corresponds to our WXK_NONE.
             wxk = ::MapVirtualKey(vk, MAPVK_VK_TO_CHAR);
@@ -6295,6 +6314,9 @@ int VKToWX(WXWORD vk, WXLPARAM lParam, wchar_t *uc)
             // don't use ChooseNormalOrExtended() here as the keys are reversed
             // here: numpad enter is the extended one
             wxk = HIWORD(lParam) & KF_EXTENDED ? WXK_NUMPAD_ENTER : WXK_RETURN;
+
+            if ( uc )
+                *uc = WXK_RETURN;
             break;
 
         default:
@@ -6477,7 +6499,7 @@ wxMouseState wxGetMouseState()
 {
     wxMouseState ms;
     POINT pt;
-    GetCursorPos( &pt );
+    wxGetCursorPosMSW(&pt);
 
     ms.SetX(pt.x);
     ms.SetY(pt.y);
@@ -6600,7 +6622,14 @@ wxKeyboardHook(int nCode, WORD wParam, DWORD lParam)
 #endif // wxUSE_UNICODE
                     )
             {
-                const wxWindow * const win = wxGetActiveWindow();
+                wxWindow const* win = wxWindow::DoFindFocus();
+                if ( !win )
+                {
+                    // Even if the focus got lost somehow, still send the event
+                    // to the top level parent to allow a wxDialog to always
+                    // close on Escape.
+                    win = wxGetActiveWindow();
+                }
 
                 wxKeyEvent event(wxEVT_CHAR_HOOK);
                 MSWInitAnyKeyEvent(event, wParam, lParam, win);
@@ -6615,8 +6644,11 @@ wxKeyboardHook(int nCode, WORD wParam, DWORD lParam)
 
                 if ( handler && handler->ProcessEvent(event) )
                 {
-                    // processed
-                    return 1;
+                    if ( !event.IsNextEventAllowed() )
+                    {
+                        // Stop processing of this event.
+                        return 1;
+                    }
                 }
             }
         }
@@ -7180,11 +7212,7 @@ wxWindow* wxFindWindowAtPoint(const wxPoint& pt)
 wxPoint wxGetMousePosition()
 {
     POINT pt;
-#ifdef __WXWINCE__
-    GetCursorPosWinCE(&pt);
-#else
-    GetCursorPos( & pt );
-#endif
+    wxGetCursorPosMSW(&pt);
 
     return wxPoint(pt.x, pt.y);
 }

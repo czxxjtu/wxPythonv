@@ -4,7 +4,7 @@
 // Author:      Ryan Norton
 // Modified by:
 // Created:     11/10/04
-// RCS-ID:      $Id: mediaplayer.cpp 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: mediaplayer.cpp 68617 2011-08-09 22:17:12Z DS $
 // Copyright:   (c) Ryan Norton
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -143,7 +143,7 @@ class wxMediaPlayerApp : public wxApp
 {
 public:
 #ifdef __WXMAC__
-    virtual void MacOpenFile(const wxString & fileName );
+    virtual void MacOpenFiles(const wxArrayString & fileNames );
 #endif
 
     virtual bool OnInit();
@@ -463,10 +463,10 @@ bool wxMediaPlayerApp::OnInit()
 
 #ifdef __WXMAC__
 
-void wxMediaPlayerApp::MacOpenFile(const wxString & fileName )
+void wxMediaPlayerApp::MacOpenFiles(const wxArrayString & fileNames )
 {
-    // Called when a user drags a file over our app
-    m_frame->DoOpenFile(fileName, true /* new page */);
+    // Called when a user drags files over our app
+    m_frame->DoOpenFile(fileNames[0], true /* new page */);
 }
 
 #endif // __WXMAC__

@@ -382,7 +382,7 @@ class CommandNotebookEvent(wx.PyCommandEvent):
         self.dispatched = 0
         self.label = ""
         self.editCancelled = False
-
+        self.page = None
 
     def SetSelection(self, s):
         """
@@ -484,6 +484,10 @@ class CommandNotebookEvent(wx.PyCommandEvent):
         self.label = label
 
 
+    Page      = property(lambda self: self.page,
+                         lambda self, page: setattr(self, 'page', page))
+    Selection = property(lambda self: self.GetSelection(), lambda self, sel: self.SetSelection(sel))
+
 # ----------------------------------------------------------------------
 
 class AuiNotebookEvent(CommandNotebookEvent):
@@ -541,6 +545,34 @@ class AuiNotebookEvent(CommandNotebookEvent):
 
 
 # ---------------------------------------------------------------------------- #
+# Class TabNavigatorProps
+# ---------------------------------------------------------------------------- #
+
+class TabNavigatorProps(object):
+    """
+    Data storage class for managing and providing access to L{TabNavigatorWindow}
+    properties.
+    """
+
+    def __init__(self):
+        """ Default class constructor. """
+        
+        super(TabNavigatorProps, self).__init__()
+
+        # Attributes
+        self._icon = wx.NullBitmap
+        self._font = wx.NullFont
+        self._minsize = wx.DefaultSize
+
+    # Accessors
+    Icon = property(lambda self: self._icon,
+                    lambda self, icon: setattr(self, '_icon', icon))
+    Font = property(lambda self: self._font,
+                    lambda self, font: setattr(self, '_font', font))
+    MinSize = property(lambda self: self._minsize,
+                       lambda self, size: setattr(self, '_minsize', size))
+
+# ---------------------------------------------------------------------------- #
 # Class TabNavigatorWindow
 # ---------------------------------------------------------------------------- #
 
@@ -550,32 +582,37 @@ class TabNavigatorWindow(wx.Dialog):
     similar to what you would get by hitting ``Alt`` + ``Tab`` on Windows.
     """
 
-    def __init__(self, parent=None, icon=None):
+    def __init__(self, parent, props):
         """
         Default class constructor. Used internally.
 
         :param `parent`: the L{TabNavigatorWindow} parent;
-        :param `icon`: the L{TabNavigatorWindow} icon.
+        :param `props`: the L{TabNavigatorProps} object.
         """
 
-        wx.Dialog.__init__(self, parent, wx.ID_ANY, "", style=0)
+        wx.Dialog.__init__(self, parent, wx.ID_ANY, "", size=props.MinSize, style=0)
 
         self._selectedItem = -1
         self._indexMap = []
+        self._props = props
 
-        if icon is None:
-            self._bmp = Mondrian.GetBitmap()
-        else:
-            self._bmp = icon
+        if not self._props.Icon.IsOk():
+            self._props.Icon = Mondrian.GetBitmap()
 
-        if self._bmp.GetSize() != (16, 16):
-            img = self._bmp.ConvertToImage()
+        if props.Icon.GetSize() != (16, 16):
+            img = self._props.Icon.ConvertToImage()
             img.Rescale(16, 16, wx.IMAGE_QUALITY_HIGH)
-            self._bmp = wx.BitmapFromImage(img)
+            self._props.Icon = wx.BitmapFromImage(img)
+
+        if self._props.Font.IsOk():
+            self.Font = self._props.Font
 
         sz = wx.BoxSizer(wx.VERTICAL)
 
-        self._listBox = wx.ListBox(self, wx.ID_ANY, wx.DefaultPosition, wx.Size(200, 150), [], wx.LB_SINGLE | wx.NO_BORDER)
+        self._listBox = wx.ListBox(self, wx.ID_ANY, 
+                                   wx.DefaultPosition, 
+                                   wx.Size(200, 150), [], 
+                                   wx.LB_SINGLE | wx.NO_BORDER)
 
         mem_dc = wx.MemoryDC()
         mem_dc.SelectObject(wx.EmptyBitmap(1,1))
@@ -590,9 +627,10 @@ class TabNavigatorWindow(wx.Dialog):
         if panelHeight < 24:
             panelHeight = 24
 
-        self._panel = wx.Panel(self, wx.ID_ANY, wx.DefaultPosition, wx.Size(200, panelHeight))
+        self._panel = wx.Panel(self, wx.ID_ANY, wx.DefaultPosition, 
+                               wx.Size(-1, panelHeight))
 
-        sz.Add(self._panel)
+        sz.Add(self._panel, 0, wx.EXPAND)
         sz.Add(self._listBox, 1, wx.EXPAND)
 
         self.SetSizer(sz)
@@ -610,9 +648,7 @@ class TabNavigatorWindow(wx.Dialog):
         self._listBox.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_3DFACE))
         self.PopulateListControl(parent)
 
-        self.GetSizer().Fit(self)
-        self.GetSizer().SetSizeHints(self)
-        self.GetSizer().Layout()
+        self.SetInitialSize(props.MinSize)
         self.Centre()
 
         # Set focus on the list box to avoid having to click on it to change
@@ -700,7 +736,7 @@ class TabNavigatorWindow(wx.Dialog):
 
     def OnItemSelected(self, event):
         """
-        Handles the ``wx.EVT_LISTBOX_DCLICK`` event for the wx.ListBox inside L{TabNavigatorWindow}.
+        Handles the ``wx.EVT_LISTBOX_DCLICK`` event for the `wx.ListBox` inside L{TabNavigatorWindow}.
 
         :param `event`: a `wx.ListEvent` event to be processed.
         """
@@ -744,9 +780,9 @@ class TabNavigatorWindow(wx.Dialog):
         # Draw the caption title and place the bitmap
         # get the bitmap optimal position, and draw it
         bmpPt, txtPt = wx.Point(), wx.Point()
-        bmpPt.y = (rect.height - self._bmp.GetHeight())/2
+        bmpPt.y = (rect.height - self._props.Icon.GetHeight())/2
         bmpPt.x = 3
-        mem_dc.DrawBitmap(self._bmp, bmpPt.x, bmpPt.y, True)
+        mem_dc.DrawBitmap(self._props.Icon, bmpPt.x, bmpPt.y, True)
 
         # get the text position, and draw it
         font = wx.SystemSettings_GetFont(wx.SYS_DEFAULT_GUI_FONT)
@@ -754,7 +790,7 @@ class TabNavigatorWindow(wx.Dialog):
         mem_dc.SetFont(font)
         fontHeight = mem_dc.GetCharHeight()
 
-        txtPt.x = bmpPt.x + self._bmp.GetWidth() + 4
+        txtPt.x = bmpPt.x + self._props.Icon.GetWidth() + 4
         txtPt.y = (rect.height - fontHeight)/2
         mem_dc.SetTextForeground(wx.WHITE)
         mem_dc.DrawText("Opened tabs:", txtPt.x, txtPt.y)
@@ -786,7 +822,7 @@ class AuiTabContainer(object):
     the L{AuiManager}, where it is disadvantageous to have separate
     windows for each tab control in the case of "docked tabs".
 
-    A derived class, L{AuiTabCtrl}, is an actual `wx.Window`-derived window
+    A derived class, L{AuiTabCtrl}, is an actual `wx.Window` - derived window
     which can be used as a tab control in the normal sense.
     """
 
@@ -1730,7 +1766,7 @@ class AuiTabContainer(object):
 
 class AuiTabCtrl(wx.PyControl, AuiTabContainer):
     """
-    This is an actual `wx.Window`-derived window which can be used as a tab
+    This is an actual `wx.Window` - derived window which can be used as a tab
     control in the normal sense.
     """
 
@@ -1996,6 +2032,7 @@ class AuiTabCtrl(wx.PyControl, AuiTabContainer):
         if wnd:
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_TAB_MIDDLE_UP, self.GetId())
             e.SetEventObject(self)
+            e.Page = wnd
             e.SetSelection(self.GetIdxFromWindow(wnd))
             self.GetEventHandler().ProcessEvent(e)
         elif not self.ButtonHitTest(x, y):
@@ -2022,6 +2059,7 @@ class AuiTabCtrl(wx.PyControl, AuiTabContainer):
         if wnd:
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_TAB_MIDDLE_DOWN, self.GetId())
             e.SetEventObject(self)
+            e.Page = wnd
             e.SetSelection(self.GetIdxFromWindow(wnd))
             self.GetEventHandler().ProcessEvent(e)
         elif not self.ButtonHitTest(x, y):
@@ -2043,7 +2081,8 @@ class AuiTabCtrl(wx.PyControl, AuiTabContainer):
         if wnd:
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_TAB_RIGHT_UP, self.GetId())
             e.SetEventObject(self)
-            e.SetSelection(self.GetIdxFromWindow(wnd))
+            e.Selection = self.GetIdxFromWindow(wnd)
+            e.Page = wnd
             self.GetEventHandler().ProcessEvent(e)
         elif not self.ButtonHitTest(x, y):
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_BG_RIGHT_UP, self.GetId())
@@ -2065,6 +2104,7 @@ class AuiTabCtrl(wx.PyControl, AuiTabContainer):
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_TAB_RIGHT_DOWN, self.GetId())
             e.SetEventObject(self)
             e.SetSelection(self.GetIdxFromWindow(wnd))
+            e.Page = wnd
             self.GetEventHandler().ProcessEvent(e)
         elif not self.ButtonHitTest(x, y):
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_BG_RIGHT_DOWN, self.GetId())
@@ -2086,6 +2126,7 @@ class AuiTabCtrl(wx.PyControl, AuiTabContainer):
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_TAB_DCLICK, self.GetId())
             e.SetEventObject(self)
             e.SetSelection(self.GetIdxFromWindow(wnd))
+            e.Page = wnd
             self.GetEventHandler().ProcessEvent(e)
         elif not self.ButtonHitTest(x, y):
             e = AuiNotebookEvent(wxEVT_COMMAND_AUINOTEBOOK_BG_DCLICK, self.GetId())
@@ -2544,7 +2585,9 @@ class TabFrame(wx.PyWindow):
 
         :param `show`: ``True`` to show the window, ``False`` otherwise.
 
-        :note: Overridden from `wx.PyControl`, this method always returns ``False`` as
+        :note:
+
+         Overridden from `wx.PyControl`, this method always returns ``False`` as
          L{TabFrame} should never be phisically shown on screen.
         """
 
@@ -2650,7 +2693,7 @@ class AuiNotebook(wx.PyPanel):
     """
 
     def __init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
-                 style=0, agwStyle=AUI_NB_DEFAULT_STYLE):
+                 style=0, agwStyle=AUI_NB_DEFAULT_STYLE, name="AuiNotebook"):
         """
         Default class constructor.
 
@@ -2694,6 +2737,7 @@ class AuiNotebook(wx.PyPanel):
          Default value for `agwStyle` is:
          ``AUI_NB_DEFAULT_STYLE`` = ``AUI_NB_TOP`` | ``AUI_NB_TAB_SPLIT`` | ``AUI_NB_TAB_MOVE`` | ``AUI_NB_SCROLL_BUTTONS`` | ``AUI_NB_CLOSE_ON_ACTIVE_TAB`` | ``AUI_NB_MIDDLE_CLICK_CLOSE`` | ``AUI_NB_DRAW_DND_TAB``
 
+        :param `name`: the window name.
         """
 
         self._curpage = -1
@@ -2708,12 +2752,13 @@ class AuiNotebook(wx.PyPanel):
         self._tabBounds = (-1, -1)
         self._click_tab = None
 
-        wx.PyPanel.__init__(self, parent, id, pos, size, style|wx.BORDER_NONE|wx.TAB_TRAVERSAL)
+        wx.PyPanel.__init__(self, parent, id, pos, size, style|wx.BORDER_NONE|wx.TAB_TRAVERSAL, name=name)
         self._mgr = framemanager.AuiManager()
         self._tabs = AuiTabContainer(self)
 
         self.InitNotebook(agwStyle)
 
+    NavigatorProps = property(lambda self: self._navProps)
 
     def GetTabContainer(self):
         """ Returns the instance of L{AuiTabContainer}. """
@@ -2730,12 +2775,11 @@ class AuiNotebook(wx.PyPanel):
         :see: L{__init__}
         """
 
-        self.SetName("AuiNotebook")
         self._agwFlags = agwStyle
 
         self._popupWin = None
-        self._naviIcon = None
         self._imageList = None
+        self._navProps = TabNavigatorProps()
         self._last_drag_x = 0
 
         self._normal_font = wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT)
@@ -3218,7 +3262,8 @@ class AuiNotebook(wx.PyPanel):
 
         if bitmap.IsOk() and not disabled_bitmap.IsOk():
             disabled_bitmap = MakeDisabledBitmap(bitmap)
-            info.dis_bitmap = disabled_bitmap
+
+        info.dis_bitmap = disabled_bitmap
 
         # if there are currently no tabs, the first added
         # tab must be active
@@ -3266,7 +3311,9 @@ class AuiNotebook(wx.PyPanel):
 
         :param `page_idx`: the page index to be deleted.
 
-        :note: L{DeletePage} removes a tab from the multi-notebook, and destroys the window as well.
+        :note:
+
+         L{DeletePage} removes a tab from the multi-notebook, and destroys the window as well.
 
         :see: L{RemovePage}
         """
@@ -3295,7 +3342,9 @@ class AuiNotebook(wx.PyPanel):
 
         :param `page_idx`: the page index to be removed.
 
-        :note: L{RemovePage} removes a tab from the multi-notebook, but does not destroy the window.
+        :note:
+
+         L{RemovePage} removes a tab from the multi-notebook, but does not destroy the window.
 
         :see: L{DeletePage}
         """
@@ -5093,12 +5142,7 @@ class AuiNotebook(wx.PyPanel):
         """
 
         if isinstance(bmp, wx.Bitmap) and bmp.IsOk():
-            # Make sure image is proper size
-            if bmp.GetSize() != (16, 16):
-                img = bmp.ConvertToImage()
-                img.Rescale(16, 16, wx.IMAGE_QUALITY_HIGH)
-                bmp = wx.BitmapFromImage(img)
-            self._naviIcon = bmp
+            self.NavigatorProps.Icon = bmp
         else:
             raise TypeError, "SetNavigatorIcon requires a valid bitmap"
 
@@ -5113,7 +5157,7 @@ class AuiNotebook(wx.PyPanel):
         if event.IsWindowChange():
             if self._agwFlags & AUI_NB_SMART_TABS:
                 if not self._popupWin:
-                    self._popupWin = TabNavigatorWindow(self, self._naviIcon)
+                    self._popupWin = TabNavigatorWindow(self, self.NavigatorProps)
                     self._popupWin.SetReturnCode(wx.ID_OK)
                     self._popupWin.ShowModal()
                     idx = self._popupWin.GetSelectedPage()

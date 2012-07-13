@@ -2,7 +2,7 @@
 // Name:        xrc/xmlres.h
 // Purpose:     interface of wxXmlResource
 // Author:      wxWidgets team
-// RCS-ID:      $Id: xmlres.h 66058 2010-11-07 14:00:43Z VZ $
+// RCS-ID:      $Id: xmlres.h 68839 2011-08-22 12:18:49Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -552,6 +552,18 @@ protected:
     */
     wxCoord GetDimension(const wxString& param, wxCoord defaultv = 0,
                          wxWindow* windowToUse = 0);
+
+    /**
+        Gets a direction.
+
+        If the given @a param is not present or has empty value, @a dir is
+        returned by default. Otherwise the value of the parameter is parsed and
+        a warning is generated if it's not one of @c wxLEFT, @c wxTOP, @c
+        wxRIGHT or @c wxBOTTOM.
+
+        @since 2.9.3
+     */
+    wxDirection GetDirection(const wxString& param, wxDirection dir = wxLEFT);
 
     /**
         Gets a font.

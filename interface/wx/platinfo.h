@@ -2,7 +2,7 @@
 // Name:        platinfo.h
 // Purpose:     interface of wxPlatformInfo
 // Author:      wxWidgets team
-// RCS-ID:      $Id: platinfo.h 66268 2010-11-27 08:38:46Z RD $
+// RCS-ID:      $Id: platinfo.h 69545 2011-10-26 05:52:53Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -181,7 +181,7 @@ public:
     /**
         Initializes the object using given values.
     */
-    wxPlatformInfo(wxPortId pid = wxPORT_UNKNOWN,
+    wxPlatformInfo(wxPortId pid,
                    int tkMajor = -1,
                    int tkMinor = -1,
                    wxOperatingSystemId id = wxOS_UNKNOWN,

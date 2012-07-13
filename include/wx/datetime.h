@@ -5,7 +5,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     10.02.99
-// RCS-ID:      $Id: datetime.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: datetime.h 69846 2011-11-27 20:28:43Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -52,27 +52,6 @@ struct _SYSTEMTIME;
  * + 4. pluggable modules for the workdays calculations
  *   5. wxDateTimeHolidayAuthority for Easter and other christian feasts
  */
-
-/* Two wrapper functions for thread safety */
-#ifdef HAVE_LOCALTIME_R
-#define wxLocaltime_r localtime_r
-#else
-WXDLLIMPEXP_BASE struct tm *wxLocaltime_r(const time_t*, struct tm*);
-#if wxUSE_THREADS && !defined(__WINDOWS__) && !defined(__WATCOMC__)
-     // On Windows, localtime _is_ threadsafe!
-#warning using pseudo thread-safe wrapper for localtime to emulate localtime_r
-#endif
-#endif
-
-#ifdef HAVE_GMTIME_R
-#define wxGmtime_r gmtime_r
-#else
-WXDLLIMPEXP_BASE struct tm *wxGmtime_r(const time_t*, struct tm*);
-#if wxUSE_THREADS && !defined(__WINDOWS__) && !defined(__WATCOMC__)
-     // On Windows, gmtime _is_ threadsafe!
-#warning using pseudo thread-safe wrapper for gmtime to emulate gmtime_r
-#endif
-#endif
 
 /*
   The three (main) classes declared in this header represent:

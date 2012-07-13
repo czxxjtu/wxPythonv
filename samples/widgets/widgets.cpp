@@ -4,7 +4,7 @@
 // Purpose:     Sample showing most of the simple wxWidgets widgets
 // Author:      Vadim Zeitlin
 // Created:     27.03.01
-// Id:          $Id: widgets.cpp 67681 2011-05-03 16:29:04Z DS $
+// Id:          $Id: widgets.cpp 68918 2011-08-27 14:11:13Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -99,6 +99,7 @@ enum
     TextEntry_DisableAutoComplete = TextEntry_Begin,
     TextEntry_AutoCompleteFixed,
     TextEntry_AutoCompleteFilenames,
+    TextEntry_AutoCompleteDirectories,
     TextEntry_AutoCompleteCustom,
 
     TextEntry_SetHint,
@@ -174,6 +175,7 @@ protected:
     void OnDisableAutoComplete(wxCommandEvent& event);
     void OnAutoCompleteFixed(wxCommandEvent& event);
     void OnAutoCompleteFilenames(wxCommandEvent& event);
+    void OnAutoCompleteDirectories(wxCommandEvent& event);
     void OnAutoCompleteCustom(wxCommandEvent& event);
 
     void OnSetHint(wxCommandEvent& event);
@@ -303,6 +305,7 @@ BEGIN_EVENT_TABLE(WidgetsFrame, wxFrame)
     EVT_MENU(TextEntry_DisableAutoComplete,   WidgetsFrame::OnDisableAutoComplete)
     EVT_MENU(TextEntry_AutoCompleteFixed,     WidgetsFrame::OnAutoCompleteFixed)
     EVT_MENU(TextEntry_AutoCompleteFilenames, WidgetsFrame::OnAutoCompleteFilenames)
+    EVT_MENU(TextEntry_AutoCompleteDirectories, WidgetsFrame::OnAutoCompleteDirectories)
     EVT_MENU(TextEntry_AutoCompleteCustom,    WidgetsFrame::OnAutoCompleteCustom)
 
     EVT_MENU(TextEntry_SetHint, WidgetsFrame::OnSetHint)
@@ -418,6 +421,8 @@ WidgetsFrame::WidgetsFrame(const wxString& title)
                                    wxT("Fixed-&list auto-completion"));
     menuTextEntry->AppendRadioItem(TextEntry_AutoCompleteFilenames,
                                    wxT("&Files names auto-completion"));
+    menuTextEntry->AppendRadioItem(TextEntry_AutoCompleteDirectories,
+                                   wxT("&Directories names auto-completion"));
     menuTextEntry->AppendRadioItem(TextEntry_AutoCompleteCustom,
                                    wxT("&Custom auto-completion"));
     menuTextEntry->AppendSeparator();
@@ -992,6 +997,21 @@ void WidgetsFrame::OnAutoCompleteFilenames(wxCommandEvent& WXUNUSED(event))
     else
     {
         wxLogMessage("AutoCompleteFileNames() failed.");
+    }
+}
+
+void WidgetsFrame::OnAutoCompleteDirectories(wxCommandEvent& WXUNUSED(event))
+{
+    wxTextEntryBase *entry = CurrentPage()->GetTextEntry();
+    wxCHECK_RET( entry, "menu item should be disabled" );
+
+    if ( entry->AutoCompleteDirectories() )
+    {
+        wxLogMessage("Enabled auto completion of directories.");
+    }
+    else
+    {
+        wxLogMessage("AutoCompleteDirectories() failed.");
     }
 }
 

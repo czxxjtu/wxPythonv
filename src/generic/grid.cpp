@@ -4,7 +4,7 @@
 // Author:      Michael Bedward (based on code by Julian Smart, Robin Dunn)
 // Modified by: Robin Dunn, Vadim Zeitlin, Santiago Palacios
 // Created:     1/08/1999
-// RCS-ID:      $Id: grid.cpp 68533 2011-08-04 22:47:41Z RD $
+// RCS-ID:      $Id: grid.cpp 69568 2011-10-27 22:26:10Z VZ $
 // Copyright:   (c) Michael Bedward (mbedward@ozemail.com.au)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -72,8 +72,8 @@ const char wxGridNameStr[] = "grid";
 // Required for wxIs... functions
 #include <ctype.h>
 
-WX_DECLARE_HASH_SET_WITH_DECL(int, wxIntegerHash, wxIntegerEqual,
-                              wxGridFixedIndicesSet, class WXDLLIMPEXP_ADV);
+WX_DECLARE_HASH_SET_WITH_DECL_PTR(int, wxIntegerHash, wxIntegerEqual,
+                                  wxGridFixedIndicesSet, class WXDLLIMPEXP_ADV);
 
 
 // ----------------------------------------------------------------------------
@@ -3664,7 +3664,7 @@ wxGrid::DoGridCellDrag(wxMouseEvent& event,
 
     switch ( event.GetModifiers() )
     {
-        case wxMOD_CMD:
+        case wxMOD_CONTROL:
             if ( m_selectedBlockCorner == wxGridNoCellCoords)
                 m_selectedBlockCorner = coords;
             UpdateBlockBeingSelected(m_selectedBlockCorner, coords);

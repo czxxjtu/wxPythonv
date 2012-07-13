@@ -171,7 +171,6 @@ public:
     virtual void SetReorderable(bool reorderable);
     virtual void SetHidden(bool hidden);
 
-    virtual void SetAsSortKey(bool sort = true);
     void UnsetAsSortKey();
 
     virtual void SetSortOrder(bool ascending);
@@ -188,7 +187,7 @@ public:
     %property(Sortable, HeaderColumn.IsSortable, SetSortable);
     %property(Reorderable, HeaderColumn.IsReorderable, SetReorderable);
     %property(Hidden, HeaderColumn.IsHidden, SetHidden);
-    %property(SortKey, HeaderColumn.IsSortKey, SetAsSortKey);
+    %property(SortKey, HeaderColumn.IsSortKey);
 };
 
 // ----------------------------------------------------------------------------

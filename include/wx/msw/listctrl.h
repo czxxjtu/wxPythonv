@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Agron Selimaj
 // Created:     01/02/97
-// RCS-ID:      $Id: listctrl.h 64532 2010-06-09 13:55:48Z FM $
+// RCS-ID:      $Id: listctrl.h 69897 2011-12-02 00:50:41Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -465,6 +465,10 @@ private:
 
     // destroy m_textCtrl if it's currently valid and reset it to NULL
     void DeleteEditControl();
+
+    // Intercept Escape and Enter keys to avoid them being stolen from our
+    // in-place editor control.
+    void OnCharHook(wxKeyEvent& event);
 
 
     DECLARE_DYNAMIC_CLASS(wxListCtrl)

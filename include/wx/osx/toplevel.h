@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     20.09.01
-// RCS-ID:      $Id: toplevel.h 65680 2010-09-30 11:44:45Z VZ $
+// RCS-ID:      $Id: toplevel.h 69364 2011-10-10 10:53:23Z VZ $
 // Copyright:   (c) 2001 Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -50,9 +50,6 @@ public:
     virtual bool Destroy();
 
     virtual wxPoint GetClientAreaOrigin() const;
-
-    virtual bool SetShape(const wxRegion& region)
-        { return DoSetShape(region); }
 
     // Attracts the users attention to this window if the application is
     // inactive (should be called when a background event occurs)

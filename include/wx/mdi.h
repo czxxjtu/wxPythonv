@@ -5,7 +5,7 @@
 //              Vadim Zeitlin (base MDI classes refactoring)
 // Copyright:   (c) 1998 Julian Smart
 //              (c) 2008 Vadim Zeitlin
-// RCS-ID:      $Id: mdi.h 58457 2009-01-27 14:48:20Z VZ $
+// RCS-ID:      $Id: mdi.h 68502 2011-08-03 00:45:42Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -175,6 +175,11 @@ public:
     // exception are the Mac ports in which MDI children are just normal top
     // level windows too
     virtual bool IsTopLevel() const { return false; }
+
+    // In all ports keyboard navigation must stop at MDI child frame level and
+    // can't cross its boundary. Indicate this by overriding this function to
+    // return true.
+    virtual bool IsTopNavigationDomain() const { return true; }
 
 protected:
     wxMDIParentFrame *m_mdiParent;

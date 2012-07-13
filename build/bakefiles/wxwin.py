@@ -1,7 +1,7 @@
 #
 # Helper functions for wxWidgets bakefiles
 #
-# $Id: wxwin.py 61944 2009-09-16 12:06:02Z PJC $
+# $Id: wxwin.py 69049 2011-09-10 18:09:12Z SJL $
 #
 
 
@@ -39,12 +39,12 @@ def mk_wxid(id):
 
 
 # All libs that are part of the main library:
-MAIN_LIBS = ['mono', 'base', 'core', 'adv', 'html', 'xml', 'net',
+MAIN_LIBS = ['mono', 'base', 'core', 'adv', 'html', 'xml', 'net', 'webview',
              'media', 'qa', 'xrc', 'aui', 'ribbon', 'propgrid', 'richtext', 'stc']
 # List of library names/ids for categories with different names:
 LIBS_NOGUI = ['xml', 'net']
 LIBS_GUI   = ['core', 'adv', 'html', 'gl', 'qa', 'xrc', 'media',
-              'aui', 'propgrid', 'richtext', 'stc', 'ribbon']
+              'aui', 'propgrid', 'richtext', 'stc', 'ribbon', 'webview']
 # Additional libraries that must be linked in:
 EXTRALIBS = {
     'gl' : '$(EXTRALIBS_OPENGL)',

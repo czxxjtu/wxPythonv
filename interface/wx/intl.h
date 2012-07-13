@@ -2,7 +2,7 @@
 // Name:        intl.h
 // Purpose:     interface of wxLocale
 // Author:      wxWidgets team
-// RCS-ID:      $Id: intl.h 66248 2010-11-23 22:14:18Z RD $
+// RCS-ID:      $Id: intl.h 69446 2011-10-17 18:53:28Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,7 @@ enum wxLayoutDirection
     - Wx::LanguageInfo->new(language, canonicalName, WinLang, WinSubLang, Description)
     @endWxPerlOnly
 */
-struct WXDLLIMPEXP_BASE wxLanguageInfo
+struct wxLanguageInfo
 {
     /// ::wxLanguage id.
     /// It should be greater than @c wxLANGUAGE_USER_DEFINED when defining your own

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin to use new wxGLCanvas API (2007-04-09)
 // Created:     04/01/98
-// RCS-ID:      $Id: cube.cpp 65904 2010-10-24 22:40:58Z VZ $
+// RCS-ID:      $Id: cube.cpp 68909 2011-08-27 12:13:13Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -323,10 +323,11 @@ void TestGLCanvas::OnPaint(wxPaintEvent& WXUNUSED(event))
     // is wrong when next another canvas is repainted.
     const wxSize ClientSize = GetClientSize();
 
+    TestGLContext& canvas = wxGetApp().GetContext(this);
     glViewport(0, 0, ClientSize.x, ClientSize.y);
 
     // Render the graphics and swap the buffers.
-    wxGetApp().GetContext(this).DrawRotatedCube(m_xangle, m_yangle);
+    canvas.DrawRotatedCube(m_xangle, m_yangle);
     SwapBuffers();
 }
 

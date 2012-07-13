@@ -3,10 +3,17 @@
 // Purpose:     interface of wxTextEntry
 // Author:      Vadim Zeitlin
 // Created:     2009-03-01 (extracted from wx/textctrl.h)
-// RCS-ID:      $Id: textentry.h 67527 2011-04-17 23:15:04Z VZ $
+// RCS-ID:      $Id: textentry.h 69656 2011-11-04 01:33:37Z RD $
 // Copyright:   (c) 2009 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+
+/**
+    wxTextPos is a position in the text
+*/
+typedef long wxTextPos;
+
 
 /**
     @class wxTextEntry
@@ -111,6 +118,27 @@ public:
         @see AutoComplete()
     */
     bool AutoCompleteFileNames();
+
+    /**
+        Call this function to enable auto-completion of the text using the file
+        system directories.
+
+        Unlike AutoCompleteFileNames() which completes both file names and
+        directories, this function only completes the directory names.
+
+        Notice that currently this function is only implemented in wxMSW port
+        and does nothing under the other platforms.
+
+        @since 2.9.3
+
+        @return
+            @true if the auto-completion was enabled or @false if the operation
+            failed, typically because auto-completion is not supported by the
+            current platform.
+
+        @see AutoComplete()
+     */
+    bool AutoCompleteDirectories();
 
     /**
         Returns @true if the selection can be copied to the clipboard.
@@ -421,7 +449,7 @@ public:
 
         @since 2.9.0
      */
-    virtual void SetHint(const wxString& hint);
+    virtual bool SetHint(const wxString& hint);
 
     /**
         Returns the current hint string.

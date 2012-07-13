@@ -2,7 +2,7 @@
 // Name:        gdicmn.h
 // Purpose:     interface of wxRealPoint
 // Author:      wxWidgets team
-// RCS-ID:      $Id: gdicmn.h 67279 2011-03-22 14:08:30Z BP $
+// RCS-ID:      $Id: gdicmn.h 68859 2011-08-23 04:55:46Z DS $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -24,8 +24,10 @@ enum wxBitmapType
     wxBITMAP_TYPE_XBM_DATA,
     wxBITMAP_TYPE_XPM,
     wxBITMAP_TYPE_XPM_DATA,
-    wxBITMAP_TYPE_TIF,
-    wxBITMAP_TYPE_TIF_RESOURCE,
+    wxBITMAP_TYPE_TIFF,
+    wxBITMAP_TYPE_TIF = wxBITMAP_TYPE_TIFF,
+    wxBITMAP_TYPE_TIFF_RESOURCE,
+    wxBITMAP_TYPE_TIF_RESOURCE = wxBITMAP_TYPE_TIFF_RESOURCE,
     wxBITMAP_TYPE_GIF,
     wxBITMAP_TYPE_GIF_RESOURCE,
     wxBITMAP_TYPE_PNG,

@@ -2,7 +2,7 @@
 // Name:        animate.h
 // Purpose:     interface of wxAnimation* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: animate.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: animate.h 68437 2011-07-26 21:37:20Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -228,11 +228,17 @@ public:
 
     /**
         Returns the i-th frame as a wxImage.
+
+        This method is not implemented in the native wxGTK implementation of
+        this class and always returns an invalid image there.
     */
     virtual wxImage GetFrame(unsigned int i) const;
 
     /**
         Returns the number of frames for this animation.
+
+        This method is not implemented in the native wxGTK implementation of
+        this class and always returns 0 there.
     */
     virtual unsigned int GetFrameCount() const;
 

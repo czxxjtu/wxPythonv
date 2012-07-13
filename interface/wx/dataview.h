@@ -2,7 +2,7 @@
 // Name:        dataview.h
 // Purpose:     interface of wxDataView* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dataview.h 67920 2011-06-11 23:56:44Z VZ $
+// RCS-ID:      $Id: dataview.h 69953 2011-12-08 13:04:11Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -421,7 +421,7 @@ public:
                                 unsigned int col) const;
 
     /**
-        Returns the number of items (i.e. rows) in the list.
+        Returns the number of items (or rows) in the list.
     */
     unsigned int GetCount() const;
 
@@ -614,8 +614,9 @@ public:
     /**
         Constructor.
     */
-    wxDataViewItem(void* id = NULL);
+    wxDataViewItem();
     wxDataViewItem(const wxDataViewItem& item);
+    explicit wxDataViewItem(void* id);
     //@}
 
     /**
@@ -630,6 +631,61 @@ public:
 };
 
 
+// ----------------------------------------------------------------------------
+// wxDataViewCtrl flags
+// ----------------------------------------------------------------------------
+
+// size of a wxDataViewRenderer without contents:
+#define wxDVC_DEFAULT_RENDERER_SIZE     20
+
+// the default width of new (text) columns:
+#define wxDVC_DEFAULT_WIDTH             80
+
+// the default width of new toggle columns:
+#define wxDVC_TOGGLE_DEFAULT_WIDTH      30
+
+// the default minimal width of the columns:
+#define wxDVC_DEFAULT_MINWIDTH          30
+
+// The default alignment of wxDataViewRenderers is to take
+// the alignment from the column it owns.
+#define wxDVR_DEFAULT_ALIGNMENT         -1
+
+#define wxDV_SINGLE                  0x0000     // for convenience
+#define wxDV_MULTIPLE                0x0001     // can select multiple items
+
+#define wxDV_NO_HEADER               0x0002     // column titles not visible
+#define wxDV_HORIZ_RULES             0x0004     // light horizontal rules between rows
+#define wxDV_VERT_RULES              0x0008     // light vertical rules between columns
+
+#define wxDV_ROW_LINES               0x0010     // alternating colour in rows
+#define wxDV_VARIABLE_LINE_HEIGHT    0x0020     // variable line height
+
+// events
+
+wxEventType wxEVT_COMMAND_DATAVIEW_SELECTION_CHANGED;
+
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_ACTIVATED;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_COLLAPSING;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_COLLAPSED;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_EXPANDING;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_EXPANDED;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_START_EDITING;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_EDITING_STARTED;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_EDITING_DONE;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_VALUE_CHANGED;
+
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_CONTEXT_MENU;
+
+wxEventType wxEVT_COMMAND_DATAVIEW_COLUMN_HEADER_CLICK;
+wxEventType wxEVT_COMMAND_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK;
+wxEventType wxEVT_COMMAND_DATAVIEW_COLUMN_SORTED;
+wxEventType wxEVT_COMMAND_DATAVIEW_COLUMN_REORDERED;
+wxEventType wxEVT_COMMAND_DATAVIEW_CACHE_HINT;
+
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_BEGIN_DRAG;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_DROP_POSSIBLE;
+wxEventType wxEVT_COMMAND_DATAVIEW_ITEM_DROP;
 
 /**
     @class wxDataViewCtrl
@@ -686,9 +742,9 @@ public:
     @event{EVT_DATAVIEW_ITEM_ACTIVATED(id, func)}
            Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_ACTIVATED event.
     @event{EVT_DATAVIEW_ITEM_START_EDITING(id, func)}
-           Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_EDITING_STARTED event. This
+           Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_START_EDITING event. This
            event can be vetoed in order to prevent editing on an item by item
-           basis. Still experimental.
+           basis.
     @event{EVT_DATAVIEW_ITEM_EDITING_STARTED(id, func)}
            Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_EDITING_STARTED event.
     @event{EVT_DATAVIEW_ITEM_EDITING_DONE(id, func)}
@@ -704,7 +760,11 @@ public:
     @event{EVT_DATAVIEW_ITEM_VALUE_CHANGED(id, func)}
            Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_VALUE_CHANGED event.
     @event{EVT_DATAVIEW_ITEM_CONTEXT_MENU(id, func)}
-           Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_CONTEXT_MENU event.
+           Process a @c wxEVT_COMMAND_DATAVIEW_ITEM_CONTEXT_MENU event
+           generated when the user right clicks inside the control. Notice that
+           this menu is generated even if the click didn't occur on any valid
+           item, in this case wxDataViewEvent::GetItem() simply returns an
+           invalid item.
     @event{EVT_DATAVIEW_COLUMN_HEADER_CLICK(id, func)}
            Process a @c wxEVT_COMMAND_DATAVIEW_COLUMN_HEADER_CLICKED event.
     @event{EVT_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK(id, func)}
@@ -1016,12 +1076,34 @@ public:
     wxDataViewModel* GetModel();
 
     /**
+        Returns the number of currently selected items.
+
+        This method may be called for both the controls with single and
+        multiple selections and returns the number of selected item, possibly
+        0, in any case.
+
+        @since 2.9.3
+     */
+    virtual int GetSelectedItemsCount() const;
+
+    /**
         Returns first selected item or an invalid item if none is selected.
+
+        This method may be called for both the controls with single and
+        multiple selections but returns an invalid item if more than one item
+        is selected in the latter case, use HasSelection() to determine if
+        there are any selected items when using multiple selection.
     */
     virtual wxDataViewItem GetSelection() const;
 
     /**
         Fills @a sel with currently selected items and returns their number.
+
+        This method may be called for both the controls with single and
+        multiple selections. In the single selection case it returns the array
+        with at most one element in it.
+
+        @see GetSelectedItemsCount()
     */
     virtual int GetSelections(wxDataViewItemArray& sel) const;
 
@@ -1030,6 +1112,20 @@ public:
         or @NULL if none has been selected.
     */
     virtual wxDataViewColumn* GetSortingColumn() const;
+
+    /**
+        Returns true if any items are currently selected.
+
+        This method may be called for both the controls with single and
+        multiple selections.
+
+        Calling this method is equivalent to calling GetSelectedItemsCount()
+        and comparing its result with 0 but is more clear and might also be
+        implemented more efficiently in the future.
+
+        @since 2.9.3
+     */
+    bool HasSelection() const;
 
     /**
         Hittest.
@@ -1172,34 +1268,46 @@ public:
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ItemAdded(const wxDataViewItem& parent,
                            const wxDataViewItem& item) = 0;
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ItemChanged(const wxDataViewItem& item) = 0;
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ItemDeleted(const wxDataViewItem& parent,
                              const wxDataViewItem& item) = 0;
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ItemsAdded(const wxDataViewItem& parent,
                             const wxDataViewItemArray& items);
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ItemsChanged(const wxDataViewItemArray& items);
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ItemsDeleted(const wxDataViewItem& parent,
                               const wxDataViewItemArray& items);
@@ -1216,6 +1324,8 @@ public:
 
     /**
         Called by owning model.
+
+        @return Always return @true from this function in derived classes.
     */
     virtual bool ValueChanged(const wxDataViewItem& item, unsigned int col) = 0;
 };
@@ -1226,18 +1336,54 @@ public:
 */
 enum wxDataViewCellMode
 {
+    /**
+        The cell only displays information and cannot be manipulated or
+        otherwise interacted with in any way.
+
+        Note that this doesn't mean that the row being drawn can't be selected,
+        just that a particular element of it cannot be individually modified.
+     */
     wxDATAVIEW_CELL_INERT,
 
     /**
-        Indicates that the user can double click the cell and something will
-        happen (e.g. a window for editing a date will pop up).
+        Indicates that the cell can be @em activated by clicking it or using
+        keyboard.
+
+        Activating a cell is an alternative to showing inline editor when the
+        value can be edited in a simple way that doesn't warrant full editor
+        control. The most typical use of cell activation is toggling the
+        checkbox in wxDataViewToggleRenderer; others would be e.g. an embedded
+        volume slider or a five-star rating column.
+
+        The exact means of activating a cell are platform-dependent, but they
+        are usually similar to those used for inline editing of values.
+        Typically, a cell would be activated by Space or Enter keys or by left
+        mouse click.
+
+        @note Do not confuse this with item activation in wxDataViewCtrl
+              and the wxEVT_COMMAND_DATAVIEW_ITEM_ACTIVATED event. That one is
+              used for activating the item (or, to put it differently, the
+              entire row) similarly to analogous messages in wxTreeCtrl and
+              wxListCtrl, and the effect differs (play a song, open a file
+              etc.). Cell activation, on the other hand, is all about
+              interacting with the individual cell.
+
+        @see wxDataViewCustomRenderer::ActivateCell()
     */
     wxDATAVIEW_CELL_ACTIVATABLE,
 
     /**
-        Indicates that the user can edit the data in-place, i.e. an control
-        will show up after a slow click on the cell. This behaviour is best
-        known from changing the filename in most file managers etc.
+        Indicates that the user can edit the data in-place in an inline editor
+        control that will show up when the user wants to edit the cell.
+
+        A typical example of this behaviour is changing the filename in a file
+        managers.
+
+        Editing is typically triggered by slowly double-clicking the cell or by
+        a platform-dependent keyboard shortcut (F2 is typical on Windows, Space
+        and/or Enter is common elsewhere and supported on Windows too).
+
+        @see wxDataViewCustomRenderer::CreateEditorCtrl()
     */
     wxDATAVIEW_CELL_EDITABLE
 };
@@ -1596,20 +1742,72 @@ public:
     virtual ~wxDataViewCustomRenderer();
 
     /**
-        Override this to react to double clicks or ENTER.
-        This method will only be called in wxDATAVIEW_CELL_ACTIVATABLE mode.
+        Override this to react to cell @em activation. Activating a cell is an
+        alternative to showing inline editor when the value can be edited in a
+        simple way that doesn't warrant full editor control. The most typical
+        use of cell activation is toggling the checkbox in
+        wxDataViewToggleRenderer; others would be e.g. an embedded volume
+        slider or a five-star rating column.
+
+        The exact means of activating a cell are platform-dependent, but they
+        are usually similar to those used for inline editing of values.
+        Typically, a cell would be activated by Space or Enter keys or by left
+        mouse click.
+
+        This method will only be called if the cell has the
+        wxDATAVIEW_CELL_ACTIVATABLE mode.
+
+        @param cell
+            Coordinates of the activated cell's area.
+        @param model
+            The model to manipulate in response.
+        @param item
+            Activated item.
+        @param col
+            Activated column of @a item.
+        @param mouseEvent
+            If the activation was triggered by mouse click, contains the
+            corresponding event. Is @NULL otherwise (for keyboard activation).
+            Mouse coordinates are adjusted to be relative to the cell.
+
+        @since 2.9.3
+
+        @note Do not confuse this method with item activation in wxDataViewCtrl
+              and the wxEVT_COMMAND_DATAVIEW_ITEM_ACTIVATED event. That one is
+              used for activating the item (or, to put it differently, the
+              entire row) similarly to analogous messages in wxTreeCtrl and
+              wxListCtrl, and the effect differs (play a song, open a file
+              etc.). Cell activation, on the other hand, is all about
+              interacting with the individual cell.
+
+        @see CreateEditorCtrl()
     */
-    virtual bool Activate( const wxRect& cell,
-                           wxDataViewModel* model,
-                           const wxDataViewItem & item,
-                           unsigned int col );
+    virtual bool ActivateCell(const wxRect& cell,
+                              wxDataViewModel* model,
+                              const wxDataViewItem & item,
+                              unsigned int col,
+                              const wxMouseEvent *mouseEvent);
 
     /**
         Override this to create the actual editor control once editing
         is about to start.
 
-        @a parent is the parent of the editor control, @a labelRect indicates the
-        position and size of the editor control and @a value is its initial value:
+        This method will only be called if the cell has the
+        wxDATAVIEW_CELL_EDITABLE mode. Editing is typically triggered by slowly
+        double-clicking the cell or by a platform-dependent keyboard shortcut
+        (F2 is typical on Windows, Space and/or Enter is common elsewhere and
+        supported on Windows too).
+
+        @param parent
+            The parent of the editor control.
+        @param labelRect
+            Indicates the position and size of the editor control. The control
+            should be created in place of the cell and @a labelRect should be
+            respected as much as possible.
+        @param value
+            Initial value of the editor.
+
+        An example:
         @code
         {
             long l = value;
@@ -1617,6 +1815,8 @@ public:
                         labelRect.GetTopLeft(), labelRect.GetSize(), 0, 0, 100, l );
         }
         @endcode
+
+        @see ActivateCell()
     */
     virtual wxWindow* CreateEditorCtrl(wxWindow* parent,
                                        wxRect labelRect,
@@ -2714,6 +2914,26 @@ public:
         Returns a reference to a value.
     */
     const wxVariant& GetValue() const;
+
+    /**
+        Can be used to determine whether the new value is going to be accepted
+        in wxEVT_COMMAND_DATAVIEW_ITEM_EDITING_DONE handler.
+
+        Returns @true if editing the item was cancelled or if the user tried to
+        enter an invalid value (refused by wxDataViewRenderer::Validate()). If
+        this method returns @false, it means that the value in the model is
+        about to be changed to the new one.
+
+        Notice that wxEVT_COMMAND_DATAVIEW_ITEM_EDITING_DONE event handler can
+        call wxNotifyEvent::Veto() to prevent this from happening.
+
+        Currently support for setting this field and for vetoing the change is
+        only available in the generic version of wxDataViewCtrl, i.e. under MSW
+        but not GTK nor OS X.
+
+        @since 2.9.3
+     */
+    bool IsEditCancelled() const;
 
     /**
         Sets the column index associated with this event.

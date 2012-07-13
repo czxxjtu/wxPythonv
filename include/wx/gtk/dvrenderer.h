@@ -3,7 +3,7 @@
 // Purpose:     wxDataViewRenderer for GTK wxDataViewCtrl implementation
 // Author:      Robert Roebling, Vadim Zeitlin
 // Created:     2009-11-07 (extracted from wx/gtk/dataview.h)
-// RCS-ID:      $Id: dvrenderer.h 68541 2011-08-04 22:58:18Z RD $
+// RCS-ID:      $Id: dvrenderer.h 69020 2011-09-07 16:56:50Z PC $
 // Copyright:   (c) 2006 Robert Roebling
 //              (c) 2009 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
@@ -48,7 +48,7 @@ public:
     //
     // it validates the new value and notifies the model about the change by
     // calling GtkOnCellChanged() if it was accepted
-    virtual void GtkOnTextEdited(const gchar *itempath, const wxString& value);
+    virtual void GtkOnTextEdited(const char *itempath, const wxString& value);
 
     GtkCellRenderer* GetGtkHandle() { return m_renderer; }
     void GtkInitHandlers();

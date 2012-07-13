@@ -2,7 +2,7 @@
 // Name:        uiaction.h
 // Purpose:     interface of wxUIActionSimulator
 // Author:      wxWidgets team
-// RCS-ID:      $Id: uiaction.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: uiaction.h 69762 2011-11-15 15:56:55Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -148,7 +148,8 @@ public:
     /**
         Emulate typing in the keys representing the given string.
 
-        Currently only the ASCII letters (i.e. characters @c a-z and @c A-Z)
+        Currently only the ASCII letters, digits and characters for the definition
+        of numbers (i.e. characters @c a-z @c A-Z @c 0-9 @c + @c - @c . @c , @c 'space')
         are supported.
 
         @param text

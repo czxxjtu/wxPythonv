@@ -2,7 +2,7 @@
 // Name:        filename.h
 // Purpose:     interface of wxFileName
 // Author:      wxWidgets team
-// RCS-ID:      $Id: filename.h 67723 2011-05-10 09:58:52Z VS $
+// RCS-ID:      $Id: filename.h 69618 2011-10-31 19:33:43Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1134,10 +1134,14 @@ public:
     void SetName(const wxString& name);
 
     /**
-        Sets the full path.
+        Sets the path.
 
-        The @a path argument includes both the path (and the volume, if
-        supported by @a format) and the name and extension.
+        The @a path argument includes both the path and the volume, if
+        supported by @a format.
+
+        Calling this function doesn't affect the name and extension components,
+        to change them as well you can use Assign() or just an assignment
+        operator.
 
         @see GetPath()
      */

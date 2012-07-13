@@ -2,7 +2,7 @@
 // Name:        font.h
 // Purpose:     interface of wxFont
 // Author:      wxWidgets team
-// RCS-ID:      $Id: font.h 67052 2011-02-27 12:47:05Z VZ $
+// RCS-ID:      $Id: font.h 69326 2011-10-09 01:28:20Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -36,9 +36,10 @@ enum wxFontFamily
     /// See also wxFont::IsFixedWidth() for an easy way to test for monospace property.
     wxFONTFAMILY_TELETYPE = wxTELETYPE,
 
+    wxFONTFAMILY_MAX,
     /// Invalid font family value, returned by wxFont::GetFamily() when the
     /// font is invalid for example.
-    wxFONTFAMILY_UNKNOWN
+    wxFONTFAMILY_UNKNOWN = wxFONTFAMILY_MAX
 };
 
 /**
@@ -263,7 +264,6 @@ enum wxFontEncoding
 };
 
 
-
 /**
     @class wxFont
 
@@ -401,7 +401,12 @@ public:
         If @a fontdesc is invalid the font remains uninitialized, i.e. its IsOk() method
         will return @false.
      */
-    wxFont(const wxString& fontdesc);
+    wxFont(const wxString& nativeInfoString);
+
+    /**
+       Construct font from a native font info structure.
+    */
+    wxFont(const wxNativeFontInfo& nativeInfo);
 
     /**
         Destructor.
@@ -485,6 +490,8 @@ public:
         @see SetNativeFontInfoUserDesc(), GetNativeFontInfoDesc()
     */
     wxString GetNativeFontInfoUserDesc() const;
+
+    const wxNativeFontInfo *GetNativeFontInfo() const;
 
     /**
         Gets the point size.
@@ -774,6 +781,8 @@ public:
     */
     bool SetNativeFontInfoUserDesc(const wxString& info);
 
+    void SetNativeFontInfo(const wxNativeFontInfo& info);
+        
     /**
         Sets the point size.
 
@@ -922,6 +931,11 @@ public:
                        int flags = wxFONTFLAG_DEFAULT,
                        const wxString& faceName = wxEmptyString,
                        wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
+
+    
+    static wxFont *New(const wxNativeFontInfo& nativeInfo);
+    static wxFont *New(const wxString& nativeInfoString);
+
     //@}
 };
 

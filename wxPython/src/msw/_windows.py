@@ -1628,14 +1628,6 @@ class SplitterWindow(_core.Window):
         """
         return _windows_.SplitterWindow_SizeWindows(*args, **kwargs)
 
-    def SetNeedUpdating(*args, **kwargs):
-        """SetNeedUpdating(self, bool needUpdating)"""
-        return _windows_.SplitterWindow_SetNeedUpdating(*args, **kwargs)
-
-    def GetNeedUpdating(*args, **kwargs):
-        """GetNeedUpdating(self) -> bool"""
-        return _windows_.SplitterWindow_GetNeedUpdating(*args, **kwargs)
-
     def GetClassDefaultAttributes(*args, **kwargs):
         """
         GetClassDefaultAttributes(int variant=WINDOW_VARIANT_NORMAL) -> VisualAttributes
@@ -1656,7 +1648,6 @@ class SplitterWindow(_core.Window):
     GetClassDefaultAttributes = staticmethod(GetClassDefaultAttributes)
     BorderSize = property(GetBorderSize,SetBorderSize,doc="See `GetBorderSize` and `SetBorderSize`") 
     MinimumPaneSize = property(GetMinimumPaneSize,SetMinimumPaneSize,doc="See `GetMinimumPaneSize` and `SetMinimumPaneSize`") 
-    NeedUpdating = property(GetNeedUpdating,SetNeedUpdating,doc="See `GetNeedUpdating` and `SetNeedUpdating`") 
     SashGravity = property(GetSashGravity,SetSashGravity,doc="See `GetSashGravity` and `SetSashGravity`") 
     SashPosition = property(GetSashPosition,SetSashPosition,doc="See `GetSashPosition` and `SetSashPosition`") 
     SashSize = property(GetSashSize,SetSashSize,doc="See `GetSashSize` and `SetSashSize`") 
@@ -3644,6 +3635,14 @@ class MessageDialog(Dialog):
         """SetOKCancelLabels(self, String ok, String cancel) -> bool"""
         return _windows_.MessageDialog_SetOKCancelLabels(*args, **kwargs)
 
+    def SetHelpLabel(*args, **kwargs):
+        """SetHelpLabel(self, String help) -> bool"""
+        return _windows_.MessageDialog_SetHelpLabel(*args, **kwargs)
+
+    def GetHelpLabel(*args, **kwargs):
+        """GetHelpLabel(self) -> String"""
+        return _windows_.MessageDialog_GetHelpLabel(*args, **kwargs)
+
     def SetMessage(*args, **kwargs):
         """SetMessage(self, String message)"""
         return _windows_.MessageDialog_SetMessage(*args, **kwargs)
@@ -3662,7 +3661,7 @@ PD_ESTIMATED_TIME = _windows_.PD_ESTIMATED_TIME
 PD_SMOOTH = _windows_.PD_SMOOTH
 PD_REMAINING_TIME = _windows_.PD_REMAINING_TIME
 PD_CAN_SKIP = _windows_.PD_CAN_SKIP
-class ProgressDialog(Dialog):
+class GenericProgressDialog(Dialog):
     """
     A dialog that shows a short message and a progress bar. Optionally, it
     can display an ABORT button.
@@ -3672,13 +3671,13 @@ class ProgressDialog(Dialog):
     def __init__(self, *args, **kwargs): 
         """
         __init__(self, String title, String message, int maximum=100, Window parent=None, 
-            int style=wxPD_AUTO_HIDE|wxPD_APP_MODAL) -> ProgressDialog
+            int style=wxPD_AUTO_HIDE|wxPD_APP_MODAL) -> GenericProgressDialog
 
         Constructor. Creates the dialog, displays it and disables user input
         for other windows, or, if wx.PD_APP_MODAL flag is not given, for its
         parent window only.
         """
-        _windows_.ProgressDialog_swiginit(self,_windows_.new_ProgressDialog(*args, **kwargs))
+        _windows_.GenericProgressDialog_swiginit(self,_windows_.new_GenericProgressDialog(*args, **kwargs))
         self._setOORInfo(self)
 
     def Update(*args, **kwargs):
@@ -3698,7 +3697,7 @@ class ProgressDialog(Dialog):
         abort is not confirmed the dialog may be resumed with `Resume` function.
 
         """
-        return _windows_.ProgressDialog_Update(*args, **kwargs)
+        return _windows_.GenericProgressDialog_Update(*args, **kwargs)
 
     def Pulse(*args, **kwargs):
         """
@@ -3708,7 +3707,7 @@ class ProgressDialog(Dialog):
         indeterminate mode and calls `wx.Gauge.Pulse` to show the user a bit of
         progress.
         """
-        return _windows_.ProgressDialog_Pulse(*args, **kwargs)
+        return _windows_.GenericProgressDialog_Pulse(*args, **kwargs)
 
     UpdatePulse =  Pulse 
     def Resume(*args, **kwargs):
@@ -3718,35 +3717,49 @@ class ProgressDialog(Dialog):
         Can be used to continue with the dialog, after the user had chosen to
         abort.
         """
-        return _windows_.ProgressDialog_Resume(*args, **kwargs)
+        return _windows_.GenericProgressDialog_Resume(*args, **kwargs)
 
     def GetValue(*args, **kwargs):
         """GetValue(self) -> int"""
-        return _windows_.ProgressDialog_GetValue(*args, **kwargs)
+        return _windows_.GenericProgressDialog_GetValue(*args, **kwargs)
 
     def GetRange(*args, **kwargs):
         """GetRange(self) -> int"""
-        return _windows_.ProgressDialog_GetRange(*args, **kwargs)
+        return _windows_.GenericProgressDialog_GetRange(*args, **kwargs)
 
     def SetRange(*args, **kwargs):
         """SetRange(self, int maximum)"""
-        return _windows_.ProgressDialog_SetRange(*args, **kwargs)
+        return _windows_.GenericProgressDialog_SetRange(*args, **kwargs)
 
     def GetMessage(*args, **kwargs):
         """GetMessage(self) -> String"""
-        return _windows_.ProgressDialog_GetMessage(*args, **kwargs)
+        return _windows_.GenericProgressDialog_GetMessage(*args, **kwargs)
 
     def WasCancelled(*args, **kwargs):
         """WasCancelled(self) -> bool"""
-        return _windows_.ProgressDialog_WasCancelled(*args, **kwargs)
+        return _windows_.GenericProgressDialog_WasCancelled(*args, **kwargs)
 
     def WasSkipped(*args, **kwargs):
         """WasSkipped(self) -> bool"""
-        return _windows_.ProgressDialog_WasSkipped(*args, **kwargs)
+        return _windows_.GenericProgressDialog_WasSkipped(*args, **kwargs)
 
     Value = property(GetValue) 
     Range = property(GetRange,SetRange) 
     Message = property(GetMessage) 
+_windows_.GenericProgressDialog_swigregister(GenericProgressDialog)
+
+class ProgressDialog(GenericProgressDialog):
+    """Proxy of C++ ProgressDialog class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """
+        __init__(self, String title, String message, int maximum=100, Window parent=None, 
+            int style=wxPD_APP_MODAL|wxPD_AUTO_HIDE) -> ProgressDialog
+        """
+        _windows_.ProgressDialog_swiginit(self,_windows_.new_ProgressDialog(*args, **kwargs))
+        self._setOORInfo(self)
+
 _windows_.ProgressDialog_swigregister(ProgressDialog)
 
 FR_DOWN = _windows_.FR_DOWN

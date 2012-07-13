@@ -5,7 +5,7 @@
 // Author:      Vaclav Slavik, Julian Smart
 // Modified by:
 // Created:     2002-07-09
-// RCS-ID:      $Id: helpview.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: helpview.cpp 68617 2011-08-09 22:17:12Z DS $
 // Copyright:   (c) 2002 Vaclav Slavik, Julian Smart and others
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -279,10 +279,10 @@ bool hvApp::OpenBook(wxHtmlHelpController* controller)
 
 #ifdef __WXMAC__
 /// Respond to Apple Event for opening a document
-void hvApp::MacOpenFile(const wxString& filename)
+void hvApp::MacOpenFiles(const wxArrayString& fileNames)
 {
     wxBusyCursor bcur;
-    wxFileName fileName(filename);
+    wxFileName fileName(fileNames[0]);
     m_helpController->AddBook(fileName);
     m_helpController->DisplayContents();
 }

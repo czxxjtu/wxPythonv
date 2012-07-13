@@ -6,7 +6,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: private.h 67574 2011-04-22 15:20:11Z SC $
+// RCS-ID:      $Id: private.h 69948 2011-12-07 23:41:06Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -690,6 +690,8 @@ public :
     virtual void RemoveItem(int WXUNUSED(pos)) {}
 
     virtual void Clear() {}
+    virtual void Popup() {}
+    virtual void Dismiss() {}
 
     virtual wxString GetStringAtIndex(int WXUNUSED(pos)) const { return wxEmptyString; }
 

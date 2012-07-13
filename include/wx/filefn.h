@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     29/01/98
-// RCS-ID:      $Id: filefn.h 65057 2010-07-23 23:32:46Z VZ $
+// RCS-ID:      $Id: filefn.h 69447 2011-10-17 22:26:13Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -368,7 +368,13 @@ enum wxPosixPermissions
     #define   wxCRT_MkDirA      wxPOSIX_IDENT(mkdir)
     #define   wxCRT_RmDirA      wxPOSIX_IDENT(rmdir)
     #ifdef wxHAS_HUGE_FILES
-        #define   wxCRT_StatA       wxPOSIX_IDENT(stati64)
+        // MinGW-64 provides underscore-less versions of all file functions
+        // except for this one.
+        #ifdef __MINGW64__
+            #define   wxCRT_StatA       _stati64
+        #else
+            #define   wxCRT_StatA       wxPOSIX_IDENT(stati64)
+        #endif
     #else
         // Unfortunately Watcom is not consistent
         #if defined(__OS2__) && defined(__WATCOMC__)

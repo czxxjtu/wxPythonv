@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: panelg.h 67253 2011-03-20 00:00:49Z VZ $
+// RCS-ID:      $Id: panelg.h 69378 2011-10-11 17:07:43Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -42,18 +42,7 @@ public:
     )
 #endif // WXWIN_COMPATIBILITY_2_8
 
-protected:
-    virtual void DoSetBackgroundBitmap(const wxBitmap& bmp);
-
 private:
-    // Event handler for erasing the background which is only used when we have
-    // a valid background bitmap.
-    void OnEraseBackground(wxEraseEvent& event);
-
-
-    // The bitmap used for painting the background if valid.
-    wxBitmap m_bitmapBg;
-
     wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxPanel);
 };
 

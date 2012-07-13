@@ -2,7 +2,7 @@
 // Name:        checklst.h
 // Purpose:     interface of wxCheckListBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: checklst.h 66611 2011-01-06 19:52:14Z SJL $
+// RCS-ID:      $Id: checklst.h 69102 2011-09-16 17:03:01Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -109,6 +109,25 @@ public:
                    const wxString& name = "listBox");
     //@}
 
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                int nStrings = 0,
+                const wxString choices[] = NULL,
+                long style = 0,
+                const wxValidator& validator = wxDefaultValidator,
+                const wxString& name = wxListBoxNameStr);
+
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxPoint& pos,
+                const wxSize& size,
+                const wxArrayString& choices,
+                long style = 0,
+                const wxValidator& validator = wxDefaultValidator,
+                const wxString& name = wxListBoxNameStr);
+
     /**
         Destructor, destroying the list box.
     */
@@ -132,5 +151,6 @@ public:
             Index of item whose check status is to be returned.
     */
     bool IsChecked(unsigned int item) const;
+    
 };
 

@@ -2,7 +2,7 @@
 // Name:        src/gtk/assertdlg_gtk.cpp
 // Purpose:     GtkAssertDialog
 // Author:      Francesco Montorsi
-// Id:          $Id: assertdlg_gtk.cpp 67384 2011-04-03 20:31:32Z DS $
+// Id:          $Id: assertdlg_gtk.cpp 69697 2011-11-08 11:02:02Z VZ $
 // Copyright:   (c) 2006 Francesco Montorsi
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////// */
@@ -11,6 +11,8 @@
 #include <gtk/gtk.h>
 #include "wx/gtk/assertdlg_gtk.h"
 #include "wx/gtk/private/gtk2-compat.h"
+
+#include <stdio.h>
 
 /* ----------------------------------------------------------------------------
    Constants
@@ -42,7 +44,9 @@ GtkWidget *gtk_assert_dialog_add_button_to (GtkBox *box, const gchar *label,
 
     /* add a stock icon inside it */
     GtkWidget *image = gtk_image_new_from_stock (stock, GTK_ICON_SIZE_BUTTON);
+#if GTK_CHECK_VERSION(2,6,0)
     gtk_button_set_image (GTK_BUTTON (button), image);
+#endif
 
     /* add to the given (container) widget */
     if (box)

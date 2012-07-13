@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:
-// RCS-ID:      $Id: dcgraph.cpp 68934 2011-08-27 23:24:47Z RD $
+// RCS-ID:      $Id: dcgraph.cpp 69967 2011-12-09 15:23:37Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -114,6 +114,13 @@ wxGCDC::wxGCDC( const wxPrinterDC& dc) :
 }
 #endif
 
+#if defined(__WXMSW__) && wxUSE_ENH_METAFILE
+wxGCDC::wxGCDC(const wxEnhMetaFileDC& dc)
+   : wxDC(new wxGCDCImpl(this, dc))
+{
+}
+#endif
+
 wxGCDC::wxGCDC(wxGraphicsContext* context) :
     wxDC( new wxGCDCImpl( this ) )
 {
@@ -129,7 +136,7 @@ wxGCDC::~wxGCDC()
 {
 }
 
-wxGraphicsContext* wxGCDC::GetGraphicsContext()
+wxGraphicsContext* wxGCDC::GetGraphicsContext() const
 {
     if (!m_pimpl) return NULL;
     wxGCDCImpl *gc_impl = (wxGCDCImpl*) m_pimpl;
@@ -180,13 +187,7 @@ wxGCDCImpl::wxGCDCImpl( wxDC *owner, const wxMemoryDC& dc ) :
 {
     Init();
     wxGraphicsContext* context;
-#if wxUSE_CAIRO
-    wxGraphicsRenderer* renderer = wxGraphicsRenderer::GetCairoRenderer();
-    context = renderer->CreateContext(dc);
-#else
     context = wxGraphicsContext::Create(dc);
-#endif
-
     SetGraphicsContext( context );
 }
 
@@ -196,6 +197,15 @@ wxGCDCImpl::wxGCDCImpl( wxDC *owner, const wxPrinterDC& dc ) :
 {
     Init();
     SetGraphicsContext( wxGraphicsContext::Create(dc) );
+}
+#endif
+
+#if defined(__WXMSW__) && wxUSE_ENH_METAFILE
+wxGCDCImpl::wxGCDCImpl(wxDC *owner, const wxEnhMetaFileDC& dc)
+   : wxDCImpl(owner)
+{
+    Init();
+    SetGraphicsContext(wxGraphicsContext::Create(dc));
 }
 #endif
 
@@ -372,7 +382,10 @@ void wxGCDCImpl::SetTextForeground( const wxColour &col )
 {
     wxCHECK_RET( IsOk(), wxT("wxGCDC(cg)::SetTextForeground - invalid DC") );
 
-    if ( col != m_textForegroundColour )
+    // don't set m_textForegroundColour to an invalid colour as we'd crash
+    // later then (we use m_textForegroundColour.GetColor() without checking
+    // in a few places)
+    if ( col.IsOk() && col != m_textForegroundColour )
     {
         m_textForegroundColour = col;
         m_graphicContext->SetFont( m_font, m_textForegroundColour );
@@ -886,6 +899,17 @@ bool wxGCDCImpl::DoStretchBlit(
         return false;
     }
 
+    wxRect subrect(source->LogicalToDeviceX(xsrc),
+                   source->LogicalToDeviceY(ysrc),
+                   source->LogicalToDeviceXRel(srcWidth),
+                   source->LogicalToDeviceYRel(srcHeight));
+    // clip the subrect down to the size of the source DC
+    wxRect clip;
+    source->GetSize(&clip.width, &clip.height);
+    subrect.Intersect(clip);
+    if (subrect.width == 0)
+        return true;
+
     bool retval = true;
 
     wxCompositionMode formerMode = m_graphicContext->GetCompositionMode();
@@ -902,21 +926,6 @@ bool wxGCDCImpl::DoStretchBlit(
             xsrcMask = xsrc;
             ysrcMask = ysrc;
         }
-
-        wxRect subrect(source->LogicalToDeviceX(xsrc),
-                       source->LogicalToDeviceY(ysrc),
-                       source->LogicalToDeviceXRel(srcWidth),
-                       source->LogicalToDeviceYRel(srcHeight));
-
-        // if needed clip the subrect down to the size of the source DC
-        wxCoord sw, sh;
-        source->GetSize(&sw, &sh);
-        sw = source->LogicalToDeviceXRel(sw);
-        sh = source->LogicalToDeviceYRel(sh);
-        if (subrect.x + subrect.width > sw)
-            subrect.width = sw - subrect.x;
-        if (subrect.y + subrect.height > sh)
-            subrect.height = sh - subrect.y;
 
         wxBitmap blit = source->GetAsBitmap( &subrect );
 
@@ -1161,5 +1170,22 @@ void wxGCDCImpl::DoDrawCheckMark(wxCoord x, wxCoord y,
 {
     wxDCImpl::DoDrawCheckMark(x,y,width,height);
 }
+
+#ifdef __WXMSW__
+wxRect wxGCDCImpl::MSWApplyGDIPlusTransform(const wxRect& r) const
+{
+    wxGraphicsContext* const gc = GetGraphicsContext();
+    wxCHECK_MSG( gc, r, wxT("Invalid wxGCDC") );
+
+    double x = 0,
+           y = 0;
+    gc->GetTransform().TransformPoint(&x, &y);
+
+    wxRect rect(r);
+    rect.Offset(x, y);
+
+    return rect;
+}
+#endif // __WXMSW__
 
 #endif // wxUSE_GRAPHICS_CONTEXT

@@ -2,7 +2,7 @@
 // Name:        html/htmlwin.h
 // Purpose:     interface of wxHtmlWindow
 // Author:      wxWidgets team
-// RCS-ID:      $Id: htmlwin.h 65386 2010-08-22 22:16:05Z VZ $
+// RCS-ID:      $Id: htmlwin.h 69700 2011-11-08 11:35:38Z SJL $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -12,12 +12,16 @@
     wxHtmlWindow is probably the only class you will directly use unless you want
     to do something special (like adding new tag handlers or MIME filters).
 
-    The purpose of this class is to display HTML pages (either local file or
-    downloaded via HTTP protocol) in a window.
+    The purpose of this class is to display rich content pages (either local file or
+    downloaded via HTTP protocol) in a window based on a subset of the HTML standard.
     The width of the window is constant - given in the constructor - and virtual height
     is changed dynamically depending on page size.
     Once the window is created you can set its content by calling SetPage() with raw HTML,
     LoadPage() with a wxFileSystem location or LoadFile() with a filename.
+
+    @note
+    If you want complete HTML/CSS support as well as a Javascript engine, see instead
+    wxWebView.
 
     @note
     wxHtmlWindow uses the wxImage class for displaying images, as such you need to

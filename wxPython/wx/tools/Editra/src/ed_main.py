@@ -15,8 +15,8 @@ main Ui component of the editor that contains all the other components.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_main.py 68908 2011-08-26 21:07:00Z CJP $"
-__revision__ = "$Revision: 68908 $"
+__svnid__ = "$Id: ed_main.py 69319 2011-10-06 21:32:34Z CJP $"
+__revision__ = "$Revision: 69319 $"
 
 #--------------------------------------------------------------------------#
 # Dependencies
@@ -100,7 +100,6 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
                               Name("EditPane").Center().Layer(1).Dockable(False). \
                               CloseButton(False).MaximizeButton(False). \
                               CaptionVisible(False))
-        self._mpane.InitCommandBar() # <- required due to nb dependencies...
 
         #---- Command Bar ----#
         self._mpane.HideCommandBar()
@@ -186,6 +185,7 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
                                        (ID_COMMAND, self.OnCommandBar),
                                        (ID_STYLE_EDIT, self.OnStyleEdit),
                                        (ID_PLUGMGR, self.OnPluginMgr),
+                                       (ID_SESSION_BAR, self.OnCommandBar),
 
                                        # Help Menu
                                        (ID_ABOUT, OnAbout),
@@ -291,6 +291,8 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
 
         # Message Handlers
         ed_msg.Subscribe(self.OnUpdateFileHistory, ed_msg.EDMSG_ADD_FILE_HISTORY)
+        ed_msg.Subscribe(self.OnDoSessionSave, ed_msg.EDMSG_SESSION_DO_SAVE)
+        ed_msg.Subscribe(self.OnDoSessionLoad, ed_msg.EDMSG_SESSION_DO_LOAD)
 
         # HACK: for gtk as most linux window managers manage the windows alpha
         #       and set it when its created.
@@ -302,6 +304,8 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
         """Disconnect Message Handlers"""
         if evt.GetId() == self.GetId():
             ed_msg.Unsubscribe(self.OnUpdateFileHistory)
+            ed_msg.Unsubscribe(self.OnDoSessionSave)
+            ed_msg.Unsubscribe(self.OnDoSessionLoad)
         evt.Skip()
 
     #---- End Private Member Functions/Variables ----#
@@ -749,34 +753,47 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
         else:
             evt.Skip()
 
+    def OnDoSessionSave(self, msg):
+        """ed_msg interface for initiating a session save"""
+        if msg.Context == self.Id:
+            self.DoSaveSessionAs()
+
     def OnSaveSession(self, evt):
-        """Save the current session of open files.
-        @todo: Save all windows and what the active tabs are as well
-
-        """
+        """Save the current session of open files."""
         if evt.GetId() == ID_SAVE_SESSION:
-            mgr = ed_session.EdSessionMgr(CONFIG['SESSION_DIR'])
-            cses = _PGET('LAST_SESSION')
-            if cses == mgr.DefaultSession:
-                cses = u""
-            fname = ebmlib.LockCall(self._mlock, wx.GetTextFromUser, 
-                                    (_("Session Name"), _("Save Session"), cses))
-            fname = fname.strip()
-            if fname:
-                rval = self.nb.SaveSessionFile(fname)
-                if rval is not None:
-                    wx.MessageBox(rval[1], rval[0], wx.OK|wx.ICON_ERROR)
-                    return
-
-                _PSET('LAST_SESSION', fname)
-                self.PushStatusText(_("Session Saved as: %s") % fname, SB_INFO)
+            self.DoSaveSessionAs()
         else:
             evt.Skip()
+
+    def DoSaveSessionAs(self):
+        """Prompt the user to save the current session"""
+        mgr = ed_session.EdSessionMgr()
+        cses = _PGET('LAST_SESSION', default=u"")
+        if cses == mgr.DefaultSession:
+            cses = u""
+        fname = ebmlib.LockCall(self._mlock, wx.GetTextFromUser, 
+                                (_("Session Name"), _("Save Session"), cses))
+        fname = fname.strip()
+        if fname:
+            rval = self.nb.SaveSessionFile(fname)
+            if rval is not None:
+                wx.MessageBox(rval[1], rval[0], wx.OK|wx.ICON_ERROR)
+                return
+
+            _PSET('LAST_SESSION', fname)
+            self.PushStatusText(_("Session Saved as: %s") % fname, SB_INFO)
+
+    def OnDoSessionLoad(self, msg):
+        """Initiate the loading of a session"""
+        if msg.Context == self.Id:
+            ses = msg.GetData()
+            if ses:
+                self.DoLoadSession(ses)
 
     def OnLoadSession(self, evt):
         """Load a saved session."""
         if evt.GetId() == ID_LOAD_SESSION:
-            mgr = ed_session.EdSessionMgr(CONFIG['SESSION_DIR'])
+            mgr = ed_session.EdSessionMgr()
             sessions = mgr.GetSavedSessions()
             cses = _PGET('LAST_SESSION')
             if cses in sessions:
@@ -790,22 +807,31 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
                                      _("Load Session"),
                                     sessions))
             if fname:
-                nbook = self.GetNotebook()
-                if fname == _("Default"):
-                    fname = mgr.DefaultSession
-                rval = nbook.LoadSessionFile(fname)
-
-                # Check for an error during load
-                if rval is not None:
-                    wx.MessageBox(rval[1], rval[0], wx.OK|wx.ICON_WARNING)
-                    return
-                
-                _PSET('LAST_SESSION', fname)
-                if fname == mgr.DefaultSession:
-                    fname = _("Default")
-                self.PushStatusText(_("Loaded Session: %s") % fname, SB_INFO)
+                self.DoLoadSession(fname)
         else:
             evt.Skip()
+
+    def DoLoadSession(self, fname):
+        """Load the specified session
+        @param fname: session name
+
+        """
+        if fname:
+            mgr = ed_session.EdSessionMgr()
+            if fname == _("Default"):
+                fname = mgr.DefaultSession
+            nbook = self.GetNotebook()
+            rval = nbook.LoadSessionFile(fname)
+
+            # Check for an error during load
+            if rval is not None:
+                wx.MessageBox(rval[1], rval[0], wx.OK|wx.ICON_WARNING)
+                return
+            
+            _PSET('LAST_SESSION', fname)
+            if fname == mgr.DefaultSession:
+                fname = _("Default")
+            self.PushStatusText(_("Loaded Session: %s") % fname, SB_INFO)
 
     def OnStatus(self, evt):
         """Update status text with messages from other controls
@@ -841,7 +867,7 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
 
         """
         if force:
-            return wx.Frame.Close(self, True)
+            return super(MainWindow, self).Close(True)
         else:
             result = self.OnClose()
             return not result
@@ -857,7 +883,7 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
 
         """
         # Only auto-save session file if not using default session
-        mgr = ed_session.EdSessionMgr(CONFIG['SESSION_DIR'])
+        mgr = ed_session.EdSessionMgr()
         if _PGET('LAST_SESSION') == mgr.DefaultSession:
             self.nb.SaveCurrentSession()
 
@@ -865,20 +891,18 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
         self._exiting = True
         controls = self.nb.GetPageCount()
         self.LOG("[ed_main][evt] OnClose: Number of controls: %d" % controls)
-        self.Freeze()
-        while controls:
-            if controls <= 0:
-                self.Close(True) # Force exit since there is a problem
+        with eclib.Freezer(self) as _tmp:
+            while controls:
+                if controls <= 0:
+                    self.Close(True) # Force exit since there is a problem
 
-            self.LOG("[ed_main][evt] OnClose: Requesting Page Close")
-            if not self.nb.ClosePage():
-                self.Thaw()
-                self._exiting = False
-                ed_msg.PostMessage(ed_msg.EDMSG_UI_NB_CHANGED,
-                                   (self.nb, self.nb.GetSelection()))
-                return True
-            controls -= 1
-        self.Thaw()
+                self.LOG("[ed_main][evt] OnClose: Requesting Page Close")
+                if not self.nb.ClosePage():
+                    self._exiting = False
+                    ed_msg.PostMessage(ed_msg.EDMSG_UI_NB_CHANGED,
+                                       (self.nb, self.nb.GetSelection()))
+                    return True
+                controls -= 1
 
         ### If we get to here there is no turning back so cleanup
         ### additional items and save user settings
@@ -1422,7 +1446,7 @@ class MainWindow(wx.Frame, viewmgr.PerspectiveManager):
 
         """
         e_id = evt.GetId()
-        if e_id in (ID_QUICK_FIND, ID_GOTO_LINE, ID_COMMAND):
+        if e_id in (ID_QUICK_FIND, ID_GOTO_LINE, ID_COMMAND, ID_SESSION_BAR):
             self._mpane.ShowCommandControl(e_id)
         else:
             evt.Skip()

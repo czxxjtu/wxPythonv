@@ -936,7 +936,12 @@ class AuiDefaultToolBarArt(object):
         """
         
         dc.SetFont(self._font)
-        dc.SetTextForeground(wx.BLACK)
+
+        if item.state & AUI_BUTTON_STATE_DISABLED:
+            dc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_GRAYTEXT))
+        else:
+            dc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_BTNTEXT))
+            
         orient = item.GetOrientation()
 
         horizontal = orient == AUI_TBTOOL_HORIZONTAL
@@ -1744,7 +1749,7 @@ class AuiToolBar(wx.PyControl):
         return self.AddTool(tool_id, "", bitmap, disabled_bitmap, kind, short_help_string, long_help_string, client_data)
 
 
-    def AddTool(self, tool_id, label, bitmap, disabled_bitmap, kind, short_help_string, long_help_string, client_data, target):
+    def AddTool(self, tool_id, label, bitmap, disabled_bitmap, kind, short_help_string='', long_help_string='', client_data=None, target=None):
         """
         Adds a tool to the toolbar. This is the full feature version of L{AddTool}.
 
@@ -2109,6 +2114,21 @@ class AuiToolBar(wx.PyControl):
                 return item
             
         return None
+
+
+    def HitTest(self, x, y):
+        """
+        Finds a tool for the given mouse position.
+
+        :param `x`: mouse `x` position;
+        :param `y`: mouse `y` position.
+
+        :returns: a pointer to a L{AuiToolBarItem} if a tool is found, or ``None`` otherwise.
+
+        :note: This method is similar to L{FindToolForPosition} but it works with absolute coordinates.
+        """
+        
+        return self.FindToolForPosition(*self.ScreenToClient((x,y)))
 
 
     def FindToolForPositionWithPacking(self, x, y):
@@ -3396,7 +3416,7 @@ class AuiToolBar(wx.PyControl):
         dropdown_size = self._art.GetElementSize(AUI_TBART_OVERFLOW_SIZE)
 
         # paint the gripper
-        if gripper_size > 0 and self._gripper_sizer_item:
+        if self._agwStyle & AUI_TB_GRIPPER and gripper_size > 0 and self._gripper_sizer_item:
             gripper_rect = wx.Rect(*self._gripper_sizer_item.GetRect())
             if horizontal:
                 gripper_rect.width = gripper_size

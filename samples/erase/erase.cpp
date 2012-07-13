@@ -3,7 +3,7 @@
 // Purpose:     Erase wxWidgets sample
 // Author:      Robert Roebling, Vadim Zeitlin
 // Created:     04/01/98
-// RCS-ID:      $Id: erase.cpp 67267 2011-03-20 22:33:25Z VZ $
+// RCS-ID:      $Id: erase.cpp 69378 2011-10-11 17:07:43Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 //              (c) 2009 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -30,6 +30,7 @@
     #include "wx/wx.h"
 #endif
 
+#include "wx/custombgwin.h"
 #include "wx/dcbuffer.h"
 
 // ----------------------------------------------------------------------------
@@ -52,7 +53,7 @@ public:
 };
 
 
-class MyCanvas : public wxScrolledWindow
+class MyCanvas : public wxCustomBackgroundWindow<wxScrolledWindow>
 {
 public:
     MyCanvas(wxFrame *parent);
@@ -310,8 +311,9 @@ BEGIN_EVENT_TABLE(MyCanvas, wxScrolledWindow)
 END_EVENT_TABLE()
 
 MyCanvas::MyCanvas(wxFrame *parent)
-        : wxScrolledWindow(parent, wxID_ANY)
 {
+    Create(parent, wxID_ANY);
+
     m_useBuffer = false;
     m_useBgBmp = false;
     m_eraseBgInPaint = false;

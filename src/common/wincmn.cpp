@@ -4,7 +4,7 @@
 // Author:      Julian Smart, Vadim Zeitlin
 // Modified by:
 // Created:     13/07/98
-// RCS-ID:      $Id: wincmn.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: wincmn.cpp 69860 2011-11-28 19:15:57Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -2121,6 +2121,13 @@ void wxWindowBase::DoSetToolTip(wxToolTip *tooltip)
     }
 }
 
+bool wxWindowBase::CopyToolTip(wxToolTip *tip)
+{
+    SetToolTip(tip ? new wxToolTip(tip->GetTip()) : NULL);
+
+    return tip != NULL;
+}
+
 #endif // wxUSE_TOOLTIPS
 
 // ----------------------------------------------------------------------------
@@ -3321,9 +3328,9 @@ void wxWindowBase::DoMoveInTabOrder(wxWindow *win, WindowOrder move)
 
 bool wxWindowBase::HasFocus() const
 {
-    wxWindowBase *win = DoFindFocus();
-    return win == this ||
-           win == wxConstCast(this, wxWindowBase)->GetMainWindowOfCompositeControl();
+    wxWindowBase* const win = DoFindFocus();
+    return win &&
+            (this == win || this == win->GetMainWindowOfCompositeControl());
 }
 
 // ----------------------------------------------------------------------------

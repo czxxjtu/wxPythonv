@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _combobox.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _combobox.i 69026 2011-09-08 19:33:52Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -136,7 +136,9 @@ the combobox text field.", "",
             return self->wxItemContainer::IsEmpty();
         }
     }
-    
+
+    bool IsListEmpty() const;
+    bool IsTextEmpty() const;
 
     virtual void Popup();
     virtual void Dismiss();

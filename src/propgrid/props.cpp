@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     2005-05-14
-// RCS-ID:      $Id: props.cpp 66728 2011-01-22 14:38:36Z DS $
+// RCS-ID:      $Id: props.cpp 69828 2011-11-27 19:49:43Z VZ $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -474,9 +474,9 @@ wxValidator* wxIntProperty::DoGetValidator() const
 #define wxPG_UINT_TEMPLATE_MAX 8
 
 static const wxChar* const gs_uintTemplates32[wxPG_UINT_TEMPLATE_MAX] = {
-    wxT("%x"),wxT("0x%x"),wxT("$%x"),
-    wxT("%X"),wxT("0x%X"),wxT("$%X"),
-    wxT("%u"),wxT("%o")
+    wxT("%lx"),wxT("0x%lx"),wxT("$%lx"),
+    wxT("%lX"),wxT("0x%lX"),wxT("$%lX"),
+    wxT("%lu"),wxT("%lo")
 };
 
 static const char* const gs_uintTemplates64[wxPG_UINT_TEMPLATE_MAX] = {
@@ -1703,7 +1703,7 @@ bool wxPGFileDialogAdapter::DoShowDialog( wxPropertyGrid* propGrid, wxPGProperty
                       property->GetAttribute(wxS("DialogTitle"), _("Choose a file")),
                       property->GetAttribute(wxS("InitialPath"), path),
                       wxEmptyString,
-                      property->GetAttribute(wxPG_FILE_WILDCARD, _("All files (*.*)|*.*")),
+                      property->GetAttribute(wxPG_FILE_WILDCARD, wxALL_FILES),
                       0,
                       wxDefaultPosition );
 
@@ -1732,7 +1732,7 @@ wxFileProperty::wxFileProperty( const wxString& label, const wxString& name,
 {
     m_flags |= wxPG_PROP_SHOW_FULL_FILENAME;
     m_indFilter = -1;
-    SetAttribute( wxPG_FILE_WILDCARD, _("All files (*.*)|*.*") );
+    SetAttribute( wxPG_FILE_WILDCARD, wxALL_FILES);
 
     SetValue(value);
 }

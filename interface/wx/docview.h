@@ -2,7 +2,7 @@
 // Name:        docview.h
 // Purpose:     interface of various doc/view framework classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: docview.h 68051 2011-06-27 00:09:37Z VZ $
+// RCS-ID:      $Id: docview.h 68334 2011-07-22 16:16:09Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -747,6 +747,38 @@ public:
     */
     void SetMaxDocsOpen(int n);
 
+
+protected:
+    /**
+        Called when a file selected from the MRU list doesn't exist any more.
+
+        The default behaviour is to remove the file from the MRU (most recently
+        used) files list and the corresponding menu and notify the user about
+        it but this method can be overridden to customize it.
+
+        For example, an application may want to just give an error about the
+        missing file @a filename but not remove it from the file history. Or it
+        could ask the user whether the file should be kept or removed.
+
+        Notice that this method is called only if the file selected by user
+        from the MRU files in the menu doesn't exist, but not if opening it
+        failed for any other reason because in the latter case the default
+        behaviour of removing the file from the MRU list is inappropriate.
+        If you still want to do it, you would need to do it by calling
+        RemoveFileFromHistory() explicitly in the part of the file opening code
+        that may fail.
+
+        @since 2.9.3
+
+        @param n
+            The index of the file in the MRU list, it can be passed to
+            RemoveFileFromHistory() to remove this file from the list.
+        @param filename
+            The full name of the file.
+     */
+    virtual void OnMRUFileNotExist(unsigned n, const wxString& filename);
+
+
     /**
         The currently active view.
     */
@@ -769,18 +801,15 @@ public:
     wxFileHistory* m_fileHistory;
 
     /**
-        Stores the flags passed to the constructor.
-    */
-    long m_flags;
-
-    /**
         The directory last selected by the user when opening a file.
     */
-    wxFileHistory* m_fileHistory;
+    wxString m_lastDirectory;
 
     /**
         Stores the maximum number of documents that can be opened before
-        existing documents are closed. By default, this is 10,000.
+        existing documents are closed.
+
+        By default, this is @c INT_MAX i.e. practically unlimited.
     */
     int m_maxDocsOpen;
 };

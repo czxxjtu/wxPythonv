@@ -2,7 +2,7 @@
 // Name:        gbsizer.h
 // Purpose:     interface of wxGBPosition
 // Author:      wxWidgets team
-// RCS-ID:      $Id: gbsizer.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: gbsizer.h 69970 2011-12-10 04:34:06Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -231,20 +231,20 @@ public:
         Construct a sizer item for tracking a spacer.
     */
     wxGBSizerItem(int width, int height, const wxGBPosition& pos,
-                  const wxGBSpan& span, int flag, int border,
-                  wxObject* userData);
+                  const wxGBSpan& span=wxDefaultSpan, int flag=0, int border=0,
+                  wxObject* userData=NULL);
     /**
         Construct a sizer item for tracking a window.
     */
     wxGBSizerItem(wxWindow* window, const wxGBPosition& pos,
-                  const wxGBSpan& span, int flag, int border,
-                  wxObject* userData);
+                  const wxGBSpan& span=wxDefaultSpan, int flag=0, int border=0,
+                  wxObject* userData=NULL);
     /**
         Construct a sizer item for tracking a subsizer.
     */
     wxGBSizerItem(wxSizer* sizer, const wxGBPosition& pos,
-                  const wxGBSpan& span, int flag, int border,
-                  wxObject* userData);
+                  const wxGBSpan& span=wxDefaultSpan, int flag=0, int border=0,
+                  wxObject* userData=NULL);
 
     /**
         Get the row and column of the endpoint of this item.
@@ -291,6 +291,10 @@ public:
         is successful and after the next Layout the item will be resized.
     */
     bool SetSpan(const wxGBSpan& span);
+
+    
+    wxGridBagSizer* GetGBSizer() const;
+    void SetGBSizer(wxGridBagSizer* sizer);
 };
 
 
@@ -348,3 +352,5 @@ public:
     bool operator==(const wxGBSpan& o) const;
 };
 
+
+const wxGBSpan wxDefaultSpan;

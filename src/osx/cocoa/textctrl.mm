@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by: Ryan Norton (MLTE GetLineLength and GetLineText)
 // Created:     1998-01-01
-// RCS-ID:      $Id: textctrl.mm 68524 2011-08-04 21:20:04Z RD $
+// RCS-ID:      $Id: textctrl.mm 69988 2011-12-11 23:59:33Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -325,7 +325,7 @@ NSView* wxMacEditHelper::ms_viewCurrentlyEdited = nil;
 }
 
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words
- forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int*)index
+ forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger*)index
 {
     NSMutableArray* matches = NULL;
 

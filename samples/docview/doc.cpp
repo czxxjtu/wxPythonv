@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin: merge with the MDI version and general cleanup
 // Created:     04/01/98
-// RCS-ID:      $Id: doc.cpp 68051 2011-06-27 00:09:37Z VZ $
+// RCS-ID:      $Id: doc.cpp 68331 2011-07-22 16:16:00Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 //              (c) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -79,6 +79,16 @@ DocumentIstream& DrawingDocument::LoadObject(DocumentIstream& istream)
 
     wxInt32 count = 0;
     stream >> count;
+    if ( count < 0 )
+    {
+        wxLogWarning("Drawing document corrupted: invalid segments count.");
+#if wxUSE_STD_IOSTREAM
+        istream.clear(std::ios::badbit);
+#else
+        istream.Reset(wxSTREAM_READ_ERROR);
+#endif
+        return istream;
+    }
 
     for ( int n = 0; n < count; n++ )
     {

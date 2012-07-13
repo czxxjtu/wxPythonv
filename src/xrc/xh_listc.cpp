@@ -3,7 +3,7 @@
 // Purpose:     XRC resource for wxListCtrl
 // Author:      Brian Gavin, Kinaou Hervé, Vadim Zeitlin
 // Created:     2000/09/09
-// RCS-ID:      $Id: xh_listc.cpp 60738 2009-05-25 13:00:28Z VZ $
+// RCS-ID:      $Id: xh_listc.cpp 68286 2011-07-16 10:05:02Z VS $
 // Copyright:   (c) 2000 Brian Gavin
 //              (c) 2009 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -128,6 +128,8 @@ void wxListCtrlXmlHandler::HandleListCol()
     HandleCommonItemAttrs(item);
     if (HasParam(wxT("width")))
         item.SetWidth((int)GetLong(wxT("width")));
+    if (HasParam(wxT("image")))
+        item.SetImage((int)GetLong(wxT("image")));
 
     list->InsertColumn(list->GetColumnCount(), item);
 }
@@ -160,7 +162,7 @@ void wxListCtrlXmlHandler::HandleListItem()
     int image;
     if ( list->HasFlag(wxLC_ICON) )
         image = GetImageIndex(list, wxIMAGE_LIST_NORMAL);
-    else if ( list->HasFlag(wxLC_SMALL_ICON) )
+    else if ( list->HasFlag(wxLC_SMALL_ICON) || list->HasFlag(wxLC_REPORT) || list->HasFlag(wxLC_LIST) )
         image = GetImageIndex(list, wxIMAGE_LIST_SMALL);
     else
         image = wxNOT_FOUND;

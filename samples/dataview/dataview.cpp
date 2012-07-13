@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Francesco Montorsi, Bo Yang
 // Created:     06/01/06
-// RCS-ID:      $Id: dataview.cpp 68144 2011-07-04 09:02:57Z VZ $
+// RCS-ID:      $Id: dataview.cpp 69473 2011-10-19 16:20:17Z VS $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -189,22 +189,18 @@ public:
         return true;
     }
 
-    virtual bool Activate( const wxRect& WXUNUSED(cell),
-                           wxDataViewModel *WXUNUSED(model),
-                           const wxDataViewItem &WXUNUSED(item),
-                           unsigned int WXUNUSED(col) )
+    virtual bool ActivateCell(const wxRect& WXUNUSED(cell),
+                              wxDataViewModel *WXUNUSED(model),
+                              const wxDataViewItem &WXUNUSED(item),
+                              unsigned int WXUNUSED(col),
+                              const wxMouseEvent *mouseEvent)
     {
-        wxLogMessage( "MyCustomRenderer Activate()" );
-        return false;
-    }
-
-    virtual bool LeftClick(const wxPoint& cursor,
-                           const wxRect& WXUNUSED(cell),
-                           wxDataViewModel *WXUNUSED(model),
-                           const wxDataViewItem &WXUNUSED(item),
-                           unsigned int WXUNUSED(col) )
-    {
-        wxLogMessage( "MyCustomRenderer LeftClick( %d, %d )", cursor.x, cursor.y );
+        wxString position;
+        if ( mouseEvent )
+            position = wxString::Format("via mouse at %d, %d", mouseEvent->m_x, mouseEvent->m_y);
+        else
+            position = "from keyboard";
+        wxLogMessage("MyCustomRenderer ActivateCell() %s", position);
         return false;
     }
 
@@ -684,7 +680,7 @@ void MyFrame::BuildDataViewCtrl(wxPanel* parent, unsigned int nPanel, unsigned l
 
             wxImageList *ilist = new wxImageList( 16, 16 );
             ilist->Add( wxIcon(wx_small_xpm) );
-            tc->SetImageList( ilist );
+            tc->AssignImageList( ilist );
 
             wxDataViewItem parent =
                 tc->AppendContainer( wxDataViewItem(0), "The Root", 0 );

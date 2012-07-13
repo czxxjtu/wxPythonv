@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     15-Feb-2005
-// RCS-ID:      $Id: _datectrl.i 67442 2011-04-13 17:48:50Z RD $
+// RCS-ID:      $Id: _datectrl.i 69483 2011-10-20 04:23:32Z RD $
 // Copyright:   (c) 2005 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -181,7 +181,8 @@ creation.", "");
 };
 
 
-
+// Disabled for MSW temporarily until some build issues are worked out
+#ifndef __WXMSW__
 
 MustHaveApp(wxDatePickerCtrlGeneric);
 
@@ -224,6 +225,8 @@ public:
 creation.", "");
     
 };
+
+#endif
 
 //---------------------------------------------------------------------------
 

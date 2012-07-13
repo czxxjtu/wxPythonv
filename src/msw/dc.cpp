@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: dc.cpp 67961 2011-06-16 15:13:52Z VZ $
+// RCS-ID:      $Id: dc.cpp 69727 2011-11-10 10:46:34Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,9 @@ IMPLEMENT_ABSTRACT_CLASS(wxMSWDCImpl, wxDCImpl)
 // constants
 // ---------------------------------------------------------------------------
 
-static const int VIEWPORT_EXTENT = 1024;
+// The device space in Win32 GDI measures 2^27*2^27 , so we use 2^27-1 as the
+// maximal possible view port extent.
+static const int VIEWPORT_EXTENT = 134217727;
 
 // ROPs which don't have standard names (see "Ternary Raster Operations" in the
 // MSDN docs for how this and other numbers in wxDC::Blit() are obtained)
@@ -1960,6 +1962,31 @@ bool wxMSWDCImpl::DoGetPartialTextExtents(const wxString& text, wxArrayInt& widt
     return true;
 }
 
+namespace
+{
+
+void ApplyEffectiveScale(double scale, int sign, int *device, int *logical)
+{
+    // To reduce rounding errors as much as possible, we try to use the largest
+    // possible extent (2^27-1) for the device space but we must also avoid
+    // overflowing the int range i.e. ensure that logical extents are less than
+    // 2^31 in magnitude. So the minimal scale we can use is 1/16 as for
+    // anything smaller VIEWPORT_EXTENT/scale would overflow the int range.
+    static const double MIN_LOGICAL_SCALE = 1./16;
+
+    double physExtent = VIEWPORT_EXTENT;
+    if ( scale < MIN_LOGICAL_SCALE )
+    {
+        physExtent *= scale/MIN_LOGICAL_SCALE;
+        scale = MIN_LOGICAL_SCALE;
+    }
+
+    *device = wxRound(physExtent);
+    *logical = sign*wxRound(VIEWPORT_EXTENT/scale);
+}
+
+} // anonymous namespace
+
 void wxMSWDCImpl::RealizeScaleAndOrigin()
 {
     // although it may seem wasteful to always use MM_ANISOTROPIC here instead
@@ -1970,34 +1997,13 @@ void wxMSWDCImpl::RealizeScaleAndOrigin()
 
     // wxWidgets API assumes that the coordinate space is "infinite" (i.e. only
     // limited by 2^32 range of the integer coordinates) but in MSW API we must
-    // actually specify the extents that we use. So we more or less arbitrarily
-    // decide to use "base" VIEWPORT_EXTENT and adjust it depending on scale.
-    //
-    // To avoid rounding errors we prefer to multiply by the scale if it's > 1
-    // and to divide by it if it's < 1.
+    // actually specify the extents that we use so compute them here.
+
     int devExtX, devExtY,   // Viewport, i.e. device space, extents.
         logExtX, logExtY;   // Window, i.e. logical coordinate space, extents.
-    if ( m_scaleX >= 1 )
-    {
-        devExtX = wxRound(VIEWPORT_EXTENT*m_scaleX);
-        logExtX = m_signX*VIEWPORT_EXTENT;
-    }
-    else
-    {
-        devExtX = VIEWPORT_EXTENT;
-        logExtX = wxRound(m_signX*VIEWPORT_EXTENT/m_scaleX);
-    }
 
-    if ( m_scaleY >= 1 )
-    {
-        devExtY = wxRound(VIEWPORT_EXTENT*m_scaleY);
-        logExtY = m_signY*VIEWPORT_EXTENT;
-    }
-    else
-    {
-        devExtY = VIEWPORT_EXTENT;
-        logExtY = wxRound(m_signY*VIEWPORT_EXTENT/m_scaleY);
-    }
+    ApplyEffectiveScale(m_scaleX, m_signX, &devExtX, &logExtX);
+    ApplyEffectiveScale(m_scaleY, m_signY, &devExtY, &logExtY);
 
     ::SetViewportExtEx(GetHdc(), devExtX, devExtY, NULL);
     ::SetWindowExtEx(GetHdc(), logExtX, logExtY, NULL);
@@ -2311,7 +2317,8 @@ bool wxMSWDCImpl::DoStretchBlit(wxCoord xdest, wxCoord ydest,
         // than the wxWidgets fall-back implementation. So we need
         // to be able to switch this on and off at runtime.
 #if wxUSE_SYSTEM_OPTIONS
-        if (wxSystemOptions::GetOptionInt(wxT("no-maskblt")) == 0)
+        static bool s_maskBltAllowed = wxSystemOptions::GetOptionInt("no-maskblt") == 0;
+        if ( s_maskBltAllowed )
 #endif
         {
             if ( dstWidth == srcWidth && dstHeight == srcHeight )

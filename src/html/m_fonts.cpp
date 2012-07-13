@@ -2,7 +2,7 @@
 // Name:        src/html/m_fonts.cpp
 // Purpose:     wxHtml module for fonts & colors of fonts
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: m_fonts.cpp 66492 2010-12-30 22:36:56Z VZ $
+// RCS-ID:      $Id: m_fonts.cpp 69512 2011-10-22 13:19:40Z JS $
 // Copyright:   (c) 1999 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ TAG_HANDLER_BEGIN(FONT, "FONT" )
 TAG_HANDLER_END(FONT)
 
 
-TAG_HANDLER_BEGIN(FACES_U, "U,STRIKE")
+TAG_HANDLER_BEGIN(FACES_U, "U,STRIKE,DEL")
 
     TAG_HANDLER_CONSTR(FACES_U) { }
 

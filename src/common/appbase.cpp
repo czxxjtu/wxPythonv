@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     19.06.2003 (extracted from common/appcmn.cpp)
-// RCS-ID:      $Id: appbase.cpp 67619 2011-04-26 22:57:27Z VZ $
+// RCS-ID:      $Id: appbase.cpp 69794 2011-11-22 13:18:50Z VZ $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -150,10 +150,14 @@ wxAppConsoleBase::wxAppConsoleBase()
     wxDELETE(m_traits);
 #endif
 #endif
+
+    wxEvtHandler::AddFilter(this);
 }
 
 wxAppConsoleBase::~wxAppConsoleBase()
 {
+    wxEvtHandler::RemoveFilter(this);
+
     // we're being destroyed and using this object from now on may not work or
     // even crash so don't leave dangling pointers to it
     ms_appInstance = NULL;
@@ -401,7 +405,7 @@ bool wxAppConsoleBase::IsMainLoopRunning()
 int wxAppConsoleBase::FilterEvent(wxEvent& WXUNUSED(event))
 {
     // process the events normally by default
-    return -1;
+    return Event_Skip;
 }
 
 void wxAppConsoleBase::DelayPendingEventHandler(wxEvtHandler* toDelay)

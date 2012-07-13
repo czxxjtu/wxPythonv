@@ -2,7 +2,7 @@
 // Name:        stdpaths.h
 // Purpose:     interface of wxStandardPaths
 // Author:      wxWidgets team
-// RCS-ID:      $Id: stdpaths.h 65652 2010-09-27 11:51:50Z VZ $
+// RCS-ID:      $Id: stdpaths.h 68462 2011-07-30 17:40:00Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -11,6 +11,13 @@
 
     wxStandardPaths returns the standard locations in the file system and should be
     used by applications to find their data files in a portable way.
+
+    Note that you must not create objects of class wxStandardPaths directly,
+    but use the global standard paths object returned by wxStandardPaths::Get()
+    (which can be of a type derived from wxStandardPaths and not of exactly
+    this type) and call the methods you need on it. The object returned by
+    Get() may be customized by overriding wxAppTraits::GetStandardPaths()
+    methods.
 
     In the description of the methods below, the example return values are given
     for the Unix, Windows and Mac OS X systems, however please note that these are
@@ -41,10 +48,6 @@
 
     This class is MT-safe: its methods may be called concurrently from different
     threads without additional locking.
-
-    Note that you don't allocate an instance of class wxStandardPaths, but retrieve the
-    global standard paths object using @c wxStandardPaths::Get on which you call the
-    desired methods.
 
     @library{wxbase}
     @category{file}

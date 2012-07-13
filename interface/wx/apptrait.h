@@ -2,7 +2,7 @@
 // Name:        apptrait.h
 // Purpose:     interface of wxAppTraits
 // Author:      wxWidgets team
-// RCS-ID:      $Id: apptrait.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: apptrait.h 69300 2011-10-04 07:45:08Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -97,7 +97,7 @@ public:
         The returned reference is to a @c wxStandardPathsBase class but you
         can consider it to be equivalent to wxStandardPaths (which is documented).
     */
-    virtual wxStandardPathsBase& GetStandardPaths();
+    virtual wxStandardPaths& GetStandardPaths();
 
     /**
         Returns the wxWidgets port ID used by the running program and eventually

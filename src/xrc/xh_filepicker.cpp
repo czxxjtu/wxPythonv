@@ -3,7 +3,7 @@
 // Purpose:     XML resource handler for wxFilePickerCtrl
 // Author:      Francesco Montorsi
 // Created:     2006-04-17
-// RCS-ID:      $Id: xh_filepicker.cpp 61508 2009-07-23 20:30:22Z VZ $
+// RCS-ID:      $Id: xh_filepicker.cpp 68921 2011-08-27 14:11:25Z VZ $
 // Copyright:   (c) 2006 Francesco Montorsi
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -29,6 +29,7 @@ wxFilePickerCtrlXmlHandler::wxFilePickerCtrlXmlHandler() : wxXmlResourceHandler(
     XRC_ADD_STYLE(wxFLP_OVERWRITE_PROMPT);
     XRC_ADD_STYLE(wxFLP_FILE_MUST_EXIST);
     XRC_ADD_STYLE(wxFLP_CHANGE_DIR);
+    XRC_ADD_STYLE(wxFLP_SMALL);
     XRC_ADD_STYLE(wxFLP_DEFAULT_STYLE);
     XRC_ADD_STYLE(wxFLP_USE_TEXTCTRL);
     AddWindowStyles();

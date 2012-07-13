@@ -2,7 +2,7 @@
 // Name:        wx/gtk/toplevel.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: toplevel.h 67496 2011-04-15 18:31:57Z PC $
+// Id:          $Id: toplevel.h 69408 2011-10-13 12:45:56Z VZ $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -57,8 +57,6 @@ public:
     virtual bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL);
     virtual bool IsFullScreen() const { return m_fsIsShowing; };
 
-    virtual bool SetShape(const wxRegion& region);
-
     virtual void RequestUserAttention(int flags = wxUSER_ATTENTION_INFO);
 
     virtual void SetWindowStyleFlag( long style );
@@ -95,6 +93,8 @@ public:
     // GTK callbacks
     virtual void OnInternalIdle();
 
+    virtual void GTKHandleRealized();
+
     // do *not* call this to iconize the frame, this is a private function!
     void SetIconizeState(bool iconic);
 
@@ -110,9 +110,6 @@ public:
 
     // size of WM decorations
     wxSize m_decorSize;
-
-    // shape of the frame
-    wxRegion m_shape;
 
     // private gtk_timeout_add result for mimicing wxUSER_ATTENTION_INFO and
     // wxUSER_ATTENTION_ERROR difference, -2 for no hint, -1 for ERROR hint, rest for GtkTimeout handle.

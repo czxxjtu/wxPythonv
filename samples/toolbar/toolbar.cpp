@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: toolbar.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: toolbar.cpp 69855 2011-11-28 12:47:26Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -508,7 +508,8 @@ void MyFrame::PopulateToolbar(wxToolBarBase* toolBar)
     // the changes
     toolBar->Realize();
 
-    toolBar->SetRows(!(toolBar->IsVertical()) ? m_rows : 10 / m_rows);
+    toolBar->SetRows(toolBar->IsVertical() ? toolBar->GetToolsCount() / m_rows
+                                           : m_rows);
 }
 
 // ----------------------------------------------------------------------------
@@ -762,7 +763,9 @@ void MyFrame::OnToggleToolbarRows(wxCommandEvent& WXUNUSED(event))
     // m_rows may be only 1 or 2
     m_rows = 3 - m_rows;
 
-    GetToolBar()->SetRows(!(GetToolBar()->IsVertical()) ? m_rows : 10 / m_rows);
+    wxToolBar* const toolBar = GetToolBar();
+    toolBar->SetRows(toolBar->IsVertical() ? toolBar->GetToolsCount() / m_rows
+                                           : m_rows);
 
     //RecreateToolbar(); -- this is unneeded
 }
@@ -925,12 +928,12 @@ void MyFrame::OnChangeToolTip(wxCommandEvent& WXUNUSED(event))
 void MyFrame::OnToolbarStyle(wxCommandEvent& event)
 {
     long style = GetToolBar()->GetWindowStyle();
-    style &= ~(wxTB_NOICONS | wxTB_TEXT);
+    style &= ~(wxTB_NOICONS | wxTB_HORZ_TEXT);
 
     switch ( event.GetId() )
     {
         case IDM_TOOLBAR_SHOW_TEXT:
-            style |= wxTB_NOICONS | wxTB_TEXT;
+            style |= wxTB_NOICONS | (m_horzText ? wxTB_HORZ_TEXT : wxTB_TEXT);
             break;
 
         case IDM_TOOLBAR_SHOW_ICONS:
@@ -938,7 +941,7 @@ void MyFrame::OnToolbarStyle(wxCommandEvent& event)
             break;
 
         case IDM_TOOLBAR_SHOW_BOTH:
-            style |= wxTB_TEXT;
+            style |= (m_horzText ? wxTB_HORZ_TEXT : wxTB_TEXT);
     }
 
     GetToolBar()->SetWindowStyle(style);

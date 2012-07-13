@@ -2,7 +2,7 @@
 // Name:        src/common/image.cpp
 // Purpose:     wxImage
 // Author:      Robert Roebling
-// RCS-ID:      $Id: image.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: image.cpp 69759 2011-11-14 13:35:48Z VZ $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -2450,7 +2450,17 @@ bool wxImage::DoLoad(wxImageHandler& handler, wxInputStream& stream, int index)
         }
 
         if ( width != widthOrig || height != heightOrig )
+        {
+            // get the original size if it was set by the image handler
+            // but also in order to restore it after Rescale
+            int widthOrigOption = GetOptionInt(wxIMAGE_OPTION_ORIGINAL_WIDTH),
+                heightOrigOption = GetOptionInt(wxIMAGE_OPTION_ORIGINAL_HEIGHT);
+
             Rescale(width, height, wxIMAGE_QUALITY_HIGH);
+
+            SetOption(wxIMAGE_OPTION_ORIGINAL_WIDTH, widthOrigOption ? widthOrigOption : widthOrig);
+            SetOption(wxIMAGE_OPTION_ORIGINAL_HEIGHT, heightOrigOption ? heightOrigOption : heightOrig);
+        }
     }
 
     // Set this after Rescale, which currently does not preserve it

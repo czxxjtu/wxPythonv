@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-07-06
-// RCS-ID:      $Id: toolbar.cpp 65989 2010-11-02 11:57:03Z VZ $
+// RCS-ID:      $Id: toolbar.cpp 69567 2011-10-27 21:10:51Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ public:
     long state;
 };
 
-WX_DEFINE_ARRAY(wxRibbonToolBarToolBase*, wxArrayRibbonToolBarToolBase);
+WX_DEFINE_ARRAY_PTR(wxRibbonToolBarToolBase*, wxArrayRibbonToolBarToolBase);
 
 class wxRibbonToolBarToolGroup
 {

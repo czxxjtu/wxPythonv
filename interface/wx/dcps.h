@@ -2,7 +2,7 @@
 // Name:        dcps.h
 // Purpose:     interface of wxPostScriptDC
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dcps.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dcps.h 69300 2011-10-04 07:45:08Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -19,22 +19,12 @@
 class wxPostScriptDC : public wxDC
 {
 public:
+    wxPostScriptDC();
+
     /**
         Constructs a PostScript printer device context from a wxPrintData object.
     */
     wxPostScriptDC(const wxPrintData& printData);
 
-    /**
-        Return resolution used in PostScript output.
-
-        @see SetResolution()
-    */
-    virtual int GetResolution() const;
-
-    /**
-        Set resolution (in pixels per inch) that will be used in PostScript
-        output. Default is 720ppi.
-    */
-    virtual wxRect GetPaperRect() const;
 };
 

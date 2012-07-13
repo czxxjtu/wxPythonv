@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     29/01/98
-// RCS-ID:      $Id: utilscmn.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: utilscmn.cpp 69927 2011-12-04 12:26:24Z VZ $
 // Copyright:   (c) 1998 Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -580,10 +580,21 @@ bool wxGetEnvMap(wxEnvVariableHashMap *map)
 #else // non-MSVC non-Mac
     // Not sure if other compilers have _tenviron so use the (more standard)
     // ANSI version only for them.
-#ifdef __BSD__
-    // POSIX, but not in an include file
+
+    // Both POSIX and Single UNIX Specification say that this variable must
+    // exist but not that it must be declared anywhere and, indeed, it's not
+    // declared in several common systems (some BSDs, Solaris with native CC)
+    // so we (re)declare it ourselves to deal with these cases. However we do
+    // not do this under MSW where there can be DLL-related complications, i.e.
+    // the variable might be DLL-imported or not. Luckily we don't have to
+    // worry about this as all MSW compilers do seem to define it in their
+    // standard headers anyhow so we can just rely on already having the
+    // correct declaration. And if this turns out to be wrong, we can always
+    // add a configure test checking whether it is declared later.
+#ifndef __WXMSW__
     extern char **environ;
-#endif
+#endif // !__WXMSW__
+
     char **env = environ;
 #endif
 
@@ -812,8 +823,8 @@ typedef struct
       smaller partition.  This *guarantees* no more than log (n)
       stack size is needed (actually O(1) in this case)!  */
 
-void wxQsort(void *const pbase, size_t total_elems,
-                             size_t size, CMPFUNCDATA cmp, const void* user_data)
+void wxQsort(void* pbase, size_t total_elems,
+             size_t size, wxSortCallback cmp, const void* user_data)
 {
   register char *base_ptr = (char *) pbase;
   const size_t max_thresh = MAX_THRESH * size;
@@ -1361,6 +1372,8 @@ int wxMessageBox(const wxString& message, const wxString& caption, long style,
             return wxNO;
         case wxID_CANCEL:
             return wxCANCEL;
+        case wxID_HELP:
+            return wxHELP;
     }
 
     wxFAIL_MSG( wxT("unexpected return code from wxMessageDialog") );
@@ -1406,7 +1419,7 @@ wxVersionInfo wxGetLibraryVersionInfo()
                          wxMINOR_VERSION,
                          wxRELEASE_NUMBER,
                          msg,
-                         wxS("Copyright (c) 1995-2010 wxWidgets team"));
+                         wxS("Copyright (c) 1995-2011 wxWidgets team"));
 }
 
 void wxInfoMessageBox(wxWindow* parent)

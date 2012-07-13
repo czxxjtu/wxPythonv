@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     2005-09-30
-// RCS-ID:      $Id: richtextctrl.h 67941 2011-06-15 13:14:41Z JS $
+// RCS-ID:      $Id: richtextctrl.h 69613 2011-10-31 12:15:05Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1449,19 +1449,24 @@ public:
     }
 
     /**
-        Returns @true if all of the selection is bold.
+        Returns @true if all of the selection, or the content at the caret position, is bold.
     */
     virtual bool IsSelectionBold();
 
     /**
-        Returns @true if all of the selection is italic.
+        Returns @true if all of the selection, or the content at the caret position, is italic.
     */
     virtual bool IsSelectionItalics();
 
     /**
-        Returns @true if all of the selection is underlined.
+        Returns @true if all of the selection, or the content at the caret position, is underlined.
     */
     virtual bool IsSelectionUnderlined();
+
+    /**
+        Returns @true if all of the selection, or the content at the current caret position, has the supplied wxTextAttrEffects flag(s).
+    */
+    virtual bool DoesSelectionHaveTextEffectFlag(int flag);
 
     /**
         Returns @true if all of the selection is aligned according to the specified flag.
@@ -1469,22 +1474,28 @@ public:
     virtual bool IsSelectionAligned(wxTextAttrAlignment alignment);
 
     /**
-        Apples bold to the selection (undoable).
+        Apples bold to the selection or the default style (undoable).
     */
     virtual bool ApplyBoldToSelection();
 
     /**
-        Applies italic to the selection (undoable).
+        Applies italic to the selection or the default style (undoable).
     */
     virtual bool ApplyItalicToSelection();
 
     /**
-        Applies underline to the selection (undoable).
+        Applies underline to the selection or the default style (undoable).
     */
     virtual bool ApplyUnderlineToSelection();
 
     /**
-        Applies the given alignment to the selection (undoable).
+        Applies one or more wxTextAttrEffects flags to the selection (undoable).
+        If there is no selection, it is applied to the default style.
+    */
+    virtual bool ApplyTextEffectToSelection(int flags);
+
+    /**
+        Applies the given alignment to the selection or the default style (undoable).
         For alignment values, see wxTextAttr.
     */
     virtual bool ApplyAlignmentToSelection(wxTextAttrAlignment alignment);

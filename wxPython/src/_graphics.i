@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     2-Oct-2006
-// RCS-ID:      $Id: _graphics.i 68891 2011-08-25 18:48:28Z RD $
+// RCS-ID:      $Id: _graphics.i 69711 2011-11-08 18:04:04Z RD $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -307,6 +307,13 @@ public:
                         "wx.GraphicsContext is not available on this platform.");
         return NULL;
     }
+
+    static wxGraphicsContext* Create( const wxEnhMetaFileDC& )  {
+        PyErr_SetString(PyExc_NotImplementedError,
+                        "wx.GraphicsContext is not available on this platform.");
+        return NULL;
+    }
+
     static wxGraphicsContext* Create( const wxWindowDC& )  {
         PyErr_SetString(PyExc_NotImplementedError,
                         "wx.GraphicsContext is not available on this platform.");
@@ -343,11 +350,19 @@ public:
         return NULL;
     }
 
+    static wxGraphicsContext* Create(wxImage& ) {
+        PyErr_SetString(PyExc_NotImplementedError,
+                        "wx.GraphicsContext is not available on this platform.");
+        return NULL;
+    }
+    
     virtual bool StartDoc( const wxString& message ) { return false; }
     virtual void EndDoc() {}
     virtual void StartPage( wxDouble, wxDouble) {}
     virtual void EndPage() {}
     virtual void Flush() {}
+    virtual void BeginLayer(wxDouble) {}
+    virtual void EndLayer() {}
 
     wxGraphicsPath CreatePath()  { return wxNullGraphicsPath; }
 
@@ -357,7 +372,7 @@ public:
 
     wxGraphicsBrush CreateLinearGradientBrush(
         wxDouble , wxDouble , wxDouble , wxDouble ,
-        const wxColour&, const wxColour&) { return wxNullGraphicsBrush; }
+        const wxColour&, const wxColour&) const { return wxNullGraphicsBrush; }
     wxGraphicsBrush
     CreateLinearGradientBrush(wxDouble x1, wxDouble y1,
                               wxDouble x2, wxDouble y2,
@@ -367,7 +382,7 @@ public:
     wxGraphicsBrush
     CreateRadialGradientBrush(wxDouble xo, wxDouble yo,
                               wxDouble xc, wxDouble yc, wxDouble radius,
-                              const wxColour &oColor, const wxColour &cColor)
+                              const wxColour &oColor, const wxColour &cColor) const
         { return wxNullGraphicsBrush; }
     
     wxGraphicsBrush
@@ -377,8 +392,13 @@ public:
          { return wxNullGraphicsBrush; }
 
     virtual wxGraphicsFont CreateFont( const wxFont &, const wxColour & )  { return wxNullGraphicsFont; }
+    virtual wxGraphicsFont CreateFont(double sizeInPixels,
+                                      const wxString& facename,
+                                      int flags = wxFONTFLAG_DEFAULT,
+                                      const wxColour& col = *wxBLACK) const { return wxNullGraphicsFont; }
 
     virtual wxGraphicsBitmap CreateBitmap( const wxBitmap & ) const { return wxNullGraphicsBitmap; }
+    wxGraphicsBitmap CreateBitmapFromImage(const wxImage& image) const { return wxNullGraphicsBitmap; }
     virtual wxGraphicsBitmap CreateSubBitmap( const wxGraphicsBitmap &, wxDouble, wxDouble, wxDouble, wxDouble ) const  { return wxNullGraphicsBitmap; }
     
     virtual wxGraphicsMatrix CreateMatrix( wxDouble, wxDouble, wxDouble, wxDouble,
@@ -470,12 +490,14 @@ public :
         return NULL;
     }   
 
+    virtual wxGraphicsContext * CreateContext( const wxEnhMetaFileDC& ) { return NULL; }
     virtual wxGraphicsContext * CreateContext( const wxWindowDC& ) { return NULL; }
     virtual wxGraphicsContext * CreateContext( const wxMemoryDC& ) { return NULL; }
     virtual wxGraphicsContext * CreateContext( const wxPrinterDC& ) { return NULL; }
     virtual wxGraphicsContext * CreateContextFromNativeContext( void *  ) { return NULL; }
     virtual wxGraphicsContext * CreateContextFromNativeWindow( void *  )  { return NULL; }
     virtual wxGraphicsContext * CreateContext( wxWindow*  ) { return NULL; }
+    virtual wxGraphicsContext * CreateContextFromImage(wxImage&) { return NULL; }
     virtual wxGraphicsContext * CreateMeasuringContext() { return NULL; }
 
     virtual wxGraphicsPath CreatePath()  { return wxNullGraphicsPath; }
@@ -499,7 +521,13 @@ public :
     { return wxNullGraphicsBrush; }
 
     virtual wxGraphicsFont CreateFont( const wxFont & , const wxColour & ) { return wxNullGraphicsFont; }
+    virtual wxGraphicsFont CreateFont(double,
+                                      const wxString&,
+                                      int flags,
+                                      const wxColour&)  { return wxNullGraphicsFont; }
+
     virtual wxGraphicsBitmap CreateBitmap( const wxBitmap & ) const { return wxNullGraphicsBitmap; }
+    virtual wxGraphicsBitmap CreateBitmapFromImage(const wxImage&) { return wxNullGraphicsBitmap; }
     virtual wxGraphicsBitmap CreateSubBitmap( const wxGraphicsBitmap &, wxDouble, wxDouble, wxDouble, wxDouble ) const  { return wxNullGraphicsBitmap; }
 };
 
@@ -534,7 +562,25 @@ public:
                         "wxGCDC is not available on this platform.");
         wxPyEndBlockThreads(blocked);
      }
+
+    wxGCDC(wxGraphicsContext*&)
+        : wxDC(NULL)
+    {
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();
+        PyErr_SetString(PyExc_NotImplementedError,
+                        "wxGCDC is not available on this platform.");
+        wxPyEndBlockThreads(blocked);
+     }
     
+    wxGCDC(const wxGraphicsContext& ctx)
+        : wxDC(NULL)
+    {
+        wxPyBlock_t blocked = wxPyBeginBlockThreads();
+        PyErr_SetString(PyExc_NotImplementedError,
+                        "wxGCDC is not available on this platform.");
+        wxPyEndBlockThreads(blocked);
+     }
+
     wxGCDC()
         : wxDC(NULL)
     {
@@ -546,7 +592,7 @@ public:
 
     virtual ~wxGCDC() {}
 
-    wxGraphicsContext* GetGraphicsContext() { return NULL; }
+    wxGraphicsContext* GetGraphicsContext() const { return NULL; }
     void SetGraphicsContext( wxGraphicsContext* ) {}
     void Flush() {}
 };
@@ -956,8 +1002,10 @@ public:
     static wxGraphicsContext* Create( const wxPrinterDC& dc) ;
 #ifdef __WXMSW__
     static wxGraphicsContext* Create( const wxMetaFileDC& dc) ;
+    static wxGraphicsContext* Create( const wxEnhMetaFileDC& dc) ;
 #endif
-
+    static wxGraphicsContext* Create(wxImage& );
+    
     %pythonAppend Create "";
     DocDeclStrName(
         static wxGraphicsContext* , Create(),
@@ -1007,8 +1055,6 @@ size in points (if both are null the default page size will be used)
         virtual void , Flush(),
         "Make sure that the current content of this context is immediately visible", "");
     
-
-
     DocDeclStr(
         virtual wxGraphicsPath , CreatePath(),
         "Creates a native graphics path which is initially empty.", "");
@@ -1052,16 +1098,22 @@ specified by just the two extremes or the full array of gradient stops.", "");
                               const wxGraphicsGradientStops& stops) const;
 
 
-
+    %nokwargs CreateFont;   
     DocDeclStr(
         virtual wxGraphicsFont , CreateFont( const wxFont &font , const wxColour &col = *wxBLACK ),
         "Creates a native graphics font from a `wx.Font` and a text colour.", "");
 
+    virtual wxGraphicsFont CreateFont(double sizeInPixels,
+                                      const wxString& facename,
+                                      int flags = wxFONTFLAG_DEFAULT,
+                                      const wxColour& col = *wxBLACK) const;
 
     DocDeclStr(
         virtual wxGraphicsBitmap , CreateBitmap( const wxBitmap &bitmap ) const,
         "Create a native bitmap representation.", "");
-    
+
+    wxGraphicsBitmap CreateBitmapFromImage(const wxImage& image) const;
+
     
     DocDeclStr(
         virtual wxGraphicsBitmap , CreateSubBitmap( const wxGraphicsBitmap &bitmap, wxDouble x, wxDouble y, wxDouble w, wxDouble h  ) const,
@@ -1405,7 +1457,10 @@ public :
     virtual wxGraphicsContext * CreateContext( wxWindow* window );
 #ifdef __WXMSW__
     virtual wxGraphicsContext * CreateContext( const wxMetaFileDC& dc) ;
+    virtual wxGraphicsContext * CreateContext( const wxEnhMetaFileDC& dc) ;
 #endif
+
+    virtual wxGraphicsContext * CreateContextFromImage(wxImage& image);
     
     // create a context that can be used for measuring texts only, no drawing allowed
     virtual wxGraphicsContext * CreateMeasuringContext();
@@ -1438,8 +1493,13 @@ public :
 
 
     virtual wxGraphicsFont CreateFont( const wxFont &font , const wxColour &col = *wxBLACK );
+    virtual wxGraphicsFont CreateFont(double sizeInPixels,
+                                      const wxString& facename,
+                                      int flags = wxFONTFLAG_DEFAULT,
+                                      const wxColour& col = *wxBLACK);
 
     virtual wxGraphicsBitmap CreateBitmap( const wxBitmap &bitmap );
+    virtual wxGraphicsBitmap CreateBitmapFromImage(const wxImage& image);
     virtual wxGraphicsBitmap CreateSubBitmap( const wxGraphicsBitmap &bitmap, wxDouble x, wxDouble y, wxDouble w, wxDouble h  );
 };
 
@@ -1461,13 +1521,19 @@ public:
     wxGCDC(const wxMemoryDC& dc);
     wxGCDC(const wxPrinterDC& dc);
     wxGCDC(wxWindow* window);
+
+    %disownarg( wxGraphicsContext* ctx );
     wxGCDC(wxGraphicsContext* ctx);
+    %cleardisown( wxGraphicsContext* ctx );
     
     //wxGCDC();
     virtual ~wxGCDC();
 
-    wxGraphicsContext* GetGraphicsContext();
+    wxGraphicsContext* GetGraphicsContext() const; 
+
+    %disownarg( wxGraphicsContext* ctx );
     virtual void SetGraphicsContext( wxGraphicsContext* ctx );
+    %cleardisown( wxGraphicsContext* ctx );
 
     %property(GraphicsContext, GetGraphicsContext, SetGraphicsContext);
 };

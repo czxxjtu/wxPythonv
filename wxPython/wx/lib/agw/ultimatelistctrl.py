@@ -3,7 +3,7 @@
 # Inspired by and heavily based on the wxWidgets C++ generic version of wxListCtrl.
 #
 # Andrea Gavana, @ 08 May 2009
-# Latest Revision: 17 Aug 2011, 15.00 GMT
+# Latest Revision: 27 Nov 2011, 13.00 GMT
 #
 #
 # TODO List
@@ -225,7 +225,7 @@ License And Version
 
 UltimateListCtrl is distributed under the wxPython license.
 
-Latest Revision: Andrea Gavana @ 17 Aug 2011, 15.00 GMT
+Latest Revision: Andrea Gavana @ 27 Nov 2011, 13.00 GMT
 
 Version 0.8
 
@@ -550,6 +550,10 @@ if wx.Platform == "__WXMSW__":
 IL_FIXED_SIZE = 0
 IL_VARIABLE_SIZE = 1
 
+# Python integers, to make long types to work with CreateListItem
+INTEGER_TYPES = [types.IntType, types.LongType]
+
+
 # ----------------------------------------------------------------------------
 # Functions
 # ----------------------------------------------------------------------------
@@ -593,7 +597,7 @@ def CreateListItem(itemOrId, col):
     :param `col`: the item column.
     """
 
-    if type(itemOrId) == types.IntType:
+    if type(itemOrId) in INTEGER_TYPES:
         item = UltimateListItem()
         item._itemId = itemOrId
         item._col = col
@@ -4598,7 +4602,6 @@ class UltimateListLineData(object):
                         dc.SetTextForeground(item.GetColour())
                     elif useVista and drawn:
                         dc.SetTextForeground(wx.BLACK)
-                        dc.SetFont(boldFont)
 
                 if item.IsHyperText():
                     dc.SetFont(self._owner.GetHyperTextFont())
@@ -4626,12 +4629,12 @@ class UltimateListLineData(object):
                     wnd.Show()
                     
                 if item._expandWin:
-                    if wnd.GetRect() != itemRect:
-                        wRect = wx.Rect(*itemRect)
-                        wRect.x += 2
-                        wRect.width = width - 4
-                        wRect.y = ya + 2
-                        wRect.height -= 6
+                    wRect = wx.Rect(*itemRect)
+                    wRect.x += xa + 2
+                    wRect.width = width - 8
+                    wRect.y = ya + 2
+                    wRect.height -= 4
+                    if wnd.GetRect() != wRect: 
                         wnd.SetRect(wRect)
                 else:
                     if wnd.GetPosition() != (wndx, ya):
@@ -6443,7 +6446,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
         Called by L{UltimateListCtrl.OnSize} when the window is resized.
         """
 
-        if not self: # Avoid PyDeadObjectError's on Mac
+        if not self: # Avoid PyDeadObjectErrors on Mac
             return
         
         if self._resizeColumn == -1:
@@ -6469,7 +6472,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
 
         totColWidth = 0 # Width of all columns except last one.
         for col in range(numCols):
-            if col != (resizeCol):
+            if col != (resizeCol) and self.IsColumnShown(col):
                 totColWidth = totColWidth + self.GetColumnWidth(col)
 
         resizeColWidth = self.GetColumnWidth(resizeCol)
@@ -7455,7 +7458,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
             if event.RightDown():
                 self.SendNotify(-1, wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, event.GetPosition())
 
-                evtCtx = wx.ContextMenuEvent(wx.EVT_CONTEXT_MENU, self.GetParent().GetId(),
+                evtCtx = wx.ContextMenuEvent(wx.wxEVT_CONTEXT_MENU, self.GetParent().GetId(),
                                              self.ClientToScreen(event.GetPosition()))
                 evtCtx.SetEventObject(self.GetParent())
                 self.GetParent().GetEventHandler().ProcessEvent(evtCtx)
@@ -7626,7 +7629,7 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
             # outside of any item
             if event.RightDown():
                 self.SendNotify(-1, wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK, event.GetPosition())
-                evtCtx = wx.ContextMenuEvent(wx.EVT_CONTEXT_MENU, self.GetParent().GetId(),
+                evtCtx = wx.ContextMenuEvent(wx.wxEVT_CONTEXT_MENU, self.GetParent().GetId(),
                                              self.ClientToScreen(event.GetPosition()))
                 evtCtx.SetEventObject(self.GetParent())
                 self.GetParent().GetEventHandler().ProcessEvent(evtCtx)
@@ -10376,10 +10379,10 @@ class UltimateListMainWindow(wx.PyScrolledWindow):
 
         if not func:
             self.__func = None
-            self._lines.sort(self.OnCompareItems)
         else:
             self.__func = func
-            self._lines.sort(self.OnCompareItems)
+
+        self._lines.sort(self.OnCompareItems)
         
         if self.IsShownOnScreen():
             self._dirty = True
@@ -10862,7 +10865,7 @@ class UltimateListCtrl(wx.PyControl):
 
             self._headerWin = UltimateListHeaderWindow(self, wx.ID_ANY, self._mainWin,
                                                        wx.Point(0, 0),
-                                                       wx.Size(self.GetClientSize().x, self._headerHeight),
+                                                       wx.DefaultSize,
                                                        wx.TAB_TRAVERSAL, isFooter=False)
 
             # ----------------------------------------------------
@@ -10900,7 +10903,7 @@ class UltimateListCtrl(wx.PyControl):
 
             self._footerWin = UltimateListHeaderWindow(self, wx.ID_ANY, self._mainWin,
                                                        wx.Point(0, 0),
-                                                       wx.Size(self.GetClientSize().x, self._footerHeight),
+                                                       wx.DefaultSize,
                                                        wx.TAB_TRAVERSAL, isFooter=True)
 
             # ----------------------------------------------------
@@ -11725,7 +11728,9 @@ class UltimateListCtrl(wx.PyControl):
         :param `which`: one of ``wx.IMAGE_LIST_NORMAL``, ``wx.IMAGE_LIST_SMALL``,
          ``wx.IMAGE_LIST_STATE`` (the last is unimplemented).
 
-        :note: As L{UltimateListCtrl} allows you to use a standard `wx.ImageList` or
+        :note:
+
+         As L{UltimateListCtrl} allows you to use a standard `wx.ImageList` or
          L{PyImageList}, the returned object depends on which kind of image list you
          chose.
         """
@@ -12571,7 +12576,9 @@ class UltimateListCtrl(wx.PyControl):
 
         :param `item`: an integer specifying the item index.
 
-        :note: L{UltimateListCtrl} will not delete the pointer or keep a reference of it.
+        :note:
+
+         L{UltimateListCtrl} will not delete the pointer or keep a reference of it.
          You can return the same L{UltimateListItemAttr} pointer for every
          L{OnGetItemAttr} call.
 

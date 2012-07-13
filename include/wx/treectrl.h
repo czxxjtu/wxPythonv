@@ -5,7 +5,7 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Karsten Ballueder
-// RCS-ID:      $Id: treectrl.h 64532 2010-06-09 13:55:48Z FM $
+// RCS-ID:      $Id: treectrl.h 69897 2011-12-02 00:50:41Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -33,20 +33,7 @@ class WXDLLIMPEXP_FWD_CORE wxImageList;
 class WXDLLIMPEXP_CORE wxTreeCtrlBase : public wxControl
 {
 public:
-    wxTreeCtrlBase()
-    {
-        m_imageListNormal =
-        m_imageListState = NULL;
-        m_ownsImageListNormal =
-        m_ownsImageListState = false;
-
-        // arbitrary default
-        m_spacing = 18;
-
-        // quick DoGetBestSize calculation
-        m_quickBestSize = true;
-    }
-
+    wxTreeCtrlBase();
     virtual ~wxTreeCtrlBase();
 
     // accessors
@@ -450,6 +437,13 @@ protected:
 
     // whether full or quick calculation is done in DoGetBestSize
     bool        m_quickBestSize;
+
+
+private:
+    // Intercept Escape and Return keys to ensure that our in-place edit
+    // control always gets them before they're used for dialog navigation or
+    // anything else.
+    void OnCharHook(wxKeyEvent& event);
 
 
     wxDECLARE_NO_COPY_CLASS(wxTreeCtrlBase);

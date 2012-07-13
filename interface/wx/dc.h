@@ -2,7 +2,7 @@
 // Name:        dc.h
 // Purpose:     interface of wxDC
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dc.h 68974 2011-09-03 01:39:39Z RD $
+// RCS-ID:      $Id: dc.h 69300 2011-10-04 07:45:08Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -380,7 +380,7 @@ public:
         character with the given index if it is != -1 and return the bounding
         rectangle if required.
     */
-    void DrawLabel(const wxString& text, const wxBitmap& image,
+    void DrawLabel(const wxString& text, const wxBitmap& bitmap,
                    const wxRect& rect,
                    int alignment = wxALIGN_LEFT | wxALIGN_TOP,
                    int indexAccel = -1, wxRect* rectBounding = NULL);
@@ -1562,6 +1562,14 @@ public:
     void ResetTransformMatrix();
 
     //@}
+
+
+    void SetLogicalScale(double x, double y);
+    void GetLogicalScale(double *x, double *y) const;
+    void SetLogicalOrigin(wxCoord x, wxCoord y);
+    void GetLogicalOrigin(wxCoord *x, wxCoord *y) const;
+    wxPoint GetLogicalOrigin() const;
+    
 };
 
 
@@ -1604,7 +1612,7 @@ public:
 
         The clipping region is automatically unset when this object is destroyed.
     */
-    wxDCClipper(wxDC& dc, const wxRegion& r);
+    wxDCClipper(wxDC& dc, const wxRegion& region);
     wxDCClipper(wxDC& dc, const wxRect& rect);
     wxDCClipper(wxDC& dc, wxCoord x, wxCoord y, wxCoord w, wxCoord h);
     //@}

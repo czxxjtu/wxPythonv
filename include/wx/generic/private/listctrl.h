@@ -3,7 +3,7 @@
 // Purpose:     private definitions of wxListCtrl helpers
 // Author:      Robert Roebling
 //              Vadim Zeitlin (virtual list control support)
-// Id:          $Id: listctrl.h 67254 2011-03-20 00:14:35Z DS $
+// Id:          $Id: listctrl.h 69897 2011-12-02 00:50:41Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -402,6 +402,10 @@ public:
 
     wxTextCtrl *GetText() const { return m_text; }
 
+    // Check if the given key event should stop editing and return true if it
+    // does or false otherwise.
+    bool CheckForEndEditKey(const wxKeyEvent& event);
+
     // Different reasons for calling EndEdit():
     //
     // It was called because:
@@ -557,6 +561,7 @@ public:
     // called to switch the selection from the current item to newCurrent,
     void OnArrowChar( size_t newCurrent, const wxKeyEvent& event );
 
+    void OnCharHook( wxKeyEvent &event );
     void OnChar( wxKeyEvent &event );
     void OnKeyDown( wxKeyEvent &event );
     void OnKeyUp( wxKeyEvent &event );

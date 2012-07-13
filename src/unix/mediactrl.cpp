@@ -4,7 +4,7 @@
 // Author:      Ryan Norton <wxprojects@comcast.net>
 // Modified by:
 // Created:     02/04/05
-// RCS-ID:      $Id: mediactrl.cpp 67881 2011-06-07 16:24:26Z PC $
+// RCS-ID:      $Id: mediactrl.cpp 69561 2011-10-27 21:10:35Z VZ $
 // Copyright:   (c) 2004-2005 Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -207,7 +207,7 @@ public:
 
     friend class wxGStreamerMediaEventHandler;
     friend class wxGStreamerLoadWaitTimer;
-    DECLARE_DYNAMIC_CLASS(wxGStreamerMediaBackend);
+    DECLARE_DYNAMIC_CLASS(wxGStreamerMediaBackend)
 };
 
 //-----------------------------------------------------------------------------

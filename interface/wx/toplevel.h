@@ -2,7 +2,7 @@
 // Name:        toplevel.h
 // Purpose:     interface of wxTopLevelWindow
 // Author:      wxWidgets team
-// RCS-ID:      $Id: toplevel.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: toplevel.h 69364 2011-10-10 10:53:23Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -68,7 +68,7 @@ enum
 
     @see wxDialog, wxFrame
 */
-class wxTopLevelWindow : public wxWindow
+class wxTopLevelWindow : public wxNonOwnedWindow
 {
 public:
     /**
@@ -263,6 +263,33 @@ public:
     virtual void Maximize(bool maximize = true);
 
     /**
+        MSW-specific function for accessing the system menu.
+
+        Returns a wxMenu pointer representing the system menu of the window
+        under MSW. The returned wxMenu may be used, if non-@c NULL, to add
+        extra items to the system menu. The usual @c wxEVT_COMMAND_MENU_SELECTED
+        events (that can be processed using @c EVT_MENU event table macro) will
+        then be generated for them. All the other wxMenu methods may be used as
+        well but notice that they won't allow you to access any standard system
+        menu items (e.g. they can't be deleted or modified in any way
+        currently).
+
+        Notice that because of the native system limitations the identifiers of
+        the items added to the system menu must be multiples of 16, otherwise
+        no events will be generated for them.
+
+        The returned pointer must @em not be deleted, it is owned by the window
+        and will be only deleted when the window itself is destroyed.
+
+        This function is not available in the other ports by design, any
+        occurrences of it in the portable code must be guarded by
+        @code #ifdef __WXMSW__ @endcode preprocessor guards.
+
+        @since 2.9.3
+     */
+    wxMenu *MSWGetSystemMenu() const;
+
+    /**
         Use a system-dependent way to attract users attention to the window when
         it is in background.
 
@@ -370,15 +397,6 @@ public:
     void SetRightMenu(int id = wxID_ANY,
                       const wxString& label = wxEmptyString,
                       wxMenu* subMenu = NULL);
-
-    /**
-        If the platform supports it, sets the shape of the window to that
-        depicted by @a region. The system will not display or respond to any
-        mouse event for the pixels that lie outside of the region. To reset the
-        window to the normal rectangular shape simply call SetShape() again with
-        an empty wxRegion. Returns @true if the operation is successful.
-    */
-    virtual bool SetShape(const wxRegion& region);
 
     /**
         Allows specification of minimum and maximum window sizes, and window

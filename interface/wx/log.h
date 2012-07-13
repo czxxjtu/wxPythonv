@@ -2,14 +2,14 @@
 // Name:        log.h
 // Purpose:     interface of wxLog* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: log.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: log.h 69684 2011-11-05 11:55:00Z FM $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 
 /**
     Different standard log levels (you may also define your own) used with
-    by standard wxLog functions wxLogError(), wxLogWarning(), etc...
+    by standard wxLog functions wxLogGeneric(), wxLogError(), wxLogWarning(), etc...
 */
 enum wxLogLevelValues
 {
@@ -942,7 +942,7 @@ public:
 
         @since 2.9.1
      */
-    void LogRecord(wxLogLevel level, const wxString& msg, time_t timestamp);
+    void LogRecord(wxLogLevel level, const wxString& msg, const wxLogRecordInfo& info);
 
 protected:
     /**
@@ -1117,6 +1117,18 @@ const wxChar* wxSysErrorMsg(unsigned long errCode = 0);
 /** @addtogroup group_funcmacro_log */
 //@{
 /**
+    Logs a message with the given wxLogLevel.
+    E.g. using @c wxLOG_Message as first argument, this function behaves like wxLogMessage().
+
+    @header{wx/log.h}
+*/
+void wxLogGeneric(wxLogLevel level, const char* formatString, ... );
+void wxVLogGeneric(wxLogLevel level, const char* formatString, va_list argPtr);
+//@}
+
+/** @addtogroup group_funcmacro_log */
+//@{
+/**
     For all normal, informational messages. They also appear in a message box
     by default (but it can be changed).
 
@@ -1281,7 +1293,7 @@ void wxVLogStatus(const char* formatString, va_list argPtr);
 /**
     Mostly used by wxWidgets itself, but might be handy for logging errors
     after system call (API function) failure. It logs the specified message
-    text as well as the last system error code (@e errno or @e ::GetLastError()
+    text as well as the last system error code (@e errno or @e GetLastError()
     depending on the platform) and the corresponding error message. The second
     form of this function takes the error code explicitly as the first
     argument.

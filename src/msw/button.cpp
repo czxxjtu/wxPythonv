@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: button.cpp 67931 2011-06-14 13:00:42Z VZ $
+// RCS-ID:      $Id: button.cpp 69984 2011-12-11 17:03:56Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -61,6 +61,10 @@
 // ----------------------------------------------------------------------------
 // macros
 // ----------------------------------------------------------------------------
+
+BEGIN_EVENT_TABLE(wxButton, wxButtonBase)
+    EVT_CHAR_HOOK(wxButton::OnCharHook)
+END_EVENT_TABLE()
 
 // ============================================================================
 // implementation
@@ -369,6 +373,25 @@ void wxButton::Command(wxCommandEvent & event)
 // ----------------------------------------------------------------------------
 // event/message handlers
 // ----------------------------------------------------------------------------
+
+void wxButton::OnCharHook(wxKeyEvent& event)
+{
+    // We want to ensure that the button always processes Enter key events
+    // itself, even if it's inside some control that normally takes over them
+    // (this happens when the button is part of an in-place editor control for
+    // example).
+    if ( event.GetKeyCode() == WXK_RETURN )
+    {
+        // We should ensure that subsequent key events are still generated even
+        // if we did handle EVT_CHAR_HOOK (normally this would suppress their
+        // generation).
+        event.DoAllowNextEvent();
+    }
+    else
+    {
+        event.Skip();
+    }
+}
 
 bool wxButton::MSWCommand(WXUINT param, WXWORD WXUNUSED(id))
 {

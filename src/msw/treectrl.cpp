@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin to be less MSW-specific on 10.10.98
 // Created:     1997
-// RCS-ID:      $Id: treectrl.cpp 68126 2011-07-02 10:29:07Z VZ $
+// RCS-ID:      $Id: treectrl.cpp 69758 2011-11-14 12:51:53Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -439,14 +439,18 @@ public:
             switch ( which )
             {
                 case wxTreeItemIcon_SelectedExpanded:
-                    image = GetImage(wxTreeItemIcon_Expanded);
+                    // We consider that expanded icon is more important than
+                    // selected so test for it first.
+                    image = m_images[wxTreeItemIcon_Expanded];
+                    if ( image == -1 )
+                        image = m_images[wxTreeItemIcon_Selected];
                     if ( image != -1 )
                         break;
                     //else: fall through
 
                 case wxTreeItemIcon_Selected:
                 case wxTreeItemIcon_Expanded:
-                    image = GetImage(wxTreeItemIcon_Normal);
+                    image = m_images[wxTreeItemIcon_Normal];
                     break;
 
                 case wxTreeItemIcon_Normal:
@@ -3641,7 +3645,7 @@ bool wxTreeCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
         case NM_RCLICK:
             {
                 TV_HITTESTINFO tvhti;
-                ::GetCursorPos(&tvhti.pt);
+                wxGetCursorPosMSW(&tvhti.pt);
                 ::ScreenToClient(GetHwnd(), &tvhti.pt);
                 if ( TreeView_HitTest(GetHwnd(), &tvhti) )
                 {

@@ -5,7 +5,7 @@
 // Author:      John Norris, minor changes by Axel Schlueter
 // Modified by:
 // Created:     08.02.01
-// RCS-ID:      $Id: tglbtn.cpp 67931 2011-06-14 13:00:42Z VZ $
+// RCS-ID:      $Id: tglbtn.cpp 69830 2011-11-27 19:49:54Z VZ $
 // Copyright:   (c) 2000 Johnny C. Norris II
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -166,6 +166,14 @@ void wxToggleButton::SetLabel(const wxString& label)
 
     wxAnyButton::SetLabel(label);
 
+    if ( HasFlag(wxBU_NOTEXT) )
+    {
+        // Don't try to update the label for a button not showing it, this is
+        // unnecessary and can also actually replace the image we show with the
+        // label entirely breaking the button code, see #13693.
+        return;
+    }
+
     const wxString labelGTK = GTKConvertMnemonics(label);
 
     gtk_button_set_label(GTK_BUTTON(m_widget), wxGTK_CONV(labelGTK));
@@ -184,10 +192,13 @@ bool wxToggleButton::DoSetLabelMarkup(const wxString& markup)
 
     wxControl::SetLabel(stripped);
 
-    GtkLabel * const label = GTKGetLabel();
-    wxCHECK_MSG( label, false, "no label in this toggle button?" );
+    if ( !HasFlag(wxBU_NOTEXT) )
+    {
+        GtkLabel * const label = GTKGetLabel();
+        wxCHECK_MSG( label, false, "no label in this toggle button?" );
 
-    GTKSetLabelWithMarkupForLabel(label, markup);
+        GTKSetLabelWithMarkupForLabel(label, markup);
+    }
 
     return true;
 }

@@ -3,7 +3,7 @@
 // Purpose:     All GTK wxDataViewCtrl renderer classes
 // Author:      Robert Roebling, Vadim Zeitlin
 // Created:     2009-11-07 (extracted from wx/gtk/dataview.h)
-// RCS-ID:      $Id: dvrenderers.h 68541 2011-08-04 22:58:18Z RD $
+// RCS-ID:      $Id: dvrenderers.h 69471 2011-10-19 16:20:06Z VS $
 // Copyright:   (c) 2006 Robert Roebling
 //              (c) 2009 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
@@ -235,34 +235,6 @@ private:
     DECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewIconTextRenderer)
 };
 
-// ---------------------------------------------------------
-// wxDataViewDateRenderer
-// ---------------------------------------------------------
-
-class WXDLLIMPEXP_ADV wxDataViewDateRenderer: public wxDataViewCustomRenderer
-{
-public:
-    wxDataViewDateRenderer( const wxString &varianttype = "datetime",
-                            wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE,
-                            int align = wxDVR_DEFAULT_ALIGNMENT );
-
-    bool SetValue( const wxVariant &value );
-    bool GetValue( wxVariant &value ) const;
-
-    virtual bool Render( wxRect cell, wxDC *dc, int state );
-    virtual wxSize GetSize() const;
-    virtual bool Activate( const wxRect& cell,
-                           wxDataViewModel *model,
-                           const wxDataViewItem &item,
-                           unsigned int col );
-
-private:
-    wxDateTime    m_date;
-
-protected:
-    DECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewDateRenderer)
-};
-
 // -------------------------------------
 // wxDataViewChoiceRenderer
 // -------------------------------------
@@ -303,7 +275,7 @@ public:
     virtual bool GetValue( wxVariant &value ) const;
 
 private:
-    virtual void GtkOnTextEdited(const gchar *itempath, const wxString& str);
+    virtual void GtkOnTextEdited(const char *itempath, const wxString& str);
 };
 
 

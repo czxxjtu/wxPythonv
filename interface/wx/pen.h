@@ -2,7 +2,7 @@
 // Name:        pen.h
 // Purpose:     interface of wxPen* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: pen.h 65820 2010-10-15 23:46:46Z VZ $
+// RCS-ID:      $Id: pen.h 69502 2011-10-21 18:33:51Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -329,7 +329,7 @@ public:
     //@}
 
     /**
-        Associates an array of pointers to dashes (defined as @c char in X, @c DWORD under
+        Associates an array of dash values (defined as @c char in X, @c DWORD under
         Windows) with the pen.
 
         The array is not deallocated by wxPen, but neither must it be deallocated by

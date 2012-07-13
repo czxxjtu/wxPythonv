@@ -4,7 +4,7 @@
 // Purpose:     Part of the widgets sample showing various static controls
 // Author:      Vadim Zeitlin
 // Created:     11.04.01
-// Id:          $Id: static.cpp 67062 2011-02-27 12:48:07Z VZ $
+// Id:          $Id: static.cpp 69681 2011-11-05 11:24:00Z VZ $
 // Copyright:   (c) 2001 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -41,6 +41,7 @@
 
 #include "wx/statline.h"
 #include "wx/generic/stattextg.h"
+#include "wx/wupdlock.h"
 
 #include "widgets.h"
 #include "icons/statbox.xpm"
@@ -326,10 +327,8 @@ void StaticWidgetsPage::CreateContent()
     sizerMiddle->Add(m_textLabelWithMarkup, 0, wxEXPAND|wxALL, 5);
     sizerMiddle->Add(b3, 0, wxLEFT|wxBOTTOM, 5);
 
-    m_chkGreen = CreateCheckBoxAndAddToSizer(sizerLeft,
+    m_chkGreen = CreateCheckBoxAndAddToSizer(sizerMiddle,
                                              "Decorated label on g&reen");
-
-    sizerMiddle->Add(m_chkGreen, 0, wxALL, 5);
 #endif // wxUSE_MARKUP
 
     // final initializations
@@ -378,6 +377,8 @@ void StaticWidgetsPage::Reset()
 
 void StaticWidgetsPage::CreateStatic()
 {
+    wxWindowUpdateLocker lock(this);
+
     bool isVert = m_chkVert->GetValue();
 
     if ( m_sizerStatBox )

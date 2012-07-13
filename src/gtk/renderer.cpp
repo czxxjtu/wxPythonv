@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     20.07.2003
-// RCS-ID:      $Id: renderer.cpp 67326 2011-03-28 06:27:49Z PC $
+// RCS-ID:      $Id: renderer.cpp 69741 2011-11-12 16:50:37Z PC $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -256,8 +256,7 @@ wxRendererGTK::DrawTreeItemButton(wxWindow* win,
     if (win->GetLayoutDirection() == wxLayout_RightToLeft)
         x_diff = rect.width;
 
-    // VZ: I don't know how to get the size of the expander so as to centre it
-    //     in the given rectangle, +2/3 below is just what looks good here...
+    // x and y parameters specify the center of the expander
     gtk_paint_expander
     (
         gtk_widget_get_style(tree),
@@ -266,8 +265,8 @@ wxRendererGTK::DrawTreeItemButton(wxWindow* win,
         NULL,
         tree,
         "treeview",
-        dc.LogicalToDeviceX(rect.x) + 6 - x_diff,
-        dc.LogicalToDeviceY(rect.y) + 3,
+        dc.LogicalToDeviceX(rect.x) + rect.width / 2 - x_diff,
+        dc.LogicalToDeviceY(rect.y) + rect.height / 2,
         flags & wxCONTROL_EXPANDED ? GTK_EXPANDER_EXPANDED
                                    : GTK_EXPANDER_COLLAPSED
     );

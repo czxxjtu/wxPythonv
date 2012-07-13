@@ -2,7 +2,7 @@
 // Name:        wx/gtk1/app.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: app.h 67280 2011-03-22 14:17:38Z DS $
+// Id:          $Id: app.h 69020 2011-09-07 16:56:50Z PC $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -13,6 +13,8 @@
 #include "wx/frame.h"
 #include "wx/icon.h"
 #include "wx/strconv.h"
+
+typedef struct _GdkVisual GdkVisual;
 
 //-----------------------------------------------------------------------------
 // classes
@@ -53,7 +55,7 @@ public:
 
     bool IsInAssert() const { return m_isInAssert; }
 
-    gint            m_idleTag;
+    int             m_idleTag;
     void RemoveIdleTag();
 
     unsigned char  *m_colorCube;

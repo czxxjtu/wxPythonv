@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     2004-09-25
-// RCS-ID:      $Id: propgrid.cpp 69004 2011-09-05 20:07:38Z RD $
+// RCS-ID:      $Id: propgrid.cpp 69005 2011-09-05 20:08:04Z RD $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

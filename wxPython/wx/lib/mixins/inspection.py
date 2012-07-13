@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     21-Nov-2006
-# RCS-ID:      $Id: inspection.py 68884 2011-08-25 18:43:05Z RD $
+# RCS-ID:      $Id: inspection.py 69709 2011-11-08 17:45:55Z RD $
 # Copyright:   (c) 2006 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ class InspectableApp(wx.App, InspectionMixin):
     """
 
     def OnInit(self):
-        self.Init()
+        self.InitInspection()
         return True
 
 #---------------------------------------------------------------------------

@@ -16,8 +16,8 @@ running Editra.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: Editra.py 68906 2011-08-26 01:55:43Z CJP $"
-__revision__ = "$Revision: 68906 $"
+__svnid__ = "$Id: Editra.py 69449 2011-10-18 16:43:34Z CJP $"
+__revision__ = "$Revision: 69449 $"
 
 #--------------------------------------------------------------------------#
 # Dependencies
@@ -813,13 +813,13 @@ def InitConfig():
             # After 0.4.65 LAST_SESSION now points a session file and not
             # to a list of files to open.
             ed_glob.CONFIG['SESSION_DIR'] = util.ResolvConfigDir(u"sessions")
-            smgr = ed_session.EdSessionMgr(ed_glob.CONFIG['SESSION_DIR'])
+            smgr = ed_session.EdSessionMgr()
             sess = profiler.Profile_Get('LAST_SESSION')
             if isinstance(sess, list):
                 profiler.Profile_Set('LAST_SESSION', smgr.DefaultSession)
             else:
                 # After 0.6.58 session is reduced to a name instead of path
-                if os.path.sep in sess:
+                if sess and os.path.sep in sess:
                     name = smgr.SessionNameFromPath(sess)
                     profiler.Profile_Set('LAST_SESSION', name)
 

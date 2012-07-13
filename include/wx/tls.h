@@ -3,7 +3,7 @@
 // Purpose:     Implementation of thread local storage
 // Author:      Vadim Zeitlin
 // Created:     2008-08-08
-// RCS-ID:      $Id: tls.h 65747 2010-10-03 17:16:15Z VZ $
+// RCS-ID:      $Id: tls.h 69832 2011-11-27 19:50:01Z VZ $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@
     };
 
     #define wxTLS_TYPE(T) wxTlsValue<T>
-    #define wxTLS_PTR(var) (var)
+    #define wxTLS_PTR(var) ((var).Get())
     #define wxTLS_VALUE(var) (*(var))
 #endif // wxHAS_COMPILER_TLS/!wxHAS_COMPILER_TLS
 

@@ -2,7 +2,7 @@
 // Name:        src/gtk/textctrl.cpp
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: textctrl.cpp 67681 2011-05-03 16:29:04Z DS $
+// Id:          $Id: textctrl.cpp 69740 2011-11-11 16:38:48Z PC $
 // Copyright:   (c) 1998 Robert Roebling, Vadim Zeitlin, 2005 Mart Raudsepp
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1218,6 +1218,37 @@ int wxTextCtrl::GetLineLength(long lineNo) const
     }
 }
 
+wxPoint wxTextCtrl::DoPositionToCoords(long pos) const
+{
+    if ( !IsMultiLine() )
+    {
+        // Single line text entry (GtkTextEntry) doesn't have support for
+        // getting the coordinates for the given offset. Perhaps we could
+        // find them ourselves by using GetTextExtent() but for now just leave
+        // it unimplemented, this function is more useful for multiline
+        // controls anyhow.
+        return wxDefaultPosition;
+    }
+
+    // Window coordinates for the given position is calculated by getting
+    // the buffer coordinates and converting them to window coordinates.
+    GtkTextView *textview = GTK_TEXT_VIEW(m_text);
+
+    GtkTextIter iter;
+    gtk_text_buffer_get_iter_at_offset(m_buffer, &iter, pos);
+
+    GdkRectangle bufferCoords;
+    gtk_text_view_get_iter_location(textview, &iter, &bufferCoords);
+
+    gint winCoordX = 0,
+         winCoordY = 0;
+    gtk_text_view_buffer_to_window_coords(textview, GTK_TEXT_WINDOW_WIDGET,
+                                          bufferCoords.x, bufferCoords.y,
+                                          &winCoordX, &winCoordY);
+
+    return wxPoint(winCoordX, winCoordY);
+}
+
 int wxTextCtrl::GetNumberOfLines() const
 {
     if ( IsMultiLine() )
@@ -1722,7 +1753,7 @@ bool wxTextCtrl::GetStyle(long position, wxTextAttr& style)
     // Obtain a copy of the default attributes
     GtkTextAttributes * const
         pattr = gtk_text_view_get_default_attributes(GTK_TEXT_VIEW(m_text));
-    wxON_BLOCK_EXIT1( g_free, pattr );
+    wxON_BLOCK_EXIT1(gtk_text_attributes_unref, pattr);
 
     // And query GTK for the attributes at the given position using it as base
     if ( !gtk_text_iter_get_attributes(&positioni, pattr) )

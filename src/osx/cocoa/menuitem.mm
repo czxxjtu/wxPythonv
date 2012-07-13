@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: menuitem.mm 67888 2011-06-08 22:50:28Z SC $
+// RCS-ID:      $Id: menuitem.mm 69205 2011-09-27 07:21:44Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,8 +33,11 @@ struct Mapping
 
 Mapping sActionToWXMapping[] =
 {
+// as we don't have NSUndoManager support we must not use the native actions
+#if 0
     { wxID_UNDO, @selector(undo:) },
     { wxID_REDO, @selector(redo:) },
+#endif
     { wxID_CUT, @selector(cut:) },
     { wxID_COPY, @selector(copy:) },
     { wxID_PASTE, @selector(paste:) },
@@ -137,6 +140,9 @@ void wxMacCocoaMenuItemSetAccelerator( NSMenuItem* menuItem, wxAcceleratorEntry*
         if (entry->GetFlags() & wxACCEL_CTRL)
             modifiers |= NSCommandKeyMask;
 
+        if (entry->GetFlags() & wxACCEL_RAW_CTRL)
+            modifiers |= NSControlKeyMask;
+        
         if (entry->GetFlags() & wxACCEL_ALT)
             modifiers |= NSAlternateKeyMask ;
 
@@ -328,7 +334,7 @@ wxMenuItemImpl* wxMenuItemImpl::Create( wxMenuItem* peer, wxMenu *pParentMenu,
         wxCFStringRef cfText(text);
         SEL selector = nil;
         bool targetSelf = false;
-        if ( ! pParentMenu->GetNoEventsMode() && pSubMenu == NULL )
+        if ( (pParentMenu == NULL || !pParentMenu->GetNoEventsMode()) && pSubMenu == NULL )
         {
             selector = wxOSXGetSelectorFromID(menuid);
             

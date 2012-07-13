@@ -68,7 +68,6 @@ wx = _sys.modules[__name__]
 
 
 #----------------------------------------------------------------------------
-
             
 import warnings
 class wxPyDeprecationWarning(DeprecationWarning):
@@ -83,19 +82,30 @@ def deprecated(item, msg=''):
     properties.
     """
     import warnings
-    if callable(item):
-        
+    if isinstance(item, type):
+        # It is a class.  Make a subclass that raises a warning.
+        class DeprecatedClassProxy(item):
+            def __init__(*args, **kw):
+                warnings.warn("Using deprecated class. %s" % msg,
+                          wxPyDeprecationWarning, stacklevel=2)
+                item.__init__(*args, **kw)
+        DeprecatedClassProxy.__name__ = item.__name__
+        return DeprecatedClassProxy
+    
+    elif callable(item):
+        # wrap a new function around the callable
         def deprecated_func(*args, **kw):
             warnings.warn("Call to deprecated item '%s'. %s" % (item.__name__, msg),
                           wxPyDeprecationWarning, stacklevel=2)
             return item(*args, **kw)
         deprecated_func.__name__ = item.__name__
         deprecated_func.__doc__ = item.__doc__
-        deprecated_func.__dict__.update(item.__dict__)
+        if hasattr(item, '__dict__'):
+            deprecated_func.__dict__.update(item.__dict__)
         return deprecated_func
         
     elif hasattr(item, '__get__'):
-        
+        # it should be a property if there is a getter
         class DepGetProp(object):
             def __init__(self,item, msg):
                 self.item = item
@@ -123,6 +133,8 @@ def deprecated(item, msg=''):
             return DepGetProp(item, msg)
     else:
         raise TypeError, "unsupported type %s" % type(item)
+                   
+         
                    
 #----------------------------------------------------------------------------
 
@@ -589,6 +601,7 @@ WXK_NUMPAD_DIVIDE = _core_.WXK_NUMPAD_DIVIDE
 WXK_WINDOWS_LEFT = _core_.WXK_WINDOWS_LEFT
 WXK_WINDOWS_RIGHT = _core_.WXK_WINDOWS_RIGHT
 WXK_WINDOWS_MENU = _core_.WXK_WINDOWS_MENU
+WXK_RAW_CONTROL = _core_.WXK_RAW_CONTROL
 WXK_COMMAND = _core_.WXK_COMMAND
 WXK_SPECIAL1 = _core_.WXK_SPECIAL1
 WXK_SPECIAL2 = _core_.WXK_SPECIAL2
@@ -745,6 +758,9 @@ ITEM_CHECK = _core_.ITEM_CHECK
 ITEM_RADIO = _core_.ITEM_RADIO
 ITEM_DROPDOWN = _core_.ITEM_DROPDOWN
 ITEM_MAX = _core_.ITEM_MAX
+CHK_UNCHECKED = _core_.CHK_UNCHECKED
+CHK_CHECKED = _core_.CHK_CHECKED
+CHK_UNDETERMINED = _core_.CHK_UNDETERMINED
 HT_NOWHERE = _core_.HT_NOWHERE
 HT_SCROLLBAR_FIRST = _core_.HT_SCROLLBAR_FIRST
 HT_SCROLLBAR_ARROW_LINE_1 = _core_.HT_SCROLLBAR_ARROW_LINE_1
@@ -768,6 +784,7 @@ MOD_ALTGR = _core_.MOD_ALTGR
 MOD_SHIFT = _core_.MOD_SHIFT
 MOD_META = _core_.MOD_META
 MOD_WIN = _core_.MOD_WIN
+MOD_RAW_CONTROL = _core_.MOD_RAW_CONTROL
 MOD_CMD = _core_.MOD_CMD
 MOD_ALL = _core_.MOD_ALL
 UPDATE_UI_NONE = _core_.UPDATE_UI_NONE
@@ -853,6 +870,7 @@ BITMAP_TYPE_XBM_DATA = _core_.BITMAP_TYPE_XBM_DATA
 BITMAP_TYPE_XPM = _core_.BITMAP_TYPE_XPM
 BITMAP_TYPE_XPM_DATA = _core_.BITMAP_TYPE_XPM_DATA
 BITMAP_TYPE_TIF = _core_.BITMAP_TYPE_TIF
+BITMAP_TYPE_TIFF = _core_.BITMAP_TYPE_TIFF
 BITMAP_TYPE_GIF = _core_.BITMAP_TYPE_GIF
 BITMAP_TYPE_PNG = _core_.BITMAP_TYPE_PNG
 BITMAP_TYPE_JPEG = _core_.BITMAP_TYPE_JPEG
@@ -3861,6 +3879,7 @@ def ImageFromBuffer(width, height, dataBuffer, alphaBuffer=None):
     image._alpha = alphaBuffer
     return image
 
+@wx.deprecated
 def InitAllImageHandlers():
     """
     The former functionality of InitAllImageHanders is now done internal to
@@ -3907,6 +3926,8 @@ IMAGE_OPTION_RESOLUTIONUNIT = cvar.IMAGE_OPTION_RESOLUTIONUNIT
 IMAGE_OPTION_QUALITY = cvar.IMAGE_OPTION_QUALITY
 IMAGE_OPTION_MAX_WIDTH = cvar.IMAGE_OPTION_MAX_WIDTH
 IMAGE_OPTION_MAX_HEIGHT = cvar.IMAGE_OPTION_MAX_HEIGHT
+IMAGE_OPTION_ORIGINAL_WIDTH = cvar.IMAGE_OPTION_ORIGINAL_WIDTH
+IMAGE_OPTION_ORIGINAL_HEIGHT = cvar.IMAGE_OPTION_ORIGINAL_HEIGHT
 IMAGE_OPTION_BITSPERSAMPLE = cvar.IMAGE_OPTION_BITSPERSAMPLE
 IMAGE_OPTION_SAMPLESPERPIXEL = cvar.IMAGE_OPTION_SAMPLESPERPIXEL
 IMAGE_OPTION_COMPRESSION = cvar.IMAGE_OPTION_COMPRESSION
@@ -6061,6 +6082,14 @@ class KeyEvent(Event,KeyboardState):
         applicable.
         """
         return _core_.KeyEvent_GetY(*args, **kwargs)
+
+    def DoAllowNextEvent(*args, **kwargs):
+        """DoAllowNextEvent(self)"""
+        return _core_.KeyEvent_DoAllowNextEvent(*args, **kwargs)
+
+    def IsNextEventAllowed(*args, **kwargs):
+        """IsNextEventAllowed(self) -> bool"""
+        return _core_.KeyEvent_IsNextEventAllowed(*args, **kwargs)
 
     m_x = property(_core_.KeyEvent_m_x_get, _core_.KeyEvent_m_x_set)
     m_y = property(_core_.KeyEvent_m_y_get, _core_.KeyEvent_m_y_set)
@@ -8671,6 +8700,7 @@ App_GetComCtl32Version           = _core_.PyApp_GetComCtl32Version
 
 #----------------------------------------------------------------------------
 
+@wx.deprecated
 class PySimpleApp(wx.App):
     """
     A simple application class.  You can just create one of these and
@@ -8861,6 +8891,7 @@ ACCEL_ALT = _core_.ACCEL_ALT
 ACCEL_CTRL = _core_.ACCEL_CTRL
 ACCEL_SHIFT = _core_.ACCEL_SHIFT
 ACCEL_NORMAL = _core_.ACCEL_NORMAL
+ACCEL_RAW_CTRL = _core_.ACCEL_RAW_CTRL
 ACCEL_CMD = _core_.ACCEL_CMD
 class AcceleratorEntry(object):
     """
@@ -13292,6 +13323,10 @@ class TextEntryBase(object):
         """AutoCompleteFileNames(self) -> bool"""
         return _core_.TextEntryBase_AutoCompleteFileNames(*args, **kwargs)
 
+    def AutoCompleteDirectories(*args, **kwargs):
+        """AutoCompleteDirectories(self) -> bool"""
+        return _core_.TextEntryBase_AutoCompleteDirectories(*args, **kwargs)
+
     def IsEditable(*args, **kwargs):
         """IsEditable(self) -> bool"""
         return _core_.TextEntryBase_IsEditable(*args, **kwargs)
@@ -13404,6 +13439,10 @@ class TextAreaBase(object):
         """PositionToXY(long pos) -> (x, y)"""
         return _core_.TextAreaBase_PositionToXY(*args, **kwargs)
 
+    def PositionToCoords(*args, **kwargs):
+        """PositionToCoords(self, long pos) -> Point"""
+        return _core_.TextAreaBase_PositionToCoords(*args, **kwargs)
+
     def ShowPosition(*args, **kwargs):
         """ShowPosition(self, long pos)"""
         return _core_.TextAreaBase_ShowPosition(*args, **kwargs)
@@ -13445,6 +13484,252 @@ class TextCtrlBase(Control,TextAreaBase,TextEntry):
     def __init__(self): raise AttributeError, "No constructor defined"
     __repr__ = _swig_repr
 _core_.TextCtrlBase_swigregister(TextCtrlBase)
+
+#---------------------------------------------------------------------------
+
+class WithImages(object):
+    """Proxy of C++ WithImages class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    NO_IMAGE = _core_.WithImages_NO_IMAGE
+    def __init__(self, *args, **kwargs): 
+        """__init__(self) -> WithImages"""
+        _core_.WithImages_swiginit(self,_core_.new_WithImages(*args, **kwargs))
+    __swig_destroy__ = _core_.delete_WithImages
+    __del__ = lambda self : None;
+    def SetImageList(*args, **kwargs):
+        """SetImageList(self, ImageList imageList)"""
+        return _core_.WithImages_SetImageList(*args, **kwargs)
+
+    def AssignImageList(*args, **kwargs):
+        """AssignImageList(self, ImageList imageList)"""
+        return _core_.WithImages_AssignImageList(*args, **kwargs)
+
+    def GetImageList(*args, **kwargs):
+        """GetImageList(self) -> ImageList"""
+        return _core_.WithImages_GetImageList(*args, **kwargs)
+
+    ImageList = property(GetImageList,SetImageList,doc="See `GetImageList` and `SetImageList`") 
+_core_.WithImages_swigregister(WithImages)
+
+#---------------------------------------------------------------------------
+
+BK_DEFAULT = _core_.BK_DEFAULT
+BK_TOP = _core_.BK_TOP
+BK_BOTTOM = _core_.BK_BOTTOM
+BK_LEFT = _core_.BK_LEFT
+BK_RIGHT = _core_.BK_RIGHT
+BK_ALIGN_MASK = _core_.BK_ALIGN_MASK
+BK_BUTTONBAR = _core_.BK_BUTTONBAR
+TBK_BUTTONBAR = _core_.TBK_BUTTONBAR
+TBK_HORZ_LAYOUT = _core_.TBK_HORZ_LAYOUT
+BK_HITTEST_NOWHERE = _core_.BK_HITTEST_NOWHERE
+BK_HITTEST_ONICON = _core_.BK_HITTEST_ONICON
+BK_HITTEST_ONLABEL = _core_.BK_HITTEST_ONLABEL
+BK_HITTEST_ONITEM = _core_.BK_HITTEST_ONITEM
+BK_HITTEST_ONPAGE = _core_.BK_HITTEST_ONPAGE
+class BookCtrlBase(Control,WithImages):
+    """Proxy of C++ BookCtrlBase class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self): raise AttributeError, "No constructor defined"
+    __repr__ = _swig_repr
+    def GetPageCount(*args, **kwargs):
+        """GetPageCount(self) -> size_t"""
+        return _core_.BookCtrlBase_GetPageCount(*args, **kwargs)
+
+    def GetPage(*args, **kwargs):
+        """GetPage(self, size_t n) -> Window"""
+        return _core_.BookCtrlBase_GetPage(*args, **kwargs)
+
+    def GetCurrentPage(*args, **kwargs):
+        """GetCurrentPage(self) -> Window"""
+        return _core_.BookCtrlBase_GetCurrentPage(*args, **kwargs)
+
+    def GetSelection(*args, **kwargs):
+        """GetSelection(self) -> int"""
+        return _core_.BookCtrlBase_GetSelection(*args, **kwargs)
+
+    def SetPageText(*args, **kwargs):
+        """SetPageText(self, size_t n, String strText) -> bool"""
+        return _core_.BookCtrlBase_SetPageText(*args, **kwargs)
+
+    def GetPageText(*args, **kwargs):
+        """GetPageText(self, size_t n) -> String"""
+        return _core_.BookCtrlBase_GetPageText(*args, **kwargs)
+
+    def GetPageImage(*args, **kwargs):
+        """GetPageImage(self, size_t n) -> int"""
+        return _core_.BookCtrlBase_GetPageImage(*args, **kwargs)
+
+    def SetPageImage(*args, **kwargs):
+        """SetPageImage(self, size_t n, int imageId) -> bool"""
+        return _core_.BookCtrlBase_SetPageImage(*args, **kwargs)
+
+    def SetPageSize(*args, **kwargs):
+        """SetPageSize(self, Size size)"""
+        return _core_.BookCtrlBase_SetPageSize(*args, **kwargs)
+
+    def CalcSizeFromPage(*args, **kwargs):
+        """CalcSizeFromPage(self, Size sizePage) -> Size"""
+        return _core_.BookCtrlBase_CalcSizeFromPage(*args, **kwargs)
+
+    def GetInternalBorder(*args, **kwargs):
+        """GetInternalBorder(self) -> unsigned int"""
+        return _core_.BookCtrlBase_GetInternalBorder(*args, **kwargs)
+
+    def SetInternalBorder(*args, **kwargs):
+        """SetInternalBorder(self, unsigned int internalBorder)"""
+        return _core_.BookCtrlBase_SetInternalBorder(*args, **kwargs)
+
+    def IsVertical(*args, **kwargs):
+        """IsVertical(self) -> bool"""
+        return _core_.BookCtrlBase_IsVertical(*args, **kwargs)
+
+    def SetControlMargin(*args, **kwargs):
+        """SetControlMargin(self, int margin)"""
+        return _core_.BookCtrlBase_SetControlMargin(*args, **kwargs)
+
+    def GetControlMargin(*args, **kwargs):
+        """GetControlMargin(self) -> int"""
+        return _core_.BookCtrlBase_GetControlMargin(*args, **kwargs)
+
+    def SetFitToCurrentPage(*args, **kwargs):
+        """SetFitToCurrentPage(self, bool fit)"""
+        return _core_.BookCtrlBase_SetFitToCurrentPage(*args, **kwargs)
+
+    def GetFitToCurrentPage(*args, **kwargs):
+        """GetFitToCurrentPage(self) -> bool"""
+        return _core_.BookCtrlBase_GetFitToCurrentPage(*args, **kwargs)
+
+    def GetControlSizer(*args, **kwargs):
+        """GetControlSizer(self) -> Sizer"""
+        return _core_.BookCtrlBase_GetControlSizer(*args, **kwargs)
+
+    def DeletePage(*args, **kwargs):
+        """DeletePage(self, size_t n) -> bool"""
+        return _core_.BookCtrlBase_DeletePage(*args, **kwargs)
+
+    def RemovePage(*args, **kwargs):
+        """RemovePage(self, size_t n) -> bool"""
+        return _core_.BookCtrlBase_RemovePage(*args, **kwargs)
+
+    def DeleteAllPages(*args, **kwargs):
+        """DeleteAllPages(self) -> bool"""
+        return _core_.BookCtrlBase_DeleteAllPages(*args, **kwargs)
+
+    def AddPage(*args, **kwargs):
+        """AddPage(self, Window page, String text, bool select=False, int imageId=-1) -> bool"""
+        return _core_.BookCtrlBase_AddPage(*args, **kwargs)
+
+    def InsertPage(*args, **kwargs):
+        """
+        InsertPage(self, size_t n, Window page, String text, bool select=False, 
+            int imageId=-1) -> bool
+        """
+        return _core_.BookCtrlBase_InsertPage(*args, **kwargs)
+
+    def SetSelection(*args, **kwargs):
+        """SetSelection(self, size_t n) -> int"""
+        return _core_.BookCtrlBase_SetSelection(*args, **kwargs)
+
+    def ChangeSelection(*args, **kwargs):
+        """ChangeSelection(self, size_t n) -> int"""
+        return _core_.BookCtrlBase_ChangeSelection(*args, **kwargs)
+
+    def AdvanceSelection(*args, **kwargs):
+        """AdvanceSelection(self, bool forward=True)"""
+        return _core_.BookCtrlBase_AdvanceSelection(*args, **kwargs)
+
+    def HitTest(*args, **kwargs):
+        """
+        HitTest(Point pt) -> (tab, where)
+
+        Returns the page/tab which is hit, and flags indicating where using
+        wx.NB_HITTEST flags.
+        """
+        return _core_.BookCtrlBase_HitTest(*args, **kwargs)
+
+    def GetClassDefaultAttributes(*args, **kwargs):
+        """
+        GetClassDefaultAttributes(int variant=WINDOW_VARIANT_NORMAL) -> VisualAttributes
+
+        Get the default attributes for this class.  This is useful if you want
+        to use the same font or colour in your own control as in a standard
+        control -- which is a much better idea than hard coding specific
+        colours or fonts which might look completely out of place on the
+        user's system, especially if it uses themes.
+
+        The variant parameter is only relevant under Mac currently and is
+        ignore under other platforms. Under Mac, it will change the size of
+        the returned font. See `wx.Window.SetWindowVariant` for more about
+        this.
+        """
+        return _core_.BookCtrlBase_GetClassDefaultAttributes(*args, **kwargs)
+
+    GetClassDefaultAttributes = staticmethod(GetClassDefaultAttributes)
+    ControlMargin = property(GetControlMargin,SetControlMargin,doc="See `GetControlMargin` and `SetControlMargin`") 
+    ControlSizer = property(GetControlSizer,doc="See `GetControlSizer`") 
+    CurrentPage = property(GetCurrentPage,doc="See `GetCurrentPage`") 
+    FitToCurrentPage = property(GetFitToCurrentPage,SetFitToCurrentPage,doc="See `GetFitToCurrentPage` and `SetFitToCurrentPage`") 
+    InternalBorder = property(GetInternalBorder,SetInternalBorder,doc="See `GetInternalBorder` and `SetInternalBorder`") 
+    Page = property(GetPage,doc="See `GetPage`") 
+    PageCount = property(GetPageCount,doc="See `GetPageCount`") 
+    PageImage = property(GetPageImage,SetPageImage,doc="See `GetPageImage` and `SetPageImage`") 
+    PageText = property(GetPageText,SetPageText,doc="See `GetPageText` and `SetPageText`") 
+    Selection = property(GetSelection,SetSelection,doc="See `GetSelection` and `SetSelection`") 
+_core_.BookCtrlBase_swigregister(BookCtrlBase)
+
+def BookCtrlBase_GetClassDefaultAttributes(*args, **kwargs):
+  """
+    BookCtrlBase_GetClassDefaultAttributes(int variant=WINDOW_VARIANT_NORMAL) -> VisualAttributes
+
+    Get the default attributes for this class.  This is useful if you want
+    to use the same font or colour in your own control as in a standard
+    control -- which is a much better idea than hard coding specific
+    colours or fonts which might look completely out of place on the
+    user's system, especially if it uses themes.
+
+    The variant parameter is only relevant under Mac currently and is
+    ignore under other platforms. Under Mac, it will change the size of
+    the returned font. See `wx.Window.SetWindowVariant` for more about
+    this.
+    """
+  return _core_.BookCtrlBase_GetClassDefaultAttributes(*args, **kwargs)
+
+class BookCtrlEvent(NotifyEvent):
+    """Proxy of C++ BookCtrlEvent class"""
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args, **kwargs): 
+        """
+        __init__(self, EventType commandType=wxEVT_NULL, int id=0, int nSel=-1, 
+            int nOldSel=-1) -> BookCtrlEvent
+        """
+        _core_.BookCtrlEvent_swiginit(self,_core_.new_BookCtrlEvent(*args, **kwargs))
+    def GetSelection(*args, **kwargs):
+        """
+        GetSelection(self) -> int
+
+        Returns item index for a listbox or choice selection event (not valid
+        for a deselection).
+        """
+        return _core_.BookCtrlEvent_GetSelection(*args, **kwargs)
+
+    def SetSelection(*args, **kwargs):
+        """SetSelection(self, int nSel)"""
+        return _core_.BookCtrlEvent_SetSelection(*args, **kwargs)
+
+    def GetOldSelection(*args, **kwargs):
+        """GetOldSelection(self) -> int"""
+        return _core_.BookCtrlEvent_GetOldSelection(*args, **kwargs)
+
+    def SetOldSelection(*args, **kwargs):
+        """SetOldSelection(self, int nOldSel)"""
+        return _core_.BookCtrlEvent_SetOldSelection(*args, **kwargs)
+
+    OldSelection = property(GetOldSelection,SetOldSelection,doc="See `GetOldSelection` and `SetOldSelection`") 
+    Selection = property(GetSelection,SetSelection,doc="See `GetSelection` and `SetSelection`") 
+_core_.BookCtrlEvent_swigregister(BookCtrlEvent)
 
 #---------------------------------------------------------------------------
 
@@ -14098,7 +14383,7 @@ _core_.SizerItem_swigregister(SizerItem)
 
 def SizerItemWindow(*args, **kwargs):
     """
-    SizerItemWindow(Window window, int proportion, int flag, int border, 
+    SizerItemWindow(Window window, int proportion=0, int flag=0, int border=0, 
         PyObject userData=None) -> SizerItem
 
     Constructs a `wx.SizerItem` for tracking a window.
@@ -14108,8 +14393,8 @@ def SizerItemWindow(*args, **kwargs):
 
 def SizerItemSpacer(*args, **kwargs):
     """
-    SizerItemSpacer(int width, int height, int proportion, int flag, int border, 
-        PyObject userData=None) -> SizerItem
+    SizerItemSpacer(int width, int height, int proportion=0, int flag=0, 
+        int border=0, PyObject userData=None) -> SizerItem
 
     Constructs a `wx.SizerItem` for tracking a spacer.
     """
@@ -14118,7 +14403,7 @@ def SizerItemSpacer(*args, **kwargs):
 
 def SizerItemSizer(*args, **kwargs):
     """
-    SizerItemSizer(Sizer sizer, int proportion, int flag, int border, 
+    SizerItemSizer(Sizer sizer, int proportion=0, int flag=0, int border=0, 
         PyObject userData=None) -> SizerItem
 
     Constructs a `wx.SizerItem` for tracking a subsizer
@@ -14263,7 +14548,7 @@ class Sizer(Object):
     def GetItemIndex(self, item):
         """
         Returns the index of the given *item* within the sizer. Does not
-        search recursivly.  The *item* parameter can be either a window
+        search recursively.  The *item* parameter can be either a window
         or a sizer.  An assertion is raised if the item is not found in
         the sizer.
         """
@@ -15538,8 +15823,8 @@ DefaultSpan = cvar.DefaultSpan
 
 def GBSizerItemWindow(*args, **kwargs):
     """
-    GBSizerItemWindow(Window window, GBPosition pos, GBSpan span, int flag, 
-        int border, PyObject userData=None) -> GBSizerItem
+    GBSizerItemWindow(Window window, GBPosition pos, GBSpan span=DefaultSpan, 
+        int flag=0, int border=0, PyObject userData=None) -> GBSizerItem
 
     Construct a `wx.GBSizerItem` for a window.
     """
@@ -15548,8 +15833,8 @@ def GBSizerItemWindow(*args, **kwargs):
 
 def GBSizerItemSizer(*args, **kwargs):
     """
-    GBSizerItemSizer(Sizer sizer, GBPosition pos, GBSpan span, int flag, 
-        int border, PyObject userData=None) -> GBSizerItem
+    GBSizerItemSizer(Sizer sizer, GBPosition pos, GBSpan span=DefaultSpan, 
+        int flag=0, int border=0, PyObject userData=None) -> GBSizerItem
 
     Construct a `wx.GBSizerItem` for a sizer
     """
@@ -15558,8 +15843,8 @@ def GBSizerItemSizer(*args, **kwargs):
 
 def GBSizerItemSpacer(*args, **kwargs):
     """
-    GBSizerItemSpacer(int width, int height, GBPosition pos, GBSpan span, 
-        int flag, int border, PyObject userData=None) -> GBSizerItem
+    GBSizerItemSpacer(int width, int height, GBPosition pos, GBSpan span=DefaultSpan, 
+        int flag=0, int border=0, PyObject userData=None) -> GBSizerItem
 
     Construct a `wx.GBSizerItem` for a spacer.
     """
@@ -16227,10 +16512,6 @@ class SettableHeaderColumn(HeaderColumn):
         """SetHidden(self, bool hidden)"""
         return _core_.SettableHeaderColumn_SetHidden(*args, **kwargs)
 
-    def SetAsSortKey(*args, **kwargs):
-        """SetAsSortKey(self, bool sort=True)"""
-        return _core_.SettableHeaderColumn_SetAsSortKey(*args, **kwargs)
-
     def UnsetAsSortKey(*args, **kwargs):
         """UnsetAsSortKey(self)"""
         return _core_.SettableHeaderColumn_UnsetAsSortKey(*args, **kwargs)
@@ -16253,7 +16534,7 @@ class SettableHeaderColumn(HeaderColumn):
     Sortable = property(HeaderColumn.IsSortable,SetSortable) 
     Reorderable = property(HeaderColumn.IsReorderable,SetReorderable) 
     Hidden = property(HeaderColumn.IsHidden,SetHidden) 
-    SortKey = property(HeaderColumn.IsSortKey,SetAsSortKey) 
+    SortKey = property(HeaderColumn.IsSortKey) 
 _core_.SettableHeaderColumn_swigregister(SettableHeaderColumn)
 
 class HeaderColumnSimple(SettableHeaderColumn):

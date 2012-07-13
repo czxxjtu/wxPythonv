@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: uma.cpp 67813 2011-05-31 08:09:18Z SC $
+// RCS-ID:      $Id: uma.cpp 68721 2011-08-16 12:17:13Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     The wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -96,6 +96,9 @@ void UMASetMenuItemShortcut( MenuRef menu , MenuItemIndex item , wxAcceleratorEn
         if (entry->GetFlags() & wxACCEL_SHIFT)
             modifiers |= kMenuShiftModifier ;
 
+        if (entry->GetFlags() & wxACCEL_RAW_CTRL)
+            modifiers |= kMenuControlModifier ;
+        
         SInt16 glyph = 0 ;
         SInt16 macKey = key ;
         if ( key >= WXK_F1 && key <= WXK_F15 )

@@ -3,7 +3,7 @@
 // Purpose:     Common dialogs demo
 // Author:      Julian Smart, Vadim Zeitlin, ABX
 // Created:     04/01/98
-// RCS-ID:      $Id: dialogs.h 67179 2011-03-13 13:33:12Z VZ $
+// RCS-ID:      $Id: dialogs.h 69463 2011-10-18 21:57:02Z VZ $
 // Copyright:   (c) Julian Smart
 //              (c) 2004 ABX
 //              (c) Vadim Zeitlin
@@ -228,6 +228,7 @@ private:
         Btn_No,
         Btn_Ok,
         Btn_Cancel,
+        Btn_Help,
         Btn_Max
     };
 
@@ -293,7 +294,10 @@ public:
     TestDefaultActionDialog( wxWindow *parent );
 
     void OnListBoxDClick(wxCommandEvent& event);
+    void OnDisableOK(wxCommandEvent& event);
+    void OnDisableCancel(wxCommandEvent& event);
     void OnCatchListBoxDClick(wxCommandEvent& event);
+    void OnTextEnter(wxCommandEvent& event);
 
 private:
     bool   m_catchListBoxDClick;
@@ -461,6 +465,10 @@ public:
     void OnNotifMsgHide(wxCommandEvent& event);
 #endif // wxUSE_NOTIFICATION_MESSAGE
 
+#if wxUSE_RICHTOOLTIP
+    void OnRichTipDialog(wxCommandEvent& event);
+#endif // wxUSE_RICHTOOLTIP
+
     void OnStandardButtonsSizerDialog(wxCommandEvent& event);
 
     void OnTestDefaultActionDialog(wxCommandEvent& event);
@@ -572,6 +580,7 @@ enum
     DIALOGS_NOTIFY_AUTO,
     DIALOGS_NOTIFY_SHOW,
     DIALOGS_NOTIFY_HIDE,
+    DIALOGS_RICHTIP_DIALOG,
     DIALOGS_PROPERTY_SHEET,
     DIALOGS_PROPERTY_SHEET_TOOLBOOK,
     DIALOGS_PROPERTY_SHEET_BUTTONTOOLBOOK,

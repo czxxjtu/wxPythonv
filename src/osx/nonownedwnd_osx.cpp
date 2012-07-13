@@ -3,7 +3,7 @@
 // Purpose:     implementation of wxNonOwnedWindow
 // Author:      Stefan Csomor
 // Created:     2008-03-24
-// RCS-ID:      $Id: nonownedwnd_osx.cpp 67230 2011-03-18 14:20:12Z SC $
+// RCS-ID:      $Id: nonownedwnd_osx.cpp 69466 2011-10-19 10:58:59Z VZ $
 // Copyright:   (c) Stefan Csomor 2008
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -13,6 +13,7 @@
 
 #ifndef WX_PRECOMP
     #include "wx/app.h"
+    #include "wx/dcmemory.h"
     #include "wx/log.h"
 #endif // WX_PRECOMP
 
@@ -497,25 +498,49 @@ WXWindow wxNonOwnedWindow::GetWXWindow() const
 // Shape implementation
 // ---------------------------------------------------------------------------
 
-
-bool wxNonOwnedWindow::DoSetShape(const wxRegion& region)
+bool wxNonOwnedWindow::DoClearShape()
 {
-    wxCHECK_MSG( HasFlag(wxFRAME_SHAPED), false,
-                 wxT("Shaped windows must be created with the wxFRAME_SHAPED style."));
+    m_shape.Clear();
 
-    m_shape = region;
-
-    // The empty region signifies that the shape
-    // should be removed from the window.
-    if ( region.IsEmpty() )
-    {
-        wxSize sz = GetClientSize();
-        wxRegion rgn(0, 0, sz.x, sz.y);
-        if ( rgn.IsEmpty() )
-            return false ;
-        else
-            return DoSetShape(rgn);
-    }
+    wxSize sz = GetClientSize();
+    wxRegion region(0, 0, sz.x, sz.y);
 
     return m_nowpeer->SetShape(region);
 }
+
+bool wxNonOwnedWindow::DoSetRegionShape(const wxRegion& region)
+{
+    m_shape = region;
+
+    return m_nowpeer->SetShape(region);
+}
+
+#if wxUSE_GRAPHICS_CONTEXT
+
+#include "wx/scopedptr.h"
+
+bool wxNonOwnedWindow::DoSetPathShape(const wxGraphicsPath& path)
+{
+    m_shapePath = path;
+
+    // Convert the path to wxRegion by rendering the path on a window-sized
+    // bitmap, creating a mask from it and finally creating the region from
+    // this mask.
+    wxBitmap bmp(GetSize());
+
+    {
+        wxMemoryDC dc(bmp);
+        dc.SetBackground(*wxBLACK);
+        dc.Clear();
+
+        wxScopedPtr<wxGraphicsContext> context(wxGraphicsContext::Create(dc));
+        context->SetBrush(*wxWHITE);
+        context->FillPath(m_shapePath);
+    }
+
+    bmp.SetMask(new wxMask(bmp, *wxBLACK));
+
+    return DoSetRegionShape(wxRegion(bmp));
+}
+
+#endif // wxUSE_GRAPHICS_CONTEXT

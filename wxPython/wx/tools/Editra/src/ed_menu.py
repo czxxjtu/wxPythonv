@@ -14,11 +14,11 @@ for managing keybindings and profiles is also provided by this module.
 """
 
 __author__ = "Cody Precord <cprecord@editra.org>"
-__svnid__ = "$Id: ed_menu.py 68817 2011-08-21 20:16:52Z CJP $"
-__revision__ = "$Revision: 68817 $"
+__svnid__ = "$Id: ed_menu.py 69269 2011-10-01 20:14:43Z CJP $"
+__revision__ = "$Revision: 69269 $"
 
 #--------------------------------------------------------------------------#
-# Dependancies
+# Dependencies
 import os
 import wx
 
@@ -854,6 +854,8 @@ class EdMenuBar(wx.MenuBar):
         toolsmenu = EdMenu()
         toolsmenu.AppendEx(ed_glob.ID_COMMAND, _("Editor Command"),
                          _("Goto command buffer"))
+        toolsmenu.AppendEx(ed_glob.ID_SESSION_BAR, _("Session Manager"),
+                         _("Show the session manager bar"))
         toolsmenu.AppendEx(ed_glob.ID_PLUGMGR, _("Plugin Manager"),
                          _("Manage, Download, and Install plugins"))
         toolsmenu.AppendEx(ed_glob.ID_STYLE_EDIT, _("Style Editor"),
@@ -1076,6 +1078,7 @@ _DEFAULT_BINDING = { # File Menu
 
                      # Tools Menu
                      ed_glob.ID_COMMAND : (u"Ctrl", u"E"),
+                     ed_glob.ID_SESSION_BAR : (u"Ctrl", u"K"),
                      ed_glob.ID_RUN_LAUNCH : (u"F5",),
                      ed_glob.ID_LAUNCH_LAST : (u"Shift", u"F5")
                      }

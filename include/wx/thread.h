@@ -5,7 +5,7 @@
 // Modified by: Vadim Zeitlin (modifications partly inspired by omnithreads
 //              package from Olivetti & Oracle Research Laboratory)
 // Created:     04/13/98
-// RCS-ID:      $Id: thread.h 67185 2011-03-14 11:54:32Z VZ $
+// RCS-ID:      $Id: thread.h 69883 2011-12-01 14:22:15Z VZ $
 // Copyright:   (c) Guilhem Lavaux
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -249,6 +249,9 @@ public:
     // enter the section (the same as locking a mutex)
     wxCRITSECT_INLINE void Enter();
 
+    // try to enter the section (the same as trying to lock a mutex)
+    wxCRITSECT_INLINE bool TryEnter();
+
     // leave the critical section (same as unlocking a mutex)
     wxCRITSECT_INLINE void Leave();
 
@@ -291,6 +294,7 @@ private:
     inline wxCriticalSection::~wxCriticalSection() { }
 
     inline void wxCriticalSection::Enter() { (void)m_mutex.Lock(); }
+    inline bool wxCriticalSection::TryEnter() { return m_mutex.TryLock() == wxMUTEX_NO_ERROR; }
     inline void wxCriticalSection::Leave() { (void)m_mutex.Unlock(); }
 #endif // wxCRITSECT_IS_MUTEX
 

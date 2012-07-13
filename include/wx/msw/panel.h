@@ -3,7 +3,7 @@
 // Purpose:     wxMSW-specific wxPanel class.
 // Author:      Vadim Zeitlin
 // Created:     2011-03-18
-// RCS-ID:      $Id: panel.h 68531 2011-08-04 22:44:03Z RD $
+// RCS-ID:      $Id: panel.h 69378 2011-10-11 17:07:43Z VZ $
 // Copyright:   (c) 2011 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ class WXDLLIMPEXP_FWD_CORE wxBrush;
 class WXDLLIMPEXP_CORE wxPanel : public wxPanelBase
 {
 public:
-    wxPanel() { Init(); }
+    wxPanel() { }
 
     wxPanel(wxWindow *parent,
             wxWindowID winid = wxID_ANY,
@@ -29,12 +29,8 @@ public:
             long style = wxTAB_TRAVERSAL | wxNO_BORDER,
             const wxString& name = wxPanelNameStr)
     {
-        Init();
-
         Create(parent, winid, pos, size, style, name);
     }
-
-    virtual ~wxPanel();
 
     // This is overridden for MSW to return true for all panels that are child
     // of a window with themed background (such as wxNotebook) which should
@@ -54,18 +50,7 @@ public:
     )
 #endif // WXWIN_COMPATIBILITY_2_8
 
-protected:
-    void Init()
-    {
-        m_backgroundBrush = NULL;
-    }
-
-    virtual void DoSetBackgroundBitmap(const wxBitmap& bmp);
-    virtual WXHBRUSH MSWGetCustomBgBrush();
-
 private:
-    wxBrush *m_backgroundBrush;
-
     wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxPanel);
 };
 

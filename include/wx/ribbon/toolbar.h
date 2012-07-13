@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-07-06
-// RCS-ID:      $Id: toolbar.h 62771 2009-12-03 17:20:15Z PC $
+// RCS-ID:      $Id: toolbar.h 69567 2011-10-27 21:10:51Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@
 
 class wxRibbonToolBarToolBase;
 class wxRibbonToolBarToolGroup;
-WX_DEFINE_USER_EXPORTED_ARRAY(wxRibbonToolBarToolGroup*, wxArrayRibbonToolBarToolGroup, class WXDLLIMPEXP_RIBBON);
+WX_DEFINE_USER_EXPORTED_ARRAY_PTR(wxRibbonToolBarToolGroup*, wxArrayRibbonToolBarToolGroup, class WXDLLIMPEXP_RIBBON);
 
 enum wxRibbonToolBarToolState
 {
@@ -35,7 +35,7 @@ enum wxRibbonToolBarToolState
     wxRIBBON_TOOLBAR_TOOL_DROPDOWN_ACTIVE   = 1 << 6,
     wxRIBBON_TOOLBAR_TOOL_ACTIVE_MASK       = wxRIBBON_TOOLBAR_TOOL_NORMAL_ACTIVE | wxRIBBON_TOOLBAR_TOOL_DROPDOWN_ACTIVE,
     wxRIBBON_TOOLBAR_TOOL_DISABLED          = 1 << 7,
-    wxRIBBON_TOOLBAR_TOOL_STATE_MASK        = 0xF8,
+    wxRIBBON_TOOLBAR_TOOL_STATE_MASK        = 0xF8
 };
 
 

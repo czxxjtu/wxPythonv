@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: splitter.h 67254 2011-03-20 00:14:35Z DS $
+// RCS-ID:      $Id: splitter.h 69597 2011-10-30 19:48:38Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ enum
 //    to prevent flickering. (WS_CLIPCHILDREN doesn't work in all cases so can't be
 //    standard).
 
-class WXDLLIMPEXP_CORE wxSplitterWindow: public wxWindow
+class WXDLLIMPEXP_CORE wxSplitterWindow: public wxNavigationEnabled<wxWindow>
 {
 public:
 
@@ -211,9 +211,6 @@ public:
     // Resizes subwindows
     virtual void SizeWindows();
 
-    void SetNeedUpdating(bool needUpdating) { m_needUpdating = needUpdating; }
-    bool GetNeedUpdating() const { return m_needUpdating ; }
-
 #ifdef __WXMAC__
     virtual bool MacClipGrandChildren() const { return true ; }
 #endif
@@ -297,11 +294,8 @@ protected:
     bool        m_needUpdating:1;
     bool        m_permitUnsplitAlways:1;
     bool        m_isHot:1;
-    bool        m_checkRequestedSashPosition:1;
 
 private:
-    WX_DECLARE_CONTROL_CONTAINER();
-
     DECLARE_DYNAMIC_CLASS(wxSplitterWindow)
     DECLARE_EVENT_TABLE()
     wxDECLARE_NO_COPY_CLASS(wxSplitterWindow);

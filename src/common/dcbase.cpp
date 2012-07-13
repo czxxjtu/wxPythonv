@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     05/25/99
-// RCS-ID:      $Id: dcbase.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: dcbase.cpp 68522 2011-08-04 16:12:41Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -35,6 +35,7 @@
 #ifndef WX_PRECOMP
     #include "wx/math.h"
     #include "wx/module.h"
+    #include "wx/window.h"
 #endif
 
 #ifdef __WXMSW__

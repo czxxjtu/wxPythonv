@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: utils.mm 67904 2011-06-09 01:24:21Z SC $
+// RCS-ID:      $Id: utils.mm 68958 2011-08-30 09:02:11Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -53,21 +53,32 @@ void wxBell()
 
 - (void)applicationWillFinishLaunching:(NSNotification *)application {	
     wxUnusedVar(application);
+    
+    // we must install our handlers later than setting the app delegate, because otherwise our handlers
+    // get overwritten in the meantime
+
+    NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+    
+    [appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:)
+                         forEventClass:kInternetEventClass andEventID:kAEGetURL];
+    
+    [appleEventManager setEventHandler:self andSelector:@selector(handleOpenAppEvent:withReplyEvent:)
+                         forEventClass:kCoreEventClass andEventID:kAEOpenApplication];
+    
 }
 
-- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
+- (void)application:(NSApplication *)sender openFiles:(NSArray *)fileNames
 {
     wxUnusedVar(sender);
-    wxCFStringRef cf(wxCFRetain(filename));
-    wxTheApp->MacOpenFile(cf.AsString()) ;
-    return YES;
-}
+    wxArrayString fileList;
+    size_t i;
+    const size_t count = [fileNames count];
+    for (i = 0; i < count; i++)
+    {
+        fileList.Add( wxCFStringRef::AsString([fileNames objectAtIndex:i]) );
+    }
 
-- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender
-{
-    wxUnusedVar(sender);
-    wxTheApp->MacNewFile() ;
-    return NO;
+    wxTheApp->MacOpenFiles(fileList);
 }
 
 - (BOOL)application:(NSApplication *)sender printFile:(NSString *)filename
@@ -93,6 +104,13 @@ void wxBell()
     NSString* url = [[event descriptorAtIndex:1] stringValue];
     wxCFStringRef cf(wxCFRetain(url));
     wxTheApp->MacOpenURL(cf.AsString()) ;
+}
+
+- (void)handleOpenAppEvent:(NSAppleEventDescriptor *)event
+           withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+    wxUnusedVar(replyEvent);
+    wxTheApp->MacNewFile() ;
 }
 
 /*
@@ -233,10 +251,6 @@ bool wxApp::DoInitGui()
         wxNSAppController* controller = [[wxNSAppController alloc] init];
         [NSApp setDelegate:controller];
 
-        NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
-        [appleEventManager setEventHandler:controller andSelector:@selector(handleGetURLEvent:withReplyEvent:)
-            forEventClass:kInternetEventClass andEventID:kAEGetURL];
-   
         // calling finishLaunching so early before running the loop seems to trigger some 'MenuManager compatibility' which leads
         // to the duplication of menus under 10.5 and a warning under 10.6
 #if 0
@@ -291,10 +305,10 @@ wxMouseState wxGetMouseState()
     ms.SetMiddleDown( (buttons & 0x04) != 0 );
     ms.SetRightDown( (buttons & 0x02) != 0 );
     
-    ms.SetControlDown(modifiers & NSControlKeyMask);
+    ms.SetRawControlDown(modifiers & NSControlKeyMask);
     ms.SetShiftDown(modifiers & NSShiftKeyMask);
     ms.SetAltDown(modifiers & NSAlternateKeyMask);
-    ms.SetMetaDown(modifiers & NSCommandKeyMask);
+    ms.SetControlDown(modifiers & NSCommandKeyMask);
     
     return ms;
 }

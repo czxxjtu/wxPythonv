@@ -4,7 +4,7 @@
 // Author:      Francesco Montorsi
 // Modified by:
 // Created:     15/04/2006
-// RCS-ID:      $Id: filepickerg.cpp 63654 2010-03-08 19:37:08Z VZ $
+// RCS-ID:      $Id: filepickerg.cpp 68921 2011-08-27 14:11:25Z VZ $
 // Copyright:   (c) Francesco Montorsi
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,8 +54,24 @@ bool wxGenericFileDirButton::Create(wxWindow *parent,
 {
     m_pickerStyle = style;
 
+    // If the special wxPB_SMALL flag is used, ignore the provided label and
+    // use the shortest possible label and the smallest possible button fitting
+    // it.
+    long styleButton = 0;
+    wxString labelButton;
+    if ( m_pickerStyle & wxPB_SMALL )
+    {
+        labelButton = _("...");
+        styleButton = wxBU_EXACTFIT;
+    }
+    else
+    {
+        labelButton = label;
+    }
+
     // create this button
-    if ( !wxButton::Create(parent, id, label, pos, size, 0, validator, name) )
+    if ( !wxButton::Create(parent, id, labelButton,
+                           pos, size, styleButton, validator, name) )
     {
         wxFAIL_MSG( wxT("wxGenericFileButton creation failed") );
         return false;

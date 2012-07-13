@@ -5,7 +5,7 @@
 // Author:      Jeffrey C. Ollie <jeff@ollie.clive.ia.us>, Vadim Zeitlin
 // Modified by:
 // Created:     10.02.99
-// RCS-ID:      $Id: longlong.h 67760 2011-05-17 22:12:39Z VZ $
+// RCS-ID:      $Id: longlong.h 68472 2011-07-31 13:25:33Z VS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1097,15 +1097,15 @@ WXDLLIMPEXP_BASE class wxTextInputStream &operator>>(class wxTextInputStream &st
 namespace std
 {
 
-template<> class numeric_limits<wxLongLong>
-    : public numeric_limits<wxLongLong_t>
-{
-};
-
-template<> class numeric_limits<wxULongLong>
-    : public numeric_limits<wxULongLong_t>
-{
-};
+#ifdef __clang__
+  // libstdc++ (used by Clang) uses struct for numeric_limits; unlike gcc, clang
+  // warns about this
+  template<> struct numeric_limits<wxLongLong>  : public numeric_limits<wxLongLong_t> {};
+  template<> struct numeric_limits<wxULongLong> : public numeric_limits<wxULongLong_t> {};
+#else
+  template<> class numeric_limits<wxLongLong>  : public numeric_limits<wxLongLong_t> {};
+  template<> class numeric_limits<wxULongLong> : public numeric_limits<wxULongLong_t> {};
+#endif
 
 } // namespace std
 

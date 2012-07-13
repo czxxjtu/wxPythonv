@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     11.05.99
-// RCS-ID:      $Id: datetimefmt.cpp 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: datetimefmt.cpp 69836 2011-11-27 19:50:19Z VZ $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 //              parts of code taken from sndcal library by Scott E. Lee:
 //
@@ -57,6 +57,7 @@
 #endif
 
 #include "wx/datetime.h"
+#include "wx/time.h"
 
 // ============================================================================
 // implementation of wxDateTime
@@ -67,8 +68,6 @@
 // ----------------------------------------------------------------------------
 
 extern void InitTm(struct tm& tm);
-
-extern int GetTimeZone();
 
 extern wxString CallStrftime(const wxString& format, const tm* tm);
 
@@ -329,7 +328,7 @@ wxString wxDateTime::Format(const wxString& formatp, const TimeZone& tz) const
         // use strftime()
         struct tm tmstruct;
         struct tm *tm;
-        if ( tz.GetOffset() == -GetTimeZone() )
+        if ( tz.GetOffset() == -wxGetTimeZone() )
         {
             // we are working with local time
             tm = wxLocaltime_r(&time, &tmstruct);

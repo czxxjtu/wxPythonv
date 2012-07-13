@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: textctrl.cpp 68547 2011-08-04 23:09:28Z RD $
+// RCS-ID:      $Id: textctrl.cpp 69739 2011-11-11 14:26:06Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1489,6 +1489,93 @@ wxTextCtrl::HitTest(const wxPoint& pt, long *posOut) const
     return rc;
 }
 
+wxPoint wxTextCtrl::DoPositionToCoords(long pos) const
+{
+    // FIXME: This code is broken for rich edit version 2.0 as it uses the same
+    // API as plain edit i.e. the coordinates are returned directly instead of
+    // filling the POINT passed as WPARAM with them but we can't distinguish
+    // between 2.0 and 3.0 unfortunately (see also the use of EM_POSFROMCHAR
+    // above).
+#if wxUSE_RICHEDIT
+    if ( IsRich() )
+    {
+        POINT pt;
+        LRESULT rc = ::SendMessage(GetHwnd(), EM_POSFROMCHAR, (WPARAM)&pt, pos);
+        if ( rc != -1 )
+            return wxPoint(pt.x, pt.y);
+    }
+    else
+#endif // wxUSE_RICHEDIT
+    {
+        LRESULT rc = ::SendMessage(GetHwnd(), EM_POSFROMCHAR, pos, 0);
+        if ( rc == -1 )
+        {
+            // Finding coordinates for the last position of the control fails
+            // in plain EDIT control, try to compensate for it by finding it
+            // ourselves from the position of the previous character.
+            if ( pos < GetLastPosition() )
+            {
+                // It's not the expected correctable failure case so just fail.
+                return wxDefaultPosition;
+            }
+
+            if ( pos == 0 )
+            {
+                // We're being asked the coordinates of the first (and last and
+                // only) position in an empty control. There is no way to get
+                // it directly with EM_POSFROMCHAR but EM_GETMARGINS returns
+                // the correct value for at least the horizontal offset.
+                rc = ::SendMessage(GetHwnd(), EM_GETMARGINS, 0, 0);
+
+                // Text control seems to effectively add 1 to margin.
+                return wxPoint(LOWORD(rc) + 1, 1);
+            }
+
+            // We do have a previous character, try to get its coordinates.
+            rc = ::SendMessage(GetHwnd(), EM_POSFROMCHAR, pos - 1, 0);
+            if ( rc == -1 )
+            {
+                // If getting coordinates of the previous character failed as
+                // well, just give up.
+                return wxDefaultPosition;
+            }
+
+            wxString prevChar = GetRange(pos - 1, pos);
+            wxSize prevCharSize = GetTextExtent(prevChar);
+
+            if ( prevChar == wxT("\n" ))
+            {
+                // 'pos' is at the beginning of a new line so its X coordinate
+                // should be the same as X coordinate of the first character of
+                // any other line while its Y coordinate will be approximately
+                // (but we can't compute it exactly...) one character height
+                // more than that of the previous character.
+                LRESULT coords0 = ::SendMessage(GetHwnd(), EM_POSFROMCHAR, 0, 0);
+                if ( coords0 == -1 )
+                    return wxDefaultPosition;
+
+                rc = MAKELPARAM(LOWORD(coords0), HIWORD(rc) + prevCharSize.y);
+            }
+            else
+            {
+                // Simple case: previous character is in the same line so this
+                // one is just after it.
+                rc += MAKELPARAM(prevCharSize.x, 0);
+            }
+        }
+
+        // Notice that {LO,HI}WORD macros return WORDs, i.e. unsigned shorts,
+        // while we want to have signed values here (the y coordinate of any
+        // position above the first currently visible line is negative, for
+        // example), hence the need for casts.
+        return wxPoint(static_cast<short>(LOWORD(rc)),
+                        static_cast<short>(HIWORD(rc)));
+    }
+
+    return wxDefaultPosition;
+}
+
+
 // ----------------------------------------------------------------------------
 //
 // ----------------------------------------------------------------------------
@@ -1693,8 +1780,19 @@ bool wxTextCtrl::MSWShouldPreProcessMessage(WXMSG* msg)
                     // fall through
 
                 case 0:
-                    if ( IsMultiLine() && vkey == VK_RETURN )
-                        return false;
+                    switch ( vkey )
+                    {
+                        case VK_RETURN:
+                            // This one is only special for multi line controls.
+                            if ( !IsMultiLine() )
+                                break;
+                            // fall through
+
+                        case VK_DELETE:
+                        case VK_HOME:
+                        case VK_END:
+                            return false;
+                    }
                     // fall through
                 case 2:
                     break;
@@ -1864,6 +1962,9 @@ WXLRESULT wxTextCtrl::MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lPara
                     //     live with it.
                     lRc = lDlgCode;
                 }
+                if (IsMultiLine())
+                    // Clear the DLGC_HASSETSEL bit from the return value
+                    lRc &= ~DLGC_HASSETSEL;
             }
             break;
 
@@ -2017,9 +2118,17 @@ wxSize wxTextCtrl::DoGetBestSize() const
     }
     //else: for single line control everything is ok
 
-    // we have to add the adjustments for the control height only once, not
-    // once per line, so do it after multiplication above
-    hText += EDIT_HEIGHT_FROM_CHAR_HEIGHT(cy) - cy;
+    // Text controls without border are special and have the same height as
+    // static labels (they also have the same appearance when they're disable
+    // and are often used as a sort of copyable to the clipboard label so it's
+    // important that they have the same height as the normal labels to not
+    // stand out).
+    if ( !HasFlag(wxBORDER_NONE) )
+    {
+        // we have to add the adjustments for the control height only once, not
+        // once per line, so do it after multiplication above
+        hText += EDIT_HEIGHT_FROM_CHAR_HEIGHT(cy) - cy;
+    }
 
     return wxSize(wText, hText);
 }

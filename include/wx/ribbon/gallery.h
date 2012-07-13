@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-07-22
-// RCS-ID:      $Id: gallery.h 66051 2010-11-06 23:46:25Z PJC $
+// RCS-ID:      $Id: gallery.h 69567 2011-10-27 21:10:51Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@
 
 class wxRibbonGalleryItem;
 
-WX_DEFINE_USER_EXPORTED_ARRAY(wxRibbonGalleryItem*, wxArrayRibbonGalleryItem, class WXDLLIMPEXP_RIBBON);
+WX_DEFINE_USER_EXPORTED_ARRAY_PTR(wxRibbonGalleryItem*, wxArrayRibbonGalleryItem, class WXDLLIMPEXP_RIBBON);
 
 class WXDLLIMPEXP_RIBBON wxRibbonGallery : public wxRibbonControl
 {

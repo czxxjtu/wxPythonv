@@ -4,7 +4,7 @@
 // Author:      Andreas Pflug
 // Modified by:
 // Created:     2005-01-19
-// RCS-ID:      $Id: datectlg.cpp 67393 2011-04-04 22:07:42Z DS $
+// RCS-ID:      $Id: datectlg.cpp 68910 2011-08-27 12:13:18Z VZ $
 // Copyright:   (c) 2005 Andreas Pflug <pgadmin@pse-consulting.de>
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -385,10 +385,8 @@ wxSize wxDatePickerCtrlGeneric::DoGetBestSize() const
 wxWindowList wxDatePickerCtrlGeneric::GetCompositeWindowParts() const
 {
     wxWindowList parts;
-    if (m_combo)
-        parts.push_back(m_combo);
-    if (m_popup)
-        parts.push_back(m_popup);
+    parts.push_back(m_combo);
+    parts.push_back(m_popup);
     return parts;
 }
 

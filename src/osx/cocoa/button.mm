@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: button.mm 68527 2011-08-04 21:30:40Z RD $
+// RCS-ID:      $Id: button.mm 68967 2011-09-01 16:20:24Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -95,9 +95,16 @@ public:
     virtual void SetBitmap(const wxBitmap& bitmap)
     {
         // switch bezel style for plain pushbuttons
-        if ( bitmap.IsOk() && [GetNSButton() bezelStyle] == NSRoundedBezelStyle )
-            [GetNSButton() setBezelStyle:NSRegularSquareBezelStyle ];
-
+        if ( bitmap.IsOk() )
+        {
+            if ([GetNSButton() bezelStyle] == NSRoundedBezelStyle)
+                [GetNSButton() setBezelStyle:NSRegularSquareBezelStyle];
+        }
+        else
+        {
+            [GetNSButton() setBezelStyle:NSRoundedBezelStyle];
+        }
+        
         wxWidgetCocoaImpl::SetBitmap(bitmap);
     }
 

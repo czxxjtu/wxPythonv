@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Dimitri Schoolwerth
 // Created:     25/10/98
-// RCS-ID:      $Id: notebook.h 67192 2011-03-14 11:55:05Z VZ $
+// RCS-ID:      $Id: notebook.h 69280 2011-10-02 10:29:00Z SJL $
 // Copyright:   (c) 1998-2002 wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -14,6 +14,7 @@
 #include "wx/treebook.h"
 #include "wx/notebook.h"
 #include "wx/toolbook.h"
+#include "wx/aui/auibook.h"
 
 #if wxUSE_LOG && !defined( __SMARTPHONE__ )
     #define USE_LOG 1
@@ -77,6 +78,9 @@ public:
 #if wxUSE_TOOLBOOK
     void OnToolbook(wxToolbookEvent& event) { OnBookCtrl(event); }
 #endif
+#if wxUSE_AUI
+    void OnAuiNotebook(wxAuiNotebookEvent& event) { OnBookCtrl(event); }
+#endif
 
     void OnIdle(wxIdleEvent& event);
 
@@ -91,7 +95,7 @@ private:
 
     void RecreateBook();
     wxPanel *CreateNewPage() const;
-    int TranslateBookFlag(int nb, int lb, int chb, int tbk, int toolbk) const;
+    int TranslateBookFlag(int nb, int lb, int chb, int tbk, int toolbkm, int aui) const;
     void AddFlagStrIfFlagPresent(wxString & flagStr, long flags, long flag, const wxChar * flagName) const;
 
     // Sample setup
@@ -102,6 +106,7 @@ private:
         Type_Choicebook,
         Type_Treebook,
         Type_Toolbook,
+        Type_AuiNotebook,
         Type_Max
     } m_type;
     int m_orient;
@@ -137,6 +142,7 @@ enum ID_COMMANDS
     ID_BOOK_CHOICEBOOK,
     ID_BOOK_TREEBOOK,
     ID_BOOK_TOOLBOOK,
+    ID_BOOK_AUINOTEBOOK,
     ID_BOOK_MAX,
 
     ID_ORIENT_DEFAULT,

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        printing.cpp
+// Name:        helpview.cpp
 // Purpose:     wxHtml sample: help browser
 // Author:      ?
 // Modified by:
 // Created:     ?
-// RCS-ID:      $Id: helpview.cpp 67228 2011-03-18 09:16:14Z VZ $
+// RCS-ID:      $Id: helpview.cpp 68612 2011-08-09 11:25:09Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

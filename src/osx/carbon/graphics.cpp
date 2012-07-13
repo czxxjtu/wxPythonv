@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: graphics.cpp 67979 2011-06-18 15:23:39Z SC $
+// RCS-ID:      $Id: graphics.cpp 69485 2011-10-20 04:49:12Z RD $
 // copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -978,6 +978,14 @@ public:
 
     virtual CGImageRef GetBitmap() { return m_bitmap; }
     bool IsMonochrome() { return m_monochrome; }
+
+#if wxUSE_IMAGE
+    wxImage ConvertToImage() const
+    {
+        return wxBitmap(m_bitmap).ConvertToImage();
+    }
+#endif // wxUSE_IMAGE
+
 private :
     CGImageRef m_bitmap;
     bool m_monochrome;
@@ -992,6 +1000,7 @@ wxMacCoreGraphicsBitmapData::~wxMacCoreGraphicsBitmapData()
 {
     CGImageRelease( m_bitmap );
 }
+
 
 //
 // Graphics Matrix
@@ -1384,8 +1393,6 @@ public:
 
     wxMacCoreGraphicsContext( wxGraphicsRenderer* renderer);
 
-    wxMacCoreGraphicsContext();
-
     ~wxMacCoreGraphicsContext();
 
     void Init();
@@ -1497,7 +1504,7 @@ public:
 
     void SetNativeContext( CGContextRef cg );
 
-    DECLARE_DYNAMIC_CLASS_NO_COPY(wxMacCoreGraphicsContext)
+    wxDECLARE_NO_COPY_CLASS(wxMacCoreGraphicsContext);
 
 private:
     bool EnsureIsValid();
@@ -1535,8 +1542,6 @@ private:
 //-----------------------------------------------------------------------------
 // wxMacCoreGraphicsContext implementation
 //-----------------------------------------------------------------------------
-
-IMPLEMENT_DYNAMIC_CLASS(wxMacCoreGraphicsContext, wxGraphicsContext)
 
 class wxQuartzOffsetHelper
 {
@@ -1640,12 +1645,6 @@ wxMacCoreGraphicsContext::wxMacCoreGraphicsContext( wxGraphicsRenderer* renderer
 wxMacCoreGraphicsContext::wxMacCoreGraphicsContext(wxGraphicsRenderer* renderer) : wxGraphicsContext(renderer)
 {
     Init();
-}
-
-wxMacCoreGraphicsContext::wxMacCoreGraphicsContext() : wxGraphicsContext(NULL)
-{
-    Init();
-    wxLogDebug(wxT("Illegal Constructor called"));
 }
 
 wxMacCoreGraphicsContext::~wxMacCoreGraphicsContext()
@@ -2301,10 +2300,16 @@ void wxMacCoreGraphicsContext::DoDrawText( const wxString &str, wxDouble x, wxDo
         wxCFStringRef text(str, wxLocale::GetSystemEncoding() );
         CTFontRef font = fref->OSXGetCTFont();
         CGColorRef col = wxMacCreateCGColor( fref->GetColour() );
+#if 0
+        // right now there's no way to get continuous underlines, only words, so we emulate it
         CTUnderlineStyle ustyle = fref->GetUnderlined() ? kCTUnderlineStyleSingle : kCTUnderlineStyleNone ;
         wxCFRef<CFNumberRef> underlined( CFNumberCreate(NULL, kCFNumberSInt32Type, &ustyle) );
          CFStringRef keys[] = { kCTFontAttributeName , kCTForegroundColorAttributeName, kCTUnderlineStyleAttributeName };
         CFTypeRef values[] = { font, col, underlined };
+#else
+        CFStringRef keys[] = { kCTFontAttributeName , kCTForegroundColorAttributeName };
+        CFTypeRef values[] = { font, col };
+#endif
         wxCFRef<CFDictionaryRef> attributes( CFDictionaryCreate(kCFAllocatorDefault, (const void**) &keys, (const void**) &values,
                                                         WXSIZEOF( keys ), &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks) );
         wxCFRef<CFAttributedStringRef> attrtext( CFAttributedStringCreate(kCFAllocatorDefault, text, attributes) );
@@ -2317,6 +2322,19 @@ void wxMacCoreGraphicsContext::DoDrawText( const wxString &str, wxDouble x, wxDo
         CGContextScaleCTM(m_cgContext, 1, -1);
         CGContextSetTextPosition(m_cgContext, 0, 0);
         CTLineDraw( line, m_cgContext );
+        
+        if ( fref->GetUnderlined() ) {
+            //AKT: draw horizontal line 1 pixel thick and with 1 pixel gap under baseline
+            CGFloat width = CTLineGetTypographicBounds(line, NULL, NULL, NULL);
+
+            CGPoint points[] = { {0.0, -2.0},  {width, -2.0} };
+            
+            CGContextSetStrokeColorWithColor(m_cgContext, col);
+            CGContextSetShouldAntialias(m_cgContext, false);
+            CGContextSetLineWidth(m_cgContext, 1.0);
+            CGContextStrokeLineSegments(m_cgContext, points, 2);
+        }
+        
         CGContextRestoreGState(m_cgContext);
         CFRelease( col );
         return;
@@ -2714,6 +2732,49 @@ wxGraphicsMatrix wxMacCoreGraphicsContext::GetTransform() const
     return m;
 }
 
+
+#if wxUSE_IMAGE
+
+// ----------------------------------------------------------------------------
+// wxMacCoreGraphicsImageContext
+// ----------------------------------------------------------------------------
+
+// This is a GC that can be used to draw on wxImage. In this implementation we
+// simply draw on a wxBitmap using wxMemoryDC and then convert it to wxImage in
+// the end so it's not especially interesting and exists mainly for
+// compatibility with the other platforms.
+class wxMacCoreGraphicsImageContext : public wxMacCoreGraphicsContext
+{
+public:
+    wxMacCoreGraphicsImageContext(wxGraphicsRenderer* renderer,
+                                  wxImage& image) :
+        wxMacCoreGraphicsContext(renderer),
+        m_image(image),
+        m_bitmap(image),
+        m_memDC(m_bitmap)
+    {
+        SetNativeContext
+        (
+            (CGContextRef)(m_memDC.GetGraphicsContext()->GetNativeContext())
+        );
+        m_width = image.GetWidth();
+        m_height = image.GetHeight();
+    }
+
+    virtual ~wxMacCoreGraphicsImageContext()
+    {
+        m_memDC.SelectObject(wxNullBitmap);
+        m_image = m_bitmap.ConvertToImage();
+    }
+
+private:
+    wxImage& m_image;
+    wxBitmap m_bitmap;
+    wxMemoryDC m_memDC;
+};
+
+#endif // wxUSE_IMAGE
+
 //
 // Renderer
 //
@@ -2742,6 +2803,10 @@ public :
     virtual wxGraphicsContext * CreateContextFromNativeWindow( void * window );
 
     virtual wxGraphicsContext * CreateContext( wxWindow* window );
+
+#if wxUSE_IMAGE
+    virtual wxGraphicsContext * CreateContextFromImage(wxImage& image);
+#endif // wxUSE_IMAGE
 
     virtual wxGraphicsContext * CreateMeasuringContext();
 
@@ -2772,9 +2837,18 @@ public :
 
    // sets the font
     virtual wxGraphicsFont CreateFont( const wxFont &font , const wxColour &col = *wxBLACK ) ;
+    virtual wxGraphicsFont CreateFont(double sizeInPixels,
+                                      const wxString& facename,
+                                      int flags = wxFONTFLAG_DEFAULT,
+                                      const wxColour& col = *wxBLACK);
 
     // create a native bitmap representation
     virtual wxGraphicsBitmap CreateBitmap( const wxBitmap &bitmap ) ;
+
+#if wxUSE_IMAGE
+    virtual wxGraphicsBitmap CreateBitmapFromImage(const wxImage& image);
+    virtual wxImage CreateImageFromBitmap(const wxGraphicsBitmap& bmp);
+#endif // wxUSE_IMAGE
 
     // create a graphics bitmap from a native bitmap
     virtual wxGraphicsBitmap CreateBitmapFromNativeBitmap( void* bitmap );
@@ -2885,6 +2959,16 @@ wxGraphicsContext * wxMacCoreGraphicsRenderer::CreateMeasuringContext()
     return new wxMacCoreGraphicsContext(this);
 }
 
+#if wxUSE_IMAGE
+
+wxGraphicsContext*
+wxMacCoreGraphicsRenderer::CreateContextFromImage(wxImage& image)
+{
+    return new wxMacCoreGraphicsImageContext(this, image);
+}
+
+#endif // wxUSE_IMAGE
+
 // Path
 
 wxGraphicsPath wxMacCoreGraphicsRenderer::CreatePath()
@@ -2943,6 +3027,28 @@ wxGraphicsBitmap wxMacCoreGraphicsRenderer::CreateBitmap( const wxBitmap& bmp )
         return wxNullGraphicsBitmap;
 }
 
+#if wxUSE_IMAGE
+
+wxGraphicsBitmap
+wxMacCoreGraphicsRenderer::CreateBitmapFromImage(const wxImage& image)
+{
+    // We don't have any direct way to convert wxImage to CGImage so pass by
+    // wxBitmap. This makes this function pretty useless in this implementation
+    // but it allows to have the same API as with Cairo backend where we can
+    // convert wxImage to a Cairo surface directly, bypassing wxBitmap.
+    return CreateBitmap(wxBitmap(image));
+}
+
+wxImage wxMacCoreGraphicsRenderer::CreateImageFromBitmap(const wxGraphicsBitmap& bmp)
+{
+    wxMacCoreGraphicsBitmapData* const
+        data = static_cast<wxMacCoreGraphicsBitmapData*>(bmp.GetRefData());
+
+    return data ? data->ConvertToImage() : wxNullImage;
+}
+
+#endif // wxUSE_IMAGE
+
 wxGraphicsBitmap wxMacCoreGraphicsRenderer::CreateBitmapFromNativeBitmap( void* bitmap )
 {
     if ( bitmap != NULL )
@@ -2995,7 +3101,6 @@ wxMacCoreGraphicsRenderer::CreateRadialGradientBrush(wxDouble xo, wxDouble yo,
     return p;
 }
 
-// sets the font
 wxGraphicsFont wxMacCoreGraphicsRenderer::CreateFont( const wxFont &font , const wxColour &col )
 {
     if ( font.IsOk() )
@@ -3006,6 +3111,32 @@ wxGraphicsFont wxMacCoreGraphicsRenderer::CreateFont( const wxFont &font , const
     }
     else
         return wxNullGraphicsFont;
+}
+
+wxGraphicsFont
+wxMacCoreGraphicsRenderer::CreateFont(double sizeInPixels,
+                                      const wxString& facename,
+                                      int flags,
+                                      const wxColour& col)
+{
+    // This implementation is not ideal as we don't support fractional font
+    // sizes right now, but it's the simplest one.
+    //
+    // Notice that under Mac we always use 72 DPI so the font size in pixels is
+    // the same as the font size in points and we can pass it directly to wxFont
+    // ctor.
+    wxFont font(wxRound(sizeInPixels),
+                wxFONTFAMILY_DEFAULT,
+                flags & wxFONTFLAG_ITALIC ? wxFONTSTYLE_ITALIC
+                                          : wxFONTSTYLE_NORMAL,
+                flags & wxFONTFLAG_BOLD ? wxFONTWEIGHT_BOLD
+                                        : wxFONTWEIGHT_NORMAL,
+                (flags & wxFONTFLAG_UNDERLINED) != 0,
+                facename);
+
+    wxGraphicsFont f;
+    f.SetRefData(new wxMacCoreGraphicsFontData(this, font, col));
+    return f;
 }
 
 //

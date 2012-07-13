@@ -3,7 +3,7 @@
 // Purpose:     wxNotebook class
 // Author:      Robert Roebling
 // Modified by:
-// RCS-ID:      $Id: notebook.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: notebook.h 68810 2011-08-21 14:08:49Z VZ $
 // Copyright:   (c) Julian Smart and Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ public:
                      wxNotebookPage *win,
                      const wxString& strText,
                      bool bSelect = false,
-                     int imageId = -1 );
+                     int imageId = NO_IMAGE );
 
     // handler for tab navigation
     // --------------------------

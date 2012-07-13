@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     6/24/97
-// RCS-ID:      $Id: _defs.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _defs.i 69040 2011-09-10 01:00:23Z RD $
 // Copyright:   (c) 1998 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1397,7 +1397,7 @@ enum wxKeyCode {
     WXK_WINDOWS_LEFT,
     WXK_WINDOWS_RIGHT,
     WXK_WINDOWS_MENU,
-
+    WXK_RAW_CONTROL,
     WXK_COMMAND,
 
     // Hardware-specific buttons
@@ -1584,6 +1584,13 @@ enum wxItemKind
 };
 
 
+enum wxCheckBoxState
+{
+    wxCHK_UNCHECKED,
+    wxCHK_CHECKED,
+    wxCHK_UNDETERMINED /* 3-state checkbox only */
+};
+
 enum wxHitTest
 {
     wxHT_NOWHERE,
@@ -1620,6 +1627,7 @@ enum wxKeyModifier
     wxMOD_SHIFT,
     wxMOD_META,
     wxMOD_WIN,
+    wxMOD_RAW_CONTROL,
     wxMOD_CMD,
     wxMOD_ALL       
 };

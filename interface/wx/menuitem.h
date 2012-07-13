@@ -2,7 +2,7 @@
 // Name:        menuitem.h
 // Purpose:     interface of wxMenu, wxMenuItem
 // Author:      wxWidgets team
-// RCS-ID:      $Id: menuitem.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: menuitem.h 69899 2011-12-02 01:01:12Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -157,7 +157,7 @@ public:
         
         @onlyfor{wxmsw}
     */
-    wxColour GetBackgroundColour() const;
+    wxColour& GetBackgroundColour() const;
 
     /**
         Returns the checked or unchecked bitmap.
@@ -171,7 +171,7 @@ public:
         
         @onlyfor{wxmsw}
     */
-    wxFont GetFont() const;
+    wxFont& GetFont() const;
 
     /**
         Returns the help string associated with the menu item.
@@ -257,7 +257,7 @@ public:
         
         @onlyfor{wxmsw}
     */
-    wxColour GetTextColour() const;
+    wxColour& GetTextColour() const;
     
     //@}
     
@@ -307,7 +307,7 @@ public:
         
         @onlyfor{wxmsw}
     */
-    void SetBackgroundColour(const wxColour& colour) const;
+    void SetBackgroundColour(const wxColour& colour);
 
     /**
         Sets the bitmap for the menu item.
@@ -369,6 +369,7 @@ public:
         (from F1 to F12) or one of the special characters listed in the table
         below (again, case doesn't matter):
         - @c DEL or @c DELETE: Delete key
+        - @c BACK : Backspace key
         - @c INS or @c INSERT: Insert key
         - @c ENTER or @c RETURN: Enter key
         - @c PGUP: PageUp key
@@ -401,7 +402,7 @@ public:
         
         @onlyfor{wxmsw}
     */
-    void SetMarginWidth(int width) const;
+    void SetMarginWidth(int width);
 
     /**
         Sets the parent menu which will contain this menu item.

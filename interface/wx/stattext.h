@@ -2,9 +2,14 @@
 // Name:        stattext.h
 // Purpose:     interface of wxStaticText
 // Author:      wxWidgets team
-// RCS-ID:      $Id: stattext.h 67055 2011-02-27 12:47:26Z VZ $
+// RCS-ID:      $Id: stattext.h 69051 2011-09-11 00:35:32Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+#define wxST_NO_AUTORESIZE         0x0001
+#define wxST_ELLIPSIZE_START       0x0004
+#define wxST_ELLIPSIZE_MIDDLE      0x0008
+#define wxST_ELLIPSIZE_END         0x0010
 
 /**
     @class wxStaticText

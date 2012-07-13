@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     24.09.01
-// RCS-ID:      $Id: toplevel.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: toplevel.cpp 69469 2011-10-19 16:19:58Z VS $
 // Copyright:   (c) 2001 SciTech Software, Inc. (www.scitechsoft.com)
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,6 +33,7 @@
     #include "wx/log.h"
     #include "wx/intl.h"
     #include "wx/frame.h"
+    #include "wx/menu.h"
     #include "wx/containr.h"        // wxSetFocusToChild()
     #include "wx/module.h"
 #endif //WX_PRECOMP
@@ -141,6 +142,8 @@ void wxTopLevelWindowMSW::Init()
 
     m_activateInfo = (void*) info;
 #endif
+
+    m_menuSystem = NULL;
 }
 
 WXDWORD wxTopLevelWindowMSW::MSWGetStyle(long style, WXDWORD *exflags) const
@@ -326,9 +329,9 @@ WXLRESULT wxTopLevelWindowMSW::MSWWindowProc(WXUINT message, WXWPARAM wParam, WX
     WXLRESULT rc = 0;
     bool processed = false;
 
-#if defined(__SMARTPHONE__) || defined(__POCKETPC__)
     switch ( message )
     {
+#if defined(__SMARTPHONE__) || defined(__POCKETPC__)
         case WM_ACTIVATE:
         {
             SHACTIVATEINFO* info = (SHACTIVATEINFO*) m_activateInfo;
@@ -355,8 +358,37 @@ WXLRESULT wxTopLevelWindowMSW::MSWWindowProc(WXUINT message, WXWPARAM wParam, WX
             }
             break;
         }
+#endif // __SMARTPHONE__ || __POCKETPC__
+
+        case WM_SYSCOMMAND:
+        // Keep the #ifdef block inside the case to fix a potential MSVC
+        // warning regarding switch statement containing no case or
+        // default labels (or a default only).
+#ifndef __WXUNIVERSAL__
+            // We may need to generate events for the items added to the system
+            // menu if it had been created (and presumably modified).
+            if ( m_menuSystem )
+            {
+                // From MSDN:
+                //
+                //      ... the four low-order bits of the wParam parameter are
+                //      used internally by the system. To obtain the correct
+                //      result when testing the value of wParam, an application
+                //      must combine the value 0xFFF0 with the wParam value by
+                //      using the bitwise AND operator.
+                unsigned id = wParam & 0xfff0;
+
+                // SC_SIZE is the first of the system-defined commands and we
+                // leave those to DefWindowProc().
+                if ( id < SC_SIZE )
+                {
+                    if ( m_menuSystem->MSWCommand(0 /* unused anyhow */, id) )
+                        processed = true;
+                }
+            }
+#endif // #ifndef __WXUNIVERSAL__
+            break;
     }
-#endif
 
     if ( !processed )
         rc = wxTopLevelWindowBase::MSWWindowProc(message, wParam, lParam);
@@ -413,32 +445,33 @@ bool wxTopLevelWindowMSW::CreateDialog(const void *dlgTemplate,
     }
 #endif // !__WXWINCE__
 
-    // move the dialog to its initial position without forcing repainting
-    int x, y, w, h;
-    (void)MSWGetCreateWindowCoords(pos, size, x, y, w, h);
-
-    if ( x == (int)CW_USEDEFAULT )
-    {
-        // centre it on the screen - what else can we do?
-        wxSize sizeDpy = wxGetDisplaySize();
-
-        x = (sizeDpy.x - w) / 2;
-        y = (sizeDpy.y - h) / 2;
-    }
-
-#if !defined(__WXWINCE__) || defined(__WINCE_STANDARDSDK__)
-    if ( !::MoveWindow(GetHwnd(), x, y, w, h, FALSE) )
-    {
-        wxLogLastError(wxT("MoveWindow"));
-    }
-#endif
-
     if ( !title.empty() )
     {
         ::SetWindowText(GetHwnd(), title.wx_str());
     }
 
     SubclassWin(m_hWnd);
+
+#if !defined(__WXWINCE__) || defined(__WINCE_STANDARDSDK__)
+    // move the dialog to its initial position without forcing repainting
+    int x, y, w, h;
+    (void)MSWGetCreateWindowCoords(pos, size, x, y, w, h);
+
+    if ( x == (int)CW_USEDEFAULT )
+    {
+        // Let the system position the window, just set its size.
+        ::SetWindowPos(GetHwnd(), 0,
+                       0, 0, w, h,
+                       SWP_NOMOVE | SWP_NOZORDER);
+    }
+    else // Move the window to the desired location and set its size too.
+    {
+        if ( !::MoveWindow(GetHwnd(), x, y, w, h, FALSE) )
+        {
+            wxLogLastError(wxT("MoveWindow"));
+        }
+    }
+#endif // !__WXWINCE__
 
 #ifdef __SMARTPHONE__
     // Work around title non-display glitch
@@ -578,6 +611,8 @@ bool wxTopLevelWindowMSW::Create(wxWindow *parent,
 
 wxTopLevelWindowMSW::~wxTopLevelWindowMSW()
 {
+    delete m_menuSystem;
+
     SendDestroyEvent();
 
 #if defined(__SMARTPHONE__) || defined(__POCKETPC__)
@@ -608,7 +643,13 @@ void wxTopLevelWindowMSW::DoShowWindow(int nShowCmd)
 {
     ::ShowWindow(GetHwnd(), nShowCmd);
 
-    m_iconized = nShowCmd == SW_MINIMIZE;
+    // Hiding the window doesn't change its iconized state.
+    if ( nShowCmd != SW_HIDE )
+    {
+        // Otherwise restoring, maximizing or showing the window normally also
+        // makes it not iconized and only minimizing it does make it iconized.
+        m_iconized = nShowCmd == SW_MINIMIZE;
+    }
 }
 
 void wxTopLevelWindowMSW::ShowWithoutActivating()
@@ -737,6 +778,13 @@ bool wxTopLevelWindowMSW::IsMaximized() const
 
 void wxTopLevelWindowMSW::Iconize(bool iconize)
 {
+    if ( iconize == m_iconized )
+    {
+        // Do nothing, in particular don't restore non-iconized windows when
+        // Iconize(false) is called as this would wrongly un-maximize them.
+        return;
+    }
+
     if ( IsShown() )
     {
         // change the window state immediately
@@ -1122,54 +1170,6 @@ bool wxTopLevelWindowMSW::EnableCloseButton(bool enable)
     return true;
 }
 
-#ifndef __WXWINCE__
-
-bool wxTopLevelWindowMSW::SetShape(const wxRegion& region)
-{
-    wxCHECK_MSG( HasFlag(wxFRAME_SHAPED), false,
-                 wxT("Shaped windows must be created with the wxFRAME_SHAPED style."));
-
-    // The empty region signifies that the shape should be removed from the
-    // window.
-    if ( region.IsEmpty() )
-    {
-        if (::SetWindowRgn(GetHwnd(), NULL, TRUE) == 0)
-        {
-            wxLogLastError(wxT("SetWindowRgn"));
-            return false;
-        }
-        return true;
-    }
-
-    // Windows takes ownership of the region, so
-    // we'll have to make a copy of the region to give to it.
-    DWORD noBytes = ::GetRegionData(GetHrgnOf(region), 0, NULL);
-    RGNDATA *rgnData = (RGNDATA*) new char[noBytes];
-    ::GetRegionData(GetHrgnOf(region), noBytes, rgnData);
-    HRGN hrgn = ::ExtCreateRegion(NULL, noBytes, rgnData);
-    delete[] (char*) rgnData;
-
-    // SetWindowRgn expects the region to be in coordinants
-    // relative to the window, not the client area.  Figure
-    // out the offset, if any.
-    RECT rect;
-    DWORD dwStyle =   ::GetWindowLong(GetHwnd(), GWL_STYLE);
-    DWORD dwExStyle = ::GetWindowLong(GetHwnd(), GWL_EXSTYLE);
-    ::GetClientRect(GetHwnd(), &rect);
-    ::AdjustWindowRectEx(&rect, dwStyle, ::GetMenu(GetHwnd()) != NULL, dwExStyle);
-    ::OffsetRgn(hrgn, -rect.left, -rect.top);
-
-    // Now call the shape API with the new region.
-    if (::SetWindowRgn(GetHwnd(), hrgn, TRUE) == 0)
-    {
-        wxLogLastError(wxT("SetWindowRgn"));
-        return false;
-    }
-    return true;
-}
-
-#endif // !__WXWINCE__
-
 void wxTopLevelWindowMSW::RequestUserAttention(int flags)
 {
     // check if we can use FlashWindowEx(): unfortunately a simple test for
@@ -1219,6 +1219,41 @@ void wxTopLevelWindowMSW::RequestUserAttention(int flags)
     }
 }
 
+wxMenu *wxTopLevelWindowMSW::MSWGetSystemMenu() const
+{
+#ifndef __WXUNIVERSAL__
+    if ( !m_menuSystem )
+    {
+        HMENU hmenu = ::GetSystemMenu(GetHwnd(), FALSE);
+        if ( !hmenu )
+        {
+            wxLogLastError(wxT("GetSystemMenu()"));
+            return NULL;
+        }
+
+        wxTopLevelWindowMSW * const
+            self = const_cast<wxTopLevelWindowMSW *>(this);
+
+        self->m_menuSystem = wxMenu::MSWNewFromHMENU(hmenu);
+
+        // We need to somehow associate this menu with this window to ensure
+        // that we get events from it. A natural idea would be to pretend that
+        // it's attached to our menu bar but this wouldn't work if we don't
+        // have any menu bar which is a common case for applications using
+        // custom items in the system menu (they mostly do it exactly because
+        // they don't have any other menus).
+        //
+        // So reuse the invoking window pointer instead, this is not exactly
+        // correct but doesn't seem to have any serious drawbacks.
+        m_menuSystem->SetInvokingWindow(self);
+    }
+#endif // #ifndef __WXUNIVERSAL__
+
+    return m_menuSystem;
+}
+
+// ----------------------------------------------------------------------------
+// Transparency support
 // ---------------------------------------------------------------------------
 
 bool wxTopLevelWindowMSW::SetTransparent(wxByte alpha)

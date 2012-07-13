@@ -2,7 +2,7 @@
 // Name:        wx/osx/dataview.h
 // Purpose:     wxDataViewCtrl native implementation header for OSX
 // Author:
-// Id:          $Id: dataview.h 67817 2011-05-31 19:36:47Z RD $
+// Id:          $Id: dataview.h 69174 2011-09-21 15:07:46Z VZ $
 // Copyright:   (c) 2009
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,6 @@ public:
     virtual void SetSortOrder  (bool ascending);
     virtual void SetTitle      (wxString const& title);
     virtual void SetWidth      (int  width);
-    virtual void SetAsSortKey  (bool sort = true);
 
    // implementation only
     wxDataViewColumnNativeData* GetNativeData() const
@@ -176,7 +175,7 @@ public:
 
   virtual unsigned int GetCount() const;
   virtual wxRect GetItemRect(const wxDataViewItem& item, const wxDataViewColumn* columnPtr) const;
-  virtual wxDataViewItem GetSelection() const;
+  virtual int GetSelectedItemsCount() const;
   virtual int GetSelections(wxDataViewItemArray& sel) const;
 
   virtual void HitTest(const wxPoint& point, wxDataViewItem& item, wxDataViewColumn*& columnPtr) const;

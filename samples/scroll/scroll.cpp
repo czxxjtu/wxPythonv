@@ -2,7 +2,7 @@
 // Name:        scroll.cpp
 // Purpose:     wxScrolled sample
 // Author:      Robert Roebling
-// RCS-ID:      $Id: scroll.cpp 65059 2010-07-23 23:32:56Z VZ $
+// RCS-ID:      $Id: scroll.cpp 69516 2011-10-23 18:03:20Z PC $
 // Copyright:   (C) 1998 Robert Roebling, 2002 Ron Lee, 2003 Matt Gregory
 //              (C) 2008 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -1314,7 +1314,7 @@ void MyAutoScrollingWindow::OnMouseMove(wxMouseEvent& event)
         // set the new cursor position
         m_cursor = DeviceCoordsToGraphicalChars(event.GetPosition());
         // draw/erase selection
-        // MyRefresh();
+        MyRefresh();
         // capture mouse to activate auto-scrolling
         if (!HasCapture()) {
             CaptureMouse();

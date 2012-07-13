@@ -7,7 +7,7 @@
 # Author:      Robin Dunn
 #
 # Created:     8-July-2002
-# RCS-ID:      $Id: stattext.py 50627 2007-12-10 23:17:10Z RD $
+# RCS-ID:      $Id: stattext.py 70139 2011-12-28 02:17:26Z RD $
 # Copyright:   (c) 2002 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -30,10 +30,10 @@ if wx.Platform == "__WXMAC__":
 class GenStaticText(wx.PyControl):
     labelDelta = 1
 
-    def __init__(self, parent, ID, label,
-                 pos = wx.DefaultPosition, size = wx.DefaultSize,
-                 style = 0,
-                 name = "genstattext"):
+    def __init__(self, parent, ID=-1, label="",
+                 pos=wx.DefaultPosition, size=wx.DefaultSize,
+                 style=0,
+                 name="genstattext"):
         wx.PyControl.__init__(self, parent, ID, pos, size, style|wx.NO_BORDER,
                              wx.DefaultValidator, name)
 

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: radiobox.h 65957 2010-10-30 23:50:39Z VZ $
+// RCS-ID:      $Id: radiobox.h 69573 2011-10-29 04:50:04Z RD $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -163,6 +163,8 @@ protected:
     virtual WXHRGN MSWGetRegionWithoutChildren();
 #endif // __WXWINCE__
 
+    // resolve ambiguity in base classes
+    virtual wxBorder GetDefaultBorder() const { return wxRadioBoxBase::GetDefaultBorder(); }
 
     // the buttons we contain
     wxSubwindows *m_radioButtons;

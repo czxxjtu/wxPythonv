@@ -2,9 +2,18 @@
 // Name:        progdlg.h
 // Purpose:     interface of wxProgressDialog
 // Author:      wxWidgets team
-// RCS-ID:      $Id: progdlg.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: progdlg.h 69051 2011-09-11 00:35:32Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+#define wxPD_CAN_ABORT          0x0001
+#define wxPD_APP_MODAL          0x0002
+#define wxPD_AUTO_HIDE          0x0004
+#define wxPD_ELAPSED_TIME       0x0008
+#define wxPD_ESTIMATED_TIME     0x0010
+#define wxPD_SMOOTH             0x0020
+#define wxPD_REMAINING_TIME     0x0040
+#define wxPD_CAN_SKIP           0x0080
 
 /**
     @class wxProgressDialog

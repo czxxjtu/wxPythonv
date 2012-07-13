@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     18-Sept-1999
-// RCS-ID:      $Id: _sizers.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _sizers.i 70133 2011-12-28 02:14:56Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -213,8 +213,8 @@ methods are called.
                          int border, PyObject* userData=NULL ),
             "Constructs a `wx.SizerItem` for tracking a window.", "");
 
-        %RenameCtor(SizerItemWindow, wxSizerItem( wxWindow *window, int proportion, int flag,
-                                                  int border, PyObject* userData=NULL ))
+        %RenameCtor(SizerItemWindow, wxSizerItem( wxWindow *window, int proportion=0, int flag=0,
+                                                  int border=0, PyObject* userData=NULL ))
         {
             wxPyUserData* data = NULL;
             if ( userData ) {
@@ -231,8 +231,8 @@ methods are called.
                          int border, PyObject* userData=NULL),
             "Constructs a `wx.SizerItem` for tracking a spacer.", "");
 
-        %RenameCtor(SizerItemSpacer,  wxSizerItem( int width, int height, int proportion, int flag,
-                                                   int border, PyObject* userData=NULL))
+        %RenameCtor(SizerItemSpacer,  wxSizerItem( int width, int height, int proportion=0, int flag=0,
+                                                   int border=0, PyObject* userData=NULL))
         {
             wxPyUserData* data = NULL;
             if ( userData ) {
@@ -249,8 +249,8 @@ methods are called.
             "Constructs a `wx.SizerItem` for tracking a subsizer", "");
 
         %disownarg( wxSizer *sizer );
-        %RenameCtor(SizerItemSizer,  wxSizerItem( wxSizer *sizer, int proportion, int flag,
-                                                  int border, PyObject* userData=NULL ))
+        %RenameCtor(SizerItemSizer,  wxSizerItem( wxSizer *sizer, int proportion=0, int flag=0,
+                                                  int border=0, PyObject* userData=NULL ))
         {
             wxPyUserData* data = NULL;
             if ( userData ) {
@@ -985,7 +985,7 @@ the item to be found.", "");
         def GetItemIndex(self, item):
             """
             Returns the index of the given *item* within the sizer. Does not
-            search recursivly.  The *item* parameter can be either a window
+            search recursively.  The *item* parameter can be either a window
             or a sizer.  An assertion is raised if the item is not found in
             the sizer.
             """

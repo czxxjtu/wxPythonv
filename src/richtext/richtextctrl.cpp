@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     2005-09-30
-// RCS-ID:      $Id: richtextctrl.cpp 68543 2011-08-04 23:01:24Z RD $
+// RCS-ID:      $Id: richtextctrl.cpp 69585 2011-10-30 13:39:11Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -293,12 +293,12 @@ bool wxRichTextCtrl::Create( wxWindow* parent, wxWindowID id, const wxString& va
     // Accelerators
     wxAcceleratorEntry entries[6];
 
-    entries[0].Set(wxACCEL_CMD,   (int) 'C',       wxID_COPY);
-    entries[1].Set(wxACCEL_CMD,   (int) 'X',       wxID_CUT);
-    entries[2].Set(wxACCEL_CMD,   (int) 'V',       wxID_PASTE);
-    entries[3].Set(wxACCEL_CMD,   (int) 'A',       wxID_SELECTALL);
-    entries[4].Set(wxACCEL_CMD,   (int) 'Z',       wxID_UNDO);
-    entries[5].Set(wxACCEL_CMD,   (int) 'Y',       wxID_REDO);
+    entries[0].Set(wxACCEL_CTRL,   (int) 'C',       wxID_COPY);
+    entries[1].Set(wxACCEL_CTRL,   (int) 'X',       wxID_CUT);
+    entries[2].Set(wxACCEL_CTRL,   (int) 'V',       wxID_PASTE);
+    entries[3].Set(wxACCEL_CTRL,   (int) 'A',       wxID_SELECTALL);
+    entries[4].Set(wxACCEL_CTRL,   (int) 'Z',       wxID_UNDO);
+    entries[5].Set(wxACCEL_CTRL,   (int) 'Y',       wxID_REDO);
 
     wxAcceleratorTable accel(6, entries);
     SetAcceleratorTable(accel);
@@ -3377,12 +3377,25 @@ void wxRichTextCtrl::PositionCaret(wxRichTextParagraphLayoutBox* container)
             if (GetCaret()->GetSize() != newSz)
                 GetCaret()->SetSize(newSz);
 
-            int halfSize = newSz.y/2;
-            // If the caret is beyond the margin, hide it by moving it out of the way
-            if (((pt.y + halfSize) < GetBuffer().GetTopMargin()) || ((pt.y + halfSize) > (GetClientSize().y - GetBuffer().GetBottomMargin())))
+            // Adjust size so the caret size and position doesn't appear in the margins
+            if (((pt.y + newSz.y) <= GetBuffer().GetTopMargin()) || (pt.y >= (GetClientSize().y - GetBuffer().GetBottomMargin())))
             {
                 pt.x = -200;
                 pt.y = -200;
+            }
+            else if (pt.y < GetBuffer().GetTopMargin() && (pt.y + newSz.y) > GetBuffer().GetTopMargin())
+            {
+                newSz.y -= (GetBuffer().GetTopMargin() - pt.y);
+                if (newSz.y > 0)
+                {
+                    pt.y = GetBuffer().GetTopMargin();
+                    GetCaret()->SetSize(newSz);
+                }
+            }
+            else if (pt.y < (GetClientSize().y - GetBuffer().GetBottomMargin()) && (pt.y + newSz.y) > (GetClientSize().y - GetBuffer().GetBottomMargin()))
+            {
+                newSz.y = GetClientSize().y - GetBuffer().GetBottomMargin() - pt.y;
+                GetCaret()->SetSize(newSz);
             }
 
             GetCaret()->Move(pt);
@@ -3497,7 +3510,7 @@ bool wxRichTextCtrl::LayoutContent(bool onlyVisibleRect)
     return true;
 }
 
-/// Is all of the selection bold?
+/// Is all of the selection, or the current caret position, bold?
 bool wxRichTextCtrl::IsSelectionBold()
 {
     if (HasSelection())
@@ -3527,7 +3540,7 @@ bool wxRichTextCtrl::IsSelectionBold()
     return false;
 }
 
-/// Is all of the selection italics?
+/// Is all of the selection, or the current caret position, italics?
 bool wxRichTextCtrl::IsSelectionItalics()
 {
     if (HasSelection())
@@ -3557,7 +3570,7 @@ bool wxRichTextCtrl::IsSelectionItalics()
     return false;
 }
 
-/// Is all of the selection underlined?
+/// Is all of the selection, or the current caret position, underlined?
 bool wxRichTextCtrl::IsSelectionUnderlined()
 {
     if (HasSelection())
@@ -3582,6 +3595,33 @@ bool wxRichTextCtrl::IsSelectionUnderlined()
             if (IsDefaultStyleShowing())
                 wxRichTextApplyStyle(attr, GetDefaultStyleEx());
             return attr.GetFontUnderlined();
+        }
+    }
+    return false;
+}
+
+/// Does all of the selection, or the current caret position, have this wxTextAttrEffects flag(s)?
+bool wxRichTextCtrl::DoesSelectionHaveTextEffectFlag(int flag)
+{
+    wxRichTextAttr attr;
+    attr.SetFlags(wxTEXT_ATTR_EFFECTS);
+    attr.SetTextEffectFlags(flag);
+    attr.SetTextEffects(flag);
+
+    if (HasSelection())
+    {
+        return HasCharacterAttributes(GetSelectionRange(), attr);
+    }
+    else
+    {
+        // If no selection, then we need to combine current style with default style
+        // to see what the effect would be if we started typing.
+        long pos = GetAdjustedCaretPosition(GetCaretPosition());
+        if (GetStyle(pos, attr))
+        {
+            if (IsDefaultStyleShowing())
+                wxRichTextApplyStyle(attr, GetDefaultStyleEx());
+            return (attr.GetTextEffectFlags() & flag) != 0;
         }
     }
     return false;
@@ -3629,6 +3669,28 @@ bool wxRichTextCtrl::ApplyUnderlineToSelection()
     wxRichTextAttr attr;
     attr.SetFlags(wxTEXT_ATTR_FONT_UNDERLINE);
     attr.SetFontUnderlined(!IsSelectionUnderlined());
+
+    if (HasSelection())
+        return SetStyleEx(GetSelectionRange(), attr, wxRICHTEXT_SETSTYLE_WITH_UNDO|wxRICHTEXT_SETSTYLE_OPTIMIZE|wxRICHTEXT_SETSTYLE_CHARACTERS_ONLY);
+    else
+    {
+        wxRichTextAttr current = GetDefaultStyleEx();
+        current.Apply(attr);
+        SetAndShowDefaultStyle(current);
+    }
+    return true;
+}
+
+/// Apply the wxTextAttrEffects flag(s) to the selection, or the current caret position if there's no selection
+bool wxRichTextCtrl::ApplyTextEffectToSelection(int flags)
+{
+    wxRichTextAttr attr;
+    attr.SetFlags(wxTEXT_ATTR_EFFECTS);
+    attr.SetTextEffectFlags(flags);
+    if (!DoesSelectionHaveTextEffectFlag(flags))
+        attr.SetTextEffects(flags);
+     else
+        attr.SetTextEffects(attr.GetTextEffectFlags() & ~flags);
 
     if (HasSelection())
         return SetStyleEx(GetSelectionRange(), attr, wxRICHTEXT_SETSTYLE_WITH_UNDO|wxRICHTEXT_SETSTYLE_OPTIMIZE|wxRICHTEXT_SETSTYLE_CHARACTERS_ONLY);

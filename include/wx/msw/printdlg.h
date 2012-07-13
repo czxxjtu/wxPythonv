@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: printdlg.h 68417 2011-07-25 19:06:23Z RD $
+// RCS-ID:      $Id: printdlg.h 68494 2011-08-02 19:49:02Z RD $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

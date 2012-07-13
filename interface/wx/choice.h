@@ -2,7 +2,7 @@
 // Name:        choice.h
 // Purpose:     interface of wxChoice
 // Author:      wxWidgets team
-// RCS-ID:      $Id: choice.h 68974 2011-09-03 01:39:39Z RD $
+// RCS-ID:      $Id: choice.h 68973 2011-09-03 01:39:02Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

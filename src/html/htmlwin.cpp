@@ -2,7 +2,7 @@
 // Name:        src/html/htmlwin.cpp
 // Purpose:     wxHtmlWindow class for parsing & displaying HTML (implementation)
 // Author:      Vaclav Slavik
-// RCS-ID:      $Id: htmlwin.cpp 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: htmlwin.cpp 69870 2011-11-30 09:21:33Z VZ $
 // Copyright:   (c) 1999 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1214,7 +1214,7 @@ void wxHtmlWindow::OnSize(wxSizeEvent& event)
     {
         m_selection->Set(m_selection->GetFromCell(),
                          m_selection->GetToCell());
-        m_selection->ClearPrivPos();
+        m_selection->ClearFromToCharacterPos();
     }
 
     Refresh();
@@ -1415,7 +1415,7 @@ void wxHtmlWindow::OnInternalIdle()
                         m_selection->Set(wxPoint(x,y), selcell,
                                          m_tmpSelFromPos, m_tmpSelFromCell);
                     }
-                    m_selection->ClearPrivPos();
+                    m_selection->ClearFromToCharacterPos();
                     Refresh();
                 }
             }

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: gdicmn.h 67343 2011-03-30 14:16:04Z VZ $
+// RCS-ID:      $Id: gdicmn.h 68859 2011-08-23 04:55:46Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -59,8 +59,10 @@ enum wxBitmapType
     wxBITMAP_TYPE_XBM_DATA,
     wxBITMAP_TYPE_XPM,
     wxBITMAP_TYPE_XPM_DATA,
-    wxBITMAP_TYPE_TIF,
-    wxBITMAP_TYPE_TIF_RESOURCE,
+    wxBITMAP_TYPE_TIFF,
+    wxBITMAP_TYPE_TIF = wxBITMAP_TYPE_TIFF,
+    wxBITMAP_TYPE_TIFF_RESOURCE,
+    wxBITMAP_TYPE_TIF_RESOURCE = wxBITMAP_TYPE_TIFF_RESOURCE,
     wxBITMAP_TYPE_GIF,
     wxBITMAP_TYPE_GIF_RESOURCE,
     wxBITMAP_TYPE_PNG,
@@ -202,7 +204,7 @@ enum wxStockCursor
  */
 
 #if defined(__WXMSW__) || defined(__WXPM__)
-    #define wxBITMAP(name) wxBitmap(wxT(#name), wxBITMAP_TYPE_RESOURCE)
+    #define wxBITMAP(name) wxBitmap(wxT(#name), wxBITMAP_TYPE_BMP_RESOURCE)
 #elif defined(__WXGTK__)   || \
       defined(__WXMOTIF__) || \
       defined(__WXX11__)   || \

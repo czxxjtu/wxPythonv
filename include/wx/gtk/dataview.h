@@ -2,7 +2,7 @@
 // Name:        wx/gtk/dataview.h
 // Purpose:     wxDataViewCtrl GTK+2 implementation header
 // Author:      Robert Roebling
-// Id:          $Id: dataview.h 67920 2011-06-11 23:56:44Z VZ $
+// Id:          $Id: dataview.h 69174 2011-09-21 15:07:46Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,6 @@ public:
 
     virtual void SetSortable( bool sortable );
     virtual void SetSortOrder( bool ascending );
-    virtual void SetAsSortKey(bool sort = true);
 
     virtual void SetResizeable( bool resizable );
     virtual void SetHidden( bool hidden );
@@ -142,7 +141,7 @@ public:
 
     virtual wxDataViewColumn *GetSortingColumn() const;
 
-    virtual wxDataViewItem GetSelection() const;
+    virtual int GetSelectedItemsCount() const;
     virtual int GetSelections( wxDataViewItemArray & sel ) const;
     virtual void SetSelections( const wxDataViewItemArray & sel );
     virtual void Select( const wxDataViewItem & item );

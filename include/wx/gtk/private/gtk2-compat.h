@@ -55,13 +55,16 @@ static inline gpointer wx_g_object_ref_sink(gpointer object)
 #define g_object_ref_sink wx_g_object_ref_sink
 
 // ----------------------------------------------------------------------------
-// the following were introduced in GTK+ 2.12
+// the following were introduced in GTK+ 2.12 and GtkAboutDialog itself is not
+// in 2.4 so skip this if we don't have it.
+#if GTK_CHECK_VERSION(2,6,0)
 
 static inline void wx_gtk_about_dialog_set_program_name(GtkAboutDialog* about, const gchar* name)
 {
     gtk_about_dialog_set_name(about, name);
 }
 #define gtk_about_dialog_set_program_name wx_gtk_about_dialog_set_program_name
+#endif // 2.6.0
 
 // ----------------------------------------------------------------------------
 // the following were introduced in GTK+ 2.14
@@ -338,6 +341,25 @@ static inline GdkWindow* wx_gtk_entry_get_text_window(GtkEntry* entry)
     return entry->text_area;
 }
 #define gtk_entry_get_text_window wx_gtk_entry_get_text_window
+
+// ----------------------------------------------------------------------------
+// the following were introduced in GTK+ 2.24
+
+static inline gint wx_gdk_window_get_height(GdkWindow* window)
+{
+    int h;
+    gdk_drawable_get_size(window, NULL, &h);
+    return h;
+}
+#define gdk_window_get_height wx_gdk_window_get_height
+
+static inline gint wx_gdk_window_get_width(GdkWindow* window)
+{
+    int w;
+    gdk_drawable_get_size(window, &w, NULL);
+    return w;
+}
+#define gdk_window_get_width wx_gdk_window_get_width
 
 #endif // !GTK_CHECK_VERSION(3,0,0) && !defined(GTK_DISABLE_DEPRECATED)
 

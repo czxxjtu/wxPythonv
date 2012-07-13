@@ -2,9 +2,18 @@
 // Name:        timer.h
 // Purpose:     interface of wxTimer
 // Author:      wxWidgets team
-// RCS-ID:      $Id: timer.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: timer.h 69659 2011-11-04 03:38:09Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+// generate notifications periodically until the timer is stopped (default)
+#define wxTIMER_CONTINUOUS false
+
+// only send the notification once and then stop the timer
+#define wxTIMER_ONE_SHOT true
+
+wxEventType wxEVT_TIMER;
+
 
 /**
     @class wxTimer
@@ -131,6 +140,19 @@ public:
 };
 
 
+/**
+   @class wxTimerRunner
+
+   Starts the timer in its ctor, stops in the dtor.
+*/ 
+class wxTimerRunner
+{
+public:
+    wxTimerRunner(wxTimer& timer);
+    wxTimerRunner(wxTimer& timer, int milli, bool oneShot = false);
+    void Start(int milli, bool oneShot = false);
+    ~wxTimerRunner();
+};
 
 /**
     @class wxTimerEvent
@@ -176,6 +198,9 @@ public:
 class wxTimerEvent : public wxEvent
 {
 public:
+    wxTimerEvent();
+    wxTimerEvent(wxTimer& timer);
+
     /**
         Returns the interval of the timer which generated this event.
     */

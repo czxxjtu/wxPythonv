@@ -2,7 +2,7 @@
 // Name:        src/common/imagpng.cpp
 // Purpose:     wxImage PNG handler
 // Author:      Robert Roebling
-// RCS-ID:      $Id: imagpng.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: imagpng.cpp 68309 2011-07-19 22:36:00Z VZ $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -795,15 +795,13 @@ bool wxPNGHandler::SaveFile( wxImage *image, wxOutputStream& stream, bool verbos
 #endif
     ;
 
-    png_color_8 mask;
+    png_color_8 mask = { 0, 0, 0, 0, 0 };
 
     if (bHasMask)
     {
         mask.red   = image->GetMaskRed();
         mask.green = image->GetMaskGreen();
         mask.blue  = image->GetMaskBlue();
-        mask.alpha = 0;
-        mask.gray  = 0;
     }
 
     PaletteMap palette;

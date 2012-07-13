@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Sandro Sigala
 // Created:     04/01/98
-// RCS-ID:      $Id: penguin.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: penguin.cpp 68909 2011-08-27 12:13:13Z VZ $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -153,9 +153,6 @@ TestGLCanvas::TestGLCanvas(wxWindow *parent,
     // Explicitly create a new rendering context instance for this canvas.
     m_glRC = new wxGLContext(this);
 
-    // Make the new context current (activate it for use) with this canvas.
-    SetCurrent(*m_glRC);
-
     m_gldata.initialized = false;
 
     // initialize view matrix
@@ -303,6 +300,9 @@ void TestGLCanvas::InitGL()
 
 void TestGLCanvas::ResetProjectionMode()
 {
+    if ( !IsShownOnScreen() )
+        return;
+
     // This is normally only necessary if there is more than one wxGLCanvas
     // or more than one wxGLContext in the application.
     SetCurrent(*m_glRC);

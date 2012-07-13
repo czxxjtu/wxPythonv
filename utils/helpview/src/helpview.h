@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik, Julian Smart
 // Modified by:
 // Created:     2002-07-09
-// RCS-ID:      $Id: helpview.h 61309 2009-07-03 12:46:19Z VZ $
+// RCS-ID:      $Id: helpview.h 68617 2011-08-09 22:17:12Z DS $
 // Copyright:   (c) 2002 Vaclav Slavik, Julian Smart and others
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ public:
 
 #ifdef __WXMAC__
     /// Respond to Apple Event for opening a document
-    virtual void MacOpenFile(const wxString& filename);
+    virtual void MacOpenFiles(const wxArrayString& fileNames);
 #endif
 
     /// Prompt the user for a book to open

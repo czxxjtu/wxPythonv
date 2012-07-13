@@ -4,7 +4,7 @@
 // Author:      William Osborne - minimal working wxPalmOS port
 // Modified by:
 // Created:     10/13/04
-// RCS-ID:      $Id: notebook.h 54895 2008-08-01 13:46:46Z VZ $
+// RCS-ID:      $Id: notebook.h 68810 2011-08-21 14:08:49Z VZ $
 // Copyright:   (c) William Osborne
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ public:
                     wxNotebookPage *pPage,
                     const wxString& strText,
                     bool bSelect = false,
-                    int imageId = -1);
+                    int imageId = NO_IMAGE);
 
     void AddPageInfo( wxNotebookPageInfo* info ) { AddPage( info->GetPage() , info->GetText() , info->GetSelected() , info->GetImageId() ) ; }
     const wxNotebookPageInfoList& GetPageInfos() const ;

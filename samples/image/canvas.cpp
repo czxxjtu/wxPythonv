@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by: Francesco Montorsi
 // Created:     1998
-// RCS-ID:      $Id: canvas.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: canvas.cpp 68859 2011-08-23 04:55:46Z DS $
 // Copyright:   (c) 1998-2005 Robert Roebling
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -243,7 +243,7 @@ MyCanvas::MyCanvas( wxWindow *parent, wxWindowID id,
 #if wxUSE_LIBTIFF
     image.Destroy();
 
-    if ( !image.LoadFile( dir + wxT("horse.tif"), wxBITMAP_TYPE_TIF ) )
+    if ( !image.LoadFile( dir + wxT("horse.tif"), wxBITMAP_TYPE_TIFF ) )
     {
         wxLogError(wxT("Can't load TIFF image"));
     }

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: msgdlg.mm 67897 2011-06-09 00:29:13Z SC $
+// RCS-ID:      $Id: msgdlg.mm 68537 2011-08-04 22:53:42Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -137,6 +137,8 @@ int wxMessageDialog::ShowModal()
                 m_buttonId[1] = wxID_CANCEL;
             }
         }
+
+        wxASSERT_MSG( !(style & wxHELP), "wxHELP not supported in non-GUI thread" );
 
         CFOptionFlags exitButton;
         OSStatus err = CFUserNotificationDisplayAlert(
@@ -285,5 +287,15 @@ void* wxMessageDialog::ConstructNSAlert()
         }
 
     }
+
+    if ( style & wxHELP )
+    {
+        wxCFStringRef cfHelpString( GetHelpLabel(), GetFont().GetEncoding() );
+        [alert addButtonWithTitle:cfHelpString.AsNSString()];
+        m_buttonId[ m_buttonCount++ ] = wxID_HELP;
+    }
+
+    wxASSERT_MSG( m_buttonCount <= WXSIZEOF(m_buttonId), "Too many buttons" );
+
     return alert;
 }

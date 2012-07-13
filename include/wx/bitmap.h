@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     22.04.01
-// RCS-ID:      $Id: bitmap.h 66086 2010-11-10 13:51:51Z VZ $
+// RCS-ID:      $Id: bitmap.h 68859 2011-08-23 04:55:46Z DS $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -256,10 +256,10 @@ protected:
     #define wxBITMAP_DEFAULT_TYPE    wxBITMAP_TYPE_XPM
     #include "wx/x11/bitmap.h"
 #elif defined(__WXMGL__)
-    #define wxBITMAP_DEFAULT_TYPE    wxBITMAP_TYPE_RESOURCE
+    #define wxBITMAP_DEFAULT_TYPE    wxBITMAP_TYPE_BMP_RESOURCE
     #include "wx/mgl/bitmap.h"
 #elif defined(__WXDFB__)
-    #define wxBITMAP_DEFAULT_TYPE    wxBITMAP_TYPE_RESOURCE
+    #define wxBITMAP_DEFAULT_TYPE    wxBITMAP_TYPE_BMP_RESOURCE
     #include "wx/dfb/bitmap.h"
 #elif defined(__WXMAC__)
     #define wxBITMAP_DEFAULT_TYPE    wxBITMAP_TYPE_PICT_RESOURCE

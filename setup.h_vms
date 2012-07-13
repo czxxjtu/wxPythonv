@@ -3,7 +3,7 @@
  * Template for the set.h file for VMS                                       *
  * Created from setup.h_in                                                   *
  * Author : J.Jansen (joukj@hrem.nano.tudelft.nl)                            *
- * Date : 27 April 2011                                                      *
+ * Date : 3 November 2011                                                    *
  *                                                                           *
  *****************************************************************************/
 
@@ -77,8 +77,6 @@
 /* #undef __WXLESSTIF__ */
 
 #ifdef __WXGTK__
-/* Define this if your version of GTK+ is greater than 1.2 */
-#define __WXGTK12__ 1
 
 /* Define this if your version of GTK+ is greater than 1.2.7 */
 #define __WXGTK127__ 1
@@ -358,6 +356,20 @@ typedef pid_t GPid;
 
 #define wxUSE_PROPGRID  1
 
+#define wxUSE_WEBVIEW 0
+
+#ifdef __WXMSW__
+#define wxUSE_WEBVIEW_IE 0
+#else
+#define wxUSE_WEBVIEW_IE 0
+#endif
+
+#if defined(__WXGTK__) || defined(__WXOSX__)
+#define wxUSE_WEBVIEW_WEBKIT 0
+#else
+#define wxUSE_WEBVIEW_WEBKIT 0
+#endif
+
 #ifdef _MSC_VER
 #   if _MSC_VER >= 1310
 
@@ -392,6 +404,7 @@ typedef pid_t GPid;
 #define wxUSE_STC 1
 
 #define wxUSE_ANIMATIONCTRL 1
+#define wxUSE_BANNERWINDOW  1
 #define wxUSE_BUTTON       1
 #define wxUSE_BMPBUTTON    1
 #define wxUSE_CALENDARCTRL 1
@@ -427,12 +440,14 @@ typedef pid_t GPid;
 #define wxUSE_STATTEXT     1
 #define wxUSE_STATBMP      1
 #define wxUSE_TEXTCTRL     1
+#define wxUSE_TIMEPICKCTRL  1
 #if defined (__WXMOTIF__) || defined( __WXGTK__ )
 #define wxUSE_TOGGLEBTN    1
 #else
 #define wxUSE_TOGGLEBTN    0
 #endif
 #define wxUSE_TREECTRL     1
+#define wxUSE_TREELISTCTRL  1
 
 #define wxUSE_STATUSBAR    1
 
@@ -486,6 +501,12 @@ typedef pid_t GPid;
 #define wxUSE_MENUS         1
 
 #define wxUSE_NOTIFICATION_MESSAGE 1
+
+#if defined (__WXMOTIF__)
+#define wxUSE_RICHTOOLTIP 0
+#else
+#define wxUSE_RICHTOOLTIP 1
+#endif
 
 #define wxUSE_SASH          1
 
@@ -691,6 +712,7 @@ typedef pid_t GPid;
 
 #define wxUSE_DATEPICKCTRL_GENERIC 0
 
+#define wxUSE_TIMEPICKCTRL_GENERIC 0
 
 #define wxUSE_CRASHREPORT 0
 
@@ -840,10 +862,6 @@ typedef pid_t GPid;
 
 #define wxUSE_DC_TRANSFORM_MATRIX 1
 
-/*
- * Have glibc2
- */
-#define wxHAVE_GLIBC2 0
 /*
  * Use libXpm
  */

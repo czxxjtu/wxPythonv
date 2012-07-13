@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     29.06.99
-// RCS-ID:      $Id: dialog.h 66087 2010-11-10 13:51:57Z VZ $
+// RCS-ID:      $Id: dialog.h 69112 2011-09-17 11:06:11Z VZ $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ class wxTextSizerWrapper;
 
 // Also see the bit summary table in wx/toplevel.h.
 
-#define wxDIALOG_NO_PARENT      0x0100  // Don't make owned by apps top window
+#define wxDIALOG_NO_PARENT      0x00000020  // Don't make owned by apps top window
 
 #ifdef __WXWINCE__
 #define wxDEFAULT_DIALOG_STYLE  (wxCAPTION | wxMAXIMIZE | wxCLOSE_BOX | wxNO_BORDER)

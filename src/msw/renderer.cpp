@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     20.07.2003
-// RCS-ID:      $Id: renderer.cpp 67704 2011-05-05 17:56:18Z RD $
+// RCS-ID:      $Id: renderer.cpp 68951 2011-08-29 16:06:32Z DS $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -113,28 +113,6 @@
 #ifndef DFCS_HOT
     #define DFCS_HOT 0x1000
 #endif
-
-// When we're using GDI+, the DC might have transforms applied to it,
-// but the renderer APIs don't respect them. So we need to apply
-// the transforms to the rect ourselves.
-inline
-wxRect applyGDIPlusTransformsToRect(wxDC& dc, const wxRect& r)
-{
-    wxRect rect = r;
-#if wxUSE_GRAPHICS_CONTEXT
-    wxGCDC* gcdc = dynamic_cast<wxGCDC*>(&dc);
-    if (gcdc) 
-    {
-        double xtrans = 0;
-        double ytrans = 0;
-        wxGraphicsContext* gc = gcdc->GetGraphicsContext();
-        gc->GetTransform().TransformPoint(&xtrans, &ytrans);
-        rect.x = rect.x + (int)xtrans;
-        rect.y = rect.y + (int)ytrans;
-    }
-#endif
-    return rect;
-}
 
 // ----------------------------------------------------------------------------
 // methods common to wxRendererMSW and wxRendererXP
@@ -417,7 +395,9 @@ wxRendererMSW::DrawComboBoxDropButton(wxWindow * WXUNUSED(win),
                                       const wxRect& rect,
                                       int flags)
 {
-    wxRect adjustedRect = applyGDIPlusTransformsToRect(dc, rect);
+    wxCHECK_RET( dc.GetImpl(), wxT("Invalid wxDC") );
+
+    wxRect adjustedRect = dc.GetImpl()->MSWApplyGDIPlusTransform(rect);
     
     RECT r;
     wxCopyRectToRECT(adjustedRect, r);
@@ -439,7 +419,9 @@ wxRendererMSW::DoDrawFrameControl(UINT type,
                                   const wxRect& rect,
                                   int flags)
 {
-    wxRect adjustedRect = applyGDIPlusTransformsToRect(dc, rect);
+    wxCHECK_RET( dc.GetImpl(), wxT("Invalid wxDC") );
+
+    wxRect adjustedRect = dc.GetImpl()->MSWApplyGDIPlusTransform(rect);
 
     RECT r;
     wxCopyRectToRECT(adjustedRect, r);
@@ -455,6 +437,11 @@ wxRendererMSW::DoDrawFrameControl(UINT type,
         style |= DFCS_PUSHED;
     if ( flags & wxCONTROL_CURRENT )
         style |= DFCS_HOT;
+    if ( flags & wxCONTROL_UNDETERMINED )
+        // Using DFCS_BUTTON3STATE here doesn't work (as might be expected),
+        // use the following two styles to get the same look of a check box
+        // in the undetermined state.
+        style |= DFCS_INACTIVE | DFCS_CHECKED;
 
     ::DrawFrameControl(GetHdcOf(dc.GetTempHDC()), &r, type, style);
 }
@@ -642,7 +629,9 @@ wxRendererXP::DrawComboBoxDropButton(wxWindow * win,
         return;
     }
 
-    wxRect adjustedRect = applyGDIPlusTransformsToRect(dc, rect);
+    wxCHECK_RET( dc.GetImpl(), wxT("Invalid wxDC") );
+
+    wxRect adjustedRect = dc.GetImpl()->MSWApplyGDIPlusTransform(rect);
 
     RECT r;
     wxCopyRectToRECT(adjustedRect, r);
@@ -683,7 +672,9 @@ wxRendererXP::DrawHeaderButton(wxWindow *win,
         return m_rendererNative.DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
     }
 
-    wxRect adjustedRect = applyGDIPlusTransformsToRect(dc, rect);
+    wxCHECK_MSG( dc.GetImpl(), -1, wxT("Invalid wxDC") );
+
+    wxRect adjustedRect = dc.GetImpl()->MSWApplyGDIPlusTransform(rect);
 
     RECT r;
     wxCopyRectToRECT(adjustedRect, r);
@@ -727,7 +718,9 @@ wxRendererXP::DrawTreeItemButton(wxWindow *win,
         return;
     }
 
-    wxRect adjustedRect = applyGDIPlusTransformsToRect(dc, rect);
+    wxCHECK_RET( dc.GetImpl(), wxT("Invalid wxDC") );
+
+    wxRect adjustedRect = dc.GetImpl()->MSWApplyGDIPlusTransform(rect);
 
     RECT r;
     wxCopyRectToRECT(adjustedRect, r);
@@ -767,7 +760,9 @@ wxRendererXP::DoDrawButtonLike(HTHEME htheme,
                                const wxRect& rect,
                                int flags)
 {
-    wxRect adjustedRect = applyGDIPlusTransformsToRect(dc, rect);
+    wxCHECK_RET( dc.GetImpl(), wxT("Invalid wxDC") );
+
+    wxRect adjustedRect = dc.GetImpl()->MSWApplyGDIPlusTransform(rect);
 
     RECT r;
     wxCopyRectToRECT(adjustedRect, r);

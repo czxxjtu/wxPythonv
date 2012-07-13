@@ -2,7 +2,7 @@
 // Name:        app.h
 // Purpose:     interface of wxApp
 // Author:      wxWidgets team
-// RCS-ID:      $Id: app.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: app.h 69794 2011-11-22 13:18:50Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,8 @@
 
     @see @ref overview_app, wxApp, wxAppTraits, wxEventLoopBase
 */
-class wxAppConsole : public wxEvtHandler
+class wxAppConsole : public wxEvtHandler,
+                     public wxEventFilter
 {
 protected:
     /**
@@ -81,13 +82,14 @@ public:
     virtual void ExitMainLoop();
 
     /**
-        This function is called before processing any event and allows the application
-        to preempt the processing of some events.
+        Overridden wxEventFilter method.
 
-        If this method returns -1 the event is processed normally, otherwise either
-        @true or @false should be returned and the event processing stops immediately
-        considering that the event had been already processed (for the former return
-        value) or that it is not going to be processed at all (for the latter one).
+        This function is called before processing any event and allows the application
+        to preempt the processing of some events, see wxEventFilter
+        documentation for more information.
+
+        wxApp implementation of this method always return -1 indicating that
+        the event should be processed normally.
     */
     virtual int FilterEvent(wxEvent& event);
 
@@ -221,6 +223,8 @@ public:
     //@}
 
 
+    bool Yield(bool onlyIfNeeded = false);
+
     /**
         Allows external code to modify global ::wxTheApp, but you should really
         know what you're doing if you call it.
@@ -249,7 +253,6 @@ public:
         the events from them would never be processed.
     */
     static bool IsMainLoopRunning();
-
 
     /**
         @name Callbacks for application-wide "events"
@@ -569,7 +572,7 @@ public:
 
         Under Windows and Linux/Unix, you should parse the command line
         arguments and check for files to be opened when starting your
-        application. Under OS X, you need to override MacOpenFile()
+        application. Under OS X, you need to override MacOpenFiles()
         since command line arguments are used differently there.
 
         You may use the wxCmdLineParser to parse command line arguments.
@@ -803,11 +806,28 @@ public:
     virtual void MacNewFile();
 
     /**
+        Called in response of an openFiles message with Cocoa, or an
+        "open-document" Apple event with Carbon.
+
+        You need to override this method in order to open one or more document
+        files after the user double clicked on it or if the files and/or
+        folders were dropped on either the application in the dock or the
+        application icon in Finder.
+
+        By default this method calls MacOpenFile for each file/folder.
+
+        @onlyfor{wxosx}
+
+        @since 2.9.3
+    */
+    virtual void MacOpenFiles(const wxArrayString& fileNames);
+
+    /**
         Called in response of an "open-document" Apple event.
 
-        You need to override this method in order to open a document file after the
-        user double clicked on it or if the document file was dropped on either the
-        running application or the application icon in Finder.
+        @deprecated
+        This function is kept mostly for backwards compatibility. Please
+        override wxApp::MacOpenFiles method instead in any new code.
 
         @onlyfor{wxosx}
     */

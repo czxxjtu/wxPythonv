@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     2006-10-01
-// RCS-ID:      $Id: richtextformatdlg.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: richtextformatdlg.h 68809 2011-08-21 14:08:43Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -22,6 +22,7 @@
 
 #include "wx/propdlg.h"
 #include "wx/bookctrl.h"
+#include "wx/withimages.h"
 
 #if wxUSE_HTML
 #include "wx/htmllbox.h"
@@ -32,7 +33,6 @@
 #include "wx/richtext/richtextuicustomization.h"
 
 class WXDLLIMPEXP_FWD_RICHTEXT wxRichTextFormattingDialog;
-class WXDLLIMPEXP_FWD_CORE wxImageList;
 class WXDLLIMPEXP_FWD_CORE wxComboBox;
 class WXDLLIMPEXP_FWD_CORE wxCheckBox;
 
@@ -119,7 +119,8 @@ public:
  * Formatting dialog for a wxRichTextCtrl
  */
 
-class WXDLLIMPEXP_RICHTEXT wxRichTextFormattingDialog: public wxPropertySheetDialog
+class WXDLLIMPEXP_RICHTEXT wxRichTextFormattingDialog: public wxPropertySheetDialog,
+                                                       public wxWithImages
 {
 DECLARE_CLASS(wxRichTextFormattingDialog)
 DECLARE_HELP_PROVISION()
@@ -194,10 +195,6 @@ public:
     void OnHelp(wxCommandEvent& event);
     void OnUpdateHelp(wxUpdateUIEvent& event);
 
-    /// Set/get image list
-    void SetImageList(wxImageList* imageList) { m_imageList = imageList; }
-    wxImageList* GetImageList() const { return m_imageList; }
-
     /// Get/set formatting factory object
     static void SetFormattingDialogFactory(wxRichTextFormattingDialogFactory* factory);
     static wxRichTextFormattingDialogFactory* GetFormattingDialogFactory() { return ms_FormattingDialogFactory; }
@@ -237,7 +234,6 @@ public:
 
 protected:
 
-    wxImageList*                                m_imageList;
     wxRichTextAttr                              m_attributes;
     //wxRichTextAttr                              m_resetAttributes;
     wxRichTextStyleDefinition*                  m_styleDefinition;

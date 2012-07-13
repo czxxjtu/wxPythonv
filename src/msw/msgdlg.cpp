@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: msgdlg.cpp 67771 2011-05-20 22:48:17Z DS $
+// RCS-ID:      $Id: msgdlg.cpp 69591 2011-10-30 16:22:30Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -454,12 +454,16 @@ int wxMessageDialog::ShowMessageBox()
 #if wxUSE_INTL
     // native message box always uses the current user locale but the program
     // may be using a different one and in this case we need to manually
-    // translate the button labels to avoid mismatch between the language of
-    // the message box text and its buttons
+    // translate the default button labels (if they're non default we have no
+    // way to translate them and so we must assume they were already
+    // translated) to avoid mismatch between the language of the message box
+    // text and its buttons
     wxLocale * const loc = wxGetLocale();
     if ( loc && loc->GetLanguage() != wxLocale::GetSystemLanguage() )
     {
-        if ( m_dialogStyle & wxYES_NO )
+        if ( m_dialogStyle & wxYES_NO &&
+                (GetCustomYesLabel().empty() && GetCustomNoLabel().empty()) )
+
         {
             // use the strings with mnemonics here as the native message box
             // does
@@ -475,7 +479,8 @@ int wxMessageDialog::ShowMessageBox()
         // native message box (which probably doesn't use them because
         // Enter/Esc keys can be already used to dismiss the message box
         // using keyboard)
-        SetOKCancelLabels(_("OK"), _("Cancel"));
+        if ( GetCustomOKLabel().empty() && GetCustomCancelLabel().empty() )
+            SetOKCancelLabels(_("OK"), _("Cancel"));
     }
 #endif // wxUSE_INTL
 
@@ -509,6 +514,11 @@ int wxMessageDialog::ShowMessageBox()
         {
             msStyle = MB_OK;
         }
+    }
+
+    if ( wxStyle & wxHELP )
+    {
+        msStyle |= MB_HELP;
     }
 
     // set the icon style
@@ -630,7 +640,7 @@ void wxMessageDialog::DoCentre(int dir)
 #ifdef wxHAS_MSW_TASKDIALOG
 
 wxMSWTaskDialogConfig::wxMSWTaskDialogConfig(const wxMessageDialogBase& dlg)
-                     : buttons(new TASKDIALOG_BUTTON[3])
+                     : buttons(new TASKDIALOG_BUTTON[MAX_BUTTONS])
 {
     parent = dlg.GetParentForModalDialog();
     caption = dlg.GetCaption();
@@ -665,6 +675,7 @@ wxMSWTaskDialogConfig::wxMSWTaskDialogConfig(const wxMessageDialogBase& dlg)
     btnNoLabel = dlg.GetNoLabel();
     btnOKLabel = dlg.GetOKLabel();
     btnCancelLabel = dlg.GetCancelLabel();
+    btnHelpLabel = dlg.GetHelpLabel();
 }
 
 void wxMSWTaskDialogConfig::MSWCommonTaskDialogInit(TASKDIALOGCONFIG &tdc)
@@ -755,6 +766,15 @@ void wxMSWTaskDialogConfig::MSWCommonTaskDialogInit(TASKDIALOGCONFIG &tdc)
             AddTaskDialogButton(tdc, IDCANCEL, TDCBF_CANCEL_BUTTON, btnOKLabel);
         }
     }
+
+    if ( style & wxHELP )
+    {
+        // There is no support for "Help" button in the task dialog, it can
+        // only show "Retry" or "Close" ones.
+        useCustomLabels = true;
+
+        AddTaskDialogButton(tdc, IDHELP, 0 /* not used */, btnHelpLabel);
+    }
 }
 
 void wxMSWTaskDialogConfig::AddTaskDialogButton(TASKDIALOGCONFIG &tdc,
@@ -770,6 +790,10 @@ void wxMSWTaskDialogConfig::AddTaskDialogButton(TASKDIALOGCONFIG &tdc,
         tdBtn.nButtonID = btnCustomId;
         tdBtn.pszButtonText = customLabel.wx_str();
         tdc.cButtons++;
+
+        // We should never have more than 4 buttons currently as this is the
+        // maximal number of buttons supported by the message dialog.
+        wxASSERT_MSG( tdc.cButtons <= MAX_BUTTONS, wxT("Too many buttons") );
     }
     else
     {
@@ -838,6 +862,9 @@ int wxMSWMessageDialog::MSWTranslateReturnCode(int msAns)
             break;
         case IDNO:
             ans = wxID_NO;
+            break;
+        case IDHELP:
+            ans = wxID_HELP;
             break;
     }
 

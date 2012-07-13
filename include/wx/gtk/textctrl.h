@@ -3,7 +3,7 @@
 // Purpose:
 // Author:      Robert Roebling
 // Created:     01/02/97
-// Id:          $Id: textctrl.h 67326 2011-03-28 06:27:49Z PC $
+// Id:          $Id: textctrl.h 68450 2011-07-29 15:11:54Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -166,6 +166,8 @@ protected:
     virtual bool UseGTKStyleBase() const { return true; }
 
     virtual void DoSetValue(const wxString &value, int flags = 0);
+
+    virtual wxPoint DoPositionToCoords(long pos) const;
 
     // wrappers hiding the differences between functions doing the same thing
     // for GtkTextView and GtkEntry (all of them use current window style to

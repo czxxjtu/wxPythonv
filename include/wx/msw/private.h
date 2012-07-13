@@ -6,7 +6,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: private.h 68099 2011-06-29 17:50:30Z VZ $
+// RCS-ID:      $Id: private.h 69758 2011-11-14 12:51:53Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -922,6 +922,9 @@ WXDLLIMPEXP_BASE wxWinVersion wxGetWinVersion();
 // cursor stuff
 extern HCURSOR wxGetCurrentBusyCursor();    // from msw/utils.cpp
 extern const wxCursor *wxGetGlobalCursor(); // from msw/cursor.cpp
+
+// GetCursorPos can fail without populating the POINT. This falls back to GetMessagePos.
+WXDLLIMPEXP_CORE void wxGetCursorPosMSW(POINT* pt);
 
 WXDLLIMPEXP_CORE void wxGetCharSize(WXHWND wnd, int *x, int *y, const wxFont& the_font);
 WXDLLIMPEXP_CORE void wxFillLogFont(LOGFONT *logFont, const wxFont *font);

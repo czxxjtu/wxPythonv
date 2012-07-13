@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: notebook_osx.cpp 67679 2011-05-03 12:47:10Z DS $
+// RCS-ID:      $Id: notebook_osx.cpp 68809 2011-08-21 14:08:43Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ bool wxNotebook::SetPageImage(size_t nPage, int nImage)
 {
     wxCHECK_MSG( IS_VALID_PAGE(nPage), false,
         wxT("SetPageImage: invalid notebook page") );
-    wxCHECK_MSG( m_imageList && nImage < m_imageList->GetImageCount(), false,
+    wxCHECK_MSG( HasImageList() && nImage < GetImageList()->GetImageCount(), false,
         wxT("SetPageImage: invalid image index") );
 
     if ( nImage != m_images[nPage] )

@@ -3,7 +3,7 @@
 // Purpose:     XRC resource for buttons
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xh_bttn.cpp 61065 2009-06-15 19:35:19Z VZ $
+// RCS-ID:      $Id: xh_bttn.cpp 68839 2011-08-22 12:18:49Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -53,33 +53,8 @@ wxObject *wxButtonXmlHandler::DoCreateResource()
 
     if ( GetParamNode("bitmap") )
     {
-        wxDirection dir;
-        const wxString dirstr = GetParamValue("direction");
-        if ( dirstr.empty() || dirstr == "wxLEFT" )
-            dir = wxLEFT;
-        else if ( dirstr == "wxRIGHT" )
-            dir = wxRIGHT;
-        else if ( dirstr == "wxTOP" )
-            dir = wxTOP;
-        else if ( dirstr == "wxBOTTOM" )
-            dir = wxBOTTOM;
-        else
-        {
-            ReportError
-            (
-                GetParamNode("bitmapposition"),
-                wxString::Format
-                (
-                    "Invalid bitmap position \"%s\": must be one of "
-                    "wxLEFT|wxRIGHT|wxTOP|wxBOTTOM.",
-                    dirstr
-                )
-            );
-
-            dir = wxLEFT;
-        }
-
-        button->SetBitmap(GetBitmap("bitmap", wxART_BUTTON), dir);
+        button->SetBitmap(GetBitmap("bitmap", wxART_BUTTON),
+                          GetDirection("bitmapposition"));
     }
 
     SetupWindow(button);

@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     27/07/03
-// RCS-ID:      $Id: xtixml.cpp 67342 2011-03-30 14:15:53Z VZ $
+// RCS-ID:      $Id: xtixml.cpp 68949 2011-08-29 12:33:40Z VZ $
 // Copyright:   (c) 2003 Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -325,7 +325,7 @@ int wxObjectXmlReader::ReadComponent(wxXmlNode *node, wxObjectReaderCallback *ca
         const wxPropertyInfo* pi = classInfo->FindPropertyInfo( paramName );
         if ( pi == 0 )
         {
-            wxLogError( wxString::Format(_("Unkown Property %s"),paramName) );
+            wxLogError( wxString::Format(_("Unknown Property %s"),paramName) );
         }
         // if we don't have the value of a create param set in the xml
         // we use the default value

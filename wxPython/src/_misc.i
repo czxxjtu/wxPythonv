@@ -6,7 +6,7 @@
 // Author:      Robin Dunn
 //
 // Created:     18-June-1999
-// RCS-ID:      $Id: _misc.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _misc.i 70133 2011-12-28 02:14:56Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -190,6 +190,9 @@ public:
     
     // resume it
     void Resume();
+
+    // Get elapsed time since the last Start() in microseconds.
+    wxLongLong TimeInMicro() const;
 
     // get elapsed time since the last Start() in milliseconds
     long Time() const;

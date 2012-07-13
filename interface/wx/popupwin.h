@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        popupwin.h
-// Purpose:     interface of wxPoppWindow
+// Purpose:     interface of wxPopupWindow
 // Author:      wxWidgets team
-// RCS-ID:      $Id: popupwin.h 67244 2011-03-19 11:57:06Z VZ $
+// RCS-ID:      $Id: popupwin.h 69456 2011-10-18 21:56:32Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

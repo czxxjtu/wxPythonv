@@ -3,7 +3,7 @@
 // Purpose:     XRC resource for wxToolBar
 // Author:      Vaclav Slavik
 // Created:     2000/08/11
-// RCS-ID:      $Id: xh_toolb.cpp 65680 2010-09-30 11:44:45Z VZ $
+// RCS-ID:      $Id: xh_toolb.cpp 69487 2011-10-20 16:10:35Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -78,6 +78,7 @@ wxObject *wxToolBarXmlHandler::DoCreateResource()
 
             kind = wxITEM_CHECK;
         }
+
 #if wxUSE_MENUS
         // check whether we have dropdown tag inside
         wxMenu *menu = NULL; // menu for drop down items
@@ -137,6 +138,23 @@ wxObject *wxToolBarXmlHandler::DoCreateResource()
 
         if ( GetBool(wxT("disabled")) )
             m_toolbar->EnableTool(GetID(), false);
+
+        if ( GetBool(wxS("checked")) )
+        {
+            if ( kind == wxITEM_NORMAL )
+            {
+                ReportParamError
+                (
+                    "checked",
+                    "only <radio> nor <toggle> tools can be checked"
+                );
+            }
+            else
+            {
+                m_toolbar->ToggleTool(GetID(), true);
+            }
+        }
+
 #if wxUSE_MENUS
         if ( menu )
             tool->SetDropdownMenu(menu);

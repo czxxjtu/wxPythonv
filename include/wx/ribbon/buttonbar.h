@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-07-01
-// RCS-ID:      $Id: buttonbar.h 66055 2010-11-07 13:44:22Z PJC $
+// RCS-ID:      $Id: buttonbar.h 69567 2011-10-27 21:10:51Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -23,8 +23,8 @@ class wxRibbonButtonBarButtonBase;
 class wxRibbonButtonBarLayout;
 class wxRibbonButtonBarButtonInstance;
 
-WX_DEFINE_USER_EXPORTED_ARRAY(wxRibbonButtonBarLayout*, wxArrayRibbonButtonBarLayout, class WXDLLIMPEXP_RIBBON);
-WX_DEFINE_USER_EXPORTED_ARRAY(wxRibbonButtonBarButtonBase*, wxArrayRibbonButtonBarButtonBase, class WXDLLIMPEXP_RIBBON);
+WX_DEFINE_USER_EXPORTED_ARRAY_PTR(wxRibbonButtonBarLayout*, wxArrayRibbonButtonBarLayout, class WXDLLIMPEXP_RIBBON);
+WX_DEFINE_USER_EXPORTED_ARRAY_PTR(wxRibbonButtonBarButtonBase*, wxArrayRibbonButtonBarButtonBase, class WXDLLIMPEXP_RIBBON);
 
 class WXDLLIMPEXP_RIBBON wxRibbonButtonBar : public wxRibbonControl
 {

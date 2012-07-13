@@ -2,7 +2,7 @@
 // Name:        wx/gtk/window.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: window.h 67298 2011-03-23 17:36:10Z PC $
+// Id:          $Id: window.h 69565 2011-10-27 21:10:45Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -17,6 +17,13 @@
 struct wxGtkIMData;
 
 WX_DEFINE_EXPORTED_ARRAY_PTR(GdkWindow *, wxArrayGdkWindows);
+
+extern "C"
+{
+
+typedef void (*wxGTKCallback)();
+
+}
 
 //-----------------------------------------------------------------------------
 // wxWindowGTK
@@ -186,6 +193,10 @@ public:
     bool GTKHandleFocusOut();
     void GTKHandleFocusOutNoDeferring();
     static void GTKHandleDeferredFocusOut();
+
+    // Called when m_widget becomes realized. Derived classes must call the
+    // base class method if they override it.
+    virtual void GTKHandleRealized();
 
 protected:
     // for controls composed of multiple GTK widgets, return true to eliminate
@@ -370,7 +381,7 @@ protected:
     //
     // This is just a wrapper for g_signal_connect() and returns the handler id
     // just as it does.
-    gulong GTKConnectWidget(const char *signal, void (*callback)());
+    unsigned long GTKConnectWidget(const char *signal, wxGTKCallback callback);
 
     // Return true from here if PostCreation() should connect to size_request
     // signal: this is done by default but doesn't work for some native

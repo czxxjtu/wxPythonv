@@ -9,7 +9,7 @@
 // Author:      Robin Dunn
 //
 // Created:     13-Jan-2000
-// RCS-ID:      $Id: ScintillaWX.cpp 68535 2011-08-04 22:51:24Z RD $
+// RCS-ID:      $Id: ScintillaWX.cpp 69857 2011-11-28 13:34:16Z VZ $
 // Copyright:   (c) 2000 by Total Control Software
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -919,6 +919,14 @@ void ScintillaWX::DoAddChar(int key) {
 int  ScintillaWX::DoKeyDown(const wxKeyEvent& evt, bool* consumed)
 {
     int key = evt.GetKeyCode();
+    if (key == WXK_NONE) {
+        // This is a Unicode character not representable in Latin-1 or some key
+        // without key code at all (e.g. dead key or VK_PROCESSKEY under MSW).
+        if ( consumed )
+            *consumed = false;
+        return 0;
+    }
+
     bool shift = evt.ShiftDown(),
          ctrl  = evt.ControlDown(),
          alt   = evt.AltDown();

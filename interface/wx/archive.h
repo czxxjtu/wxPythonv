@@ -2,7 +2,7 @@
 // Name:        archive.h
 // Purpose:     interface of wxArchive* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: archive.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: archive.h 69806 2011-11-24 01:37:45Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -300,16 +300,6 @@ public:
 };
 
 
-/**
-    Type of stream enumeration; used by wxArchiveClassFactory methods.
-*/
-enum wxStreamProtocolType
-{
-    wxSTREAM_PROTOCOL,  //!< wxFileSystem protocol (should be only one)
-    wxSTREAM_MIMETYPE,  //!< MIME types the stream handles
-    wxSTREAM_ENCODING,  //!< Not used for archives
-    wxSTREAM_FILEEXT    //!< File extensions the stream handles
-};
 
 /**
     @class wxArchiveClassFactory

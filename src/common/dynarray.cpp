@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     12.09.97
-// RCS-ID:      $Id: dynarray.cpp 67343 2011-03-30 14:16:04Z VZ $
+// RCS-ID:      $Id: dynarray.cpp 68470 2011-07-31 12:19:51Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -357,6 +357,9 @@ void name::insert(iterator it, const_iterator first, const_iterator last)   \
   if (nInsert == 0)                                                         \
       return;                                                               \
   Grow(nInsert);                                                            \
+                                                                            \
+  /* old iterator could have been invalidated by Grow(). */                 \
+  it = begin() + nIndex;                                                    \
                                                                             \
   memmove(&m_pItems[nIndex + nInsert], &m_pItems[nIndex],                   \
           (m_nCount - nIndex)*sizeof(T));                                   \

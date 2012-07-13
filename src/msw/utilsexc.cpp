@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: utilsexc.cpp 67962 2011-06-16 15:13:56Z VZ $
+// RCS-ID:      $Id: utilsexc.cpp 69964 2011-12-08 20:22:55Z VZ $
 // Copyright:   (c) 1998-2002 wxWidgets dev team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -82,9 +82,7 @@
     #include "wx/dde.h"         // for WX_DDE hack in wxExecute
 #endif // wxUSE_IPC
 
-// implemented in utils.cpp
-extern "C" WXDLLIMPEXP_BASE HWND
-wxCreateHiddenWindow(LPCTSTR *pclassname, LPCTSTR classname, WNDPROC wndproc);
+#include "wx/msw/private/hiddenwin.h"
 
 // ----------------------------------------------------------------------------
 // constants
@@ -757,15 +755,6 @@ long wxExecute(const wxString& cmd, int flags, wxProcess *handler,
         si.hStdOutput = pipeOut[wxPipe::Write];
         si.hStdError = pipeErr[wxPipe::Write];
 
-        // when the std IO is redirected, we don't show the (console) process
-        // window by default, but this can be overridden by the caller by
-        // specifying wxEXEC_NOHIDE flag
-        if ( !(flags & wxEXEC_NOHIDE) )
-        {
-            si.dwFlags |= STARTF_USESHOWWINDOW;
-            si.wShowWindow = SW_HIDE;
-        }
-
         // we must duplicate the handle to the write side of stdin pipe to make
         // it non inheritable: indeed, we must close the writing end of pipeIn
         // before launching the child process as otherwise this handle will be
@@ -789,6 +778,17 @@ long wxExecute(const wxString& cmd, int flags, wxProcess *handler,
         ::CloseHandle(pipeInWrite);
     }
 #endif // wxUSE_STREAMS
+
+    // The default logic for showing the console is to show it only if the IO
+    // is not redirected however wxEXEC_{SHOW,HIDE}_CONSOLE flags can be
+    // explicitly specified to change it.
+    if ( (flags & wxEXEC_HIDE_CONSOLE) ||
+            (redirect && !(flags & wxEXEC_SHOW_CONSOLE)) )
+    {
+        si.dwFlags |= STARTF_USESHOWWINDOW;
+        si.wShowWindow = SW_HIDE;
+    }
+
 
     PROCESS_INFORMATION pi;
     DWORD dwFlags = CREATE_SUSPENDED;

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     13-Sept-2003
-// RCS-ID:      $Id: _gdicmn.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _gdicmn.i 69040 2011-09-10 01:00:23Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -33,6 +33,7 @@ enum wxBitmapType
     wxBITMAP_TYPE_XPM,
     wxBITMAP_TYPE_XPM_DATA,
     wxBITMAP_TYPE_TIF,
+    wxBITMAP_TYPE_TIFF,
     wxBITMAP_TYPE_GIF,
     wxBITMAP_TYPE_PNG,
     wxBITMAP_TYPE_JPEG,

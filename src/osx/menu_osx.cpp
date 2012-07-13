@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: menu_osx.cpp 67272 2011-03-22 06:44:08Z SC $
+// RCS-ID:      $Id: menu_osx.cpp 69952 2011-12-08 00:07:12Z VZ $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -210,6 +210,17 @@ wxMenuItem* wxMenu::DoInsert(size_t pos, wxMenuItem *item)
 
 wxMenuItem *wxMenu::DoRemove(wxMenuItem *item)
 {
+    if ( m_startRadioGroup != -1 )
+    {
+        // Check if we're removing the item starting the radio group
+        if ( GetMenuItems().Item(m_startRadioGroup)->GetData() == item )
+        {
+            // Yes, we do, so reset its index as the next item added shouldn't
+            // count as part of the same radio group anyhow.
+            m_startRadioGroup = -1;
+        }
+    }
+
 /*
     // we need to find the items position in the child list
     size_t pos;

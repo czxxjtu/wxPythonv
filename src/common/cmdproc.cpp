@@ -4,7 +4,7 @@
 // Author:      Julian Smart (extracted from docview.h by VZ)
 // Modified by:
 // Created:     05.11.00
-// RCS-ID:      $Id: cmdproc.cpp 67343 2011-03-30 14:16:04Z VZ $
+// RCS-ID:      $Id: cmdproc.cpp 68727 2011-08-16 13:46:56Z SC $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin (wxMenuItem is now in separate file)
 // Created:     01/02/97
-// RCS-ID:      $Id: menu.h 67720 2011-05-10 08:50:38Z VZ $
+// RCS-ID:      $Id: menu.h 68595 2011-08-08 09:32:39Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -60,6 +60,14 @@ public:
     virtual void Break();
 
     virtual void SetTitle(const wxString& title);
+
+    // MSW-only methods
+    // ----------------
+
+    // Create a new menu from the given native HMENU. Takes ownership of the
+    // menu handle and will delete it when this object is destroyed.
+    static wxMenu *MSWNewFromHMENU(WXHMENU hMenu) { return new wxMenu(hMenu); }
+
 
     // implementation only from now on
     // -------------------------------
@@ -120,7 +128,14 @@ protected:
     virtual wxMenuItem* DoRemove(wxMenuItem *item);
 
 private:
-    // common part of all ctors
+    // This constructor is private, use MSWNewFromHMENU() to use it.
+    wxMenu(WXHMENU hMenu);
+
+    // Common part of all ctors, it doesn't create a new HMENU.
+    void InitNoCreate();
+
+    // Common part of all ctors except of the one above taking a native menu
+    // handler: calls InitNoCreate() and also creates a new menu.
     void Init();
 
     // common part of Append/Insert (behaves as Append is pos == (size_t)-1)

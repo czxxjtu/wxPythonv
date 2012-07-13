@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     03-July-1997
-// RCS-ID:      $Id: _accel.i 52513 2008-03-14 22:13:20Z RD $
+// RCS-ID:      $Id: _accel.i 69026 2011-09-08 19:33:52Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -35,6 +35,7 @@ enum wxAcceleratorEntryFlags {
     wxACCEL_CTRL,
     wxACCEL_SHIFT,
     wxACCEL_NORMAL,
+    wxACCEL_RAW_CTRL,
     wxACCEL_CMD,
 };
 

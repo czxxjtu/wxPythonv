@@ -4,7 +4,7 @@
 // Author:      Michael Bedward (based on code by Julian Smart, Robin Dunn)
 // Modified by: Santiago Palacios
 // Created:     1/08/1999
-// RCS-ID:      $Id: grid.h 68532 2011-08-04 22:46:16Z RD $
+// RCS-ID:      $Id: grid.h 69861 2011-11-28 19:15:59Z VZ $
 // Copyright:   (c) Michael Bedward
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -300,6 +300,8 @@ public:
     {
         m_owner = owner;
     }
+
+    virtual wxWindow *GetMainWindowOfCompositeControl() { return m_owner; }
 
     virtual bool AcceptsFocus() const { return false; }
 

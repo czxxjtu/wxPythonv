@@ -4,7 +4,7 @@
 // Author:      Jethro Grassie / Kevin Ollivier
 // Modified by:
 // Created:     2004-4-16
-// RCS-ID:      $Id: webkit.mm 67254 2011-03-20 00:14:35Z DS $
+// RCS-ID:      $Id: webkit.mm 68722 2011-08-16 12:17:59Z SC $
 // Copyright:   (c) Jethro Grassie / Kevin Ollivier
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -796,7 +796,7 @@ void wxWebKitCtrl::MacVisibilityChanged(){
 
 - initWithWxWindow: (wxWebKitCtrl*)inWindow
 {
-    [super init];
+    self = [super init];
     webKitWindow = inWindow;    // non retained
     return self;
 }
@@ -877,7 +877,7 @@ void wxWebKitCtrl::MacVisibilityChanged(){
 
 - initWithWxWindow: (wxWebKitCtrl*)inWindow
 {
-    [super init];
+    self = [super init];
     webKitWindow = inWindow;    // non retained
     return self;
 }

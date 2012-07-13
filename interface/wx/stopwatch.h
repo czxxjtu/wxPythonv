@@ -2,7 +2,7 @@
 // Name:        stopwatch.h
 // Purpose:     interface of wxStopWatch
 // Author:      wxWidgets team
-// RCS-ID:      $Id: stopwatch.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: stopwatch.h 69921 2011-12-03 00:34:00Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -24,6 +24,13 @@
         CallLongRunningFunction();
         wxLogMessage("And calling it twice took $ldms in all", sw.Time());
     @endcode
+
+    Since wxWidgets 2.9.3 this class uses @c ::QueryPerformanceCounter()
+    function under MSW to measure the elapsed time. It provides higher
+    precision than the usual timer functions but can suffer from bugs in its
+    implementation in some Windows XP versions. If you encounter such problems,
+    installing a Microsoft hot fix from http://support.microsoft.com/?id=896256
+    could be necessary.
 
     @library{wxbase}
     @category{misc}
@@ -54,51 +61,30 @@ public:
 
     /**
         (Re)starts the stop watch with a given initial value.
+
+        The stopwatch will always be running after calling Start(), even if
+        Pause() had been called before and even if it had been called multiple
+        times.
     */
     void Start(long milliseconds = 0);
 
     /**
         Returns the time in milliseconds since the start (or restart) or the last
         call of Pause().
+
+        @see TimeInMicro()
     */
     long Time() const;
+
+    /**
+        Returns elapsed time in microseconds.
+
+        This method is similar to Time() but returns the elapsed time in
+        microseconds and not milliseconds. Notice that not all platforms really
+        can measure times with this precision.
+
+        @since 2.9.3
+     */
+    wxLongLong TimeInMicro() const;
 };
-
-
-
-// ============================================================================
-// Global functions/macros
-// ============================================================================
-
-/** @addtogroup group_funcmacro_time */
-//@{
-
-/**
-    Returns the number of seconds since local time 00:00:00 Jan 1st 1970.
-
-    @see wxDateTime::Now()
-
-    @header{wx/stopwatch.h}
-*/
-long wxGetLocalTime();
-
-/**
-    Returns the number of milliseconds since local time 00:00:00 Jan 1st 1970.
-
-    @see wxDateTime::Now(), wxLongLong
-
-    @header{wx/stopwatch.h}
-*/
-wxLongLong wxGetLocalTimeMillis();
-
-/**
-    Returns the number of seconds since GMT 00:00:00 Jan 1st 1970.
-
-    @see wxDateTime::Now()
-
-    @header{wx/stopwatch.h}
-*/
-long wxGetUTCTime();
-
-//@}
 

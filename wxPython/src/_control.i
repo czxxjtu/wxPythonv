@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _control.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _control.i 69040 2011-09-10 01:00:23Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -582,8 +582,9 @@ including) the character at the last position.  If both parameters are
     // commonly meaning that this functionality is not available under the
     // current platform)
 
-    virtual bool AutoComplete(const wxArrayString& choices);
-    virtual bool AutoCompleteFileNames();
+    bool AutoComplete(const wxArrayString& choices);
+    bool AutoCompleteFileNames();
+    bool AutoCompleteDirectories();
 
     // TODO
     // bool AutoComplete(wxTextCompleter *completer);
@@ -674,6 +675,10 @@ public:
     DocDeclA(
         virtual /*bool*/ void, PositionToXY(long pos, long *OUTPUT, long *OUTPUT) const,
         "PositionToXY(long pos) -> (x, y)");
+
+    // translate the given position (which is just an index in the text control)
+    // to client coordinates
+    wxPoint PositionToCoords(long pos) const;
 
     virtual void ShowPosition(long pos);
 

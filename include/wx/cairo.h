@@ -3,7 +3,7 @@
 // Purpose:     Cairo library
 // Author:      Anthony Bretaudeau
 // Created:     2007-08-25
-// RCS-ID:      $Id: cairo.h 68934 2011-08-27 23:24:47Z RD $
+// RCS-ID:      $Id: cairo.h 68935 2011-08-27 23:26:53Z RD $
 // Copyright:   (c) Anthony Bretaudeau
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

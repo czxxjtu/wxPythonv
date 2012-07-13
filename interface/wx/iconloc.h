@@ -2,7 +2,7 @@
 // Name:        iconloc.h
 // Purpose:     interface of wxIconLocation
 // Author:      wxWidgets team
-// RCS-ID:      $Id: iconloc.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: iconloc.h 69776 2011-11-17 03:20:25Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -34,5 +34,9 @@ public:
         @false otherwise.
     */
     bool IsOk() const;
+
+    void SetFileName(const wxString& filename);
+    const wxString& GetFileName() const;
+
 };
 

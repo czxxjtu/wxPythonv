@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     10-June-1998
-// RCS-ID:      $Id: _listctrl.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _listctrl.i 69705 2011-11-08 17:42:25Z RD $
 // Copyright:   (c) 2002 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -521,6 +521,54 @@ public:
     // Sets the column width
     bool SetColumnWidth(int col, int width) ;
 
+
+    %extend {
+        static bool HasColumnOrderSupport() {
+        %#ifdef wxHAS_LISTCTRL_COLUMN_ORDER
+            return true;
+        %#else
+            return false;
+        %#endif
+        }
+        
+        int GetColumnOrder(int col) const {
+        %#ifdef wxHAS_LISTCTRL_COLUMN_ORDER
+            return self->GetColumnOrder(col);
+        %#else
+            wxPyRaiseNotImplemented();
+            return 0;
+        %#endif
+        }
+        
+        int GetColumnIndexFromOrder(int order) const {
+        %#ifdef wxHAS_LISTCTRL_COLUMN_ORDER
+            return self->GetColumnIndexFromOrder(order);
+        %#else
+            wxPyRaiseNotImplemented();
+            return 0;
+        %#endif
+        }
+        
+        wxArrayInt GetColumnsOrder() const {
+        %#ifdef wxHAS_LISTCTRL_COLUMN_ORDER
+            return self->GetColumnsOrder();
+        %#else
+            wxPyRaiseNotImplemented();
+            return wxArrayInt();
+        %#endif
+        }
+            
+        bool SetColumnsOrder(const wxArrayInt& orders) {
+        %#ifdef wxHAS_LISTCTRL_COLUMN_ORDER
+            return self->SetColumnsOrder(orders);
+        %#else
+            wxPyRaiseNotImplemented();
+            return false;
+        %#endif
+        }
+    }
+
+    
     // Gets the number of items that can fit vertically in the
     // visible area of the list control (list or report view)
     // or the total number of items in the list control (icon

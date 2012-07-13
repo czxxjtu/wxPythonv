@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by: Ryan Norton (MLTE GetLineLength and GetLineText)
 // Created:     1998-01-01
-// RCS-ID:      $Id: textctrl_osx.cpp 68524 2011-08-04 21:20:04Z RD $
+// RCS-ID:      $Id: textctrl_osx.cpp 68719 2011-08-16 12:00:52Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ void wxTextCtrl::OnDropFiles(wxDropFilesEvent& event)
 
 void wxTextCtrl::OnKeyDown(wxKeyEvent& event)
 {
-    if ( event.GetModifiers() == wxMOD_CMD )
+    if ( event.GetModifiers() == wxMOD_CONTROL )
     {
         switch( event.GetKeyCode() )
         {

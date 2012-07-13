@@ -2,7 +2,7 @@
 // Name:        accel.h
 // Purpose:     interface of wxAccelerator* classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: accel.h 66379 2010-12-15 11:18:42Z VZ $
+// RCS-ID:      $Id: accel.h 68725 2011-08-16 13:36:24Z SC $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -16,13 +16,16 @@ enum wxAcceleratorEntryFlags
     /** hold Alt key down */
     wxACCEL_ALT,
 
-    /** hold Ctrl key down */
+    /** hold Ctrl key down, corresponds to Command key on OS X */
     wxACCEL_CTRL,
 
     /** hold Shift key down */
     wxACCEL_SHIFT,
 
-    /** Command key on OS X; identic to wxACCEL_CTRL on other platforms. */
+    /** corresponds to real Ctrl key on OS X, identic to @c wxACCEL_CTRL on other platforms */
+    wxACCEL_RAW_CTRL,
+
+    /** deprecated, identic to @c wxACCEL_CTRL on all platforms. */
     wxACCEL_CMD
 };
 

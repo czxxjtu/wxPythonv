@@ -6,7 +6,7 @@
 # Author:      Robin Dunn
 #
 # Created:     26-Jan-2007
-# RCS-ID:      $Id: inspection.py 68986 2011-09-03 04:33:29Z RD $
+# RCS-ID:      $Id: inspection.py 69421 2011-10-14 16:59:13Z RD $
 # Copyright:   (c) 2007 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------------
@@ -657,6 +657,7 @@ class InspectionInfoPanel(wx.stc.StyledTextCtrl):
         st.append(self.Fmt('virtual size',obj.GetVirtualSize()))
         st.append(self.Fmt('IsEnabled',   obj.IsEnabled()))
         st.append(self.Fmt('IsShown',     obj.IsShown()))
+        st.append(self.Fmt('IsFrozen',    obj.IsFrozen()))        
         st.append(self.Fmt('fg color',    obj.GetForegroundColour()))
         st.append(self.Fmt('bg color',    obj.GetBackgroundColour()))
         st.append(self.Fmt('label',       obj.GetLabel()))

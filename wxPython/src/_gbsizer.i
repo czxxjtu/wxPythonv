@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     05-Nov-2003
-// RCS-ID:      $Id: _gbsizer.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _gbsizer.i 70133 2011-12-28 02:14:56Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -272,9 +272,9 @@ are created automatically when the sizer's Add method is called.", "");
         
         %RenameCtor(GBSizerItemWindow, wxGBSizerItem( wxWindow *window,
                                                       const wxGBPosition& pos,
-                                                      const wxGBSpan& span,
-                                                      int flag,
-                                                      int border,
+                                                      const wxGBSpan& span=wxDefaultSpan,
+                                                      int flag=0,
+                                                      int border=0,
                                                       PyObject* userData=NULL ))
             {
                 wxPyUserData* data = NULL;
@@ -292,9 +292,9 @@ are created automatically when the sizer's Add method is called.", "");
         %disownarg( wxSizer *sizer );
         %RenameCtor(GBSizerItemSizer, wxGBSizerItem( wxSizer *sizer,
                                                      const wxGBPosition& pos,
-                                                     const wxGBSpan& span,
-                                                     int flag,
-                                                     int border,
+                                                     const wxGBSpan& span=wxDefaultSpan,
+                                                     int flag=0,
+                                                     int border=0,
                                                      PyObject* userData=NULL ))
             {
                 wxPyUserData* data = NULL;
@@ -313,9 +313,9 @@ are created automatically when the sizer's Add method is called.", "");
         %RenameCtor(GBSizerItemSpacer, wxGBSizerItem( int width,
                                                       int height,
                                                       const wxGBPosition& pos,
-                                                      const wxGBSpan& span,
-                                                      int flag,
-                                                      int border,
+                                                      const wxGBSpan& span=wxDefaultSpan,
+                                                      int flag=0,
+                                                      int border=0,
                                                       PyObject* userData=NULL))
             {
                 wxPyUserData* data = NULL;

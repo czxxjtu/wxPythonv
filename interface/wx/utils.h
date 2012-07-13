@@ -2,7 +2,7 @@
 // Name:        utils.h
 // Purpose:     interface of various utility classes and functions
 // Author:      wxWidgets team
-// RCS-ID:      $Id: utils.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: utils.h 69964 2011-12-08 20:22:55Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -496,19 +496,19 @@ void wxPostDelete(wxObject* object);
 
     @header{wx/utils.h}
 */
-extern "C"
-{
-typedef int (wxCMPFUNC_CONV *CMPFUNCDATA)(const void* pItem1, const void* pItem2, const void* user_data);
-}
+typedef int (*wxSortCallback)(const void* pItem1, const void* pItem2, const void* user_data);
 
 /**
-    Function for performing a qsort operation including a user data
-    parameter.
+    Function implementing quick sort algorithm.
+
+    This function sorts @a total_elems objects of size @a size located at @a
+    pbase. It uses @a cmp function for comparing them and passes @a user_data
+    pointer to the comparison function each time it's called.
 
     @header{wx/utils.h}
 */
-void wxQsort(void *const pbase, size_t total_elems,
-             size_t size, CMPFUNCDATA cmp, const void* user_data);
+void wxQsort(void* pbase, size_t total_elems,
+             size_t size, wxSortCallback cmp, const void* user_data);
 
 
 /**
@@ -817,6 +817,80 @@ struct wxExecuteEnv
 };
 
 /**
+    Bit flags that can be used with wxExecute().
+ */
+enum
+{
+    /**
+        Execute the process asynchronously.
+
+        Notice that, due to its value, this is the default.
+     */
+    wxEXEC_ASYNC    = 0,
+
+    /**
+        Execute the process synchronously.
+     */
+    wxEXEC_SYNC     = 1,
+
+    /**
+        Always show the child process console under MSW.
+
+        The child console is hidden by default if the child IO is redirected,
+        this flag allows to change this and show it nevertheless.
+
+        This flag is ignored under the other platforms.
+     */
+    wxEXEC_SHOW_CONSOLE   = 2,
+
+    /**
+        Make the new process a group leader.
+
+        Under Unix, if the process is the group leader then passing
+        wxKILL_CHILDREN to wxKill() kills all children as well as pid.
+
+        This flag is currently ignored under MSW.
+     */
+    wxEXEC_MAKE_GROUP_LEADER = 4,
+
+    /**
+        Don't disable the program UI while running the child synchronously.
+
+        By default synchronous execution disables all program windows to avoid
+        that the user interacts with the program while the child process is
+        running, you can use this flag to prevent this from happening.
+
+        This flag can only be used with ::wxEXEC_SYNC.
+     */
+    wxEXEC_NODISABLE = 8,
+
+    /**
+        Don't dispatch events while the child process is executed.
+
+        By default, the event loop is run while waiting for synchronous
+        execution to complete and this flag can be used to simply block the
+        main process until the child process finishes
+
+        This flag can only be used with ::wxEXEC_SYNC.
+     */
+    wxEXEC_NOEVENTS = 16,
+
+    /**
+        Hide child process console under MSW.
+
+        Under MSW, hide the console of the child process if it has one,
+        even if its IO is not redirected.
+
+        This flag is ignored under the other platforms.
+     */
+    wxEXEC_HIDE_CONSOLE = 32,
+
+    /**
+        Convenient synonym for flags given system()-like behaviour.
+     */
+    wxEXEC_BLOCK = wxEXEC_SYNC | wxEXEC_NOEVENTS
+};
+/**
     Executes another program in Unix or Windows.
 
     In the overloaded versions of this function, if @a flags parameter contains
@@ -847,12 +921,15 @@ struct wxExecuteEnv
     wxProcess::OnTerminate() will be called when the process finishes.
     Specifying this parameter also allows you to redirect the standard input
     and/or output of the process being launched by calling
-    wxProcess::Redirect(). If the child process IO is redirected, under Windows
-    the process window is not shown by default (this avoids having to flush an
-    unnecessary console for the processes which don't create any windows
-    anyhow) but a @c wxEXEC_NOHIDE flag can be used to prevent this from
-    happening, i.e. with this flag the child process window will be shown
-    normally.
+    wxProcess::Redirect().
+
+    Under Windows, when launching a console process its console is shown by
+    default but hidden if its IO is redirected. Both of these default
+    behaviours may be overridden: if ::wxEXEC_HIDE_CONSOLE is specified, the
+    console will never be shown. If ::wxEXEC_SHOW_CONSOLE is used, the console
+    will be shown even if the child process IO is redirected. Neither of these
+    flags affect non-console Windows applications or does anything under the
+    other systems.
 
     Under Unix the flag @c wxEXEC_MAKE_GROUP_LEADER may be used to ensure that
     the new process is a group leader (this will create a new session if
@@ -876,9 +953,9 @@ struct wxExecuteEnv
         string, i.e. "emacs file.txt".
     @param flags
         Must include either wxEXEC_ASYNC or wxEXEC_SYNC and can also include
-        wxEXEC_NOHIDE, wxEXEC_MAKE_GROUP_LEADER (in either case) or
-        wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK, which is equal to
-        their combination, in wxEXEC_SYNC case.
+        wxEXEC_SHOW_CONSOLE, wxEXEC_HIDE_CONSOLE, wxEXEC_MAKE_GROUP_LEADER (in
+        either case) or wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK,
+        which is equal to their combination, in wxEXEC_SYNC case.
     @param callback
         An optional pointer to wxProcess.
     @param env
@@ -914,10 +991,7 @@ long wxExecute(const wxString& command, int flags = wxEXEC_ASYNC,
         additional ones are the command parameters and the array must be
         terminated with a @NULL pointer.
     @param flags
-        Must include either wxEXEC_ASYNC or wxEXEC_SYNC and can also include
-        wxEXEC_NOHIDE, wxEXEC_MAKE_GROUP_LEADER (in either case) or
-        wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK, which is equal to
-        their combination, in wxEXEC_SYNC case.
+        Same as for wxExecute(const wxString&,int,wxProcess*) overload.
     @param callback
         An optional pointer to wxProcess.
     @param env
@@ -959,9 +1033,7 @@ long wxExecute(wchar_t** argv, int flags = wxEXEC_ASYNC,
     @param output
         The string array where the stdout of the executed process is saved.
     @param flags
-        May include wxEXEC_NOHIDE, wxEXEC_MAKE_GROUP_LEADER (in either case) or
-        wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK, which is equal to
-        their combination. wxEXEC_SYNC is always implicitly added to the flags.
+        Combination of flags to which ::wxEXEC_SYNC is always implicitly added.
     @param env
         An optional pointer to additional parameters for the child process,
         such as its initial working directory and environment variables. This
@@ -997,9 +1069,7 @@ long wxExecute(const wxString& command, wxArrayString& output, int flags = 0,
     @param errors
         The string array where the stderr of the executed process is saved.
     @param flags
-        May include wxEXEC_NOHIDE, wxEXEC_MAKE_GROUP_LEADER (in either case) or
-        wxEXEC_NODISABLE and wxEXEC_NOEVENTS or wxEXEC_BLOCK, which is equal to
-        their combination. wxEXEC_SYNC is always implicitly added to the flags.
+        Combination of flags to which ::wxEXEC_SYNC is always implicitly added.
     @param env
         An optional pointer to additional parameters for the child process,
         such as its initial working directory and environment variables. This

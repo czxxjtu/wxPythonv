@@ -2,7 +2,7 @@
 // Name:        dirctrl.h
 // Purpose:     interface of wxGenericDirCtrl
 // Author:      wxWidgets team
-// RCS-ID:      $Id: dirctrl.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: dirctrl.h 69110 2011-09-17 11:06:01Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@
            Allows multiple files and folders to be selected.
     @endStyleTable
 
-    @library{wxbase}
+    @library{wxcore}
     @category{ctrl}
     @appearance{genericdirctrl.png}
 */

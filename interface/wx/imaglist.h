@@ -2,9 +2,28 @@
 // Name:        imaglist.h
 // Purpose:     interface of wxImageList
 // Author:      wxWidgets team
-// RCS-ID:      $Id: imaglist.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: imaglist.h 69446 2011-10-17 18:53:28Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+/**
+   Flag values for Set/GetImageList
+*/
+enum
+{
+    wxIMAGE_LIST_NORMAL, // Normal icons
+    wxIMAGE_LIST_SMALL,  // Small icons
+    wxIMAGE_LIST_STATE   // State icons: unimplemented (see WIN32 documentation)
+};
+
+/**
+   Flags for Draw
+*/
+#define wxIMAGELIST_DRAW_NORMAL         0x0001
+#define wxIMAGELIST_DRAW_TRANSPARENT    0x0002
+#define wxIMAGELIST_DRAW_SELECTED       0x0004
+#define wxIMAGELIST_DRAW_FOCUSED        0x0008
+
 
 /**
     @class wxImageList

@@ -4,7 +4,7 @@
 // Author:      Julian Smart, Robert Roebling, Markus Holzhem
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: dcpsg.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: dcpsg.cpp 69243 2011-09-30 15:26:36Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1135,7 +1135,7 @@ void wxPostScriptDCImpl::SetPen( const wxPen& pen )
 
     if (!pen.IsOk()) return;
 
-    int oldStyle = m_pen.GetStyle();
+    int oldStyle = m_pen.IsOk() ? m_pen.GetStyle() : wxPENSTYLE_INVALID;
 
     m_pen = pen;
 

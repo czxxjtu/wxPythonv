@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     12.09.97
-// RCS-ID:      $Id: dynarray.h 67429 2011-04-10 15:36:07Z VZ $
+// RCS-ID:      $Id: dynarray.h 69688 2011-11-05 15:20:32Z VS $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,7 +151,7 @@ public:                                                             \
                                        e = rend();                  \
           for ( const_reverse_iterator i = b; i != e; ++i )         \
               if ( *i == item )                                     \
-                  return (int)(i - b);                              \
+                  return (int)(e - i - 1);                          \
       }                                                             \
       else                                                          \
       {                                                             \

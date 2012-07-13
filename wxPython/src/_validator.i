@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     24-June-1997
-// RCS-ID:      $Id: _validator.i 63597 2010-03-01 23:39:58Z RD $
+// RCS-ID:      $Id: _validator.i 69707 2011-11-08 17:44:35Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ public:
 
     // Called when the value in the window must be validated.
     // This function can pop up an error message.
-    virtual bool Validate(wxWindow *WXUNUSED(parent));
+    virtual bool Validate(wxWindow *parent);
 
     // Called to transfer data to the window
     virtual bool TransferToWindow();

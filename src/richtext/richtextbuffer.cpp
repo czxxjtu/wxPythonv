@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     2005-09-30
-// RCS-ID:      $Id: richtextbuffer.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: richtextbuffer.cpp 69995 2011-12-13 19:06:53Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -864,7 +864,7 @@ bool wxRichTextObject::GetBoxRects(wxDC& dc, wxRichTextBuffer* buffer, const wxR
         marginRight = converter.GetPixels(attr.GetTextBoxAttr().GetMargins().GetRight());
     if (attr.GetTextBoxAttr().GetMargins().GetTop().IsValid())
         marginTop = converter.GetPixels(attr.GetTextBoxAttr().GetMargins().GetTop());
-    if (attr.GetTextBoxAttr().GetMargins().GetLeft().IsValid())
+    if (attr.GetTextBoxAttr().GetMargins().GetBottom().IsValid())
         marginBottom = converter.GetPixels(attr.GetTextBoxAttr().GetMargins().GetBottom());
 
     if (attr.GetTextBoxAttr().GetBorder().GetLeft().GetWidth().IsValid())
@@ -873,7 +873,7 @@ bool wxRichTextObject::GetBoxRects(wxDC& dc, wxRichTextBuffer* buffer, const wxR
         borderRight = converter.GetPixels(attr.GetTextBoxAttr().GetBorder().GetRight().GetWidth());
     if (attr.GetTextBoxAttr().GetBorder().GetTop().GetWidth().IsValid())
         borderTop = converter.GetPixels(attr.GetTextBoxAttr().GetBorder().GetTop().GetWidth());
-    if (attr.GetTextBoxAttr().GetBorder().GetLeft().GetWidth().IsValid())
+    if (attr.GetTextBoxAttr().GetBorder().GetBottom().GetWidth().IsValid())
         borderBottom = converter.GetPixels(attr.GetTextBoxAttr().GetBorder().GetBottom().GetWidth());
 
     if (attr.GetTextBoxAttr().GetPadding().GetLeft().IsValid())
@@ -1913,6 +1913,20 @@ bool wxRichTextParagraphLayoutBox::Layout(wxDC& dc, const wxRect& rect, int styl
 
     // A way to force speedy rest-of-buffer layout (the 'else' below)
     bool forceQuickLayout = false;
+
+    // First get the size of the paragraphs we won't be laying out
+    wxRichTextObjectList::compatibility_iterator n = m_children.GetFirst();
+    while (n && n != node)
+    {
+        wxRichTextParagraph* child = wxDynamicCast(n->GetData(), wxRichTextParagraph);
+        if (child)
+        {
+            maxWidth = wxMax(maxWidth, child->GetCachedSize().x);
+            maxMinWidth = wxMax(maxMinWidth, child->GetMinSize().x);
+            maxMaxWidth = wxMax(maxMaxWidth, child->GetMaxSize().x);
+        }
+        n = n->GetNext();
+    }
 
     while (node)
     {
@@ -4722,7 +4736,7 @@ bool wxRichTextParagraph::Layout(wxDC& dc, const wxRect& rect, int style)
     // this size. TODO: take into account line breaks.
     {
         wxRect marginRect, borderRect, contentRect, paddingRect, outlineRect;
-        contentRect = wxRect(wxPoint(0, 0), wxSize(paraSize.x, currentPosition.y + spaceAfterPara));
+        contentRect = wxRect(wxPoint(0, 0), wxSize(paraSize.x + wxMax(leftIndent, leftIndent + leftSubIndent) + rightIndent, currentPosition.y + spaceAfterPara));
         GetBoxRects(dc, buffer, GetAttributes(), marginRect, borderRect, contentRect, paddingRect, outlineRect);
         SetMaxSize(marginRect.GetSize());
     }
@@ -8138,15 +8152,11 @@ bool wxRichTextTable::Layout(wxDC& dc, const wxRect& rect, int style)
     }
 
     // Get internal padding
-    int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
+    int paddingLeft = 0, paddingTop = 0;
     if (GetAttributes().GetTextBoxAttr().GetPadding().GetLeft().IsValid())
         paddingLeft = converter.GetPixels(GetAttributes().GetTextBoxAttr().GetPadding().GetLeft());
-    if (GetAttributes().GetTextBoxAttr().GetPadding().GetRight().IsValid())
-        paddingRight = converter.GetPixels(GetAttributes().GetTextBoxAttr().GetPadding().GetRight());
     if (GetAttributes().GetTextBoxAttr().GetPadding().GetTop().IsValid())
         paddingTop = converter.GetPixels(GetAttributes().GetTextBoxAttr().GetPadding().GetTop());
-    if (GetAttributes().GetTextBoxAttr().GetPadding().GetLeft().IsValid())
-        paddingBottom = converter.GetPixels(GetAttributes().GetTextBoxAttr().GetPadding().GetBottom());
 
     // Assume that left and top padding are also used for inter-cell padding.
     int paddingX = paddingLeft;
@@ -9911,7 +9921,7 @@ bool wxRichTextImage::Draw(wxDC& dc, const wxRichTextRange& range, const wxRichT
     if (!LoadImageCache(dc))
         return false;
 
-    DrawBoxAttributes(dc, GetBuffer(), GetAttributes(), wxRect(GetPosition(), GetCachedSize()));
+    DrawBoxAttributes(dc, GetBuffer(), GetAttributes(), wxRect(rect.GetPosition(), GetCachedSize()));
 
 #if 0
     int y = rect.y + (rect.height - m_imageCache.GetHeight());

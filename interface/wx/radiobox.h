@@ -2,7 +2,7 @@
 // Name:        radiobox.h
 // Purpose:     interface of wxRadioBox
 // Author:      wxWidgets team
-// RCS-ID:      $Id: radiobox.h 65230 2010-08-10 18:57:36Z VZ $
+// RCS-ID:      $Id: radiobox.h 69545 2011-10-26 05:52:53Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -326,4 +326,13 @@ public:
 
     */
     virtual bool Show(unsigned int item, bool show = true);
+
+
+    // pure virtuals that have implementations here
+    virtual unsigned int GetCount() const;
+    virtual wxString GetString(unsigned int n) const;
+    virtual void SetString(unsigned int n, const wxString& string);
+    virtual void SetSelection(int n);
+    virtual int GetSelection() const;
+
 };

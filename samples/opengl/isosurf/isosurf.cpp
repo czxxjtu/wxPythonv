@@ -4,7 +4,7 @@
 // Author:      Brian Paul (original gltk version), Wolfram Gloger
 // Modified by: Julian Smart, Francesco Montorsi
 // Created:     04/01/98
-// RCS-ID:      $Id: isosurf.cpp 68110 2011-06-30 12:20:38Z VZ $
+// RCS-ID:      $Id: isosurf.cpp 68909 2011-08-27 12:13:13Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -136,10 +136,13 @@ MyFrame::MyFrame(wxFrame *frame, const wxString& title, const wxPoint& pos,
         g_doubleBuffer = GL_FALSE;
     }
 
+    m_canvas = new TestGLCanvas(this, wxID_ANY, gl_attrib);
+
     // Show the frame
     Show(true);
+    Raise();
 
-    m_canvas = new TestGLCanvas(this, wxID_ANY, gl_attrib);
+    m_canvas->InitGL();
 }
 
 MyFrame::~MyFrame()
@@ -177,13 +180,6 @@ TestGLCanvas::TestGLCanvas(wxWindow *parent,
 
     // Explicitly create a new rendering context instance for this canvas.
     m_glRC = new wxGLContext(this);
-
-    // Make the new context current (activate it for use) with this canvas.
-    SetCurrent(*m_glRC);
-
-    InitGL();
-    InitMaterials();
-    LoadSurface("isosurf.dat.gz");
 }
 
 TestGLCanvas::~TestGLCanvas()
@@ -279,6 +275,8 @@ void TestGLCanvas::OnPaint( wxPaintEvent& WXUNUSED(event) )
 
 void TestGLCanvas::OnSize(wxSizeEvent& event)
 {
+    if ( !IsShownOnScreen() )
+        return;
     // This is normally only necessary if there is more than one wxGLCanvas
     // or more than one wxGLContext in the application.
     SetCurrent(*m_glRC);
@@ -406,6 +404,9 @@ void TestGLCanvas::InitMaterials()
 
 void TestGLCanvas::InitGL()
 {
+    // Make the new context current (activate it for use) with this canvas.
+    SetCurrent(*m_glRC);
+
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
     glShadeModel(GL_SMOOTH);
@@ -428,5 +429,8 @@ void TestGLCanvas::InitGL()
         glEnable( GL_VERTEX_ARRAY );
         glEnable( GL_NORMAL_ARRAY );
     }
+
+    InitMaterials();
+    LoadSurface("isosurf.dat.gz");
 }
 

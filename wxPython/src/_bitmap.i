@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-1997
-// RCS-ID:      $Id: _bitmap.i 69031 2011-09-09 02:26:43Z RD $
+// RCS-ID:      $Id: _bitmap.i 69247 2011-09-30 18:01:08Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -734,7 +734,6 @@ format details.", "");
     %property(Mask, GetMask, SetMask, doc="See `GetMask` and `SetMask`");
     %property(Palette, GetPalette, doc="See `GetPalette`");
     %property(Size, GetSize, SetSize, doc="See `GetSize` and `SetSize`");
-    %property(SubBitmap, GetSubBitmap, doc="See `GetSubBitmap`");
     %property(Width, GetWidth, SetWidth, doc="See `GetWidth` and `SetWidth`");
 
 };

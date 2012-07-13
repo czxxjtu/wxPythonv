@@ -3,7 +3,7 @@
 // Purpose:     implements wxGenericAboutBox() function
 // Author:      Vadim Zeitlin
 // Created:     2006-10-08
-// RCS-ID:      $Id: aboutdlgg.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: aboutdlgg.cpp 69828 2011-11-27 19:49:43Z VZ $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -138,7 +138,7 @@ void wxAboutDialogInfo::SetVersion(const wxString& version,
 
 bool wxGenericAboutDialog::Create(const wxAboutDialogInfo& info, wxWindow* parent)
 {
-    if ( !wxDialog::Create(parent, wxID_ANY, _("About ") + info.GetName(),
+    if ( !wxDialog::Create(parent, wxID_ANY, wxString::Format(_("About %s"), info.GetName()),
                            wxDefaultPosition, wxDefaultSize, wxRESIZE_BORDER|wxDEFAULT_DIALOG_STYLE) )
         return false;
 

@@ -2,7 +2,7 @@
 // Name:        wrapsizer.h
 // Purpose:     interface of wxWrapSizer
 // Author:      wxWidgets team
-// RCS-ID:      $Id: wrapsizer.h 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: wrapsizer.h 69644 2011-11-02 20:22:29Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -51,6 +51,9 @@ public:
     */
     virtual bool InformFirstDirection(int direction, int size,
                                       int availableOtherDir);
+    
+    virtual void RecalcSizes();
+    virtual wxSize CalcMin();
 
 protected:
     /**

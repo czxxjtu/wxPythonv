@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     04.04.98
-// RCS-ID:      $Id: statusbar.cpp 68098 2011-06-29 17:50:27Z VZ $
+// RCS-ID:      $Id: statusbar.cpp 69867 2011-11-30 00:52:34Z VZ $
 // Copyright:   (c) 1998 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -176,10 +176,6 @@ void wxStatusBar::SetFieldsCount(int nFields, const int *widths)
     // this is a Windows limitation
     wxASSERT_MSG( (nFields > 0) && (nFields < 255), "too many fields" );
 
-    wxStatusBarBase::SetFieldsCount(nFields, widths);
-
-    MSWUpdateFieldsWidths();
-
     // keep in synch also our m_tooltips array
 
     // reset all current tooltips
@@ -189,7 +185,11 @@ void wxStatusBar::SetFieldsCount(int nFields, const int *widths)
     }
 
     // shrink/expand the array:
-    m_tooltips.resize(m_panes.GetCount(), NULL);
+    m_tooltips.resize(nFields, NULL);
+
+    wxStatusBarBase::SetFieldsCount(nFields, widths);
+
+    MSWUpdateFieldsWidths();
 }
 
 void wxStatusBar::SetStatusWidths(int n, const int widths[])
@@ -229,7 +229,8 @@ void wxStatusBar::MSWUpdateFieldsWidths()
     int *pWidths = new int[count];
 
     int nCurPos = 0;
-    for ( int i = 0; i < count; i++ )
+    int i;
+    for ( i = 0; i < count; i++ )
     {
         nCurPos += widthsAbs[i] + extraWidth;
         pWidths[i] = nCurPos;
@@ -245,10 +246,13 @@ void wxStatusBar::MSWUpdateFieldsWidths()
         wxLogLastError("StatusBar_SetParts");
     }
 
+    // Now that all parts have been created, set their text.
+    for ( i = 0; i < count; i++ )
+    {
+        DoUpdateStatusText(i);
+    }
+
     delete [] pWidths;
-
-
-    // FIXME: we may want to call DoUpdateStatusText() here since we may need to (de)ellipsize status texts
 }
 
 void wxStatusBar::DoUpdateStatusText(int nField)
@@ -401,7 +405,18 @@ const wxStatusBar::MSWMetrics& wxStatusBar::MSWGetMetrics()
 
 void wxStatusBar::SetMinHeight(int height)
 {
-    SendMessage(GetHwnd(), SB_SETMINHEIGHT, height + 2*GetBorderY(), 0);
+    // It looks like we need to count the border twice to really make the
+    // controls taking exactly height pixels fully fit in the status bar:
+    // at least under Windows 7 the checkbox in the custom status bar of the
+    // statbar sample gets truncated otherwise.
+    height += 4*GetBorderY();
+
+    // We need to set the size and not the size to reflect the height because
+    // wxFrame uses our size and not the minimal size as it assumes that the
+    // size of a status bar never changes anyhow.
+    SetSize(-1, height);
+
+    SendMessage(GetHwnd(), SB_SETMINHEIGHT, height, 0);
 
     // we have to send a (dummy) WM_SIZE to redraw it now
     SendMessage(GetHwnd(), WM_SIZE, 0, 0);
@@ -471,11 +486,10 @@ wxSize wxStatusBar::DoGetBestSize() const
         width = 2*DEFAULT_FIELD_WIDTH;
     }
 
-    // calculate height
-    int height;
-    wxGetCharSize(GetHWND(), NULL, &height, GetFont());
-    height = EDIT_HEIGHT_FROM_CHAR_HEIGHT(height);
-    height += borders.vert;
+    // calculate height: by default it should be just big enough to show text
+    // (see SetMinHeight() for the explanation of 4 factor)
+    int height = GetCharHeight();
+    height += 4*borders.vert;
 
     wxSize best(width, height);
     CacheBestSize(best);

@@ -3,7 +3,7 @@
 // Purpose:   Region class
 // Author:    Stefan Csomor
 // Created:   Fri Oct 24 10:46:34 MET 1997
-// RCS-ID:    $Id: region.cpp 69006 2011-09-06 04:16:52Z RD $
+// RCS-ID:    $Id: region.cpp 69461 2011-10-18 21:56:48Z VZ $
 // Copyright: (c) 1997 Stefan Csomor
 // Licence:   wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -68,14 +68,6 @@ public:
 // wxRegion
 //-----------------------------------------------------------------------------
 
-/*!
- * Create an empty region.
- */
-wxRegion::wxRegion()
-{
-    m_refData = new wxRegionRefData();
-}
-
 wxRegion::wxRegion(WXHRGN hRegion )
 {
     wxCFRef< HIShapeRef > shape( (HIShapeRef) hRegion );
@@ -101,39 +93,39 @@ wxRegion::wxRegion(const wxRect& rect)
 
 wxRegion::wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle)
 {
-    m_refData = new wxRegionRefData();
-    
-    wxCoord mx = 0;
-    wxCoord my = 0;
-    wxPoint p;
-    size_t idx;    
-    
-    // Set the region to a polygon shape generically using a bitmap with the
-    // polygon drawn on it.
-
-    // Find the max size needed to draw the polygon
-    for (idx=0; idx<n; idx++)
-    {
-        wxPoint pt = points[idx];
-        if (pt.x > mx)
-            mx = pt.x;
-        if (pt.y > my)
-            my = pt.y;
-    }
-
-    // Make the bitmap
-    wxBitmap bmp(mx, my);
-    wxMemoryDC dc(bmp);
-    dc.SetBackground(*wxBLACK_BRUSH);
-    dc.Clear();
-    dc.SetPen(*wxWHITE_PEN);
-    dc.SetBrush(*wxWHITE_BRUSH);
-    dc.DrawPolygon(n, (wxPoint*)points, 0, 0, fillStyle);
-    dc.SelectObject(wxNullBitmap);
-    bmp.SetMask(new wxMask(bmp, *wxBLACK));
-
-    // Use it to set this region
-    Union(bmp);
+    // Set the region to a polygon shape generically using a bitmap with the 
+    // polygon drawn on it. 
+ 
+    m_refData = new wxRegionRefData(); 
+     
+    wxCoord mx = 0; 
+    wxCoord my = 0; 
+    wxPoint p; 
+    size_t idx;     
+     
+    // Find the max size needed to draw the polygon 
+    for (idx=0; idx<n; idx++) 
+    { 
+        wxPoint pt = points[idx]; 
+        if (pt.x > mx) 
+            mx = pt.x; 
+        if (pt.y > my) 
+            my = pt.y; 
+    } 
+ 
+    // Make the bitmap 
+    wxBitmap bmp(mx, my); 
+    wxMemoryDC dc(bmp); 
+    dc.SetBackground(*wxBLACK_BRUSH); 
+    dc.Clear(); 
+    dc.SetPen(*wxWHITE_PEN); 
+    dc.SetBrush(*wxWHITE_BRUSH); 
+    dc.DrawPolygon(n, (wxPoint*)points, 0, 0, fillStyle); 
+    dc.SelectObject(wxNullBitmap); 
+    bmp.SetMask(new wxMask(bmp, *wxBLACK)); 
+ 
+    // Use it to set this region 
+    Union(bmp); 
 }
 
 wxRegion::~wxRegion()
@@ -164,7 +156,7 @@ void wxRegion::Clear()
 // Move the region
 bool wxRegion::DoOffset(wxCoord x, wxCoord y)
 {
-    wxCHECK_MSG( M_REGION, false, wxT("invalid wxRegion") );
+    wxCHECK_MSG( m_refData, false, wxT("invalid wxRegion") );
 
     if ( !x && !y )
         // nothing to do
@@ -182,6 +174,30 @@ bool wxRegion::DoOffset(wxCoord x, wxCoord y)
 bool wxRegion::DoCombine(const wxRegion& region, wxRegionOp op)
 {
     wxCHECK_MSG( region.IsOk(), false, wxT("invalid wxRegion") );
+
+    // Handle the special case of not initialized (e.g. default constructed)
+    // region as we can't use HIShape functions if we don't have any shape.
+    if ( !m_refData )
+    {
+        switch ( op )
+        {
+            case wxRGN_COPY:
+            case wxRGN_OR:
+            case wxRGN_XOR:
+                // These operations make sense with a null region.
+                *this = region;
+                return true;
+
+            case wxRGN_AND:
+            case wxRGN_DIFF:
+                // Those ones don't really make sense so just leave this region
+                // empty/invalid.
+                return false;
+        }
+
+        wxFAIL_MSG( wxT("Unknown region operation") );
+        return false;
+    }
 
     AllocExclusive();
 

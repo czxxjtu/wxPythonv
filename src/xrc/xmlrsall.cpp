@@ -3,7 +3,7 @@
 // Purpose:     wxXmlResource::InitAllHandlers
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xmlrsall.cpp 65885 2010-10-23 18:56:28Z VZ $
+// RCS-ID:      $Id: xmlrsall.cpp 69225 2011-09-29 13:43:23Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -37,6 +37,9 @@ void wxXmlResource::InitAllHandlers()
     // please keep them in alphabetical order of wxUSE_XXX guards
 #if wxUSE_ANIMATIONCTRL
     AddHandler(new wxAnimationCtrlXmlHandler);
+#endif
+#if wxUSE_BANNERWINDOW
+    AddHandler(new wxBannerWindowXmlHandler);
 #endif
 #if wxUSE_BITMAPCOMBOBOX
     AddHandler(new wxBitmapComboBoxXmlHandler);
@@ -184,6 +187,9 @@ void wxXmlResource::InitAllHandlers()
 #endif
 #if wxUSE_TOGGLEBTN
     AddHandler(new wxToggleButtonXmlHandler);
+#endif
+#if wxUSE_TIMEPICKCTRL
+    AddHandler(new wxTimeCtrlXmlHandler);
 #endif
 #if wxUSE_TOOLBAR
     AddHandler(new wxToolBarXmlHandler);

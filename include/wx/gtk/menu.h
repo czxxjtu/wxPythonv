@@ -2,7 +2,7 @@
 // Name:        wx/gtk/menu.h
 // Purpose:
 // Author:      Robert Roebling
-// Id:          $Id: menu.h 67721 2011-05-10 08:50:47Z VZ $
+// Id:          $Id: menu.h 69878 2011-12-01 06:57:44Z PC $
 // Copyright:   (c) 1998 Robert Roebling, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ public:
 
 private:
     // common part of Append and Insert
-    bool GtkAppend(wxMenu *menu, const wxString& title, int pos=-1);
+    void GtkAppend(wxMenu* menu, const wxString& title, int pos = -1);
 
     void Init(size_t n, wxMenu *menus[], const wxString titles[], long style);
 
@@ -99,7 +99,7 @@ private:
     void Init();
 
     // common part of Append (if pos == -1)  and Insert
-    bool GtkAppend(wxMenuItem *item, int pos=-1);
+    void GtkAppend(wxMenuItem* item, int pos = -1);
 
 
     DECLARE_DYNAMIC_CLASS(wxMenu)

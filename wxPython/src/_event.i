@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     24-May-1998
-// RCS-ID:      $Id: _event.i 68414 2011-07-25 18:52:07Z RD $
+// RCS-ID:      $Id: _event.i 70133 2011-12-28 02:14:56Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -1467,6 +1467,15 @@ applicable.", "");
         wxCoord , GetY() const,
         "Returns the Y position (in client coordinates) of the event, if
 applicable.", "");
+
+
+    // Can be called from wxEVT_CHAR_HOOK handler to allow generation of normal
+    // key events even though the event had been handled (by default they would
+    // not be generated in this case).
+    void DoAllowNextEvent();
+
+    // Return the value of the "allow next" flag, for internal use only.
+    bool IsNextEventAllowed();
 
 
 public:

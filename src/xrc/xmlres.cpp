@@ -3,7 +3,7 @@
 // Purpose:     XRC resources
 // Author:      Vaclav Slavik
 // Created:     2000/03/05
-// RCS-ID:      $Id: xmlres.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: xmlres.cpp 69730 2011-11-10 11:58:04Z VZ $
 // Copyright:   (c) 2000 Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -73,6 +73,10 @@ wxDateTime GetXRCFileModTime(const wxString& filename)
 
 } // anonymous namespace
 
+// Assign the given value to the specified entry or add a new value with this
+// name.
+static void XRCID_Assign(const wxString& str_id, int value);
+
 class wxXmlResourceDataRecord
 {
 public:
@@ -103,7 +107,7 @@ class wxXmlResourceDataRecords : public wxVector<wxXmlResourceDataRecord*>
     // this is a class so that it can be forward-declared
 };
 
-WX_DECLARE_HASH_SET(int, wxIntegerHash, wxIntegerEqual, wxHashSetInt);
+WX_DECLARE_HASH_SET_PTR(int, wxIntegerHash, wxIntegerEqual, wxHashSetInt);
 
 class wxIdRange // Holds data for a particular rangename
 {
@@ -152,9 +156,6 @@ public:
     void FinaliseRanges(const wxXmlNode* node) const;
     // Searches for a known IdRange matching 'name', returning its index or -1
     int Find(const wxString& rangename) const;
-    // Removes, if it exists, an entry from the XRCID table. Used in id-ranges
-    // to replace defunct or statically-initialised entries with current values
-    static void RemoveXRCIDEntry(const wxString& idstr);
 
 protected:
     wxIdRange* FindRangeForItem(const wxXmlNode* node,
@@ -1216,13 +1217,10 @@ void wxIdRange::Finalise(const wxXmlNode* node)
     // Create the XRCIDs
     for (int i=m_start; i <= m_end; ++i)
     {
-        // First clear any pre-existing XRCID
-        // Necessary for wxXmlResource::Unload() followed by Load()
-        wxIdRangeManager::RemoveXRCIDEntry(
-                m_name + wxString::Format("[%i]", i-m_start));
+        // Ensure that we overwrite any existing value as otherwise
+        // wxXmlResource::Unload() followed by Load() wouldn't work correctly.
+        XRCID_Assign(m_name + wxString::Format("[%i]", i-m_start), i);
 
-        // Use the second parameter of GetXRCID to force it to take the value i
-        wxXmlResource::GetXRCID(m_name + wxString::Format("[%i]", i-m_start), i);
         wxLogTrace("xrcrange",
                    "integer = %i %s now returns %i",
                    i,
@@ -1230,10 +1228,8 @@ void wxIdRange::Finalise(const wxXmlNode* node)
                    XRCID((m_name + wxString::Format("[%i]", i-m_start)).mb_str()));
     }
     // and these special ones
-    wxIdRangeManager::RemoveXRCIDEntry(m_name + "[start]");
-    wxXmlResource::GetXRCID(m_name + "[start]", m_start);
-    wxIdRangeManager::RemoveXRCIDEntry(m_name + "[end]");
-    wxXmlResource::GetXRCID(m_name + "[end]", m_end);
+    XRCID_Assign(m_name + "[start]", m_start);
+    XRCID_Assign(m_name + "[end]", m_end);
     wxLogTrace("xrcrange","%s[start] = %i  %s[end] = %i",
             m_name.mb_str(),XRCID(wxString(m_name+"[start]").mb_str()),
                 m_name.mb_str(),XRCID(wxString(m_name+"[end]").mb_str()));
@@ -1961,7 +1957,7 @@ wxImageList *wxXmlResourceHandler::GetImageList(const wxString& param)
         {
             if (n->GetType() == wxXML_ELEMENT_NODE && n->GetName() == parambitmap)
             {
-                wxIcon icon = GetIcon(n);
+                wxIcon icon = GetIcon(n, wxART_OTHER, size);
                 if ( !imagelist )
                 {
                     // We need the real image list size to create it.
@@ -2150,6 +2146,40 @@ wxCoord wxXmlResourceHandler::GetDimension(const wxString& param,
     return sx;
 }
 
+wxDirection
+wxXmlResourceHandler::GetDirection(const wxString& param, wxDirection dirDefault)
+{
+    wxDirection dir;
+
+    const wxString dirstr = GetParamValue(param);
+    if ( dirstr.empty() )
+        dir = dirDefault;
+    else if ( dirstr == "wxLEFT" )
+        dir = wxLEFT;
+    else if ( dirstr == "wxRIGHT" )
+        dir = wxRIGHT;
+    else if ( dirstr == "wxTOP" )
+        dir = wxTOP;
+    else if ( dirstr == "wxBOTTOM" )
+        dir = wxBOTTOM;
+    else
+    {
+        ReportError
+        (
+            GetParamNode(param),
+            wxString::Format
+            (
+                "Invalid direction \"%s\": must be one of "
+                "wxLEFT|wxRIGHT|wxTOP|wxBOTTOM.",
+                dirstr
+            )
+        );
+
+        dir = dirDefault;
+    }
+
+    return dir;
+}
 
 // Get system font index using indexname
 static wxFont GetSystemFont(const wxString& name)
@@ -2461,6 +2491,31 @@ static inline unsigned XRCIdHash(const char *str_id)
     return index;
 }
 
+static void XRCID_Assign(const wxString& str_id, int value)
+{
+    const wxCharBuffer buf_id(str_id.mb_str());
+    const unsigned index = XRCIdHash(buf_id);
+
+
+    XRCID_record *oldrec = NULL;
+    for (XRCID_record *rec = XRCID_Records[index]; rec; rec = rec->next)
+    {
+        if (wxStrcmp(rec->key, buf_id) == 0)
+        {
+            rec->id = value;
+            return;
+        }
+        oldrec = rec;
+    }
+
+    XRCID_record **rec_var = (oldrec == NULL) ?
+                              &XRCID_Records[index] : &oldrec->next;
+    *rec_var = new XRCID_record;
+    (*rec_var)->key = wxStrdup(str_id);
+    (*rec_var)->id = value;
+    (*rec_var)->next = NULL;
+}
+
 static int XRCID_Lookup(const char *str_id, int value_if_not_found = wxID_NONE)
 {
     const unsigned index = XRCIdHash(str_id);
@@ -2664,30 +2719,6 @@ wxString wxXmlResource::FindXRCIDById(int numId)
     }
 
     return wxString();
-}
-
-/* static */
-void wxIdRangeManager::RemoveXRCIDEntry(const wxString& idstr)
-{
-    const char *str_id = idstr.mb_str();
-
-    const unsigned index = XRCIdHash(str_id);
-
-    XRCID_record **p_previousrec = &XRCID_Records[index];
-    for (XRCID_record *rec = XRCID_Records[index]; rec; rec = rec->next)
-    {
-        if (wxStrcmp(rec->key, str_id) == 0)
-        {
-            // Found the item to be removed so delete its record; but first
-            // remove it from the linked list.
-            *p_previousrec = rec->next;
-            free(rec->key);
-            delete rec;
-            return;
-        }
-
-        p_previousrec = &rec->next;
-    }
 }
 
 static void CleanXRCID_Record(XRCID_record *rec)

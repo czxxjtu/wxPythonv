@@ -15,7 +15,7 @@
 # Author:      Robin Dunn
 #
 # Created:     23-March-2004
-# RCS-ID:      $Id: config.py 68981 2011-09-03 04:24:03Z RD $
+# RCS-ID:      $Id: config.py 70140 2011-12-28 02:19:04Z RD $
 # Copyright:   (c) 2004 by Total Control Software
 # Licence:     wxWindows license
 #----------------------------------------------------------------------
@@ -785,6 +785,7 @@ class MyUnixCCompiler(distutils.unixccompiler.UnixCCompiler):
         compiler_so = self.compiler_so
         if sys.platform == 'darwin':           
             compiler_so = _darwin_compiler_fixup(compiler_so, cc_args + extra_postargs)
+
         try:
             self.spawn(compiler_so + cc_args + [src, '-o', obj] +
                        extra_postargs)

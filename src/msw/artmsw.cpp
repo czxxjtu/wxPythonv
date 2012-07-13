@@ -4,7 +4,7 @@
 // Author:      Vaclav Slavik
 // Modified by:
 // Created:     2008-10-15
-// RCS-ID:      $Id: artmsw.cpp 62199 2009-09-29 17:04:08Z VS $
+// RCS-ID:      $Id: artmsw.cpp 68850 2011-08-22 15:31:30Z VZ $
 // Copyright:   (c) Vaclav Slavik, 2008
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -121,6 +121,10 @@ wxSize wxArtProvider::GetNativeSizeHint(const wxArtClient& client)
                       ::GetSystemMetrics(SM_CYICON));
     }
     else if (client == wxART_BUTTON)
+    {
+        return wxSize(16, 16);
+    }
+    else if (client == wxART_LIST)
     {
         return wxSize(16, 16);
     }

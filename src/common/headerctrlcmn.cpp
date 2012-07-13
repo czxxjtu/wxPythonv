@@ -3,7 +3,7 @@
 // Purpose:     implementation of wxHeaderCtrlBase
 // Author:      Vadim Zeitlin
 // Created:     2008-12-02
-// RCS-ID:      $Id: headerctrlcmn.cpp 66740 2011-01-24 14:35:33Z VS $
+// RCS-ID:      $Id: headerctrlcmn.cpp 69174 2011-09-21 15:07:46Z VZ $
 // Copyright:   (c) 2008 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -443,7 +443,7 @@ void wxHeaderCtrlSimple::DoShowSortIndicator(unsigned int idx, bool ascending)
 {
     RemoveSortIndicator();
 
-    m_cols[idx].SetAsSortKey(ascending);
+    m_cols[idx].SetSortOrder(ascending);
     m_sortKey = idx;
 
     UpdateColumn(idx);

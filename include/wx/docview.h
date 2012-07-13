@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: docview.h 68051 2011-06-27 00:09:37Z VZ $
+// RCS-ID:      $Id: docview.h 68334 2011-07-22 16:16:09Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -510,6 +510,11 @@ public:
 
 
 protected:
+    // Called when a file selected from the MRU list doesn't exist any more.
+    // The default behaviour is to remove the file from the MRU and notify the
+    // user about it but this method can be overridden to customize it.
+    virtual void OnMRUFileNotExist(unsigned n, const wxString& filename);
+
     // Open the MRU file with the given index in our associated file history.
     void DoOpenMRUFile(unsigned n);
 #if wxUSE_PRINTING_ARCHITECTURE

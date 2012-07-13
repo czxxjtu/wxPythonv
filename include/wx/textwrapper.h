@@ -3,7 +3,7 @@
 // Purpose:     declaration of wxTextWrapper class
 // Author:      Vadim Zeitlin
 // Created:     2009-05-31 (extracted from dlgcmn.cpp via wx/private/stattext.h)
-// RCS-ID:      $Id: textwrapper.h 65363 2010-08-19 15:41:18Z VZ $
+// RCS-ID:      $Id: textwrapper.h 69458 2011-10-18 21:56:36Z VZ $
 // Copyright:   (c) 1999, 2009 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,9 @@ public:
 protected:
     virtual wxWindow *OnCreateLine(const wxString& line)
     {
-        return new wxStaticText(m_win, wxID_ANY, line);
+        wxStaticText* const win = new wxStaticText(m_win, wxID_ANY, "");
+        win->SetLabelText(line);
+        return win;
     }
 
     virtual void OnOutputLine(const wxString& line)

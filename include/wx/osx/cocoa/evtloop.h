@@ -3,7 +3,7 @@
 // Purpose:     declaration of wxGUIEventLoop for wxOSX/Cocoa
 // Author:      Vadim Zeitlin
 // Created:     2008-12-28
-// RCS-ID:      $Id: evtloop.h 67866 2011-06-06 16:32:41Z SC $
+// RCS-ID:      $Id: evtloop.h 68301 2011-07-19 16:17:44Z SC $
 // Copyright:   (c) 2006 Vadim Zeitlin <vadim@wxwindows.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -20,6 +20,8 @@ public:
     void BeginModalSession( wxWindow* modalWindow );
     
     void EndModalSession();
+
+    virtual void WakeUp();
 
 protected:
     virtual int DoDispatchTimeout(unsigned long timeout);

@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     26.10.99
-// RCS-ID:      $Id: menucmn.cpp 67210 2011-03-16 07:00:59Z SC $
+// RCS-ID:      $Id: menucmn.cpp 68218 2011-07-10 12:55:30Z VZ $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -597,17 +597,18 @@ wxMenuItem* wxMenuBase::FindItemByPosition(size_t position) const
 // window will be used.
 void wxMenuBase::UpdateUI(wxEvtHandler* source)
 {
-    if (GetInvokingWindow())
+    wxWindow * const win = GetWindow();
+    if ( win )
     {
         // Don't update menus if the parent
         // frame is about to get deleted
-        wxWindow *tlw = wxGetTopLevelParent( GetInvokingWindow() );
+        wxWindow *tlw = wxGetTopLevelParent(win);
         if (tlw && wxPendingDelete.Member(tlw))
             return;
     }
 
-    if ( !source && GetInvokingWindow() )
-        source = GetInvokingWindow()->GetEventHandler();
+    if ( !source && win )
+        source = win->GetEventHandler();
     if ( !source )
         source = GetEventHandler();
     if ( !source )

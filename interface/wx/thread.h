@@ -2,7 +2,7 @@
 // Name:        thread.h
 // Purpose:     interface of all thread-related wxWidgets classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: thread.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: thread.h 69883 2011-12-01 14:22:15Z VZ $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -583,6 +583,14 @@ public:
         immediately return.
     */
     void Enter();
+
+    /**
+        Try to enter the critical section (same as trying to lock a mutex).
+        If it can't, immediately returns false.
+
+        @since 2.9.3
+    */
+    bool TryEnter();
 
     /**
         Leave the critical section allowing other threads use the global data

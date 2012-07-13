@@ -2,7 +2,7 @@
 // Name:        src/osx/dataview_osx.cpp
 // Purpose:     wxDataViewCtrl native mac implementation
 // Author:
-// Id:          $Id: dataview_osx.cpp 67817 2011-05-31 19:36:47Z RD $
+// Id:          $Id: dataview_osx.cpp 69929 2011-12-04 23:57:32Z VZ $
 // Copyright:   (c) 2009
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,9 @@
     #include "wx/settings.h"
     #include "wx/dcclient.h"
     #include "wx/icon.h"
+#endif
+#if wxOSX_USE_CARBON
+#include "wx/osx/carbon/dataview.h"
 #endif
 
 #include "wx/osx/core/dataview.h"
@@ -535,15 +538,9 @@ wxRect wxDataViewCtrl::GetItemRect(wxDataViewItem const& item, wxDataViewColumn 
     return wxRect();
 }
 
-wxDataViewItem wxDataViewCtrl::GetSelection() const
+int wxDataViewCtrl::GetSelectedItemsCount() const
 {
-  wxDataViewItemArray itemIDs;
-
-
-  if (GetDataViewPeer()->GetSelections(itemIDs) > 0)
-    return itemIDs[0];
-  else
-    return wxDataViewItem();
+  return GetDataViewPeer()->GetSelectedItemsCount();
 }
 
 int wxDataViewCtrl::GetSelections(wxDataViewItemArray& sel) const
@@ -712,12 +709,11 @@ void wxDataViewCtrl::OnMouse(wxMouseEvent& event)
 {
     event.Skip();
 
+#if wxOSX_USE_CARBON
     if (GetModel() == NULL)
         return;
 
-#if 0
-    // Doesn't compile anymore
-    wxMacDataViewDataBrowserListViewControlPointer MacDataViewListCtrlPtr(dynamic_cast<wxMacDataViewDataBrowserListViewControlPointer>(m_peer));
+    wxMacDataViewDataBrowserListViewControlPointer MacDataViewListCtrlPtr(dynamic_cast<wxMacDataViewDataBrowserListViewControlPointer>(GetPeer()));
 
     int NoOfChildren;
     wxDataViewItemArray items;
@@ -742,7 +738,7 @@ void wxDataViewCtrl::OnMouse(wxMouseEvent& event)
 
            Rect itemrect;
            ::GetDataBrowserItemPartBounds( MacDataViewListCtrlPtr->GetControlRef(),
-              reinterpret_cast<DataBrowserItemID>(firstChild.GetID()), column->GetPropertyID(),
+              reinterpret_cast<DataBrowserItemID>(firstChild.GetID()), column->GetNativeData()->GetPropertyID(),
               kDataBrowserPropertyEnclosingPart, &itemrect );
 
            if (abs( event.GetX() - itemrect.right) < 3)
@@ -756,7 +752,6 @@ void wxDataViewCtrl::OnMouse(wxMouseEvent& event)
        }
 
     }
-
     SetCursor( *wxSTANDARD_CURSOR );
 #endif
 }

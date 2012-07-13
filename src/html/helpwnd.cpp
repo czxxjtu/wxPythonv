@@ -4,7 +4,7 @@
 // Notes:       Based on htmlhelp.cpp, implementing a monolithic
 //              HTML Help controller class,  by Vaclav Slavik
 // Author:      Harm van der Heijden and Vaclav Slavik
-// RCS-ID:      $Id: helpwnd.cpp 67726 2011-05-11 16:44:19Z JS $
+// RCS-ID:      $Id: helpwnd.cpp 69828 2011-11-27 19:49:43Z VZ $
 // Copyright:   (c) Harm van der Heijden and Vaclav Slavik
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1557,7 +1557,7 @@ void wxHtmlHelpWindow::OnToolbar(wxCommandEvent& event)
 #if wxUSE_LIBMSPACK
                     _("Compressed HTML Help file (*.chm)|*.chm|") +
 #endif
-                    _("All files (*.*)|*");
+                    wxALL_FILES;
                 wxString s = wxFileSelector(_("Open HTML document"),
                                             wxEmptyString,
                                             wxEmptyString,

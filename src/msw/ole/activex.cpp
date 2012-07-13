@@ -4,7 +4,7 @@
 // Author:      Ryan Norton <wxprojects@comcast.net>, Lindsay Mathieson <???>
 // Modified by:
 // Created:     11/07/04
-// RCS-ID:      $Id: activex.cpp 67681 2011-05-03 16:29:04Z DS $
+// RCS-ID:      $Id: activex.cpp 69862 2011-11-28 20:19:16Z SJL $
 // Copyright:   (c) 2003 Lindsay Mathieson, (c) 2005 Ryan Norton
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -1178,14 +1178,12 @@ void wxActiveXContainer::OnSize(wxSizeEvent& event)
     posRect.right = w;
     posRect.bottom = h;
 
-    if (w <= 0 && h <= 0)
+    if (w <= 0 || h <= 0)
         return;
 
     // extents are in HIMETRIC units
     if (m_oleObject.IsOk())
     {
-        m_oleObject->DoVerb(OLEIVERB_HIDE, 0, m_clientSite, 0,
-            (HWND)m_realparent->GetHWND(), &posRect);
 
         SIZEL sz = {w, h};
         PixelsToHimetric(sz);
@@ -1196,8 +1194,6 @@ void wxActiveXContainer::OnSize(wxSizeEvent& event)
         if (sz2.cx !=  sz.cx || sz.cy != sz2.cy)
             m_oleObject->SetExtent(DVASPECT_CONTENT, &sz);
 
-        m_oleObject->DoVerb(OLEIVERB_SHOW, 0, m_clientSite, 0,
-            (HWND)m_realparent->GetHWND(), &posRect);
     }
 
     if (m_oleInPlaceObject.IsOk())
@@ -1262,6 +1258,22 @@ void wxActiveXContainer::OnKillFocus(wxFocusEvent& event)
         m_oleInPlaceActiveObject->OnFrameWindowActivate(FALSE);
 
     event.Skip();
+}
+
+//---------------------------------------------------------------------------
+// wxActiveXContainer::MSWTranslateMessage
+//
+// Called for every message that needs to be translated.
+// Some controls might need more keyboard keys to process (CTRL-C, CTRL-A ect),
+// In that case TranslateAccelerator should always be called first.
+//---------------------------------------------------------------------------
+bool wxActiveXContainer::MSWTranslateMessage(WXMSG* pMsg)
+{
+    if(m_oleInPlaceActiveObject.IsOk() && m_oleInPlaceActiveObject->TranslateAccelerator(pMsg) == S_OK)
+    {
+        return true;
+    }
+    return wxWindow::MSWTranslateMessage(pMsg);
 }
 
 #endif // wxUSE_ACTIVEX

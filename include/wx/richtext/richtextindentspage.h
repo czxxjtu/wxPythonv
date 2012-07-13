@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     10/3/2006 2:28:21 PM
-// RCS-ID:      $Id: richtextindentspage.h 66680 2011-01-14 11:57:44Z JS $
+// RCS-ID:      $Id: richtextindentspage.h 68517 2011-08-04 12:31:44Z JS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -141,6 +141,7 @@ public:
     wxTextCtrl* m_spacingBefore;
     wxTextCtrl* m_spacingAfter;
     wxComboBox* m_spacingLine;
+    wxCheckBox* m_pageBreakCtrl;
     wxRichTextCtrl* m_previewCtrl;
     /// Control identifiers
     enum {
@@ -157,6 +158,7 @@ public:
         ID_RICHTEXTINDENTSSPACINGPAGE_SPACING_BEFORE = 10114,
         ID_RICHTEXTINDENTSSPACINGPAGE_SPACING_AFTER = 10116,
         ID_RICHTEXTINDENTSSPACINGPAGE_SPACING_LINE = 10115,
+        ID_RICHTEXTINDENTSSPACINGPAGE_PAGEBREAK = 10106,
         ID_RICHTEXTINDENTSSPACINGPAGE_PREVIEW_CTRL = 10109
     };
 ////@end wxRichTextIndentsSpacingPage member variables

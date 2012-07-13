@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: splitter.cpp 64940 2010-07-13 13:29:13Z VZ $
+// RCS-ID:      $Id: splitter.cpp 69599 2011-10-30 19:48:44Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -257,6 +257,12 @@ MyFrame::MyFrame()
     menuBar->Check(SPLIT_LIVE, true);
     m_splitter = new MySplitterWindow(this);
 
+    // If you use non-zero gravity you must initialize the splitter with its
+    // correct initial size, otherwise it will change the sash position by a
+    // huge amount when it's resized from its initial default size to its real
+    // size when the frame lays it out. This wouldn't be necessary if default
+    // zero gravity were used (although it would do no harm neither).
+    m_splitter->SetSize(GetClientSize());
     m_splitter->SetSashGravity(1.0);
 
 #if 1

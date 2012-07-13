@@ -4,7 +4,7 @@
 // Author:      Peter Cawley
 // Modified by:
 // Created:     2009-06-05
-// RCS-ID:      $Id: control.h 64243 2010-05-07 23:38:21Z VZ $
+// RCS-ID:      $Id: control.h 69567 2011-10-27 21:10:51Z VZ $
 // Copyright:   (C) Peter Cawley
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,7 @@ private:
 #endif
 };
 
-WX_DEFINE_USER_EXPORTED_ARRAY(wxRibbonControl*, wxArrayRibbonControl, class WXDLLIMPEXP_RIBBON);
+WX_DEFINE_USER_EXPORTED_ARRAY_PTR(wxRibbonControl*, wxArrayRibbonControl, class WXDLLIMPEXP_RIBBON);
 
 #endif // wxUSE_RIBBON
 

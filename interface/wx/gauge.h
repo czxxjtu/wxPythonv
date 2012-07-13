@@ -2,9 +2,20 @@
 // Name:        gauge.h
 // Purpose:     interface of wxGauge
 // Author:      wxWidgets team
-// RCS-ID:      $Id: gauge.h 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: gauge.h 69102 2011-09-16 17:03:01Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
+
+
+// ----------------------------------------------------------------------------
+// wxGauge style flags
+// ----------------------------------------------------------------------------
+
+#define wxGA_HORIZONTAL      wxHORIZONTAL
+#define wxGA_VERTICAL        wxVERTICAL
+
+// Win32 only, is default (and only) on some other platforms
+#define wxGA_SMOOTH          0x0020
 
 /**
     @class wxGauge

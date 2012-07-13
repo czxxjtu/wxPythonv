@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     25-July-1998
-// RCS-ID:      $Id: _cmndlgs.i 65976 2010-11-02 00:41:27Z RD $
+// RCS-ID:      $Id: _cmndlgs.i 69044 2011-09-10 03:31:46Z RD $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -770,6 +770,10 @@ public:
     virtual bool SetOKCancelLabels(const wxString& ok,
                                    const wxString& cancel);
 
+    virtual bool SetHelpLabel(const wxString& help);
+    
+    wxString GetHelpLabel() const;
+    
     virtual void SetMessage(const wxString& message);
 
     virtual void SetExtendedMessage(const wxString& extendedMessage);
@@ -791,7 +795,7 @@ enum {
 };
 
 
-DocStr(wxProgressDialog,
+DocStr(wxGenericProgressDialog,
 "A dialog that shows a short message and a progress bar. Optionally, it
 can display an ABORT button.", "
 
@@ -835,14 +839,14 @@ Window Styles
 
 // TODO: wxPD_CAN_SKIP
 
-MustHaveApp(wxProgressDialog);
+MustHaveApp(wxGenericProgressDialog);
 
-class wxProgressDialog : public wxDialog {
+class wxGenericProgressDialog : public wxDialog {
 public:
-    %pythonAppend wxProgressDialog   "self._setOORInfo(self)"
+    %pythonAppend wxGenericProgressDialog   "self._setOORInfo(self)"
 
     DocCtorStr(
-        wxProgressDialog(const wxString& title,
+        wxGenericProgressDialog(const wxString& title,
                          const wxString& message,
                          int maximum = 100,
                          wxWindow* parent = NULL,
@@ -928,6 +932,21 @@ abort.", "");
     %property(Range, GetRange, SetRange);
     %property(Message, GetMessage);
 };
+
+
+MustHaveApp(wxProgressDialog);
+
+class wxProgressDialog : public wxGenericProgressDialog
+{
+public:
+    %pythonAppend wxProgressDialog   "self._setOORInfo(self)"
+    
+    wxProgressDialog( const wxString& title, const wxString& message,
+                      int maximum = 100,
+                      wxWindow *parent = NULL,
+                      int style = wxPD_APP_MODAL | wxPD_AUTO_HIDE );
+};
+
 
 //---------------------------------------------------------------------------
 

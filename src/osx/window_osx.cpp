@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: window_osx.cpp 68148 2011-07-04 14:05:14Z VZ $
+// RCS-ID:      $Id: window_osx.cpp 69444 2011-10-16 19:08:55Z SC $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -58,15 +58,15 @@
 #endif
 
 #if wxUSE_DRAG_AND_DROP
-#include "wx/dnd.h"
+    #include "wx/dnd.h"
 #endif
 
 #include "wx/graphics.h"
 
 #if wxOSX_USE_CARBON
-#include "wx/osx/uma.h"
+    #include "wx/osx/uma.h"
 #else
-#include "wx/osx/private.h"
+    #include "wx/osx/private.h"
 #endif
 
 #define MAC_SCROLLBAR_SIZE 15
@@ -1598,15 +1598,11 @@ void wxWindowMac::MacPaintBorders( int WXUNUSED(leftOrigin) , int WXUNUSED(right
     GetPeer()->GetSize( tw, th );
     GetPeer()->GetPosition( tx, ty );
 
-    Rect rect  = { ty,tx, ty+th, tx+tw };
-
 #if wxOSX_USE_COCOA_OR_CARBON
 
-    InsetRect( &rect, -1 , -1 ) ;
-
     {
-        CGRect cgrect = CGRectMake( rect.left , rect.top , rect.right - rect.left ,
-            rect.bottom - rect.top ) ;
+        CGRect cgrect = CGRectMake( tx-1 , ty-1 , tw+2 ,
+            th+2 ) ;
 
         CGContextRef cgContext = (CGContextRef) GetParent()->MacGetCGContextRef() ;
         wxASSERT( cgContext ) ;
@@ -2604,15 +2600,18 @@ bool wxWindowMac::IsShownOnScreen() const
 
 #if wxUSE_HOTKEY && wxOSX_USE_COCOA_OR_CARBON
 
-OSStatus wxHotKeyHandler(EventHandlerCallRef nextHandler,EventRef event, void *userData)
+OSStatus
+wxHotKeyHandler(EventHandlerCallRef WXUNUSED(nextHandler),
+                EventRef event,
+                void* WXUNUSED(userData))
 {
     EventHotKeyID hotKeyId;
 
     GetEventParameter( event, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(hotKeyId), NULL, &hotKeyId);
 
-    for ( int i = 0; i < s_hotkeys.size(); ++i )
+    for ( unsigned i = 0; i < s_hotkeys.size(); ++i )
     {
-        if ( s_hotkeys[i].keyId == hotKeyId.id )
+        if ( s_hotkeys[i].keyId == static_cast<int>(hotKeyId.id) )
         {
             unsigned char charCode ;
             UInt32 keyCode ;
@@ -2641,7 +2640,7 @@ OSStatus wxHotKeyHandler(EventHandlerCallRef nextHandler,EventRef event, void *u
 
 bool wxWindowMac::RegisterHotKey(int hotkeyId, int modifiers, int keycode)
 {
-    for ( int i = 0; i < s_hotkeys.size(); ++i )
+    for ( unsigned i = 0; i < s_hotkeys.size(); ++i )
     {
         if ( s_hotkeys[i].keyId == hotkeyId )
         {
@@ -2667,9 +2666,9 @@ bool wxWindowMac::RegisterHotKey(int hotkeyId, int modifiers, int keycode)
         mac_modifiers |= optionKey;
     if ( modifiers & wxMOD_SHIFT )
         mac_modifiers |= shiftKey;
-    if ( modifiers & wxMOD_CONTROL )
+    if ( modifiers & wxMOD_RAW_CONTROL )
         mac_modifiers |= controlKey;
-    if ( modifiers & wxMOD_META )
+    if ( modifiers & wxMOD_CONTROL )
         mac_modifiers |= cmdKey;
     
     EventHotKeyRef hotKeyRef;
@@ -2700,7 +2699,7 @@ bool wxWindowMac::RegisterHotKey(int hotkeyId, int modifiers, int keycode)
 
 bool wxWindowMac::UnregisterHotKey(int hotkeyId)
 {
-    for ( int i = s_hotkeys.size()-1; i>=0; -- i )
+    for ( unsigned i = s_hotkeys.size()-1; i>=0; -- i )
     {
         if ( s_hotkeys[i].keyId == hotkeyId )
         {

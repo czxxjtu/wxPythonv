@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     Apr-30-2006
-// RCS-ID:      $Id: odcombo.cpp 66728 2011-01-22 14:38:36Z DS $
+// RCS-ID:      $Id: odcombo.cpp 68460 2011-07-30 11:30:08Z VZ $
 // Copyright:   (c) 2005 Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -902,7 +902,6 @@ wxOwnerDrawnComboBox::wxOwnerDrawnComboBox(wxWindow *parent,
                                            long style,
                                            const wxValidator& validator,
                                            const wxString& name)
-    : wxComboCtrl()
 {
     Init();
 

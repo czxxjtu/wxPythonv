@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Vadim Zeitlin to derive from wxChoiceBase
 // Created:     04/01/98
-// RCS-ID:      $Id: choice.cpp 67280 2011-03-22 14:17:38Z DS $
+// RCS-ID:      $Id: choice.cpp 69612 2011-10-31 11:30:45Z DS $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -544,7 +544,10 @@ void wxChoice::DoSetSize(int x, int y,
     const int hItem = SendMessage(GetHwnd(), CB_GETITEMHEIGHT, 0, 0);
     int heightWithItems = 0;
     if (!HasFlag(wxCB_SIMPLE))
-        heightWithItems = height + hItem*nItems;
+        // The extra item (" + 1") is required to prevent a vertical
+        // scrollbar from appearing with comctl32.dll versions earlier
+        // than 6.0 (such as found in Win2k).
+        heightWithItems = height + hItem*(nItems + 1);
     else
         heightWithItems = SetHeightSimpleComboBox(nItems);
 

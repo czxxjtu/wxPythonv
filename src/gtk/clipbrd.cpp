@@ -2,7 +2,7 @@
 // Name:        src/gtk/clipbrd.cpp
 // Purpose:     wxClipboard implementation for wxGTK
 // Author:      Robert Roebling, Vadim Zeitlin
-// Id:          $Id: clipbrd.cpp 67326 2011-03-28 06:27:49Z PC $
+// Id:          $Id: clipbrd.cpp 69454 2011-10-18 21:54:53Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 //              (c) 2007 Vadim Zeitlin
 // Licence:     wxWindows licence
@@ -344,7 +344,7 @@ void wxClipboard::GTKOnSelectionReceived(const GtkSelectionData& sel)
     wxLogTrace(TRACE_CLIPBOARD, wxT("Received selection %s"),
                format.GetId().c_str());
 
-    if ( !m_receivedData->IsSupportedFormat(format) )
+    if ( !m_receivedData->IsSupportedFormat(format, wxDataObject::Set) )
         return;
 
     m_receivedData->SetData(format,

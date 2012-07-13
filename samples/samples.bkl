@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!-- $Id: samples.bkl 63644 2010-03-06 20:09:23Z KO $ -->
+<!-- $Id: samples.bkl 69049 2011-09-10 18:09:12Z SJL $ -->
 <makefile>
 
     <include file="../build/bakefiles/config.bkl"/>
@@ -87,6 +87,7 @@
     <subproject id="uiaction" template="sub"/>
     <subproject id="validate" template="sub"/>
     <subproject id="vscroll" template="sub"/>
+    <subproject id="webview" template="sub"/>
     <subproject id="widgets" template="sub"/>
     <subproject id="wizard" template="sub"/>
     <subproject id="wrapsizer" template="sub"/>

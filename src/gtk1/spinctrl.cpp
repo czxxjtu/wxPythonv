@@ -3,7 +3,7 @@
 // Purpose:     wxSpinCtrl
 // Author:      Robert
 // Modified by:
-// RCS-ID:      $Id: spinctrl.cpp 67254 2011-03-20 00:14:35Z DS $
+// RCS-ID:      $Id: spinctrl.cpp 69021 2011-09-07 16:57:42Z PC $
 // Copyright:   (c) Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
     #include "wx/utils.h"
     #include "wx/textctrl.h"    // for wxEVT_COMMAND_TEXT_UPDATED
     #include "wx/math.h"
+    #include "wx/crt.h"
 #endif
 
 #include "wx/gtk1/private.h"

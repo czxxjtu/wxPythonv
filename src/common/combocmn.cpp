@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     Apr-30-2006
-// RCS-ID:      $Id: combocmn.cpp 69004 2011-09-05 20:07:38Z RD $
+// RCS-ID:      $Id: combocmn.cpp 69005 2011-09-05 20:08:04Z RD $
 // Copyright:   (c) 2005 Jaakko Salli
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

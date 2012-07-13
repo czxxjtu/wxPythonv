@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by: Agron Selimaj
 // Created:     04/01/98
-// RCS-ID:      $Id: listctrl.cpp 68500 2011-08-02 20:43:42Z RD $
+// RCS-ID:      $Id: listctrl.cpp 69897 2011-12-02 00:50:41Z VZ $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -228,6 +228,7 @@ public:
 
 BEGIN_EVENT_TABLE(wxListCtrl, wxControl)
     EVT_PAINT(wxListCtrl::OnPaint)
+    EVT_CHAR_HOOK(wxListCtrl::OnCharHook)
 END_EVENT_TABLE()
 
 // ============================================================================
@@ -1490,21 +1491,15 @@ bool wxListCtrl::EndEditLabel(bool cancel)
     if ( !hwnd )
         return false;
 
-    // Newer versions of Windows have a special message for cancelling editing,
-    // use it if available.
-#ifdef ListView_CancelEditLabel
-    if ( cancel && (wxApp::GetComCtl32Version() >= 600) )
-    {
-        ListView_CancelEditLabel(GetHwnd());
-    }
-    else
-#endif // ListView_CancelEditLabel
-    {
-        // We shouldn't destroy the control ourselves according to MSDN, which
-        // proposes WM_CANCELMODE to do this, but it doesn't seem to work so
-        // emulate the corresponding user action instead.
-        ::SendMessage(hwnd, WM_KEYDOWN, cancel ? VK_ESCAPE : VK_RETURN, 0);
-    }
+    // Newer versions of Windows have a special ListView_CancelEditLabel()
+    // message for cancelling editing but it, rather counter-intuitively, keeps
+    // the last text entered in the dialog while cancelling as we do it below
+    // restores the original text which is the more expected behaviour.
+
+    // We shouldn't destroy the control ourselves according to MSDN, which
+    // proposes WM_CANCELMODE to do this, but it doesn't seem to work so
+    // emulate the corresponding user action instead.
+    ::SendMessage(hwnd, WM_KEYDOWN, cancel ? VK_ESCAPE : VK_RETURN, 0);
 
     return true;
 }
@@ -1905,9 +1900,8 @@ int WXDLLIMPEXP_CORE wxMSWGetColumnClicked(NMHDR *nmhdr, POINT *ptClick)
     }
     else
 #endif //__WXWINCE__
-    if ( !::GetCursorPos(ptClick) )
     {
-        wxLogLastError(wxT("GetCursorPos"));
+       wxGetCursorPosMSW(ptClick);
     }
 
     // we need to use listctrl coordinates for the event point so this is what
@@ -2323,7 +2317,7 @@ bool wxListCtrl::MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM *result)
                 else
 #endif //__WXWINCE__
                 {
-                    ::GetCursorPos(&(lvhti.pt));
+                    wxGetCursorPosMSW(&(lvhti.pt));
                 }
 
                 ::ScreenToClient(GetHwnd(), &lvhti.pt);
@@ -2978,6 +2972,27 @@ void wxListCtrl::OnPaint(wxPaintEvent& event)
             }
         }
     }
+}
+
+void wxListCtrl::OnCharHook(wxKeyEvent& event)
+{
+    if ( GetEditControl() )
+    {
+        // We need to ensure that Escape is not stolen from the in-place editor
+        // by the containing dialog.
+        //
+        // Notice that we don't have to care about Enter key here as we return
+        // false from MSWShouldPreProcessMessage() for it.
+        if ( event.GetKeyCode() == WXK_ESCAPE )
+        {
+            EndEditLabel(true /* cancel */);
+
+            // Don't call Skip() below.
+            return;
+        }
+    }
+
+    event.Skip();
 }
 
 WXLRESULT

@@ -2,7 +2,7 @@
 // Name:        src/gtk/menu.cpp
 // Purpose:     implementation of wxMenuBar and wxMenu classes for wxGTK
 // Author:      Robert Roebling
-// Id:          $Id: menu.cpp 67721 2011-05-10 08:50:47Z VZ $
+// Id:          $Id: menu.cpp 69947 2011-12-07 23:21:06Z VZ $
 // Copyright:   (c) 1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -230,13 +230,15 @@ void wxMenuBar::Detach()
 
 bool wxMenuBar::Append( wxMenu *menu, const wxString &title )
 {
-    if ( !wxMenuBarBase::Append( menu, title ) )
-        return false;
-
-    return GtkAppend(menu, title);
+    if (wxMenuBarBase::Append(menu, title))
+    {
+        GtkAppend(menu, title);
+        return true;
+    }
+    return false;
 }
 
-bool wxMenuBar::GtkAppend(wxMenu *menu, const wxString& title, int pos)
+void wxMenuBar::GtkAppend(wxMenu* menu, const wxString& title, int pos)
 {
     menu->SetLayoutDirection(GetLayoutDirection());
 
@@ -251,7 +253,10 @@ bool wxMenuBar::GtkAppend(wxMenu *menu, const wxString& title, int pos)
         const wxString str(wxStripMenuCodes(item->GetItemLabel()));
 
         if ( item->IsSubMenu() )
-            return GtkAppend(item->GetSubMenu(), str, pos);
+        {
+            GtkAppend(item->GetSubMenu(), str, pos);
+            return;
+        }
 
         menu->m_owner = gtk_menu_item_new_with_mnemonic( wxGTK_CONV( str ) );
 
@@ -282,21 +287,16 @@ bool wxMenuBar::GtkAppend(wxMenu *menu, const wxString& title, int pos)
 
     if ( m_menuBarFrame )
         AttachToFrame( menu, m_menuBarFrame );
-
-    return true;
 }
 
 bool wxMenuBar::Insert(size_t pos, wxMenu *menu, const wxString& title)
 {
-    if ( !wxMenuBarBase::Insert(pos, menu, title) )
-        return false;
-
-    // TODO
-
-    if ( !GtkAppend(menu, title, (int)pos) )
-        return false;
-
-    return true;
+    if (wxMenuBarBase::Insert(pos, menu, title))
+    {
+        GtkAppend(menu, title, int(pos));
+        return true;
+    }
+    return false;
 }
 
 wxMenu *wxMenuBar::Replace(size_t pos, wxMenu *menu, const wxString& title)
@@ -745,7 +745,7 @@ wxString wxMenu::GetTitle() const
     return wxConvertMnemonicsFromGTK(wxMenuBase::GetTitle());
 }
 
-bool wxMenu::GtkAppend(wxMenuItem *mitem, int pos)
+void wxMenu::GtkAppend(wxMenuItem* mitem, int pos)
 {
     GtkWidget *menuItem;
     switch (mitem->GetKind())
@@ -763,9 +763,9 @@ bool wxMenu::GtkAppend(wxMenuItem *mitem, int pos)
                 wxMenuItem* radioGroupItem = NULL;
 
                 const size_t numItems = GetMenuItemCount();
-                const size_t n = pos == -1 ? numItems
-                                           : static_cast<size_t>(pos);
-                if ( n > 0 )
+                const size_t n = pos == -1 ? numItems - 1 : size_t(pos);
+
+                if (n != 0)
                 {
                     wxMenuItem* const itemPrev = FindItemByPosition(n - 1);
                     if ( itemPrev->GetKind() == wxITEM_RADIO )
@@ -776,9 +776,9 @@ bool wxMenu::GtkAppend(wxMenuItem *mitem, int pos)
                     }
                 }
 
-                if ( n < numItems )
+                if (radioGroupItem == NULL && n != numItems - 1)
                 {
-                    wxMenuItem* const itemNext = FindItemByPosition(n);
+                    wxMenuItem* const itemNext = FindItemByPosition(n + 1);
                     if ( itemNext->GetKind() == wxITEM_RADIO )
                     {
                         // Inserting an item before an existing radio item
@@ -850,24 +850,26 @@ bool wxMenu::GtkAppend(wxMenuItem *mitem, int pos)
                               mitem);
         }
     }
-
-    return true;
 }
 
 wxMenuItem* wxMenu::DoAppend(wxMenuItem *mitem)
 {
-    if (!GtkAppend(mitem))
-        return NULL;
-
-    return wxMenuBase::DoAppend(mitem);
+    if (wxMenuBase::DoAppend(mitem))
+    {
+        GtkAppend(mitem);
+        return mitem;
+    }
+    return NULL;
 }
 
 wxMenuItem* wxMenu::DoInsert(size_t pos, wxMenuItem *item)
 {
-    if ( !GtkAppend(item, (int)pos) )
-        return NULL;
-
-    return wxMenuBase::DoInsert(pos, item);
+    if (wxMenuBase::DoInsert(pos, item))
+    {
+        GtkAppend(item, int(pos));
+        return item;
+    }
+    return NULL;
 }
 
 wxMenuItem *wxMenu::DoRemove(wxMenuItem *item)
@@ -876,7 +878,21 @@ wxMenuItem *wxMenu::DoRemove(wxMenuItem *item)
         return NULL;
 
     GtkWidget * const mitem = item->GetMenuItem();
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(mitem), NULL);
+    if (!gtk_check_version(2,12,0))
+    {
+        // gtk_menu_item_remove_submenu() is deprecated since 2.12, but
+        // gtk_menu_item_set_submenu() can now be used with NULL submenu now so
+        // just do use it.
+        gtk_menu_item_set_submenu(GTK_MENU_ITEM(mitem), NULL);
+    }
+    else // GTK+ < 2.12
+    {
+        // In 2.10 calling gtk_menu_item_set_submenu() with NULL submenu
+        // results in critical GTK+ error messages so use the old function
+        // instead.
+        gtk_menu_item_remove_submenu(GTK_MENU_ITEM(mitem));
+    }
+
     gtk_widget_destroy(mitem);
     item->SetMenuItem(NULL);
 

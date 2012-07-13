@@ -2,7 +2,7 @@
 // Name:        stream.h
 // Purpose:     interface of wxStreamBase and its derived classes
 // Author:      wxWidgets team
-// RCS-ID:      $Id: stream.h 67384 2011-04-03 20:31:32Z DS $
+// RCS-ID:      $Id: stream.h 69807 2011-11-24 01:38:08Z RD $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +79,18 @@ public:
         Returns @true if the stream supports seeking to arbitrary offsets.
     */
     virtual bool IsSeekable() const;
+
+    /**
+        Resets the stream state.
+
+        By default, resets the stream to good state, i.e. clears any errors.
+        Since wxWidgets 2.9.3 can be also used to explicitly set the state to
+        the specified error (the @a error argument didn't exist in the previous
+        versions).
+
+        @see GetLastError()
+     */
+    void Reset(wxStreamError error = wxSTREAM_NO_ERROR);
 
     /**
         Returns the opposite of IsOk().
@@ -668,7 +680,7 @@ protected:
         reached or an error occurred (in this last case the internal @c m_lasterror
         variable should be set accordingly as well).
     */
-    size_t OnSysRead(void* buffer, size_t bufsize);
+    size_t OnSysRead(void* buffer, size_t bufsize) = 0;
 };
 
 
