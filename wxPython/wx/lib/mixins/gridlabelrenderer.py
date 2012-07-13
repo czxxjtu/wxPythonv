@@ -127,7 +127,7 @@ class GridWithLabelRenderersMixin(object):
         
         x, y = self.CalcUnscrolledPosition((0,0))
         pt = dc.GetDeviceOrigin()
-        dc.SetDeviceOrigin(pt.x-x, pt.y)
+        dc.SetDeviceOrigin(pt.x-x-1, pt.y)
         for col in cols:
             left, right = self._getColLeftRight(col)
             rect = wx.Rect()
